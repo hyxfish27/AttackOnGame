@@ -26,22 +26,22 @@ const routes = [
     // component: () => import('../views/player/Player.vue'),
     children: [
       {
-        path: '/admin',
+        path: 'admin',
         name: 'PlayerAdmin',
         // component: () => import('../views/player/PlayerAdmin.vue'),
       },
       {
-        path: '/login',
+        path: 'login',
         name: 'PlayerLogin',
         // component: () => import('../views/player/Login.vue'),
       },
       {
-        path: '/signup',
+        path: 'signup',
         name: 'PlayerSignUp',
         // component: () => import('../views/player/SignUp.vue'),
       },
       {
-        path: '/signup/confirm',
+        path: 'signup/confirm',
         name: 'PlayerSignUpConfirm',
         // component: () => import('../views/player/SignUpConfirm.vue'),
       },
@@ -52,22 +52,22 @@ const routes = [
     path: '/store',
     children: [
       {
-        path: '/admin',
+        path: 'admin',
         name: 'StoreAdmin',
         // component: () => import('../views/store/StoreAdmin.vue'),
       },
       {
-        path: '/login',
+        path: 'login',
         name: 'StoreLogin',
         // component: () => import('../views/store/Login.vue'),
       },
       {
-        path: '/signup',
+        path: 'signup',
         name: 'StoreSignUp',
         // component: () => import('../views/store/SignUp.vue'),
       },
       {
-        path: '/signup/confirm',
+        path: 'signup/confirm',
         name: 'StoreSignUpConfirm',
         // component: () => import('../views/store/SignUpConfirm.vue'),
       },
@@ -79,22 +79,22 @@ const routes = [
     // component: () => import('../views/Password.vue'),
     children: [
       {
-        path: '/forget',
+        path: 'forget',
         name: 'PasswordForget',
         // component: () => import('../views/password/PasswordForget.vue'),
       },
       {
-        path: '/change',
+        path: 'change',
         name: 'PasswordChange',
         // component: () => import('../views/password/PasswordChange.vue'),
       },
       {
-        path: '/setting',
+        path: 'setting',
         name: 'PasswordSetting',
         // component: () => import('../views/password/PasswordSetting.vue'),
       },
       {
-        path: '/success',
+        path: 'success',
         name: 'PasswordSuccess',
         // component:()=>import('../views/password/PasswordSuccess.vue')
       },
