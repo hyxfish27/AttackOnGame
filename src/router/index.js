@@ -23,7 +23,7 @@ const routes = [
     // 玩家路由
     path: '/player',
     name: 'Player',
-    // component: () => import('../views/player/Player.vue'),
+    component: () => import('../views/player/Player.vue'),
     children: [
       {
         path: '/admin',
@@ -36,40 +36,42 @@ const routes = [
         // component: () => import('../views/player/Login.vue'),
       },
       {
-        path: '/signup',
+        path: 'signup',
         name: 'PlayerSignUp',
-        // component: () => import('../views/player/SignUp.vue'),
+        component: () => import('../views/player/SignUp.vue'),
       },
       {
-        path: '/signup/confirm',
+        path: 'confirm',
         name: 'PlayerSignUpConfirm',
-        // component: () => import('../views/player/SignUpConfirm.vue'),
+        component: () => import('../views/player/SignUpConfirm.vue'),
       },
     ],
   },
   {
     // 商家路由
     path: '/store',
+    name: 'Store',
+    component: () => import('../views/store/Store.vue'),
     children: [
       {
-        path: '/admin',
+        path: 'admin',
         name: 'StoreAdmin',
         // component: () => import('../views/store/StoreAdmin.vue'),
       },
       {
-        path: '/login',
+        path: 'login',
         name: 'StoreLogin',
         // component: () => import('../views/store/Login.vue'),
       },
       {
-        path: '/signup',
+        path: 'signup',
         name: 'StoreSignUp',
-        // component: () => import('../views/store/SignUp.vue'),
+        component: () => import('../views/store/SignUp.vue'),
       },
       {
-        path: '/signup/confirm',
+        path: 'confirm',
         name: 'StoreSignUpConfirm',
-        // component: () => import('../views/store/SignUpConfirm.vue'),
+        component: () => import('../views/store/SignUpConfirm.vue'),
       },
     ],
   },
