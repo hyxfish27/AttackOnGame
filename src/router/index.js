@@ -45,11 +45,6 @@ const routes = [
         name: 'PlayerForm',
         component: () => import('../views/player/Form.vue'),
       },
-      {
-        path: 'confirm',
-        name: 'PlayerSignUpConfirm',
-        component: () => import('../views/player/SignUpConfirm.vue'),
-      },
     ],
   },
   {
@@ -77,11 +72,6 @@ const routes = [
         path: 'form',
         name: 'StoreForm',
         component: () => import('../views/store/Form.vue'),
-      },
-      {
-        path: 'confirm',
-        name: 'StoreSignUpConfirm',
-        component: () => import('../views/store/SignUpConfirm.vue'),
       },
     ],
   },

@@ -29,8 +29,7 @@
         <div class="mb-3">
           <h3>店家介紹</h3>
           <textarea name="shopIntroduce" id="shopIntroduce" cols="30" rows="10"></textarea>
-      <RouterLink type="submit" class="btn btn-primary"
-      :to="{ name: 'PlayerSignUpConfirm' }">下一步</RouterLink>
+      <button type="submit" class="btn btn-primary">完成基本資料</button>
         </div>
 
       </form>

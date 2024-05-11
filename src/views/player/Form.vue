@@ -37,7 +37,7 @@
             </div>
           </div>
         </form>
-  <RouterLink class="btn btn-primary" :to="{name: 'PlayerSignUpConfirm'}">下一步</RouterLink>
+  <button class="btn btn-primary">完成基本資料</button>
       </div>
 
     </div>
@@ -46,7 +46,6 @@
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router';
 
 </script>
 
