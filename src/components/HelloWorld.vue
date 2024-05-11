@@ -5,7 +5,6 @@
         </button>
     </div>
 </template>
-
 <script>
 import { mapActions, mapState } from 'pinia';
 import axios from 'axios';
@@ -40,5 +39,4 @@ export default {
     },
 };
 </script>
-
 <style scoped></style>
