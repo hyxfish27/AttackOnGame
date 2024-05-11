@@ -37,9 +37,13 @@ const routes = [
       },
       {
         path: 'signup',
-        path: 'signup',
         name: 'PlayerSignUp',
         component: () => import('../views/player/SignUp.vue'),
+      },
+      {
+        path: 'form',
+        name: 'PlayerForm',
+        component: () => import('../views/player/Form.vue'),
       },
       {
         path: 'confirm',
@@ -68,6 +72,11 @@ const routes = [
         path: 'signup',
         name: 'StoreSignUp',
         component: () => import('../views/store/SignUp.vue'),
+      },
+      {
+        path: 'form',
+        name: 'StoreForm',
+        component: () => import('../views/store/Form.vue'),
       },
       {
         path: 'confirm',
