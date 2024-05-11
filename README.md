@@ -14,24 +14,33 @@ v18.20.2
 nvm use 18.20.2
 ```
 
-git clone project
-
+### git clone project
 ```bash
 git clone git@github.com:hyxfish27/AttackOnGame.git
 cd AttackOnGame
 ```
 
-install node modules
-
+### install node modules
 ```bash
 npm install
 ```
 
-start vite server
-
+### start vite server
 ```bash
 npm run dev
 ```
+
+### 格式化 src路徑下所有代碼
+```bash
+npm run format
+```
+使用 Prettier 工具格式化 src路徑下所有代碼。
+
+### 格式化 src路徑下所有代碼
+```bash
+npm run lint
+```
+使用 eslint 工具做代碼檢查，檢查不合規範的代碼。
 
 #### Vue3 x Vite
 
