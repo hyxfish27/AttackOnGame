@@ -26,16 +26,17 @@ const routes = [
     component: () => import('../views/player/Player.vue'),
     children: [
       {
-        path: '/admin',
+        path: 'admin',
         name: 'PlayerAdmin',
         // component: () => import('../views/player/PlayerAdmin.vue'),
       },
       {
-        path: '/login',
+        path: 'login',
         name: 'PlayerLogin',
         // component: () => import('../views/player/Login.vue'),
       },
       {
+        path: 'signup',
         path: 'signup',
         name: 'PlayerSignUp',
         component: () => import('../views/player/SignUp.vue'),
@@ -81,22 +82,22 @@ const routes = [
     // component: () => import('../views/Password.vue'),
     children: [
       {
-        path: '/forget',
+        path: 'forget',
         name: 'PasswordForget',
         // component: () => import('../views/password/PasswordForget.vue'),
       },
       {
-        path: '/change',
+        path: 'change',
         name: 'PasswordChange',
         // component: () => import('../views/password/PasswordChange.vue'),
       },
       {
-        path: '/setting',
+        path: 'setting',
         name: 'PasswordSetting',
         // component: () => import('../views/password/PasswordSetting.vue'),
       },
       {
-        path: '/success',
+        path: 'success',
         name: 'PasswordSuccess',
         // component:()=>import('../views/password/PasswordSuccess.vue')
       },
