@@ -36,7 +36,7 @@ npm run format
 ```
 使用 Prettier 工具格式化 src路徑下所有代碼。
 
-### 格式化 src路徑下所有代碼
+### 風格檢查 src路徑下所有代碼
 ```bash
 npm run lint
 ```
