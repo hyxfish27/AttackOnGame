@@ -7,8 +7,8 @@
 </template>
 <script>
 import { mapActions, mapState } from 'pinia';
-import axios from 'axios';
-import counterStore from '../stores/counters';
+import Axios from '@/utilities/axios';
+import counterStore from '@/stores/counters';
 
 export default {
     name: 'HelloWorld',
@@ -21,14 +21,12 @@ export default {
         ...mapState(counterStore, ['count']),
     },
     mounted() {
-        console.log(import.meta.env.VITE_API_URL);
         this.fetchData();
     },
     methods: {
         ...mapActions(counterStore, ['increment']),
         fetchData() {
-            axios
-                .get(`${import.meta.env.VITE_API_URL}`)
+            Axios.get('/api/')
                 .then((response) => {
                     this.data = response.data;
                 })
