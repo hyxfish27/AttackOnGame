@@ -6,6 +6,10 @@ module.exports = {
   extends: [
     'airbnb-base',
     'plugin:vue/vue3-essential',
+    'plugin:vue/recommended',
+    'eslint:recommended',
+    'prettier',
+    'plugin:prettier/recommended',
   ],
   overrides: [
     {
@@ -29,5 +33,9 @@ module.exports = {
   ],
   rules: {
      'vue/multi-word-component-names': 'off',
+     'semi':'off',
+     "no-console": "off",       
+     "quotes": [1, "single", { "avoidEscape": true }],
+     'indent': 'off'
   },
 };

@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <button type="button" class="btn btn-primary" @click="increment">count is {{ count }}</button>
-  </div>
+    <div>
+        <button type="button" class="btn btn-primary" @click="increment">
+            count is {{ count }}
+        </button>
+    </div>
 </template>
 
 <script>
@@ -9,19 +11,17 @@ import { mapActions, mapState } from 'pinia';
 import counterStore from '../stores/counters';
 
 export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-    };
-  },
-  methods: {
-    ...mapActions(counterStore, ['increment']),
-  },
-  computed: {
-    ...mapState(counterStore, ['count']),
-  },
+    name: 'HelloWorld',
+    data() {
+        return {};
+    },
+    computed: {
+        ...mapState(counterStore, ['count']),
+    },
+    methods: {
+        ...mapActions(counterStore, ['increment']),
+    },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
