@@ -26,7 +26,7 @@ export default {
     methods: {
         ...mapActions(counterStore, ['increment']),
         fetchData() {
-            Axios.get('/')
+            Axios.get('/api/')
                 .then((response) => {
                     this.data = response.data;
                 })
