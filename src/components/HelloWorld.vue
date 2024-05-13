@@ -13,7 +13,6 @@ import counterStore from '@/stores/counters';
 export default {
     name: 'HelloWorld',
     data() {
-
         return {
             data: {},
         };
