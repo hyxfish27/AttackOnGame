@@ -48,4 +48,5 @@ module.exports = {
         quotes: [1, 'single', { avoidEscape: true }],
         indent: 'off',
     },
+
 };

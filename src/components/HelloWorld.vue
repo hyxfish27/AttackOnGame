@@ -13,6 +13,7 @@ import counterStore from '@/stores/counters';
 export default {
     name: 'HelloWorld',
     data() {
+
         return {
             data: {},
         };
@@ -26,7 +27,7 @@ export default {
     methods: {
         ...mapActions(counterStore, ['increment']),
         fetchData() {
-            Axios.get('/api/')
+            Axios.get('/')
                 .then((response) => {
                     this.data = response.data;
                 })
