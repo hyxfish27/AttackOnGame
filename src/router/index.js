@@ -49,8 +49,8 @@ const routes = [
         // 商家路由
         path: '/store',
         name: 'Store',
-    component: () => import('../views/store/Store.vue'),
-    children: [
+        component: () => import('../views/store/Store.vue'),
+        children: [
             {
                 path: 'admin',
                 name: 'StoreAdmin',

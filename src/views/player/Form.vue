@@ -4,15 +4,12 @@
       <div class="col-5 align-self-center justify-content-center">
         <h2 class="text-center">我是玩家</h2>
       </div>
-
       <div class="col-7 ">
-
         <h1>填寫玩家資訊</h1>
         <form>
           <div class="mb-3">
             <label for="playerName" class="form-label">暱稱</label>
-            <input type="email" class="form-control" id="playerName"
-            aria-describedby="storeName">
+            <input type="email" class="form-control" id="playerName" aria-describedby="storeName">
           </div>
 
           <div class="mb-3 ">
@@ -37,7 +34,7 @@
             </div>
           </div>
         </form>
-  <button class="btn btn-primary">完成基本資料</button>
+        <button class="btn btn-primary">完成基本資料</button>
       </div>
 
     </div>
