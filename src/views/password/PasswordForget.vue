@@ -10,28 +10,27 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 export default {
-  name: 'PasswordForget',
-  data() {
-    return {
-    };
-  },
-  methods: {
-  },
-  mounted() {
-  },
-  setup() {
-    const route = useRoute();
-    const currentRole = computed(() => (route.params.role === 'store' ? '店家' : '玩家'));
+    name: 'PasswordForget',
+    data() {
+        return {};
+    },
+    methods: {},
+    mounted() {},
+    setup() {
+        const route = useRoute();
+        const currentRole = computed(() =>
+            route.params.role === 'store' ? '店家' : '玩家'
+        );
 
-    return {
-      currentRole,
-    };
-  },
+        return {
+            currentRole,
+        };
+    },
 };
 </script>
 
 <style lang="scss">
 .password-forget {
-  margin-top: 36px;
+    margin-top: 36px;
 }
 </style>
