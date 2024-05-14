@@ -10,12 +10,12 @@ const routes = [
     {
         path: '/signup',
         name: 'SignUp',
-        // component: () => import('../views/signup/SignUp.vue'),
+        component: () => import('../views/signup/SignUp.vue'),
     },
     {
         path: '/login',
         name: 'Login',
-        // component: () => import('../views/login/Login.vue'),
+        component: () => import('../views/login/Login.vue'),
     },
     {
         // 玩家路由
@@ -31,7 +31,7 @@ const routes = [
             {
                 path: 'login',
                 name: 'PlayerLogin',
-                // component: () => import('../views/player/Login.vue'),
+                component: () => import('../views/player/Login.vue'),
             },
             {
                 path: 'signup',
@@ -57,7 +57,7 @@ const routes = [
             {
                 path: 'login',
                 name: 'StoreLogin',
-                // component: () => import('../views/store/Login.vue'),
+                component: () => import('../views/store/Login.vue'),
             },
             {
                 path: 'signup',
