@@ -5,23 +5,36 @@
         </button>
     </div>
 </template>
-
 <script>
 import { mapActions, mapState } from 'pinia';
-import counterStore from '../stores/counters';
+import Axios from '@/utilities/axios';
+import counterStore from '@/stores/counters';
 
 export default {
     name: 'HelloWorld',
     data() {
-        return {};
+        return {
+            data: {},
+        };
     },
     computed: {
         ...mapState(counterStore, ['count']),
     },
+    mounted() {
+        this.fetchData();
+    },
     methods: {
         ...mapActions(counterStore, ['increment']),
+        fetchData() {
+            Axios.get('/')
+                .then((response) => {
+                    this.data = response.data;
+                })
+                .catch((error) => {
+                    console.error('API error:', error);
+                });
+        },
     },
 };
 </script>
-
 <style scoped></style>
