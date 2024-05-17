@@ -21,7 +21,7 @@ const routes = [
         // 玩家路由
         path: '/player',
         name: 'Player',
-        // component: () => import('../views/player/Player.vue'),
+        component: () => import('../views/player/Player.vue'),
         children: [
             {
                 path: 'admin',
@@ -36,18 +36,20 @@ const routes = [
             {
                 path: 'signup',
                 name: 'PlayerSignUp',
-                // component: () => import('../views/player/SignUp.vue'),
+                component: () => import('../views/player/SignUp.vue'),
             },
             {
-                path: 'signup/confirm',
-                name: 'PlayerSignUpConfirm',
-                // component: () => import('../views/player/SignUpConfirm.vue'),
+                path: 'form',
+                name: 'PlayerForm',
+                component: () => import('../views/player/Form.vue'),
             },
         ],
     },
     {
         // 商家路由
         path: '/store',
+        name: 'Store',
+        component: () => import('../views/store/Store.vue'),
         children: [
             {
                 path: 'admin',
@@ -62,12 +64,12 @@ const routes = [
             {
                 path: 'signup',
                 name: 'StoreSignUp',
-                // component: () => import('../views/store/SignUp.vue'),
+                component: () => import('../views/store/SignUp.vue'),
             },
             {
-                path: 'signup/confirm',
-                name: 'StoreSignUpConfirm',
-                // component: () => import('../views/store/SignUpConfirm.vue'),
+                path: 'form',
+                name: 'StoreForm',
+                component: () => import('../views/store/Form.vue'),
             },
         ],
     },

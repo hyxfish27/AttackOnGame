@@ -18,6 +18,18 @@ export default defineConfig({
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
         },
     },
+    plugins: [
+        vue(),
+        eslintPlugin({
+            include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
+        }),
+    ],
+    resolve: {
+        alias: {
+            '@': fileURLToPath(new URL('./src', import.meta.url)),
+            '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+        },
+    },
     server: {
         proxy: {
             '/api': {
