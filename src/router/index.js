@@ -26,7 +26,7 @@ const routes = [
             {
                 path: 'admin',
                 name: 'PlayerAdmin',
-                // component: () => import('../views/player/PlayerAdmin.vue'),
+                component: () => import('../views/player/Admin.vue'),
             },
             {
                 path: 'login',
@@ -54,7 +54,7 @@ const routes = [
             {
                 path: 'admin',
                 name: 'StoreAdmin',
-                // component: () => import('../views/store/StoreAdmin.vue'),
+                component: () => import('../views/store/Admin.vue'),
             },
             {
                 path: 'login',
