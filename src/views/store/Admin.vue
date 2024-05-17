@@ -1,19 +1,35 @@
 <template>
-    <div>
-        <h1>店家資訊</h1>
-        <div class="mb-3">
-            <label for="storeName" class="form-label">店家名稱</label>
-            <p id="storeName">{{ store.name }}</p>
+    <div class="store-admin container vh-100">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-9 store-admin__info">
+                <div class="d-flex">
+                    <div class="store-admin__info__img"></div>
+                    <div>
+                        <div class="mb-3">
+                            <h3 id="storeName">{{ store.name }}</h3>
+                        </div>
+                        <div class="mb-3">
+                            <p id="storeAddress">{{ store.address }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="storeRating" class="form-label"
+                                >評價</label
+                            >
+                            <p id="storeRating">{{ store.rating }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" @click="openModal">
+                    編輯資料
+                </button>
+
+                <button class="btn btn-primary" @click="toPasswordModify">
+                    更改密碼
+                </button>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="storeAddress" class="form-label">店家地址</label>
-            <p id="storeAddress">{{ store.address }}</p>
-        </div>
-        <div class="mb-3">
-            <label for="storeRating" class="form-label">評價</label>
-            <p id="storeRating">{{ store.rating }}</p>
-        </div>
-        <button class="btn btn-primary" @click="openModal">編輯資料</button>
 
         <EditStoreModal
             v-if="showModal"
@@ -32,8 +48,8 @@ export default {
     components: { EditStoreModal },
     setup() {
         const store = ref({
-            name: '示範店家',
-            address: '示範地址',
+            name: '好玩工作室',
+            address: '台北市信義區信義路20號20樓',
             rating: 4.5,
             contact: '0987654321',
             description: '這是一家很棒的店家。',
@@ -63,3 +79,18 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" scoped>
+.store-admin {
+    &__info {
+        padding: 24px;
+
+        &__img {
+            width: 100px;
+            height: 100px;
+            background-color: #ccc;
+            margin-right: 24px;
+        }
+    }
+}
+</style>
