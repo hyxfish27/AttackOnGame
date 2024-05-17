@@ -81,7 +81,7 @@ const routes = [
             {
                 path: 'forget',
                 name: 'PasswordForget',
-                // component: () => import('../views/password/PasswordForget.vue'),
+                component: () => import('../views/password/PasswordForget.vue'),
             },
             {
                 path: 'change',
