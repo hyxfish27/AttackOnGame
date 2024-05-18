@@ -4,17 +4,25 @@
             <div class="col-5 align-self-center justify-content-center">
                 <h2 class="text-center">我是玩家</h2>
             </div>
+
             <div class="col-7">
                 <h1>填寫玩家資訊</h1>
-                <form>
+                <v-form v-slot="{ errors }">
                     <div class="mb-3">
                         <label for="playerName" class="form-label">暱稱</label>
-                        <input
+                        <v-field
                             id="playerName"
-                            type="email"
+                            type="text"
                             class="form-control"
                             aria-describedby="storeName"
-                        />
+                            name="暱稱"
+                            rules="email|required"
+                            :class="{ 'is-invalid': errors['暱稱'] }"
+                        ></v-field>
+                        <error-message
+                            name="暱稱"
+                            class="text-danger"
+                        ></error-message>
                     </div>
 
                     <div class="mb-3">
@@ -53,15 +61,15 @@
                             </label>
                         </div>
                     </div>
-                </form>
+                </v-form>
                 <button class="btn btn-primary">完成基本資料</button>
             </div>
         </div>
     </div>
 </template>
 
-<script setup></script>
-
-<style scoped>
-/* Add component styles here */
-</style>
+<script setup>
+// Creates a form context
+// This component now acts as a form
+// Usually you will destruct the form context to get what you need
+</script>

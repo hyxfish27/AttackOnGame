@@ -12,9 +12,9 @@
                             >email</label
                         >
                         <input
+                            id="InputEmail1"
                             type="email"
                             class="form-control"
-                            id="InputEmail1"
                             aria-describedby="emailHelp"
                         />
                     </div>
@@ -23,9 +23,9 @@
                             >密碼</label
                         >
                         <input
+                            id="InputPassword1"
                             type="password"
                             class="form-control"
-                            id="InputPassword1"
                         />
                     </div>
                     <div class="mb-3">
@@ -33,9 +33,9 @@
                             >再次確認密碼</label
                         >
                         <input
+                            id="confirmInputPassword1"
                             type="password"
                             class="form-control"
-                            id="confirmInputPassword1"
                         />
                     </div>
                     <button class="btn btn-primary me-2">
