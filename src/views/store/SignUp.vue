@@ -5,7 +5,7 @@
                 <h2 class="text-center">我是店家</h2>
             </div>
             <div class="col-7">
-                <form>
+                <v-form v-slot="{ errors }">
                     <h1>填寫店家帳號資訊</h1>
                     <div class="mb-3">
                         <label for="InputEmail1" class="form-label"
@@ -16,6 +16,9 @@
                             type="email"
                             class="form-control"
                             aria-describedby="emailHelp"
+                            rules="email|required"
+                            name="email"
+                            :class="{ 'is-invalid': errors['email'] }"
                         />
                     </div>
                     <div class="mb-3">
@@ -47,7 +50,7 @@
                         class="btn btn-primary"
                         >註冊玩家帳號</RouterLink
                     >
-                </form>
+                </v-form>
             </div>
         </div>
     </div>
