@@ -1,0 +1,127 @@
+[
+    {
+        "title": "週六撲克牌瘋狂大戰",
+        "description": "準備好迎接撲克牌的瘋狂挑戰了嗎？快來參加我們的週六撲克牌瘋狂大戰吧！不管你是撲克牌小白還是老手，都能在這裡找到無限的樂趣和挑戰。我們準備了豐富的獎品，還有免費的零食和飲料等你來享用。帶上你的好運和牌技，來這裡和小夥伴們一起玩得開心、贏得精彩！",
+        "eventStartTime": "2024-07-01T10:00:00Z",
+        "eventEndTime": "2024-07-01T18:00:00Z",
+        "registrationStartTime": "2024-05-30T00:00:00Z",
+        "registrationEndTime": "2024-06-30T23:59:59Z",
+        "address": "新北市三重區中央南路62-2號",
+        "isFoodAllowed": true,
+        "maxParticipants": 8,
+        "minParticipants": 3,
+        "participationFee": 250,
+        "eventImageUrl": [
+            "https://i.ibb.co/gtmkKhQ/yudai-9s50005-TP-V.jpg"
+        ],
+        "isPublish": true,
+        "currentParticipantsCount": 0,
+        "createdAt": "2024-05-24T00:00:00Z",
+        "updatedAt": "2024-05-24T00:00:00Z"
+    },
+    {
+        "title": "週末UNO派對桌遊大狂歡🎉",
+        "description": "快來參加我們的週末UNO派對桌遊大狂歡！一起翻牌搶紅、笑聲不斷，還有豐富獎品等你拿🎁。帶上你的好朋友，一起玩得開心吧！😄",
+        "eventStartTime": "2024-06-15T14:00:00Z",
+        "eventEndTime": "2024-06-15T18:00:00Z",
+        "registrationStartTime": "2024-05-30T00:00:00Z",
+        "registrationEndTime": "2024-06-14T23:59:59Z",
+        "address": "台北市中正區公園路20巷15號3樓",
+        "isFoodAllowed": true,
+        "maxParticipants": 10,
+        "minParticipants": 8,
+        "participationFee": 300,
+        "eventImageUrl": [
+            "https://i.ibb.co/BcXHF9C/UNO114278-PAR54666-TP-V.jpg",
+            "https://i.ibb.co/px2cjnW/UNO114256-PAR54582-TP-V.jpg"
+        ],
+        "isPublish": true,
+        "currentParticipantsCount": 0,
+        "createdAt": "2024-05-25T00:00:00Z",
+        "updatedAt": "2024-05-25T00:00:00Z"
+    },
+    {
+        "title": "單身聯誼桌遊派對，愛就在這裡💖",
+        "description": "單身的你，快來參加我們的單身聯誼桌遊派對吧！甜蜜的桌遊時光，浪漫的邂逅，還有更多驚喜等著你🎲💕。一起遊玩、一起心動，愛情就在這裡萌芽🌟。",
+        "eventStartTime": "2024-06-22T18:00:00Z",
+        "eventEndTime": "2024-06-22T22:00:00Z",
+        "registrationStartTime": "2024-06-01T00:00:00Z",
+        "registrationEndTime": "2024-06-21T23:59:59Z",
+        "address": "高雄市苓雅區尚義街15號",
+        "isFoodAllowed": true,
+        "maxParticipants": 15,
+        "minParticipants": 5,
+        "participationFee": 1000,
+        "eventImageUrl": [
+            "https://i.ibb.co/mvSDTSG/party-PAUI1710-TP-V.jpg",
+            "https://i.ibb.co/5kMt3jR/party-PAUI2142-TP-V.jpg"
+        ],
+        "isPublish": true,
+        "currentParticipantsCount": 0,
+        "createdAt": "2024-05-25T00:00:00Z",
+        "updatedAt": "2024-05-25T00:00:00Z"
+    },
+    {
+        "title": "刺激陣營桌遊派對，來挑戰吧！🔥",
+        "description": "來加入我們的刺激陣營桌遊派對！展現你的策略與智慧，挑戰對手，成為最強陣營領袖。快來體驗緊張刺激的桌遊對決！",
+        "eventStartTime": "2024-06-29T16:00:00Z",
+        "eventEndTime": "2024-06-29T20:00:00Z",
+        "registrationStartTime": "2024-06-10T00:00:00Z",
+        "registrationEndTime": "2024-06-28T23:59:59Z",
+        "address": "宜蘭縣羅東鎮中華路154號2樓",
+        "isFoodAllowed": true,
+        "maxParticipants": 10,
+        "minParticipants": 8,
+        "participationFee": 199,
+        "eventImageUrl": [
+            "https://i.ibb.co/nD51K0L/ookawa1224-IMGL1752-TP-V.jpg",
+            "https://i.ibb.co/MpSWcMW/ookawa-IMGL1665-TP-V.jpg",
+            "https://i.ibb.co/k5Pr9ps/ookawajenga-IMGL1676-TP-V.jpg"
+        ],
+        "isPublish": true,
+        "currentParticipantsCount": 0,
+        "createdAt": "2024-05-25T00:00:00Z",
+        "updatedAt": "2024-05-25T00:00:00Z"
+    },
+    {
+        "title": "6-10歲孩子的刺激桌遊派對！🎉",
+        "description": "親愛的媽媽們，快帶孩子來參加我們的刺激桌遊派對吧！這裡有適合6-10歲小朋友的有趣遊戲，孩子們將在快樂中學習與成長。快來讓孩子們度過一個難忘的下午吧！",
+        "eventStartTime": "2024-07-05T14:00:00Z",
+        "eventEndTime": "2024-07-05T17:00:00Z",
+        "registrationStartTime": "2024-06-15T00:00:00Z",
+        "registrationEndTime": "2024-07-04T23:59:59Z",
+        "address": "台中市大甲區蔣公路155號3樓",
+        "isFoodAllowed": true,
+        "maxParticipants": 5,
+        "minParticipants": 5,
+        "participationFee": 300,
+        "eventImageUrl": [
+            "https://i.ibb.co/wStbk34/aomidori-IMGL1213-TP-V.jpg",
+            "https://i.ibb.co/ZXCcv9x/aomidori-IMGL1216-TP-V.jpg"
+        ],
+        "isPublish": true,
+        "currentParticipantsCount": 0,
+        "createdAt": "2024-05-25T00:00:00Z",
+        "updatedAt": "2024-05-25T00:00:00Z"
+    },
+    {
+        "title": "大學生桌遊狂歡，期末考完就來！🎲",
+        "description": "大家好，管他期末考考幾分！！決定來場桌遊狂歡，趕快加入吧！不管你是高手還是新手，大家一起開心玩遊戲、放鬆心情。帶上你的朋友們，現在就來嗨吧！😆",
+        "eventStartTime": "2024-06-20T20:00:00Z",
+        "eventEndTime": "2024-06-20T23:00:00Z",
+        "registrationStartTime": "2024-06-20T00:00:00Z",
+        "registrationEndTime": "2024-06-20T19:59:59Z",
+        "address": "台中市大甲區蔣公路155號3樓",
+        "isFoodAllowed": true,
+        "maxParticipants": 10,
+        "minParticipants": 2,
+        "participationFee": 150,
+        "eventImageUrl": [
+            "https://i.ibb.co/59PNh07/IMG-10330745shikun1011-TP-V.jpg"
+        ],
+        "isPublish": true,
+        "currentParticipantsCount": 1,
+        "createdAt": "2024-05-25T00:00:00Z",
+        "updatedAt": "2024-05-25T00:00:00Z"
+    }
+]
