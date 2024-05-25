@@ -17,33 +17,36 @@ const ActivityAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 
     /**
-     * get
+     * getAll
      * @description 取得所有活動資料
      */
-    async get() {
+    async getAll() {
         try {
             const response = await Axios.get('');
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 
     /**
-     * get
+     * getOne
      * @param {string} id
      * @description 取得單一活動資料
      */
-    async get(id) {
+    async getOne() {
         try {
             const response = await Axios.get('');
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 
@@ -58,6 +61,7 @@ const ActivityAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 
@@ -71,6 +75,9 @@ const ActivityAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 };
+
+export default ActivityAPI;

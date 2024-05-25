@@ -17,6 +17,7 @@ export const StoreAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 
@@ -30,6 +31,7 @@ export const StoreAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 
@@ -44,6 +46,7 @@ export const StoreAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 
@@ -57,6 +60,7 @@ export const StoreAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 };

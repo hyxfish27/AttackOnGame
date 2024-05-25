@@ -17,6 +17,7 @@ const PlayerAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 
@@ -30,6 +31,7 @@ const PlayerAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 
@@ -44,6 +46,7 @@ const PlayerAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 
@@ -58,6 +61,7 @@ const PlayerAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
+            throw error;
         }
     },
 };
