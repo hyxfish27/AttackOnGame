@@ -7,6 +7,7 @@
             <div class="col-7 align-self-center justify-content-center">
                 <h3 class="text-center mb-4">玩家登入</h3>
 
+                <!-- eslint-disable-next-line vue/no-template-shadow -->
                 <v-form v-slot="{ errors }" @submit="onSubmit">
                     <div class="mb-3">
                         <label for="email" class="form-label">帳號</label>
@@ -16,7 +17,7 @@
                             type="email"
                             class="form-control"
                             name="email"
-                            rules="required|email"
+                            :rules="playerLoginSchema.email"
                             :class="{ 'is-invalid': errors['email'] }"
                         ></v-field>
                         <error-message
@@ -33,7 +34,7 @@
                             type="password"
                             class="form-control"
                             name="password"
-                            rules="required|min:8|regex:^[a-zA-Z0-9]+$"
+                            :rules="playerLoginSchema.password"
                             :class="{ 'is-invalid': errors['password'] }"
                         ></v-field>
                         <error-message
@@ -48,8 +49,8 @@
                         <span
                             class="text-muted text-decoration-underline"
                             @click="goToForgetPasswordPage"
-                            >忘記密碼</span
-                        >
+                            >忘記密碼
+                        </span>
                     </div>
 
                     <div class="d-flex justify-content-center form-footer">
@@ -65,7 +66,7 @@
 
 <script>
 import { useRouter } from 'vue-router';
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, ref } from 'vue';
 import * as yup from 'yup';
 import {
     useForm,
@@ -80,7 +81,7 @@ import UserAPI from '@/api/User';
  * @author Vicky
  * @description 玩家登入頁驗證規則
  */
-const playerLoginSchema = yup.object({
+const playerLoginSchema = {
     email: yup
         .string()
         .required('帳號為必填項目')
@@ -91,7 +92,7 @@ const playerLoginSchema = yup.object({
         .min(8, '密碼必須大於8個字符')
         .matches(/[a-zA-Z]/, '密碼必須包含字母')
         .matches(/[0-9]/, '密碼必須包含數字'),
-});
+};
 
 /**
  * PlayerLogin
@@ -108,36 +109,37 @@ export default defineComponent({
     setup() {
         const router = useRouter();
 
-        const formData = reactive({
+        const formData = ref({
             email: '',
             password: '',
         });
 
         const { handleSubmit } = useForm({
-            validationSchema: playerLoginSchema,
+            validationSchema: yup.object(playerLoginSchema),
         });
 
-        const onSubmit = handleSubmit(
-            async () => {
-                console.log('onSubmit');
-                await UserAPI.login({
-                    email: formData.value.email,
-                    password: formData.value.password,
+        const onSubmitSuccess = async () => {
+            console.log('onSubmitSuccess');
+            await UserAPI.login({
+                email: formData.value.email,
+                password: formData.value.password,
+            })
+                .then((res) => {
+                    console.log(res);
+                    router.push({ name: 'PlayerAdmin' });
                 })
-                    .then((res) => {
-                        console.log(res);
-                        router.push({ name: 'PlayerAdmin' });
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        const errorMessage = error.response.data.message;
-                        alert(errorMessage);
-                    });
-            },
-            (error) => {
-                console.error(error);
-            }
-        );
+                .catch((error) => {
+                    console.log(error);
+                    const errorMessage = error.response.data.message;
+                    alert(errorMessage);
+                });
+        };
+
+        const onSubmitError = (errors) => {
+            console.error(errors);
+        };
+
+        const onSubmit = handleSubmit(onSubmitSuccess, onSubmitError);
 
         const goToForgetPasswordPage = () => {
             router.push({
@@ -149,8 +151,10 @@ export default defineComponent({
         return {
             handleSubmit,
             onSubmit,
+            onSubmitError,
             formData,
             goToForgetPasswordPage,
+            playerLoginSchema,
         };
     },
 });
