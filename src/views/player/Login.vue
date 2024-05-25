@@ -149,12 +149,10 @@ export default defineComponent({
         };
 
         return {
-            handleSubmit,
-            onSubmit,
-            onSubmitError,
             formData,
-            goToForgetPasswordPage,
             playerLoginSchema,
+            onSubmit,
+            goToForgetPasswordPage,
         };
     },
 });
