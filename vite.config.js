@@ -9,18 +9,7 @@ export default defineConfig({
     plugins: [
         vue(),
         eslintPlugin({
-            include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
-        }),
-    ],
-    resolve: {
-        alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url)),
-            '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
-        },
-    },
-    plugins: [
-        vue(),
-        eslintPlugin({
+            fix: true,
             include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
         }),
     ],
@@ -31,6 +20,7 @@ export default defineConfig({
         },
     },
     server: {
+        hmr: true,
         proxy: {
             '/api': {
                 target: 'https://attack-on-game-api.onrender.com/',
