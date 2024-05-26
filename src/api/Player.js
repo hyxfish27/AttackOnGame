@@ -14,7 +14,7 @@ const PlayerAPI = {
     async create(data) {
         try {
             const response = await Axios.post('', data);
-            return response.data;
+            return response;
         } catch (error) {
             console.error(error);
             throw error;
@@ -23,12 +23,13 @@ const PlayerAPI = {
 
     /**
      * get
+     * @param {string} playerId
      * @description 取得玩家資料
      */
-    async get() {
+    async get(playerId) {
         try {
-            const response = await Axios.get('');
-            return response.data;
+            const response = await Axios.get(`/api/v1/player/${playerId}`);
+            return response;
         } catch (error) {
             console.error(error);
             throw error;
@@ -43,7 +44,7 @@ const PlayerAPI = {
     async update(data) {
         try {
             const response = await Axios.put('', data);
-            return response.data;
+            return response;
         } catch (error) {
             console.error(error);
             throw error;
@@ -58,7 +59,7 @@ const PlayerAPI = {
     async delete() {
         try {
             const response = await Axios.delete('');
-            return response.data;
+            return response;
         } catch (error) {
             console.error(error);
             throw error;
