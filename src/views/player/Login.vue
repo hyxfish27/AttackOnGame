@@ -7,7 +7,6 @@
             <div class="col-7 align-self-center justify-content-center">
                 <h3 class="text-center mb-4">玩家登入</h3>
 
-                <!-- eslint-disable-next-line vue/no-template-shadow -->
                 <v-form v-slot="{ errors }" @submit="onSubmit">
                     <div class="mb-3">
                         <label for="email" class="form-label">帳號</label>
@@ -69,12 +68,13 @@ import { useRouter } from 'vue-router';
 import { defineComponent, ref } from 'vue';
 import * as yup from 'yup';
 import {
-    useForm,
+    // useForm,
     ErrorMessage,
     Field as VField,
     Form as VForm,
 } from 'vee-validate';
 import UserAPI from '@/api/User';
+import cookie from '@/utilities/cookie/cookie';
 
 /**
  * playerLoginSchema
@@ -114,19 +114,23 @@ export default defineComponent({
             password: '',
         });
 
-        const { handleSubmit } = useForm({
-            validationSchema: yup.object(playerLoginSchema),
-        });
+        // const { handleSubmit } = useForm({
+        //     validationSchema: yup.object(playerLoginSchema),
+        // });
 
         const onSubmitSuccess = async () => {
-            console.log('onSubmitSuccess');
             await UserAPI.login({
                 email: formData.value.email,
                 password: formData.value.password,
             })
                 .then((res) => {
                     console.log(res);
-                    router.push({ name: 'PlayerAdmin' });
+                    const { id, token } = res.data;
+                    cookie.set({ key: 'AttackOnGameJWT', value: token });
+                    router.push({
+                        name: 'PlayerAdmin',
+                        params: { id },
+                    });
                 })
                 .catch((error) => {
                     console.log(error);
@@ -135,11 +139,14 @@ export default defineComponent({
                 });
         };
 
-        const onSubmitError = (errors) => {
-            console.error(errors);
-        };
+        // const onSubmitError = (errors) => {
+        //     console.error(errors);
+        // };
 
-        const onSubmit = handleSubmit(onSubmitSuccess, onSubmitError);
+        const onSubmit = onSubmitSuccess;
+
+        // TODO: 這裡的 handleSubmit 有 bug，無法正確執行 onSubmitSuccess 和 onSubmitError，短解先直接接 onSubmitSuccess
+        // const onSubmit = handleSubmit(onSubmitSuccess, onSubmitError);
 
         const goToForgetPasswordPage = () => {
             router.push({

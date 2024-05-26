@@ -29,7 +29,7 @@ const routes = [
                 component: () => import('@/views/player/Player.vue'),
                 children: [
                     {
-                        path: 'admin',
+                        path: 'admin/:id',
                         name: 'PlayerAdmin',
                         component: () => import('@/views/player/Admin.vue'),
                     },
