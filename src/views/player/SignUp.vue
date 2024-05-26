@@ -73,25 +73,56 @@
                     :to="{ name: 'SignUp' }"
                     >回上一步重選角色</RouterLink
                 >
-                <RouterLink class="btn btn-primary" :to="{ name: 'PlayerForm' }"
-                    >註冊玩家帳號</RouterLink
+                <!-- <RouterLink class="btn btn-primary" :to="{ name: 'PlayerForm' }" :click="onSubmitSuccess">註冊玩家帳號
+                </RouterLink> -->
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    @click="onSubmitSuccess"
                 >
+                    註冊玩家帳號
+                </button>
+                <p v-if="noCreate != ''" class="text-danger">{{ noCreate }}</p>
             </div>
         </div>
         <div>
+            <pre>{{ values }}</pre>
             {{ formData }}
+            {{ errors }}
         </div>
     </div>
 </template>
 
 <script setup>
+import PlayerAPI from '@/api/Player';
+import { Form, Field } from 'vee-validate';
 import { ref } from 'vue';
 
 const formData = ref({
     email: '',
     password: '',
-    role: 'player',
 });
+const noCreate = ref('');
+const onSubmitSuccess = async () => {
+    console.log('Form', Form);
+    console.log('Field', Field);
+    if (formData.value.eamil === '' || formData.value.password === '') {
+        return;
+    }
+    await PlayerAPI.create({
+        email: formData.value.email,
+        password: formData.value.password,
+        role: 'player',
+    })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((error) => {
+            if (error.request.status === 409) {
+                noCreate.value = '已有人註冊過，請更換 email';
+            }
+        });
+};
 </script>
 
 <style scoped>
