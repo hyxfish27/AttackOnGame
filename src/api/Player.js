@@ -38,12 +38,21 @@ const PlayerAPI = {
 
     /**
      * update
-     * @param {*} data
+     * @param {string} playerId    玩家 ID
+     * @param {string} name        玩家名稱
+     * @param {string} phone       玩家電話
+     * @param {string} preferGame  喜好遊戲
+     * @param {string} avatar      玩家頭像
      * @description 更新玩家資料
      */
-    async update(data) {
+    async update({ playerId, name, phone, preferGame, avatar }) {
         try {
-            const response = await Axios.put('', data);
+            const response = await Axios.patch(`/api/v1/player/${playerId}`, {
+                name,
+                phone,
+                preferGame,
+                avatar,
+            });
             return response;
         } catch (error) {
             console.error(error);
