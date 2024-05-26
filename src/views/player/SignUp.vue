@@ -7,13 +7,14 @@
 
             <div class="col-7">
                 <h1>填寫玩家資訊</h1>
-                <v-form>
+                <v-form v-slot="{ errors }">
                     <div class="mb-3">
                         <label for="InputEmail1" class="form-label"
                             >email</label
                         >
                         <v-field
                             id="InputEmail1"
+                            v-model="formData.email"
                             type="email"
                             class="form-control"
                             aria-describedby="emailHelp"
@@ -32,6 +33,7 @@
                         >
                         <v-field
                             id="InputPassword1"
+                            v-model="formData.password"
                             type="password"
                             class="form-control"
                             rules="required|min:8|regex:(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\da-zA-Z])"
@@ -66,16 +68,31 @@
                         ></error-message>
                     </div>
                 </v-form>
-                <button class="btn btn-primary me-2">回上一步重選角色</button>
+                <RouterLink
+                    class="btn btn-primary me-2"
+                    :to="{ name: 'SignUp' }"
+                    >回上一步重選角色</RouterLink
+                >
                 <RouterLink class="btn btn-primary" :to="{ name: 'PlayerForm' }"
                     >註冊玩家帳號</RouterLink
                 >
             </div>
         </div>
+        <div>
+            {{ formData }}
+        </div>
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+
+const formData = ref({
+    email: '',
+    password: '',
+    role: 'player',
+});
+</script>
 
 <style scoped>
 /* Add component styles here */
