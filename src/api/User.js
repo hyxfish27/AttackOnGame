@@ -1,5 +1,5 @@
 import Axios from '@/utilities/axios';
-import Cookie from '@/utilities/cookie/cookie';
+import cookie from '@/utilities/cookie/cookie';
 
 /**
  * UserAPI
@@ -33,7 +33,7 @@ const UserAPI = {
      */
     async checkIsLogin() {
         try {
-            const response = await Cookie.checkIsExpire('AttackOnGameJWT');
+            const response = await cookie.checkIsExpire('AttackOnGameJWT');
             return response;
         } catch (error) {
             console.error(error);
@@ -47,7 +47,7 @@ const UserAPI = {
      */
     async logout() {
         try {
-            await Cookie.delete('AttackOnGameJWT');
+            await cookie.delete('AttackOnGameJWT');
         } catch (error) {
             console.error(error);
             throw error;

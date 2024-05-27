@@ -41,7 +41,7 @@ const Cookie = {
      * @description 檢查 Cookie 是否過期
      */
     checkIsExpire(name) {
-        const isExpire = this.get(name);
+        const isExpire = !!this.get(name);
 
         return isExpire;
     },

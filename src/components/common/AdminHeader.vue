@@ -39,6 +39,7 @@ export default {
         const logout = () => {
             UserAPI.logout()
                 .then(() => {
+                    alert('登出成功');
                     router.push('/');
                 })
                 .catch((err) => {
