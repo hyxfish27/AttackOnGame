@@ -4,9 +4,9 @@
             <div class="col-3 player-admin__sidebar">
                 <div>
                     <h4>玩家</h4>
-                    <img class="player-admin__img" :url="url" />
-                    <div>{{ account }}</div>
-                    <div class="mb-4">{{ name }}</div>
+                    <img class="player-admin__img" :url="formData.url" />
+                    <div>{{ formData.email }}</div>
+                    <div class="mb-4">{{ formData.name }}</div>
 
                     <div class="player-admin__switcher">
                         <div>帳戶資訊</div>
@@ -22,7 +22,25 @@
                     帳戶資訊
                 </h3>
 
-                <v-form v-slot="{ errors }" @submit="handleSubmit(onSubmit)">
+                <v-form v-slot="{ errors }" @submit="onSubmit">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <v-field
+                            id="email"
+                            v-model="formData.email"
+                            type="email"
+                            class="form-control"
+                            name="email"
+                            :class="{ 'is-invalid': errors['phone'] }"
+                            rules="required|email"
+                            disabled
+                        ></v-field>
+                        <error-message
+                            name="email"
+                            class="text-danger"
+                        ></error-message>
+                    </div>
+
                     <div class="mb-3">
                         <label for="name" class="form-label">姓名</label>
                         <v-field
@@ -33,28 +51,10 @@
                             name="name"
                             rules="required"
                             :class="{ 'is-invalid': errors['name'] }"
-                            @focus="isEditing = true"
+                            :disabled="!canEdit"
                         ></v-field>
                         <error-message
                             name="name"
-                            class="text-danger"
-                        ></error-message>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <v-field
-                            id="email"
-                            v-model="formData.email"
-                            type="email"
-                            class="form-control"
-                            name="email"
-                            rules="required|email"
-                            :class="{ 'is-invalid': errors['email'] }"
-                            @focus="isEditing = true"
-                        ></v-field>
-                        <error-message
-                            name="email"
                             class="text-danger"
                         ></error-message>
                     </div>
@@ -67,9 +67,9 @@
                             type="text"
                             class="form-control"
                             name="phone"
-                            rules="required"
+                            rules="required|number|min:10|max:10"
                             :class="{ 'is-invalid': errors['phone'] }"
-                            @focus="isEditing = true"
+                            :disabled="!canEdit"
                         ></v-field>
                         <error-message
                             name="phone"
@@ -78,26 +78,31 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="boardGames" class="form-label">
+                        <label for="preferGames" class="form-label">
                             喜歡的桌遊
                         </label>
                         <div
-                            v-for="boardGameType in boardGameTypes"
-                            :key="boardGameType"
+                            v-for="preferGameType in preferGameTypes"
+                            :key="preferGameType"
                         >
                             <label>
                                 <v-field
-                                    v-model="formData.boardGames"
+                                    v-model="formData.preferGame"
                                     type="checkbox"
-                                    name="boardGames"
+                                    name="preferGames"
                                     class="mr-2"
-                                    :value="boardGameType"
+                                    :checked="
+                                        preferGameType.includes(
+                                            formData.preferGame
+                                        )
+                                    "
+                                    :disabled="!canEdit"
                                 ></v-field
-                                >{{ boardGameType }}</label
-                            >
+                                >{{ preferGameType }}
+                            </label>
                         </div>
                         <error-message
-                            name="boardGames"
+                            name="preferGames"
                             class="text-danger"
                         ></error-message>
                     </div>
@@ -109,6 +114,7 @@
                             type="file"
                             class="form-control"
                             name="avatar"
+                            :disabled="!canEdit"
                             @change="handleFileUpload"
                         />
                         <error-message
@@ -119,12 +125,20 @@
 
                     <div class="section">
                         <button
+                            class="btn btn-success mr-4"
+                            @click.prevent="toggleEditStatus"
+                        >
+                            {{ canEdit ? '編輯完成' : '編輯資料' }}
+                        </button>
+
+                        <button
                             type="submit"
                             class="btn btn-primary mr-4"
-                            :disabled="!isEditing"
+                            :disabled="canEdit"
                         >
-                            編輯資料
+                            儲存
                         </button>
+
                         <button class="btn btn-primary">修改密碼</button>
                     </div>
                 </v-form>
@@ -134,24 +148,65 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
+import * as yup from 'yup';
+import { useRoute } from 'vue-router';
+import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate';
+import PlayerAPI from '@/api/Player';
+
+const playerSchema = yup.object({
+    name: yup.string().required('姓名為必填欄位'),
+    email: yup.string().required().email(),
+    phone: yup.number().required().min(10).max(10),
+});
 
 export default defineComponent({
-    components: {},
-    setup() {
-        const isEditing = ref(false);
+    components: {
+        VForm,
+        VField,
+        ErrorMessage,
+    },
+    setup(props, context) {
+        const route = useRoute();
 
         const formData = ref({
-            name: '預設姓名',
-            email: 'default@example.com',
-            phone: '0987654321',
-            gender: '',
-            boardGames: [],
+            name: '',
+            email: '',
+            phone: '',
+            preferGame: [],
             avatar: null,
         });
 
-        const onSubmit = (values) => {
-            console.log('表單提交:', values);
+        //
+        // eslint-disable-next-line no-unused-vars
+        const getPlayer = async (playerId) => {
+            const response = await PlayerAPI.get(playerId);
+            console.log(playerId);
+
+            // const response = {
+            //     status: true,
+            //     data: [
+            //         {
+            //             id: '11b4d813-3bb0-4608-bae2-a39b64235bbc',
+            //             name: '小明',
+            //             email: 'mingisme@gmail.com',
+            //             phone: '0912345678',
+            //             preferGame: ['策略遊戲', '卡牌遊戲'],
+            //             avatar: '/upload/file.jpg',
+            //         },
+            //     ],
+            // };
+            [formData.value] = response.data;
+        };
+
+        const canEdit = ref(false);
+
+        const onSubmit = async (playerInfo) => {
+            await PlayerAPI.update(playerInfo)
+                .then(() => alert('更新成功'))
+                .catch((error) => alert(`更新失敗: ${error}`));
+
+            console.log('表單提交:', playerInfo);
         };
 
         const handleFileUpload = (event) => {
@@ -159,25 +214,35 @@ export default defineComponent({
             formData.value.avatar = file;
         };
 
+        const toggleEditStatus = () => {
+            canEdit.value = !canEdit.value;
+        };
+
+        onMounted(() => {
+            console.log(context);
+            console.log(route);
+            // const playerId = router.params.id;
+            getPlayer('playerId');
+        });
+
         return {
             formData,
+            canEdit,
+            playerSchema,
             onSubmit,
             handleFileUpload,
-            isEditing,
+            toggleEditStatus,
         };
     },
     data() {
         return {
-            url: 'xxxx',
-            account: 'yyyyyyy',
-            name: 'zzzzzzz',
-            boardGameTypes: [
-                'type1',
-                'type2',
-                'type3',
-                'type4',
-                'type5',
-                'type6',
+            preferGameTypes: [
+                '策略遊戲',
+                '卡牌遊戲',
+                '陣營遊戲',
+                '角色扮演 (RPG)',
+                '益智遊戲',
+                '解謎遊戲',
             ],
         };
     },
