@@ -166,7 +166,7 @@ export default defineComponent({
         VField,
         ErrorMessage,
     },
-    setup(props, context) {
+    setup() {
         const route = useRoute();
 
         const formData = ref({
@@ -177,26 +177,15 @@ export default defineComponent({
             avatar: null,
         });
 
-        //
-        // eslint-disable-next-line no-unused-vars
-        const getPlayer = async (playerId) => {
-            const response = await PlayerAPI.get(playerId);
-            console.log(playerId);
-
-            // const response = {
-            //     status: true,
-            //     data: [
-            //         {
-            //             id: '11b4d813-3bb0-4608-bae2-a39b64235bbc',
-            //             name: '小明',
-            //             email: 'mingisme@gmail.com',
-            //             phone: '0912345678',
-            //             preferGame: ['策略遊戲', '卡牌遊戲'],
-            //             avatar: '/upload/file.jpg',
-            //         },
-            //     ],
-            // };
-            [formData.value] = response.data;
+        const getPlayer = async (userId) => {
+            await PlayerAPI.get(userId)
+                .then((response) => {
+                    [formData.value] = response.data;
+                })
+                .catch((error) => {
+                    const errorMessage = error.response.data.message;
+                    alert(`取得玩家資料失敗: ${errorMessage}`);
+                });
         };
 
         const canEdit = ref(false);
@@ -205,8 +194,6 @@ export default defineComponent({
             await PlayerAPI.update(playerInfo)
                 .then(() => alert('更新成功'))
                 .catch((error) => alert(`更新失敗: ${error}`));
-
-            console.log('表單提交:', playerInfo);
         };
 
         const handleFileUpload = (event) => {
@@ -219,10 +206,8 @@ export default defineComponent({
         };
 
         onMounted(() => {
-            console.log(context);
-            console.log(route);
-            // const playerId = router.params.id;
-            getPlayer('playerId');
+            const userId = route.params.id;
+            getPlayer(userId);
         });
 
         return {
