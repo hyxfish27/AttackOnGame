@@ -58,7 +58,7 @@
                             type="password"
                             class="form-control"
                             placeholder="請輸入密碼"
-                            rules="required|min:8|regex:(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\da-zA-Z])"
+                            rules="required|confirmed:@密碼"
                             name="確認密碼"
                             :class="{ 'is-invalid': errors['確認密碼'] }"
                         ></v-field>
@@ -73,16 +73,51 @@
                     :to="{ name: 'SignUp' }"
                     >回上一步重選角色</RouterLink
                 >
-                <!-- <RouterLink class="btn btn-primary" :to="{ name: 'PlayerForm' }" :click="onSubmitSuccess">註冊玩家帳號
+                <!-- <RouterLink class="btn btn-primary" :to="{ name: 'PlayerForm' }" :click="onSubmitSuccess">完成註冊
                 </RouterLink> -->
                 <button
                     type="button"
                     class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#signupModal"
                     @click="onSubmitSuccess"
                 >
-                    註冊玩家帳號
+                    完成註冊
                 </button>
-                <p v-if="noCreate != ''" class="text-danger">{{ noCreate }}</p>
+                <div
+                    id="signupModal"
+                    class="modal fade"
+                    tabindex="-1"
+                    aria-labelledby="signupModalLabel"
+                    aria-hidden="true"
+                >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 id="signupModalLabel" class="modal-title">
+                                    註冊結果
+                                </h5>
+                                <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                ></button>
+                            </div>
+                            <div class="modal-body">{{ signupResult }}</div>
+                            <div class="modal-footer">
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                    @click="goPage"
+                                >
+                                    關閉
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div>
@@ -95,17 +130,16 @@
 
 <script setup>
 import PlayerAPI from '@/api/Player';
-import { Form, Field } from 'vee-validate';
+
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const formData = ref({
     email: '',
     password: '',
 });
-const noCreate = ref('');
+const signupResult = ref('請填寫註冊資料');
 const onSubmitSuccess = async () => {
-    console.log('Form', Form);
-    console.log('Field', Field);
     if (formData.value.eamil === '' || formData.value.password === '') {
         return;
     }
@@ -116,12 +150,19 @@ const onSubmitSuccess = async () => {
     })
         .then((res) => {
             console.log(res);
+            signupResult.value = '註冊成功';
         })
         .catch((error) => {
             if (error.request.status === 409) {
-                noCreate.value = '已有人註冊過，請更換 email';
+                signupResult.value = '已有人註冊過，請更換 email';
             }
         });
+};
+const router = useRouter();
+const goPage = () => {
+    if (signupResult.value === '註冊成功') {
+        router.push('/player/login');
+    }
 };
 </script>
 
