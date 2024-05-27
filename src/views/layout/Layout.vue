@@ -1,13 +1,13 @@
 <template>
     <div class="d-flex flex-column min-vh-100">
-        <!-- <MainHeader :is-login="isLogin"></MainHeader> -->
+        <MainHeader :is-login="isLogin"></MainHeader>
         <router-view />
         <MainFooter class="mt-auto"></MainFooter>
     </div>
 </template>
 
 <script>
-// import MainHeader from '@/components/common/MainHeader.vue';
+import MainHeader from '@/components/common/MainHeader.vue';
 import MainFooter from '@/components/common/MainFooter.vue';
 
 /**
@@ -18,12 +18,12 @@ import MainFooter from '@/components/common/MainFooter.vue';
 export default {
     name: 'Layout',
     components: {
-        // MainHeader,
+        MainHeader,
         MainFooter,
     },
     data() {
         return {
-            isLogin: true,
+            isLogin: false,
         };
     },
 };
