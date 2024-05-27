@@ -50,6 +50,7 @@
                             @click="goToForgetPasswordPage"
                             >忘記密碼
                         </span>
+
                     </div>
 
                     <div class="d-flex justify-content-center form-footer">
