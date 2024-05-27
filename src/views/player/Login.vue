@@ -6,33 +6,51 @@
             </div>
             <div class="col-7 align-self-center justify-content-center">
                 <h3 class="text-center mb-4">玩家登入</h3>
-                <form>
-                    <div class="form-group mb-3">
-                        <label for="account">帳號</label>
-                        <input
-                            id="account"
+
+                <v-form v-slot="{ errors }" @submit="onSubmit">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">帳號</label>
+                        <v-field
+                            id="email"
+                            v-model="formData.email"
                             type="email"
                             class="form-control"
-                            aria-describedby="emailHelp"
-                            placeholder="請輸入帳號"
-                        />
+                            name="email"
+                            :rules="playerLoginSchema.email"
+                            :class="{ 'is-invalid': errors['email'] }"
+                        ></v-field>
+                        <error-message
+                            name="email"
+                            class="text-danger"
+                        ></error-message>
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="password"> 密碼 </label>
-                        <input
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">密碼</label>
+                        <v-field
                             id="password"
+                            v-model="formData.password"
                             type="password"
                             class="form-control"
-                            placeholder="請輸入密碼"
-                        />
-                        <div
-                            class="password-forget d-flex justify-content-end mt-1"
+                            name="password"
+                            :rules="playerLoginSchema.password"
+                            :class="{ 'is-invalid': errors['password'] }"
+                        ></v-field>
+                        <error-message
+                            name="password"
+                            class="text-danger"
+                        ></error-message>
+                    </div>
+
+                    <div
+                        class="password-forget d-flex justify-content-end mt-1"
+                    >
+                        <span
+                            class="text-muted text-decoration-underline"
                             @click="goToForgetPasswordPage"
-                        >
-                            <span class="text-muted text-decoration-underline"
-                                >忘記密碼</span
-                            >
-                        </div>
+                            >忘記密碼
+                        </span>
+
                     </div>
 
                     <div class="d-flex justify-content-center form-footer">
@@ -40,27 +58,112 @@
                             登入
                         </button>
                     </div>
-                </form>
+                </v-form>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-export default {
+import { useRouter } from 'vue-router';
+import { defineComponent, ref } from 'vue';
+import * as yup from 'yup';
+import {
+    // useForm,
+    ErrorMessage,
+    Field as VField,
+    Form as VForm,
+} from 'vee-validate';
+import UserAPI from '@/api/User';
+import cookie from '@/utilities/cookie/cookie';
+
+/**
+ * playerLoginSchema
+ * @author Vicky
+ * @description 玩家登入頁驗證規則
+ */
+const playerLoginSchema = {
+    email: yup
+        .string()
+        .required('帳號為必填項目')
+        .email('請輸入正確的電子郵件格式'),
+    password: yup
+        .string()
+        .required('密碼為必填項目')
+        .min(8, '密碼必須大於8個字符')
+        .matches(/[a-zA-Z]/, '密碼必須包含字母')
+        .matches(/[0-9]/, '密碼必須包含數字'),
+};
+
+/**
+ * PlayerLogin
+ * @author Vicky
+ * @description 玩家登入頁
+ */
+export default defineComponent({
     name: 'PlayerLogin',
-    data() {
-        return {};
+    components: {
+        ErrorMessage,
+        VField,
+        VForm,
     },
-    methods: {
-        goToForgetPasswordPage() {
-            this.$router.push({
+    setup() {
+        const router = useRouter();
+
+        const formData = ref({
+            email: '',
+            password: '',
+        });
+
+        // const { handleSubmit } = useForm({
+        //     validationSchema: yup.object(playerLoginSchema),
+        // });
+
+        const onSubmitSuccess = async () => {
+            await UserAPI.login({
+                email: formData.value.email,
+                password: formData.value.password,
+            })
+                .then((res) => {
+                    console.log(res);
+                    const { id, token } = res.data;
+                    cookie.set({ key: 'AttackOnGameJWT', value: token });
+                    router.push({
+                        name: 'PlayerAdmin',
+                        params: { id },
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                    const errorMessage = error.response.data.message;
+                    alert(errorMessage);
+                });
+        };
+
+        // const onSubmitError = (errors) => {
+        //     console.error(errors);
+        // };
+
+        const onSubmit = onSubmitSuccess;
+
+        // TODO: 這裡的 handleSubmit 有 bug，無法正確執行 onSubmitSuccess 和 onSubmitError，短解先直接接 onSubmitSuccess
+        // const onSubmit = handleSubmit(onSubmitSuccess, onSubmitError);
+
+        const goToForgetPasswordPage = () => {
+            router.push({
                 name: 'PasswordForget',
                 params: { role: 'player' },
             });
-        },
+        };
+
+        return {
+            formData,
+            playerLoginSchema,
+            onSubmit,
+            goToForgetPasswordPage,
+        };
     },
-};
+});
 </script>
 
 <style lang="scss" scoped></style>

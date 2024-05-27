@@ -24,12 +24,13 @@ const PlayerAPI = {
 
     /**
      * get
+     * @param {string} playerId
      * @description 取得玩家資料
      */
-    async get() {
+    async get(playerId) {
         try {
-            const response = await Axios.get('');
-            return response.data;
+            const response = await Axios.get(`/api/v1/player/${playerId}`);
+            return response;
         } catch (error) {
             console.error(error);
             throw error;
@@ -38,13 +39,22 @@ const PlayerAPI = {
 
     /**
      * update
-     * @param {*} data
+     * @param {string} playerId    玩家 ID
+     * @param {string} name        玩家名稱
+     * @param {string} phone       玩家電話
+     * @param {string} preferGame  喜好遊戲
+     * @param {string} avatar      玩家頭像
      * @description 更新玩家資料
      */
-    async update(data) {
+    async update({ playerId, name, phone, preferGame, avatar }) {
         try {
-            const response = await Axios.put('', data);
-            return response.data;
+            const response = await Axios.patch(`/api/v1/player/${playerId}`, {
+                name,
+                phone,
+                preferGame,
+                avatar,
+            });
+            return response;
         } catch (error) {
             console.error(error);
             throw error;
@@ -59,7 +69,7 @@ const PlayerAPI = {
     async delete() {
         try {
             const response = await Axios.delete('');
-            return response.data;
+            return response;
         } catch (error) {
             console.error(error);
             throw error;
