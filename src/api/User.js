@@ -1,4 +1,5 @@
 import Axios from '@/utilities/axios';
+import Cookie from '@/utilities/cookie/cookie';
 
 /**
  * UserAPI
@@ -20,6 +21,33 @@ const UserAPI = {
                 password,
             });
             return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+
+    /**
+     * checkIsLogin
+     * @description 檢查使用者登入狀態
+     */
+    async checkIsLogin() {
+        try {
+            const response = await Cookie.checkIsExpire('AttackOnGameJWT');
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+
+    /**
+     * logout
+     * @description 使用者登出
+     */
+    async logout() {
+        try {
+            await Cookie.delete('AttackOnGameJWT');
         } catch (error) {
             console.error(error);
             throw error;
