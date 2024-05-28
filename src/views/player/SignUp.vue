@@ -124,8 +124,7 @@
 </template>
 
 <script setup>
-import PlayerAPI from '@/api/Player';
-
+import UserAPI from '@/api/User';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -138,7 +137,7 @@ const onSubmitSuccess = async () => {
     if (formData.value.eamil === '' || formData.value.password === '') {
         return;
     }
-    await PlayerAPI.create({
+    await UserAPI.signUp({
         email: formData.value.email,
         password: formData.value.password,
         role: 'player',

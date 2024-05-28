@@ -8,6 +8,24 @@ import cookie from '@/utilities/cookie/cookie';
  */
 const UserAPI = {
     /**
+     * signUp
+     * @param {string} email      使用者信箱
+     * @param {string} password   使用者密碼
+     * @param {string} role   使用者角色
+     * @description 使用者註冊
+     */
+    async signUp(data) {
+        try {
+            const response = await Axios.post('/api/v1/user', data);
+            console.log(response);
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+
+    /**
      * login
      * @param {string} email      使用者信箱
      * @param {string} password   使用者密碼
