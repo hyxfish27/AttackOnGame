@@ -74,6 +74,7 @@ import {
     Field as VField,
     Form as VForm,
 } from 'vee-validate';
+// import userAdapter from '@/adapter/user';
 import UserAPI from '@/api/User';
 import cookie from '@/utilities/cookie/cookie';
 
@@ -124,14 +125,27 @@ export default defineComponent({
                 email: formData.value.email,
                 password: formData.value.password,
             })
-                .then((res) => {
-                    console.log(res);
-                    const { id, token } = res.data;
-                    cookie.set({ key: 'AttackOnGameJWT', value: token });
+                .then((response) => {
+                    console.log(response);
+                    const {
+                        // user,
+                        token,
+                    } = response.data.data;
+
+                    // const userViewObject = userAdapter.toViewObject(user);
+
+                    cookie.set({ name: 'AttackOnGameJWT', value: token });
+
                     router.push({
-                        name: 'PlayerAdmin',
-                        params: { id },
+                        name: 'Index',
+                        // params: { id: userViewObject.id },
                     });
+
+                    // TODO: 先導向首頁，之後再改成導向玩家頁面
+                    // router.push({
+                    //     name: 'PlayerAdmin',
+                    //     params: { id: userViewObject.id },
+                    // });
                 })
                 .catch((error) => {
                     console.log(error);

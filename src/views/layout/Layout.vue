@@ -7,8 +7,11 @@
 </template>
 
 <script>
+import { onUpdated, computed } from 'vue';
 import MainHeader from '@/components/common/MainHeader.vue';
 import MainFooter from '@/components/common/MainFooter.vue';
+import UserAPI from '@/api/User';
+import useIndexStore from '@/stores/index';
 
 /**
  * Layout
@@ -21,9 +24,28 @@ export default {
         MainHeader,
         MainFooter,
     },
-    data() {
+    setup() {
+        const indexStore = useIndexStore();
+
+        const isLogin = computed(() => indexStore.isLogin);
+
+        const checkIsLogin = () => {
+            UserAPI.checkIsLogin()
+                .then((response) => {
+                    console.log('isLogin', response);
+                    indexStore.setIsLogin(response);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        };
+
+        onUpdated(() => {
+            checkIsLogin();
+        });
+
         return {
-            isLogin: false,
+            isLogin,
         };
     },
 };

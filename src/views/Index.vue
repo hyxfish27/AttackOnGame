@@ -2,7 +2,6 @@
     <div class="home">
         <h1 class="text-success">Hello, This is Index Page.</h1>
         <RouterLink to="/">Index</RouterLink> |
-        <RouterLink to="/about">About</RouterLink>
         <hr />
         <HelloWorld />
 
