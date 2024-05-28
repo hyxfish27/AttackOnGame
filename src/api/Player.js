@@ -23,12 +23,12 @@ const PlayerAPI = {
 
     /**
      * get
-     * @param {string} playerId
+     * @param {string} userId  使用者 id
      * @description 取得玩家資料
      */
-    async get(playerId) {
+    async get(userId) {
         try {
-            const response = await Axios.get(`/api/v1/player/${playerId}`);
+            const response = await Axios.get(`/api/v1/player/${userId}`);
             return response;
         } catch (error) {
             console.error(error);

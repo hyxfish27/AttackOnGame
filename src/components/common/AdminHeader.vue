@@ -16,13 +16,15 @@
             <div
                 class="col-3 header__nav d-flex justify-content-end align-items-center"
             >
-                <router-link to="/logout">登出</router-link>
+                <button @click="logout">登出</button>
             </div>
         </div>
     </header>
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
+import UserAPI from '@/api/User';
 /**
  * AdminHeader
  * @author Vicky
@@ -30,6 +32,26 @@
  */
 export default {
     name: 'AdminHeader',
+
+    setup() {
+        const router = useRouter();
+
+        const logout = () => {
+            UserAPI.logout()
+                .then(() => {
+                    alert('登出成功');
+                    router.push('/');
+                })
+                .catch((err) => {
+                    console.error(err);
+                    router.push('/');
+                });
+        };
+
+        return {
+            logout,
+        };
+    },
 };
 </script>
 
