@@ -45,8 +45,8 @@ module.exports = {
         ],
         semi: 'off',
         'no-console': 'off',
+        'no-alert': 'off',
         quotes: [1, 'single', { avoidEscape: true }],
         indent: 'off',
     },
-
 };
