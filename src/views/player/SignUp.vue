@@ -120,11 +120,6 @@
                 </div>
             </div>
         </div>
-        <div>
-            <pre>{{ values }}</pre>
-            {{ formData }}
-            {{ errors }}
-        </div>
     </div>
 </template>
 
