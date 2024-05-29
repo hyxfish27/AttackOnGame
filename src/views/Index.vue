@@ -64,20 +64,19 @@
 import user from '@/stores/index';
 import PlayerAPI from '@/api/Player';
 import { onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import HelloWorld from '../components/HelloWorld.vue';
 
-const router = useRoute();
+const router = useRouter();
 const theUserData = user();
-console.log(theUserData.userData.email);
+console.log(theUserData.userData);
 
 const getPlayer = async (userId) => {
     await PlayerAPI.get(userId)
-        .then(() => {})
-        .catch((error) => {
-            // TODO 之後可以刪掉這兩行註解
-            const errorMessage = error.response.data.message;
-            alert(`取得玩家資料失敗: ${errorMessage}`);
+        .then((res) => {
+            console.log(res);
+        })
+        .catch(() => {
             router.push({
                 name: 'PlayerForm',
             });
@@ -86,9 +85,7 @@ const getPlayer = async (userId) => {
 onMounted(() => {
     const { isLogin } = theUserData;
     if (isLogin) {
-        const userId = theUserData.userData.email;
-        console.log(userId);
-
+        const userId = theUserData.userData._id;
         getPlayer(userId);
     }
 });
