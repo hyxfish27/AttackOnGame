@@ -16,8 +16,8 @@
             <div
                 class="col-3 header__nav d-flex justify-content-end align-items-center"
             >
-                <router-link to="/login">登入</router-link>
-                <router-link to="/register">註冊</router-link>
+                <router-link :to="{ name: 'Login' }">登入</router-link>
+                <router-link :to="{ name: 'SignUp' }">註冊</router-link>
             </div>
         </div>
     </header>

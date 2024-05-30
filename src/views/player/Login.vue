@@ -50,7 +50,6 @@
                             @click="goToForgetPasswordPage"
                             >忘記密碼
                         </span>
-
                     </div>
 
                     <div class="d-flex justify-content-center form-footer">
@@ -65,6 +64,7 @@
 </template>
 
 <script>
+import setUser from '@/stores/index';
 import { useRouter } from 'vue-router';
 import { defineComponent, ref } from 'vue';
 import * as yup from 'yup';
@@ -131,6 +131,8 @@ export default defineComponent({
                         // user,
                         token,
                     } = response.data.data;
+                    const setUserData = setUser();
+                    setUserData.setUser(response.data.data.user);
 
                     // const userViewObject = userAdapter.toViewObject(user);
 

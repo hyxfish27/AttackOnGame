@@ -5,38 +5,65 @@
                 <h2 class="text-center">我是店家</h2>
             </div>
             <div class="col-7">
-                <form>
+                <v-form v-slot="{ errors }">
                     <h1>填寫店家帳號資訊</h1>
                     <div class="mb-3">
                         <label for="InputEmail1" class="form-label"
                             >email</label
                         >
-                        <input
+                        <v-field
+                            id="InputEmail1"
                             type="email"
                             class="form-control"
-                            id="InputEmail1"
                             aria-describedby="emailHelp"
-                        />
+                            rules="email|required"
+                            name="email"
+                            :class="{ 'is-invalid': errors['email'] }"
+                        ></v-field>
+                        <error-message
+                            name="email"
+                            class="text-danger"
+                        ></error-message>
                     </div>
                     <div class="mb-3">
                         <label for="InputPassword1" class="form-label"
                             >密碼</label
                         >
-                        <input
+                        <v-field
+                            id="InputPassword1"
                             type="password"
                             class="form-control"
-                            id="InputPassword1"
-                        />
+                            placeholder="請輸入密碼"
+                            rules="required|min:8|regex:(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\da-zA-Z])"
+                            name="密碼"
+                            :class="{ 'is-invalid': errors['密碼'] }"
+                        ></v-field>
+                        <p>
+                            請具備 1 個數字， 1 個大寫英文， 1 個小寫英文， 1
+                            個特殊符號，且長度至少為 8 個字元
+                        </p>
+                        <error-message
+                            name="密碼"
+                            class="text-danger"
+                        ></error-message>
                     </div>
                     <div class="mb-3">
                         <label for="confirmInputPassword1" class="form-label"
                             >再次確認密碼</label
                         >
-                        <input
+                        <v-field
+                            id="confirmInputPassword1"
                             type="password"
                             class="form-control"
-                            id="confirmInputPassword1"
-                        />
+                            placeholder="請輸入密碼"
+                            rules="required|min:8|regex:(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\da-zA-Z])"
+                            name="確認密碼"
+                            :class="{ 'is-invalid': errors['確認密碼'] }"
+                        ></v-field>
+                        <error-message
+                            name="確認密碼"
+                            class="text-danger"
+                        ></error-message>
                     </div>
                     <button class="btn btn-primary me-2">
                         回上一步重選角色
@@ -47,7 +74,7 @@
                         class="btn btn-primary"
                         >註冊玩家帳號</RouterLink
                     >
-                </form>
+                </v-form>
             </div>
         </div>
     </div>
