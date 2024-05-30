@@ -13,7 +13,8 @@ const PlayerAPI = {
      */
     async create(data) {
         try {
-            const response = await Axios.post('', data);
+            const response = await Axios.post('/api/v1/user', data);
+            console.log(response);
             return response;
         } catch (error) {
             console.error(error);

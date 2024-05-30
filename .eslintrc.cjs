@@ -38,6 +38,7 @@ module.exports = {
     },
     plugins: ['vue'],
     rules: {
+        'no-underscore-dangle': 'off',
         'vue/multi-word-component-names': 'off',
         'import/no-extraneous-dependencies': [
             'error',
