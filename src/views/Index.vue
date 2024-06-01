@@ -8,9 +8,11 @@
         <br />
 
         <!-- Button trigger modal -->
+        <p class="text-new-primary fw-black noto-serif-tc">中文測試</p>
+        <button class="btn btn-neww">/eee</button>
         <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-primary manuale"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
         >
