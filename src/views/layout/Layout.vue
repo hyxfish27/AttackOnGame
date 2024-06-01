@@ -10,7 +10,11 @@
 </template>
 
 <script>
-import { onUpdated, computed, onMounted } from 'vue';
+import {
+    onUpdated,
+    computed,
+    // onMounted
+} from 'vue';
 import { useRouter } from 'vue-router';
 import MainHeader from '@/components/common/MainHeader.vue';
 import MainFooter from '@/components/common/MainFooter.vue';
@@ -37,8 +41,8 @@ export default {
 
         console.log('indexStore', indexStore);
 
-        const checkIsLogin = () => {
-            UserAPI.checkIsLogin()
+        const checkIsLogin = async () => {
+            await UserAPI.checkIsLogin()
                 .then((response) => {
                     console.log('isLogin', response);
                     indexStore.setIsLogin(response);
@@ -56,32 +60,34 @@ export default {
             router.push({ path: userRoute, params: { id } });
         };
 
-        onMounted(() => {
-            const currentUser = JSON.parse(
-                localStorage.getItem('attack-on-game-user')
-            );
-
-            console.log('currentUser', currentUser);
-
-            if (currentUser) {
-                indexStore.setUser(currentUser);
-            }
-
-            checkIsLogin();
-        });
-
         onUpdated(() => {
-            const currentUser = JSON.parse(
-                localStorage.getItem('attack-on-game-user')
-            );
-
-            console.log('currentUser', currentUser);
-
-            if (currentUser) {
-                indexStore.setUser(currentUser);
-            }
             checkIsLogin();
+
+            if (isLogin.value) {
+                console.log('onMounted isLogin', isLogin.value);
+                const currentUser = JSON.parse(
+                    localStorage.getItem('attack-on-game-user')
+                );
+
+                console.log('currentUser', currentUser);
+
+                if (currentUser) {
+                    console.log('onmounted currentUser', currentUser);
+                    if (currentUser.role === 'player') {
+                        const player = indexStore.getPlayer(currentUser.id);
+                        if (!player) {
+                            router.push({
+                                name: 'PlayerForm',
+                            });
+                        }
+                    } else if (currentUser.role === 'store') {
+                        indexStore.getStore(currentUser.id);
+                    }
+                }
+            }
         });
+
+        checkIsLogin();
 
         return {
             isLogin,

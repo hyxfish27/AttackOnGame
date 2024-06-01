@@ -150,7 +150,7 @@
 <script>
 import { defineComponent, ref, onMounted } from 'vue';
 import * as yup from 'yup';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate';
 import PlayerAPI from '@/api/Player';
 
@@ -168,6 +168,7 @@ export default defineComponent({
     },
     setup() {
         const route = useRoute();
+        const router = useRouter();
 
         const formData = ref({
             name: '',
@@ -185,6 +186,7 @@ export default defineComponent({
                 .catch((error) => {
                     const errorMessage = error.response.data.message;
                     alert(`取得玩家資料失敗: ${errorMessage}`);
+                    router.push({ name: 'Index' });
                 });
         };
 

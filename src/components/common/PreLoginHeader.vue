@@ -1,7 +1,7 @@
 <template>
     <header class="prelogin-header">
         <div class="row">
-            <router-link class="col-3 header__logo">
+            <router-link class="col-3 header__logo" to="/">
                 <h3>聚人</h3>
                 <h6>Attack On Game</h6>
             </router-link>
@@ -16,7 +16,7 @@
             <div
                 class="col-3 header__nav d-flex justify-content-end align-items-center"
             >
-                <router-link :to="{ name: 'Login' }">登入</router-link>
+                <router-link :to="{ name: 'Login' }">登入 | </router-link>
                 <router-link :to="{ name: 'SignUp' }">註冊</router-link>
             </div>
         </div>
