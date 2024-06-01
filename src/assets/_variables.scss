@@ -16,7 +16,7 @@ $gray-600: #6c757d !default;
 $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
-$black: #000 !default;
+$black: #180000 !default;
 // scss-docs-end gray-color-variables
 
 // fusv-disable
@@ -36,14 +36,13 @@ $grays: (
 
 // scss-docs-start color-variables
 $blue: #0d6efd !default;
-//$blue:    #fdd612 !default;
 $indigo: #6610f2 !default;
 $purple: #6f42c1 !default;
 $pink: #d63384 !default;
 $red: #dc3545 !default;
 $orange: #fd7e14 !default;
-$yellow: #ffc107 !default;
-$green: #198754 !default;
+$yellow: #FFDD33 !default; //#ffc107 !default;
+$green: #44CC00 !default; //#198754 !default;
 $teal: #20c997 !default;
 $cyan: #0dcaf0 !default;
 // scss-docs-end color-variables
@@ -68,7 +67,7 @@ $colors: (
 
 // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
 // See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
-$min-contrast-ratio: 4.5 !default;
+$min-contrast-ratio: 3 !default; //4.5 !default;
 
 // Customize the light and dark text colors for use in our color contrast function.
 $color-contrast-dark: $black !default;
@@ -287,7 +286,7 @@ $cyans: (
 // fusv-enable
 
 // scss-docs-start theme-color-variables
-$primary: $blue !default;
+$primary: #0088CC !default; //$blue !default;
 $secondary: $gray-600 !default;
 $success: $green !default;
 $info: $cyan !default;
@@ -295,6 +294,15 @@ $warning: $yellow !default;
 $danger: $red !default;
 $light: $gray-100 !default;
 $dark: $gray-900 !default;
+$yellow-light: #FFF6CC !default;
+$blue-light: #66CCFF !default;
+$grey1D: #1D1D1D !default;
+$grey33: #333333 !default;
+$grey66: #666666 !default;
+$grey9F: #9F9F9F !default;
+$greyD4: #D4D4D4 !default;
+$greyE9: #E9E9E9 !default;
+$greyF7: #F7F7F7 !default;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
@@ -306,7 +314,17 @@ $theme-colors: (
   "warning": $warning,
   "danger": $danger,
   "light": $light,
-  "dark": $dark) !default;
+  "dark": $dark,
+  "yellow-light":$yellow-light,
+  "blue-light":$blue-light,
+  "grey1D":$grey1D,
+  "grey33":$grey33,
+  "grey66":$grey66,
+  "grey9F":$grey9F,
+  "greyD4":$greyD4,
+  "greyE9":$greyE9,
+  "greyF7":$greyF7,
+  ) !default;
 // scss-docs-end theme-colors-map
 
 // scss-docs-start theme-text-variables
@@ -633,12 +651,17 @@ $line-height-base: 1.5 !default;
 $line-height-sm: 1.25 !default;
 $line-height-lg: 2 !default;
 
-$h1-font-size: $font-size-base * 2.5 !default;
-$h2-font-size: $font-size-base * 2 !default;
-$h3-font-size: $font-size-base * 1.75 !default;
-$h4-font-size: $font-size-base * 1.5 !default;
-$h5-font-size: $font-size-base * 1.25 !default;
-$h6-font-size: $font-size-base !default;
+$h1-font-size: 5rem !default; //80px //$font-size-base * 2.5 !default;
+$h2-font-size: 4rem !default; //64px //$font-size-base * 2 !default;
+$h3-font-size: 3rem !default; //48px //$font-size-base * 1.75 !default;
+$h4-font-size: 2rem !default; //32px //$font-size-base * 1.5 !default;
+$h5-font-size: 1.750rem !default; //28px //$font-size-base * 1.25 !default;
+$h6-font-size: 1.5rem !default; //24px //$font-size-base !default;
+$h7-font-size: 1.250rem !default; //20px
+$h8-font-size: 1.125rem !default; //18px
+$h9-font-size: $font-size-base !default; //16px
+$h10-font-size: 0.875rem !default; //14px
+$h11-font-size: 0.750rem !default; //12px
 // scss-docs-end font-variables
 
 // scss-docs-start font-sizes
@@ -648,7 +671,13 @@ $font-sizes: (
   3: $h3-font-size,
   4: $h4-font-size,
   5: $h5-font-size,
-  6: $h6-font-size) !default;
+  6: $h6-font-size,
+  7: $h7-font-size,
+  8: $h8-font-size,
+  9: $h9-font-size,
+  10: $h10-font-size,
+  11: $h11-font-size,
+  ) !default;
 // scss-docs-end font-sizes
 
 // scss-docs-start headings-variables
