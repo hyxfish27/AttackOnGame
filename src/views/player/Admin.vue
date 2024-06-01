@@ -23,7 +23,9 @@
                 </h3>
 
                 <v-form v-slot="{ errors }" @submit="onSubmit">
-                    <div class="mb-3">
+                    <!-- email 暫時不顯示 -->
+
+                    <!-- <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <v-field
                             id="email"
@@ -31,15 +33,16 @@
                             type="email"
                             class="form-control"
                             name="email"
-                            :class="{ 'is-invalid': errors['phone'] }"
+                            :class="{ 'is-invalid': errors['email'] }"
                             rules="required|email"
-                            disabled
+                            :disabled="!canEdit"
                         ></v-field>
                         <error-message
                             name="email"
                             class="text-danger"
                         ></error-message>
                     </div>
+                    -->
 
                     <div class="mb-3">
                         <label for="name" class="form-label">姓名</label>
@@ -67,7 +70,7 @@
                             type="text"
                             class="form-control"
                             name="phone"
-                            rules="required|number|min:10|max:10"
+                            rules="required|min:10|max:10"
                             :class="{ 'is-invalid': errors['phone'] }"
                             :disabled="!canEdit"
                         ></v-field>
@@ -138,7 +141,7 @@
                         >
                             儲存
                         </button>
-                        
+
                         <button class="btn btn-primary">修改密碼</button>
                     </div>
                 </v-form>
@@ -148,16 +151,17 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref, onMounted, computed } from 'vue';
 import * as yup from 'yup';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate';
 import PlayerAPI from '@/api/Player';
+import useIndexStore from '@/stores/index';
 
 const playerSchema = yup.object({
     name: yup.string().required('姓名為必填欄位'),
     email: yup.string().required().email(),
-    phone: yup.number().required().min(10).max(10),
+    phone: yup.string().required().min(10).max(10),
 });
 
 export default defineComponent({
@@ -168,30 +172,39 @@ export default defineComponent({
     },
     setup() {
         const route = useRoute();
+        const router = useRouter();
+        const indexStore = useIndexStore();
 
         const formData = ref({
             name: '',
-            email: '',
+            email: 'dxdddddd',
             phone: '',
             preferGame: [],
             avatar: null,
         });
 
+        const playerData = computed(() => indexStore.playerData);
+
         const getPlayer = async (userId) => {
             await PlayerAPI.get(userId)
                 .then((response) => {
-                    [formData.value] = response.data;
+                    // const playerData = ;
+                    formData.value = response.data.data;
                 })
                 .catch((error) => {
                     const errorMessage = error.response.data.message;
                     alert(`取得玩家資料失敗: ${errorMessage}`);
+                    router.push({ name: 'Index' });
                 });
         };
 
         const canEdit = ref(false);
 
         const onSubmit = async (playerInfo) => {
-            await PlayerAPI.update(playerInfo)
+            await PlayerAPI.update({
+                userId: playerData.value.user,
+                ...playerInfo,
+            })
                 .then(() => alert('更新成功'))
                 .catch((error) => alert(`更新失敗: ${error}`));
         };
@@ -206,6 +219,7 @@ export default defineComponent({
         };
 
         onMounted(() => {
+            // formData.value = playerData.value;
             const userId = route.params.id;
             getPlayer(userId);
         });
@@ -250,7 +264,7 @@ export default defineComponent({
             align-items: center;
             justify-content: center;
             width: 120px;
-            height: 48px;
+            height: 38px;
             border: 1px solid black;
         }
     }
