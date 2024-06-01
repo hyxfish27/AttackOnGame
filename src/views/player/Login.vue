@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import setUser from '@/stores/index';
+// import setUser from '@/stores/index';
 import { useRouter } from 'vue-router';
 import { defineComponent, ref } from 'vue';
 import * as yup from 'yup';
@@ -74,7 +74,7 @@ import {
     Field as VField,
     Form as VForm,
 } from 'vee-validate';
-// import userAdapter from '@/adapter/user';
+import userAdapter from '@/adapter/user';
 import UserAPI from '@/api/User';
 import cookie from '@/utilities/cookie/cookie';
 
@@ -126,28 +126,23 @@ export default defineComponent({
                 password: formData.value.password,
             })
                 .then((response) => {
-                    console.log(response);
-                    const {
-                        // user,
-                        token,
-                    } = response.data.data;
-                    const setUserData = setUser();
-                    setUserData.setUser(response.data.data.user);
+                    console.log('login', response);
+                    const { user, token } = response.data.data;
+                    // const setUserData = setUser();
 
-                    // const userViewObject = userAdapter.toViewObject(user);
+                    const userViewObject = userAdapter.toViewObject(user);
+
+                    // setUserData.setUser(userViewObject);
+
+                    // 短解，之後使用 pinia 來管理
+                    localStorage.setItem(
+                        'attack-on-game-user',
+                        JSON.stringify(userViewObject)
+                    );
 
                     cookie.set({ name: 'AttackOnGameJWT', value: token });
 
-                    router.push({
-                        name: 'Index',
-                        // params: { id: userViewObject.id },
-                    });
-
-                    // TODO: 先導向首頁，之後再改成導向玩家頁面
-                    // router.push({
-                    //     name: 'PlayerAdmin',
-                    //     params: { id: userViewObject.id },
-                    // });
+                    router.push({ name: 'Index' });
                 })
                 .catch((error) => {
                     console.log(error);
