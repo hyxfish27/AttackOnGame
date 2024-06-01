@@ -33,7 +33,7 @@ app.component('VForm', Form);
 app.component('VField', Field);
 app.component('ErrorMessage', ErrorMessage);
 
-app.use(createPinia());
 app.use(router);
+app.use(createPinia());
 
 app.mount('#app');
