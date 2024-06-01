@@ -74,12 +74,7 @@ export default {
                 if (currentUser) {
                     console.log('onmounted currentUser', currentUser);
                     if (currentUser.role === 'player') {
-                        const player = indexStore.getPlayer(currentUser.id);
-                        if (!player) {
-                            router.push({
-                                name: 'PlayerForm',
-                            });
-                        }
+                        indexStore.getPlayer(currentUser.id, router);
                     } else if (currentUser.role === 'store') {
                         indexStore.getStore(currentUser.id);
                     }
