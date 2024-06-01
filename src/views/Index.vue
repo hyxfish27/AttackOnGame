@@ -8,8 +8,9 @@
         <br />
 
         <!-- Button trigger modal -->
-        <p class="text-new-primary fw-black noto-serif-tc">中文測試</p>
-        <button class="btn btn-neww">/eee</button>
+        <p class="fw-black noto-serif-tc fs-1">中文測試</p>
+        <p class="text-grey66 fw-black noto-serif-tc fs-3">中文測試</p>
+        <p class="text-grey66 fw-black noto-serif-tc fs-5">中文測試</p>
         <button
             type="button"
             class="btn btn-primary manuale"
