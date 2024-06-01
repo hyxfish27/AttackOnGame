@@ -138,7 +138,7 @@
                         >
                             儲存
                         </button>
-                        
+
                         <button class="btn btn-primary">修改密碼</button>
                     </div>
                 </v-form>
@@ -250,7 +250,7 @@ export default defineComponent({
             align-items: center;
             justify-content: center;
             width: 120px;
-            height: 48px;
+            height: 38px;
             border: 1px solid black;
         }
     }

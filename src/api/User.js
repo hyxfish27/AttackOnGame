@@ -66,6 +66,8 @@ const UserAPI = {
     async logout() {
         try {
             await cookie.delete('AttackOnGameJWT');
+            localStorage.removeItem('attack-on-game-user');
+            window.location.reload();
         } catch (error) {
             console.error(error);
             throw error;
