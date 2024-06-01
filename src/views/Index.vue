@@ -69,12 +69,11 @@ import HelloWorld from '../components/HelloWorld.vue';
 
 const router = useRouter();
 const theUserData = user();
-console.log(theUserData.userData);
 
 const getPlayer = async (userId) => {
     await PlayerAPI.get(userId)
         .then((res) => {
-            console.log(res);
+            console.log('the ressss', res);
         })
         .catch(() => {
             router.push({
@@ -84,6 +83,7 @@ const getPlayer = async (userId) => {
 };
 onMounted(() => {
     const { isLogin } = theUserData;
+    console.log('9999999', theUserData.userData);
     if (isLogin) {
         const userId = theUserData.userData._id;
         getPlayer(userId);
