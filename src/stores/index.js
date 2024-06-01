@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import PlayerAPI from '@/api/Player';
+import playerAdapter from '@/adapter/player';
 // import { useRouter } from 'vue-router';
 
 // const router = useRouter();
@@ -9,6 +10,9 @@ export default defineStore('index', {
     state: () => ({
         isLogin: false,
         userData: {},
+
+        // TODO: 先用 playerData 來接，之後重新整理資料
+        playerData: [],
     }),
     actions: {
         setIsLogin(value) {
@@ -17,16 +21,20 @@ export default defineStore('index', {
         setUser(data) {
             this.userData = data;
         },
+        setPlayer(data) {
+            this.playerData = data;
+        },
         async getPlayer(userId, router) {
             await PlayerAPI.get(userId)
                 .then((res) => {
-                    console.log('res', res);
-                    this.userData = res.data;
+                    const playerViewObject = playerAdapter.toViewObject(
+                        res.data.data
+                    );
+                    this.setPlayer(playerViewObject);
                 })
                 .catch((err) => {
                     console.error(err);
                     alert('取得使用者資料失敗，將轉導至資料編輯頁');
-                    // console.log('router', router);
                     router.push({ name: 'PlayerForm' });
                 });
         },

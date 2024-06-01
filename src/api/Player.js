@@ -54,6 +54,7 @@ const PlayerAPI = {
                 preferGame,
                 avatar,
             });
+
             return response;
         } catch (error) {
             console.error(error);

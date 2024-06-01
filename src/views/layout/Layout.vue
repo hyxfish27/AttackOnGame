@@ -37,7 +37,8 @@ export default {
         const indexStore = useIndexStore();
 
         const isLogin = computed(() => indexStore.isLogin);
-        const userData = computed(() => indexStore.userData);
+        // const userData = computed(() => indexStore.userData);
+        const playerData = computed(() => indexStore.playerData);
 
         console.log('indexStore', indexStore);
 
@@ -53,11 +54,12 @@ export default {
         };
 
         const toUserAdminPage = () => {
-            const { role, id } = userData;
+            console.log('toUserAdminPage', playerData.value);
+            const { role, user } = playerData.value;
 
-            const userRoute = `/${role}/admin`;
+            const playerAdminRoute = `/${role}/admin/${user}`;
 
-            router.push({ path: userRoute, params: { id } });
+            router.push({ path: playerAdminRoute });
         };
 
         onUpdated(() => {
