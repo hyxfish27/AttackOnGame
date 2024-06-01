@@ -40,12 +40,9 @@ export default {
         // const userData = computed(() => indexStore.userData);
         const playerData = computed(() => indexStore.playerData);
 
-        console.log('indexStore', indexStore);
-
         const checkIsLogin = async () => {
             await UserAPI.checkIsLogin()
                 .then((response) => {
-                    console.log('isLogin', response);
                     indexStore.setIsLogin(response);
                 })
                 .catch((error) => {
@@ -54,7 +51,6 @@ export default {
         };
 
         const toUserAdminPage = () => {
-            console.log('toUserAdminPage', playerData.value);
             const { role, user } = playerData.value;
 
             const playerAdminRoute = `/${role}/admin/${user}`;
@@ -66,15 +62,11 @@ export default {
             checkIsLogin();
 
             if (isLogin.value) {
-                console.log('onMounted isLogin', isLogin.value);
                 const currentUser = JSON.parse(
                     localStorage.getItem('attack-on-game-user')
                 );
 
-                console.log('currentUser', currentUser);
-
                 if (currentUser) {
-                    console.log('onmounted currentUser', currentUser);
                     if (currentUser.role === 'player') {
                         indexStore.getPlayer(currentUser.id, router);
                     } else if (currentUser.role === 'store') {
