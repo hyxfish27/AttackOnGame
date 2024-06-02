@@ -7,7 +7,7 @@
 
             <div class="col-7">
                 <h1>填寫玩家資訊</h1>
-                <v-form v-slot="{ errors }">
+                <v-form v-slot="{ errors }" @submit="onSubmit">
                     <div class="mb-3">
                         <label for="InputEmail1" class="form-label"
                             >email</label
@@ -36,13 +36,13 @@
                             v-model="formData.password"
                             type="password"
                             class="form-control"
-                            rules="required|min:8|regex:(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\da-zA-Z])"
+                            rules="required|min:8|regex:(?=.*[A-Za-z])(?=.*\d)"
                             name="密碼"
                             :class="{ 'is-invalid': errors['密碼'] }"
                         ></v-field>
                         <p>
-                            請具備 1 個數字， 1 個大寫英文， 1 個小寫英文， 1
-                            個特殊符號，且長度至少為 8 個字元
+                            密碼須包含 1 個英文， 1 個數字，且長度至少為 8
+                            個字元
                         </p>
                         <error-message
                             name="密碼"
@@ -67,23 +67,21 @@
                             class="text-danger"
                         ></error-message>
                     </div>
+                    <RouterLink
+                        class="btn btn-primary me-2"
+                        :to="{ name: 'SignUp' }"
+                        >回上一步重選角色</RouterLink
+                    >
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#signupModal"
+                    >
+                        完成註冊 {{ errors.length }}
+                    </button>
                 </v-form>
-                <RouterLink
-                    class="btn btn-primary me-2"
-                    :to="{ name: 'SignUp' }"
-                    >回上一步重選角色</RouterLink
-                >
-                <!-- <RouterLink class="btn btn-primary" :to="{ name: 'PlayerForm' }" :click="onSubmitSuccess">完成註冊
-                </RouterLink> -->
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#signupModal"
-                    @click="onSubmitSuccess"
-                >
-                    完成註冊
-                </button>
+
                 <div
                     id="signupModal"
                     class="modal fade"
@@ -132,11 +130,9 @@ const formData = ref({
     email: '',
     password: '',
 });
-const signupResult = ref('請填寫註冊資料');
+const defaultError = '請填寫正確的註冊資料';
+const signupResult = ref(defaultError);
 const onSubmitSuccess = async () => {
-    if (formData.value.eamil === '' || formData.value.password === '') {
-        return;
-    }
     await UserAPI.signUp({
         email: formData.value.email,
         password: formData.value.password,
@@ -152,10 +148,14 @@ const onSubmitSuccess = async () => {
             }
         });
 };
+const onSubmit = onSubmitSuccess;
 const router = useRouter();
 const goPage = () => {
+    if (signupResult.value === defaultError) return;
     if (signupResult.value === '註冊成功') {
         router.push('/player/login');
+    } else {
+        signupResult.value = defaultError;
     }
 };
 </script>
