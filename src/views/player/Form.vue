@@ -30,7 +30,7 @@
                         <v-field
                             id="playerPhone"
                             v-model="userForm.phone"
-                            type="number"
+                            type="text"
                             class="form-control"
                             aria-describedby="playerPhone"
                             name="手機"
@@ -96,23 +96,35 @@
 // Creates a form context
 // This component now acts as a form
 // Usually you will destruct the form context to get what you need
-import user from '@/stores/index';
+// import user from '@/stores/index';
 import PlayerAPI from '@/api/Player';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-const theUserData = user();
+const router = useRouter();
 const userForm = ref({
-    email: theUserData.userData.email,
     name: '',
     phone: '',
     avatar: 'https://example.com/avatar.jpg',
     preferGame: [],
 });
 // const theUserData = user();
-const postUserForm = async (userId) => {
-    await PlayerAPI.create(userId)
+
+const postUserForm = async (userFormData) => {
+    if (
+        userForm.value.name === '' ||
+        userForm.value.phone === '' ||
+        userForm.value.preferGame.length === 0
+    ) {
+        alert('有欄位未填寫');
+        return;
+    }
+    await PlayerAPI.create(userFormData)
         .then((res) => {
             console.log(res);
+            router.push({
+                name: 'Index',
+            });
         })
         .catch((err) => {
             console.log(err);
