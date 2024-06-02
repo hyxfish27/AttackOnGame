@@ -88,9 +88,9 @@ import HelloWorld from '../components/HelloWorld.vue';
 // onMounted(() => {
 //     const { isLogin } = theUserData;
 //     if (isLogin) {
-// const userId = theUserData.userData._id;
-// getPlayer(userId);
-// }
+//         const userId = theUserData.userData._id;
+//         getPlayer(userId);
+//     }
 // });
 </script>
 
