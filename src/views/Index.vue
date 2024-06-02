@@ -8,9 +8,12 @@
         <br />
 
         <!-- Button trigger modal -->
+        <p class="fw-black noto-serif-tc fs-1">中文測試</p>
+        <p class="text-grey66 fw-black noto-serif-tc fs-3">中文測試</p>
+        <p class="text-grey66 fw-black noto-serif-tc fs-5">中文測試</p>
         <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-primary manuale"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
         >
