@@ -7,7 +7,7 @@
 
             <div class="col-7">
                 <h1>填寫玩家資訊</h1>
-                <v-form v-slot="{ errors }">
+                <v-form v-slot="{ errors }" @submit="onSubmit">
                     <div class="mb-3">
                         <label for="InputEmail1" class="form-label"
                             >email</label
@@ -67,23 +67,21 @@
                             class="text-danger"
                         ></error-message>
                     </div>
+                    <RouterLink
+                        class="btn btn-primary me-2"
+                        :to="{ name: 'SignUp' }"
+                        >回上一步重選角色</RouterLink
+                    >
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#signupModal"
+                    >
+                        完成註冊
+                    </button>
                 </v-form>
-                <RouterLink
-                    class="btn btn-primary me-2"
-                    :to="{ name: 'SignUp' }"
-                    >回上一步重選角色</RouterLink
-                >
-                <!-- <RouterLink class="btn btn-primary" :to="{ name: 'PlayerForm' }" :click="onSubmitSuccess">完成註冊
-                </RouterLink> -->
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#signupModal"
-                    @click="onSubmitSuccess"
-                >
-                    完成註冊
-                </button>
+
                 <div
                     id="signupModal"
                     class="modal fade"
@@ -132,7 +130,7 @@ const formData = ref({
     email: '',
     password: '',
 });
-const signupResult = ref('請填寫註冊資料');
+const signupResult = ref('請填寫正確的註冊資料');
 const onSubmitSuccess = async () => {
     if (formData.value.eamil === '' || formData.value.password === '') {
         return;
@@ -152,6 +150,7 @@ const onSubmitSuccess = async () => {
             }
         });
 };
+const onSubmit = onSubmitSuccess;
 const router = useRouter();
 const goPage = () => {
     if (signupResult.value === '註冊成功') {
