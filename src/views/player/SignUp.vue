@@ -36,13 +36,13 @@
                             v-model="formData.password"
                             type="password"
                             class="form-control"
-                            rules="required|min:8|regex:(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\da-zA-Z])"
+                            rules="required|min:8|regex:(?=.*[A-Za-z])(?=.*\d)"
                             name="密碼"
                             :class="{ 'is-invalid': errors['密碼'] }"
                         ></v-field>
                         <p>
-                            請具備 1 個數字， 1 個大寫英文， 1 個小寫英文， 1
-                            個特殊符號，且長度至少為 8 個字元
+                            密碼須包含 1 個英文， 1 個數字，且長度至少為 8
+                            個字元
                         </p>
                         <error-message
                             name="密碼"
@@ -78,7 +78,7 @@
                         data-bs-toggle="modal"
                         data-bs-target="#signupModal"
                     >
-                        完成註冊
+                        完成註冊 {{ errors.length }}
                     </button>
                 </v-form>
 
@@ -130,11 +130,9 @@ const formData = ref({
     email: '',
     password: '',
 });
-const signupResult = ref('請填寫正確的註冊資料');
+const defaultError = '請填寫正確的註冊資料';
+const signupResult = ref(defaultError);
 const onSubmitSuccess = async () => {
-    if (formData.value.eamil === '' || formData.value.password === '') {
-        return;
-    }
     await UserAPI.signUp({
         email: formData.value.email,
         password: formData.value.password,
@@ -153,8 +151,11 @@ const onSubmitSuccess = async () => {
 const onSubmit = onSubmitSuccess;
 const router = useRouter();
 const goPage = () => {
+    if (signupResult.value === defaultError) return;
     if (signupResult.value === '註冊成功') {
         router.push('/player/login');
+    } else {
+        signupResult.value = defaultError;
     }
 };
 </script>
