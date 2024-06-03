@@ -81,24 +81,23 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="preferGames" class="form-label">
-                            喜歡的桌遊
-                        </label>
+                        <p>喜歡的桌遊</p>
                         <div
                             v-for="preferGameType in preferGameTypes"
                             :key="preferGameType"
                         >
-                            <label>
+                            <label for="preferGame" class="form-label">
                                 <v-field
                                     v-model="formData.preferGame"
                                     type="checkbox"
-                                    name="preferGames"
+                                    name="preferGame"
                                     class="mr-2"
                                     :checked="
-                                        preferGameType.includes(
-                                            formData.preferGame
+                                        formData.preferGame.includes(
+                                            preferGameType
                                         )
                                     "
+                                    :value="preferGameType"
                                     :disabled="!canEdit"
                                 ></v-field
                                 >{{ preferGameType }}
@@ -177,7 +176,7 @@ export default defineComponent({
 
         const formData = ref({
             name: '',
-            email: 'dxdddddd',
+            email: '',
             phone: '',
             preferGame: [],
             avatar: null,
@@ -188,7 +187,6 @@ export default defineComponent({
         const getPlayer = async (userId) => {
             await PlayerAPI.get(userId)
                 .then((response) => {
-                    // const playerData = ;
                     formData.value = response.data.data;
                 })
                 .catch((error) => {
@@ -219,7 +217,6 @@ export default defineComponent({
         };
 
         onMounted(() => {
-            // formData.value = playerData.value;
             const userId = route.params.id;
             getPlayer(userId);
         });
@@ -235,14 +232,7 @@ export default defineComponent({
     },
     data() {
         return {
-            preferGameTypes: [
-                '策略遊戲',
-                '卡牌遊戲',
-                '陣營遊戲',
-                '角色扮演 (RPG)',
-                '益智遊戲',
-                '解謎遊戲',
-            ],
+            preferGameTypes: ['策略遊戲', '派對遊戲', '角色扮演遊戲(RPG)'],
         };
     },
 });
