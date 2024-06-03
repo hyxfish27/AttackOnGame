@@ -232,7 +232,7 @@ export default defineComponent({
     },
     data() {
         return {
-            preferGameTypes: ['策略遊戲', '派對遊戲', '角色扮演(RPG)'],
+            preferGameTypes: ['策略遊戲', '派對遊戲', '角色扮演遊戲(RPG)'],
         };
     },
 });
