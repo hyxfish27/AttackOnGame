@@ -199,7 +199,6 @@ export default defineComponent({
         const canEdit = ref(false);
 
         const onSubmit = async (playerInfo) => {
-            console.log('playerInfo', playerInfo);
             await PlayerAPI.update({
                 userId: playerData.value.user,
                 ...playerInfo,
