@@ -62,26 +62,35 @@
 <script setup>
 import modal from '@/components/common/simpleModal.vue';
 import UserAPI from '@/api/User';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
+const role = ref(null);
 const BsModal = ref(null);
 
 const formData = ref({
     email: '',
     password: '',
 });
+
 const defaultError = '請填寫正確的註冊資料';
 const signupResult = ref(defaultError);
+
+const router = useRouter();
+const route = useRoute();
 const onSubmitSuccess = async () => {
     await UserAPI.signUp({
         email: formData.value.email,
         password: formData.value.password,
-        role: 'player',
+        role: role.value,
     })
         .then(() => {
             signupResult.value = '註冊成功';
             BsModal.value.myModalShow();
+            setTimeout(() => {
+                BsModal.value.myModalHide();
+                router.push(`/${role.value}/login`);
+            }, 2000);
         })
         .catch((error) => {
             if (error.request.status === 409) {
@@ -91,17 +100,21 @@ const onSubmitSuccess = async () => {
         });
 };
 const onSubmit = onSubmitSuccess;
-const router = useRouter();
-
 const goPage = () => {
     if (signupResult.value === defaultError) {
         BsModal.value.myModalShow();
         return;
     }
-    if (signupResult.value === '註冊成功') {
-        router.push('/player/login');
-    } else {
+    if (signupResult.value !== '註冊成功') {
         signupResult.value = defaultError;
     }
 };
+
+onMounted(() => {
+    if (route.path.includes('player')) {
+        role.value = 'player';
+    } else {
+        role.value = 'store';
+    }
+});
 </script>
