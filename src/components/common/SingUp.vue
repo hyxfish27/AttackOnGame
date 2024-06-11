@@ -50,57 +50,22 @@
             <RouterLink class="btn btn-primary me-2" :to="{ name: 'SignUp' }"
                 >回上一步重選角色</RouterLink
             >
-            <button
-                type="submit"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#signupModal"
-            >
-                完成註冊 {{ errors.length }}
+            <button type="submit" class="btn btn-primary" @click="goPage()">
+                完成註冊
             </button>
         </v-form>
 
-        <div
-            id="signupModal"
-            class="modal fade"
-            tabindex="-1"
-            aria-labelledby="signupModalLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 id="signupModalLabel" class="modal-title">
-                            註冊結果
-                        </h5>
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">{{ signupResult }}</div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                            @click="goPage"
-                        >
-                            關閉
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <modal ref="BsModal" title="註冊結果" :text="signupResult"></modal>
     </div>
 </template>
 
 <script setup>
+import modal from '@/components/common/simpleModal.vue';
 import UserAPI from '@/api/User';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+const BsModal = ref(null);
 
 const formData = ref({
     email: '',
@@ -114,20 +79,25 @@ const onSubmitSuccess = async () => {
         password: formData.value.password,
         role: 'player',
     })
-        .then((res) => {
-            console.log(res);
+        .then(() => {
             signupResult.value = '註冊成功';
+            BsModal.value.myModalShow();
         })
         .catch((error) => {
             if (error.request.status === 409) {
                 signupResult.value = '已有人註冊過，請更換 email';
+                BsModal.value.myModalShow();
             }
         });
 };
 const onSubmit = onSubmitSuccess;
 const router = useRouter();
+
 const goPage = () => {
-    if (signupResult.value === defaultError) return;
+    if (signupResult.value === defaultError) {
+        BsModal.value.myModalShow();
+        return;
+    }
     if (signupResult.value === '註冊成功') {
         router.push('/player/login');
     } else {
