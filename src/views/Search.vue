@@ -140,17 +140,20 @@
                         class="position-relative"
                     >
                         <div
-                            class="position-absolute inset-0 d-flex justify-content-center align-items-center flex-column px-4 pb-4 noto-serif-tc gap-2"
+                            class="position-absolute inset-0 d-flex justify-content-center align-items-center flex-column px-4 pb-4 noto-serif-tc gap-2 w-100"
                         >
                             <img
                                 width="50%"
-                                height="23%"
+                                height="22.7%"
                                 class="rounded-circle object-fit-cover mb-2 border"
-                                src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                :src="store.avatar"
                                 :alt="store.name"
                             />
 
-                            <p class="fw-bold fs-8">
+                            <p
+                                class="fw-bold fs-8"
+                                style="height: 27px; overflow: hidden"
+                            >
                                 {{ store.name }}
                             </p>
                             <p class="fs-10 text-grey66">{{ store.address }}</p>
@@ -217,5 +220,14 @@ onMounted(() => {
 <style>
 .card-title-h {
     height: 54px;
+}
+
+.line-clamp {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
 </style>
