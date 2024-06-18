@@ -13,6 +13,11 @@ const routes = [
                 children: [],
             },
             {
+                path: 'search',
+                name: 'Search',
+                component: () => import('@/views/Search.vue'),
+            },
+            {
                 path: '/signup',
                 name: 'SignUp',
                 component: () => import('@/views/signup/SignUp.vue'),

@@ -1,60 +1,101 @@
 <template>
-    <div class="home">
-        <h1 class="text-success">Hello, This is Index Page.</h1>
-        <RouterLink to="/">Index</RouterLink> |
-        <hr />
-        <HelloWorld />
-
-        <br />
-
-        <!-- Button trigger modal -->
-        <p class="fw-black noto-serif-tc fs-1">中文測試</p>
-        <p class="text-grey66 fw-black noto-serif-tc fs-3">中文測試</p>
-        <p class="text-grey66 fw-black noto-serif-tc fs-5">中文測試</p>
-        <button
-            type="button"
-            class="btn btn-primary manuale"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-        >
-            Launch demo modal
-        </button>
-
-        <!-- Modal -->
+    <div>
         <div
-            id="exampleModal"
-            class="modal fade"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
+            class="d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
+            :style="{
+                backgroundImage: 'url(' + bennerBg + ')',
+            }"
         >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 id="exampleModalLabel" class="modal-title fs-5">
-                            Modal title
-                        </h1>
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing
-                        elit. Adipisci, consequatur.
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div
+                            class="d-flex justify-content-center align-items-center py-3"
                         >
-                            Close
-                        </button>
-                        <button type="button" class="btn btn-primary">
-                            Save changes
+                            <img
+                                class="w-90"
+                                :src="bennerImg"
+                                alt="Banner圖片 聚局的聚人"
+                            />
+                            <button
+                                type="button"
+                                class="btn btn-dark d-flex justify-content-center flex-column align-items-center bg-black position-absolute border-white border border-2 rounded-circle gap-1 pt-2 shadow-sm mt-15 banner-btn"
+                            >
+                                <p class="fw-semibold text-warning">SCROLL</p>
+                                <svg
+                                    style="width: 24px"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <title>arrow-down</title>
+                                    <path
+                                        fill="#FFDD33"
+                                        d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div
+                class="row"
+                :style="{ backgroundImage: 'url(' + logoWatermark + ')' }"
+                style="
+                    background-position: center 50px;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                "
+            >
+                <div class="col">
+                    <div
+                        class="py-10 text-center fs-4 noto-serif-tc fw-bold lh-lg"
+                    >
+                        <p>不論你要找什麼樣的桌遊團？</p>
+                        <p>這裡都有你的容身之處</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-warning">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div
+                            style="margin-top: -80px"
+                            :style="{
+                                backgroundImage: 'url(' + ctaMessageBg + ')',
+                            }"
+                            class="p-3"
+                        >
+                            <img class="w-100" :src="ctaMessageImg" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-3">
+                    <div
+                        class="col p-4 d-flex justify-content-center align-items-center flex-column gap-4"
+                    >
+                        <img class="w-70" :src="ctaTextImg" alt="" />
+                        <button
+                            type="button"
+                            class="find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
+                        >
+                            <p class="pe-2">沙沙給油！找出屬於你的桌遊兵團！</p>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="32"
+                            >
+                                <title>chevron-right</title>
+                                <path
+                                    fill="#ffff"
+                                    d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                                />
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -64,11 +105,17 @@
 </template>
 
 <script setup>
+import bennerBg from '@/assets/images/index_banner_bg_pc.png';
+import bennerImg from '@/assets/images/index_banner_img.png';
+import logoWatermark from '@/assets/images/index_logo_watermark.jpeg';
+import ctaMessageBg from '@/assets/images/index_cta_message_bg.jpeg';
+import ctaMessageImg from '@/assets/images/index_cta_message_image_pc.png';
+import ctaTextImg from '@/assets/images/index_cta_text_img.svg';
 // import user from '@/stores/index';
 // import PlayerAPI from '@/api/Player';
 // import { onMounted } from 'vue';
 // import { useRouter } from 'vue-router';
-import HelloWorld from '../components/HelloWorld.vue';
+// import HelloWorld from '../components/HelloWorld.vue';
 
 // const router = useRouter();
 // const theUserData = user();
@@ -94,4 +141,25 @@ import HelloWorld from '../components/HelloWorld.vue';
 // });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.banner-bg-style {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: calc(100vh - 114px);
+}
+
+.banner-btn {
+    width: 100px;
+    height: 100px;
+    margin-left: 36px;
+}
+
+.banner-btn:hover {
+    background-color: #333333 !important;
+}
+
+.find-btn {
+    box-shadow: 12px 12px 0px 0px #333333;
+}
+</style>
