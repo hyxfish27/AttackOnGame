@@ -34,10 +34,64 @@ const routes = [
                 component: () => import('@/views/player/Player.vue'),
                 children: [
                     {
-                        path: 'admin/:id',
+                        path: 'admin',
                         name: 'PlayerAdmin',
-                        component: () => import('@/views/player/Admin.vue'),
+                        component: () =>
+                            import('@/views/player/Admin/Admin.vue'),
+                        children: [
+                            {
+                                path: '',
+                                component: () => import('@/views/Index.vue'),
+                            },
+                            {
+                                path: 'checkout',
+                                name: 'Checkout',
+                                component: () =>
+                                    import('@/views/player/Admin/Checkout.vue'),
+                            },
+                            {
+                                path: 'checkout/fail',
+                                name: 'CheckoutFail',
+                                component: () =>
+                                    import(
+                                        '@/views/player/Admin/CheckoutFail.vue'
+                                    ),
+                            },
+                            {
+                                path: 'checkout/success',
+                                name: 'CheckoutSuccess',
+                                component: () =>
+                                    import(
+                                        '@/views/player/Admin/CheckoutSuccess.vue'
+                                    ),
+                            },
+                            {
+                                path: 'activity',
+                                name: 'PlayerActivity',
+                                component: () =>
+                                    import('@/views/player/Admin/Activity.vue'),
+                            },
+                            {
+                                path: 'ticket',
+                                name: 'PlayerTicket',
+                                component: () =>
+                                    import('@/views/player/Admin/Ticket.vue'),
+                            },
+                            {
+                                path: ':id',
+                                name: 'PlayerAdminId',
+                                component: () =>
+                                    import(
+                                        '@/views/player/Admin/PlayerAdmin.vue'
+                                    ),
+                            },
+                        ],
                     },
+                    {
+                        path: '',
+                        component: () => import('@/views/Index.vue'),
+                    },
+
                     {
                         path: 'login',
                         name: 'PlayerLogin',
