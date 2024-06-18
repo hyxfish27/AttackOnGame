@@ -1,3 +1,7 @@
 <template>
-    <div>Activity</div>
+    <div class="container">
+        <div class="row">
+            <div class="col">Activity</div>
+        </div>
+    </div>
 </template>

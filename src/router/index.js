@@ -37,7 +37,7 @@ const routes = [
                         path: 'admin',
                         name: 'PlayerAdmin',
                         component: () =>
-                            import('@/views/player/Admin/Admin.vue'),
+                            import('@/views/player/admin/Admin.vue'),
                         children: [
                             {
                                 path: '',
@@ -47,14 +47,14 @@ const routes = [
                                 path: 'checkout',
                                 name: 'Checkout',
                                 component: () =>
-                                    import('@/views/player/Admin/Checkout.vue'),
+                                    import('@/views/player/admin/Checkout.vue'),
                             },
                             {
                                 path: 'checkout/fail',
                                 name: 'CheckoutFail',
                                 component: () =>
                                     import(
-                                        '@/views/player/Admin/CheckoutFail.vue'
+                                        '@/views/player/admin/CheckoutFail.vue'
                                     ),
                             },
                             {
@@ -62,27 +62,27 @@ const routes = [
                                 name: 'CheckoutSuccess',
                                 component: () =>
                                     import(
-                                        '@/views/player/Admin/CheckoutSuccess.vue'
+                                        '@/views/player/admin/CheckoutSuccess.vue'
                                     ),
                             },
                             {
                                 path: 'activity',
                                 name: 'PlayerActivity',
                                 component: () =>
-                                    import('@/views/player/Admin/Activity.vue'),
+                                    import('@/views/player/admin/Activity.vue'),
                             },
                             {
                                 path: 'ticket',
                                 name: 'PlayerTicket',
                                 component: () =>
-                                    import('@/views/player/Admin/Ticket.vue'),
+                                    import('@/views/player/admin/Ticket.vue'),
                             },
                             {
                                 path: ':id',
                                 name: 'PlayerAdminId',
                                 component: () =>
                                     import(
-                                        '@/views/player/Admin/PlayerAdmin.vue'
+                                        '@/views/player/admin/PlayerAdmin.vue'
                                     ),
                             },
                         ],

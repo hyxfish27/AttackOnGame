@@ -1,3 +1,7 @@
 <template>
-    <div>Ticket</div>
+    <div class="container">
+        <div class="row">
+            <div class="col">Ticket</div>
+        </div>
+    </div>
 </template>
