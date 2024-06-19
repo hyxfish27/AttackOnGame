@@ -13,7 +13,7 @@
                             class="d-flex justify-content-center align-items-center py-3"
                         >
                             <img
-                                class="w-90"
+                                class="w-70"
                                 :src="bennerImg"
                                 alt="Banner圖片 聚局的聚人"
                             />
@@ -69,9 +69,9 @@
                             :style="{
                                 backgroundImage: 'url(' + ctaMessageBg + ')',
                             }"
-                            class="p-3"
+                            class="p-3 d-flex justify-content-center"
                         >
-                            <img class="w-100" :src="ctaMessageImg" alt="" />
+                            <img class="w-90" :src="ctaMessageImg" alt="" />
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                     <div
                         class="col p-4 d-flex justify-content-center align-items-center flex-column gap-4"
                     >
-                        <img class="w-70" :src="ctaTextImg" alt="" />
+                        <img class="w-70 mx-auto" :src="ctaTextImg" alt="" />
                         <button
                             type="button"
                             class="find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
