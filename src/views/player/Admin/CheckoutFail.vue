@@ -1,7 +1,9 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col">結帳失敗</div>
+            <div class="col">
+                <p>結帳失敗</p>
+            </div>
         </div>
     </div>
 </template>
