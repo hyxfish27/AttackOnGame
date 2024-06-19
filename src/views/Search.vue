@@ -76,7 +76,7 @@
                                 {{ event.eventStartTime }}
                             </p>
                             <p
-                                class="card-title noto-serif-tc fw-bold fs-8 mb-0 overflow-hidden card-title-h"
+                                class="card-title noto-serif-tc fw-bold fs-8 mb-0 line-clamp line-clamp-2 card-title-h"
                             >
                                 {{ event.title }}
                             </p>
@@ -151,7 +151,7 @@
                             />
 
                             <p
-                                class="fw-bold fs-8"
+                                class="fw-bold fs-8 line-clamp line-clamp-1"
                                 style="height: 27px; overflow: hidden"
                             >
                                 {{ store.name }}
