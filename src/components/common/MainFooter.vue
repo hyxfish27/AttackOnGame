@@ -5,7 +5,7 @@
                 <div class="img-wrap">
                     <img class="w-100" :src="Logo" alt="" />
                 </div>
-                <div class="text text-end">
+                <div class="text text-end noto-serif-tc">
                     <p>本網站不提供商業用途</p>
                     <p>copyright © 2024 聚人. All rights reserved.</p>
                 </div>
