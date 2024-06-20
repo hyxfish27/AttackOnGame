@@ -139,7 +139,7 @@ export default defineComponent({
         // const onSubmit = handleSubmit(onSubmitSuccess, onSubmitError);
 
         const route = useRoute();
-        const theRole = ref(null);
+        const theRole = ref('');
         onMounted(() => {
             console.log(route.path);
             if (route.path.includes('player')) {
