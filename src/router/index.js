@@ -50,6 +50,14 @@ const routes = [
                                     import('@/views/player/admin/Checkout.vue'),
                             },
                             {
+                                path: 'recheckout',
+                                name: 'ReCheckout',
+                                component: () =>
+                                    import(
+                                        '@/views/player/admin/ReCheckout.vue'
+                                    ),
+                            },
+                            {
                                 path: 'checkout/fail',
                                 name: 'CheckoutFail',
                                 component: () =>
