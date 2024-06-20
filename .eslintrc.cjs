@@ -40,6 +40,7 @@ module.exports = {
     rules: {
         'no-underscore-dangle': 'off',
         'vue/multi-word-component-names': 'off',
+        'vue/no-v-html': 'off',
         'import/no-extraneous-dependencies': [
             'error',
             { devDependencies: true },
