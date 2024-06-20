@@ -7,7 +7,7 @@
                 <div class="col-11 mx-auto py-4">
                     <h4 class="fw-bold pb-5">確認活動資訊</h4>
                     <h6 class="fw-bold pb-2">
-                        今生是第一次｜新手向派對桌遊，狂歡體驗
+                        {{ summaryData?.title }}
                     </h6>
                     <div class="d-flex">
                         <svg
@@ -22,7 +22,7 @@
                             />
                         </svg>
                         <p class="text-grey66 fw-bold">
-                            台北市大安區忠孝東路四段 2 號 2 樓之 9
+                            {{ summaryData?.address }}
                         </p>
                     </div>
                     <div class="d-flex">
@@ -38,7 +38,8 @@
                             />
                         </svg>
                         <p class="text-grey66 fw-bold ps-1">
-                            2024/01/02 11:00 ~ 20:00
+                            {{ summaryData?.eventStartTime }} ~
+                            {{ summaryData?.eventEndTime }}
                         </p>
                     </div>
                 </div>
@@ -91,9 +92,9 @@
                                 v-model="formData.personNum"
                                 type="number"
                                 class="form-control"
-                                value="1"
-                                rules="required|regex:^[1-9]+$"
+                                rules="required|regex:^(0*[1-9][0-9]*)$"
                                 name="報名人數"
+                                :max="summaryData?.maxParticipants"
                                 :class="{ 'is-invalid': errors['報名人數'] }"
                             ></v-field>
                             <error-message
@@ -117,7 +118,12 @@
                         </div>
                         <div class="mb-3 pt-3">
                             <p>付款金額</p>
-                            <p>500元</p>
+                            <p>
+                                {{
+                                    formData.personNum *
+                                    summaryData?.participationFee
+                                }}元
+                            </p>
                         </div>
                         <div
                             class="py-4 justify-content-center d-flex flex-column"
@@ -178,8 +184,9 @@
     </div>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import PlayerAPI from '@/api/Player';
 import modal from '@/components/common/simpleModal.vue';
 
 const BsModal = ref(null);
@@ -198,8 +205,24 @@ const onSubmit = onSubmitSuccess;
 const formData = ref({
     userNmae: '',
     phoneNum: '',
-    personNum: '',
+    personNum: 1,
     remarkText: '',
+});
+const summaryData = ref(null);
+const getSummary = async (eventId) => {
+    await PlayerAPI.getSummary(eventId)
+        .then((res) => {
+            summaryData.value = res.data.data;
+            console.log('data', summaryData.value);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+onMounted(() => {
+    // m7sds2vb
+    // jvwuz66b
+    getSummary('m7sds2vb');
 });
 </script>
 <style lang="scss" scope>
