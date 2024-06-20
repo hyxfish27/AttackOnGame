@@ -115,6 +115,10 @@
                                 name="備註"
                             ></textarea>
                         </div>
+                        <div class="mb-3 pt-3">
+                            <p>付款金額</p>
+                            <p>500元</p>
+                        </div>
                         <div
                             class="py-4 justify-content-center d-flex flex-column"
                         >
@@ -175,6 +179,7 @@
 </template>
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import modal from '@/components/common/simpleModal.vue';
 
 const BsModal = ref(null);
@@ -184,7 +189,11 @@ const openModal = () => {
 const agreeContentText = ref(
     '<p class="fw-bold">確認報名後，請留意以下幾點資訊:</p>1.活動當日未出現且未告知店家者，店家有權力將您設為黑名單，不得異議<br>2.若活動最終無法成團，本平台將會退費至您的帳戶中<br>3.活動最終的詮釋權，以店家為主若有任何問題，歡迎使用聊天室功能與店家訊息討論。'
 );
-const onSubmitSuccess = () => {};
+
+const router = useRouter();
+const onSubmitSuccess = () => {
+    router.push('/player/admin/recheckout');
+};
 const onSubmit = onSubmitSuccess;
 const formData = ref({
     userNmae: '',
