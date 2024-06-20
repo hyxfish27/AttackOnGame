@@ -37,13 +37,33 @@ const EventAPI = {
      * @limit 抓取的筆數
      * @description 取得所有活動資料
      */
-    async getEvents(limit = 1) {
+    async getEvents({
+        limit = 12,
+        skip = 0,
+        formationStatus = 0,
+        registrationStatus = 0,
+        sortBy = 'eventStartTime',
+        sortOrder = 'desc',
+        keyword = '',
+    } = {}) {
         try {
-            let limitStr = '';
-            if (limit !== 1) {
-                limitStr = `?limit=${limit}`;
-            }
-            const response = await Axios.get(`/api/v1/event${limitStr}`);
+            const params = new URLSearchParams();
+            console.log(params);
+            if (limit !== 12) params.append('limit', limit);
+            if (skip !== 0) params.append('skip', skip);
+            if (formationStatus !== 0)
+                params.append('formationStatus', formationStatus);
+            if (registrationStatus !== 0)
+                params.append('registrationStatus', registrationStatus);
+            if (sortBy !== 'eventStartTime') params.append('sortBy', sortBy);
+            if (sortOrder !== 'desc') params.append('sortOrder', sortOrder);
+            if (keyword !== '') params.append('keyword', keyword);
+
+            const queryString = params.toString()
+                ? `?${params.toString()}`
+                : '';
+            console.log(params);
+            const response = await Axios.get(`/api/v1/event${queryString}`);
             return response.data;
         } catch (error) {
             console.error(error);
