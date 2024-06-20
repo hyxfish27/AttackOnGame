@@ -70,8 +70,8 @@ const playerLoginSchema = {
         .string()
         .required('密碼為必填項目')
         .min(8, '密碼必須大於8個字符')
-        .matches(/[a-zA-Z]/, '密碼必須包含字母')
         .matches(/[0-9]/, '密碼必須包含數字'),
+    // .matches(/[a-zA-Z]/, '密碼必須包含字母')
 };
 
 /**
