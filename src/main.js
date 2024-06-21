@@ -17,7 +17,9 @@ import router from './router';
 
 // vee-validate 定義驗證規則(規則啟用)
 Object.keys(rules).forEach((rule) => {
-    defineRule(rule, rules[rule]);
+    if (typeof rules[rule] === 'function') {
+        defineRule(rule, rules[rule]);
+    }
 });
 // vee-validate 全域規則、多國語系
 configure({
