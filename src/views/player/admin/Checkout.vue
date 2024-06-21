@@ -52,10 +52,10 @@
                             >
                             <v-field
                                 id="InputName"
-                                v-model="formData.userNmae"
+                                v-model="formData.userName"
                                 type="text"
                                 class="form-control"
-                                aria-describedby="userNmaeHelp"
+                                aria-describedby="userNameHelp"
                                 rules="required"
                                 name="姓名"
                                 :class="{ 'is-invalid': errors['姓名'] }"
@@ -108,7 +108,7 @@
                             >
                             <textarea
                                 id="inputRemark"
-                                v-model="formData.remarkText"
+                                v-model="formData.note"
                                 type="text"
                                 class="form-control"
                                 placeholder="請輸入文字"
@@ -163,7 +163,7 @@
                                 <modal
                                     ref="BsModal"
                                     title="活動政策"
-                                    :text="agreeContentText"
+                                    :text="ContentText"
                                 ></modal>
                             </div>
                             <error-message
@@ -187,32 +187,80 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import PlayerAPI from '@/api/Player';
+import { useFormStore } from '@/stores/order';
 import modal from '@/components/common/simpleModal.vue';
 
 const BsModal = ref(null);
 const openModal = () => {
     BsModal.value.myModalShow();
 };
-const agreeContentText = ref(
+
+const ContentText = ref(
     '<p class="fw-bold">確認報名後，請留意以下幾點資訊:</p>1.活動當日未出現且未告知店家者，店家有權力將您設為黑名單，不得異議<br>2.若活動最終無法成團，本平台將會退費至您的帳戶中<br>3.活動最終的詮釋權，以店家為主若有任何問題，歡迎使用聊天室功能與店家訊息討論。'
 );
-
-const router = useRouter();
-const onSubmitSuccess = () => {
-    router.push('/player/admin/recheckout');
-};
-const onSubmit = onSubmitSuccess;
+// lb6wmkd2
+// m7sds2vb
+const theEventId = ref('lb6wmkd2');
+const summaryData = ref(null);
 const formData = ref({
-    userNmae: '',
+    title: '',
+    address: '',
+    startTime: '',
+    endTime: '',
+    userName: '',
     phoneNum: '',
     personNum: 1,
-    remarkText: '',
+    note: '',
+    payPrice: null,
 });
-const summaryData = ref(null);
-const getSummary = async (eventId) => {
-    await PlayerAPI.getSummary(eventId)
+const orderStore = useFormStore();
+const router = useRouter();
+const postOrder = async (formdata) => {
+    await PlayerAPI.postOrder(formdata)
         .then((res) => {
+            console.log(res);
+            router.push({
+                name: 'ReCheckout',
+                path: 'recheckout',
+                params: { formData: formData.value },
+            });
+        })
+        .catch((err) => {
+            if (err.response.data.message.includes('E11000')) {
+                alert('每位玩家只能在一個活動上建立一筆訂單');
+            } else {
+                alert(`${err.response.data.message}`);
+                console.log(err);
+            }
+        });
+};
+const onSubmitSuccess = () => {
+    formData.value.payPrice =
+        Number(formData.value.personNum) *
+        Number(summaryData.value.participationFee);
+    orderStore.updateFormData(formData.value);
+    const postOrderObj = {
+        eventId: theEventId.value,
+        payment: Number(formData.value.payPrice),
+        discount: 0, // 平台幣
+        name: formData.value.userName,
+        phone: String(formData.value.phoneNum),
+        registrationCount: Number(formData.value.personNum),
+        note: formData.value.note,
+    };
+    postOrder(postOrderObj);
+};
+
+const onSubmit = onSubmitSuccess;
+const getSummary = async (eventid) => {
+    await PlayerAPI.getSummary(eventid)
+        .then((res) => {
+            console.log(res);
             summaryData.value = res.data.data;
+            formData.value.title = summaryData.value.title;
+            formData.value.address = summaryData.value.address;
+            formData.value.startTime = summaryData.value.eventStartTime;
+            formData.value.endTime = summaryData.value.eventEndTime;
             console.log('data', summaryData.value);
         })
         .catch((err) => {
@@ -220,9 +268,7 @@ const getSummary = async (eventId) => {
         });
 };
 onMounted(() => {
-    // m7sds2vb
-    // jvwuz66b
-    getSummary('m7sds2vb');
+    getSummary('lb6wmkd2');
 });
 </script>
 <style lang="scss" scope>

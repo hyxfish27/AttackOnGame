@@ -7,7 +7,7 @@
                 <div class="py-4">
                     <h4 class="fw-bold pb-4">確認訂單資訊</h4>
                     <h6 class="fw-bold pb-2">
-                        今生是第一次｜新手向派對桌遊，狂歡體驗
+                        {{ formData.title }}
                     </h6>
                     <div class="d-flex">
                         <svg
@@ -22,7 +22,7 @@
                             />
                         </svg>
                         <p class="text-grey66 fw-bold">
-                            台北市大安區忠孝東路四段 2 號 2 樓之 9
+                            {{ formData.address }}
                         </p>
                     </div>
                     <div class="d-flex">
@@ -38,7 +38,7 @@
                             />
                         </svg>
                         <p class="text-grey66 fw-bold ps-1">
-                            2024/01/02 11:00 ~ 20:00
+                            {{ formData.startTime }} ~ {{ formData.endTime }}
                         </p>
                     </div>
                 </div>
@@ -49,15 +49,17 @@
                             style="width: 80px"
                             class="d-inline-block text-black"
                             >姓名</span
-                        >王小明
+                        >{{ formData.userName }}
                     </p>
                     <hr />
                     <p class="text-grey66">
-                        <span class="pe-3 text-black">聯絡電話</span>0912345678
+                        <span class="pe-3 text-black">聯絡電話</span
+                        >{{ formData.phoneNum }}
                     </p>
                     <hr />
                     <p class="text-grey66">
-                        <span class="pe-3 text-black">報名人數</span>1 人
+                        <span class="pe-3 text-black">報名人數</span
+                        >{{ formData.personNum }} 人
                     </p>
                     <hr />
                     <p class="text-grey66">
@@ -65,11 +67,12 @@
                             style="width: 80px"
                             class="d-inline-block text-black"
                             >備註</span
-                        >我會晚10分鐘抵達。
+                        >{{ formData.note }}
                     </p>
                     <hr />
                     <p class="text-danger">
-                        <span class="pe-3 text-black">付款金額</span>500 元
+                        <span class="pe-3 text-black">付款金額</span
+                        >{{ formData.payPrice }} 元
                     </p>
                 </div>
                 <div class="d-flex justify-content-center pb-4 gap-3">
@@ -88,7 +91,28 @@
         </div>
     </div>
 </template>
-<script setup></script>
+<script setup>
+// import { defineProps } from 'vue';
+// const props = defineProps(['formData']);
+// console.log(props);
+import { onMounted } from 'vue';
+import { useFormStore } from '@/stores/order';
+import { useRouter } from 'vue-router';
+
+const orderStore = useFormStore();
+const { formData } = orderStore;
+
+const router = useRouter();
+onMounted(() => {
+    if (formData.title === '') {
+        router.push({
+            name: 'PlayerActivity',
+            path: 'activity',
+        });
+    }
+});
+console.log('testttt', orderStore.formData);
+</script>
 <style lang="scss" scope>
 body {
     background-color: #f7f7f7;
