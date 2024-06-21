@@ -11,8 +11,8 @@
                         class="form-select w-25 bg-greyF7 border-0 fw-bold text-primary"
                         required=""
                     >
-                        <option selected value="searchStore">尋找店家</option>
                         <option value="searchEvent">尋找活動</option>
+                        <option selected value="searchStore">尋找店家</option>
                     </select>
                     <input
                         id="validationCustom01"

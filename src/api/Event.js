@@ -1,4 +1,10 @@
 import Axios from '@/utilities/axios';
+import {
+    FORMATION_STATUS,
+    REGISTRATION_STATUS,
+    SORT_BY,
+    SORT_ORDER,
+} from '../constant/eventList';
 /**
  * ActivityAPI
  * @author Sweet
@@ -40,10 +46,10 @@ const EventAPI = {
     async getEvents({
         limit = 12,
         skip = 0,
-        formationStatus = 0,
-        registrationStatus = 0,
-        sortBy = 'eventStartTime',
-        sortOrder = 'desc',
+        formationStatus = FORMATION_STATUS,
+        registrationStatus = REGISTRATION_STATUS,
+        sortBy = SORT_BY,
+        sortOrder = SORT_ORDER,
         keyword = '',
     } = {}) {
         try {
@@ -67,7 +73,7 @@ const EventAPI = {
             return response.data;
         } catch (error) {
             console.error(error);
-            throw error;
+            throw error.response;
         }
     },
     /**
