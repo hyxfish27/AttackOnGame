@@ -8,7 +8,7 @@
             <div class="col-6 d-flex align-items-center">
                 <ul class="menu-list">
                     <li class="menu-list__item">
-                        <router-link to="/search">活動列表 | </router-link>
+                        <router-link to="/event-list">活動列表 | </router-link>
                     </li>
                     <li><b>這是未登頁面</b></li>
                 </ul>

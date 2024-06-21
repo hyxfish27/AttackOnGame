@@ -131,7 +131,7 @@ const PlayerAPI = {
     },
     /**
      * update
-     * @param {string} numberId 活動 ID
+     * @param {string} numberId 活動ID
      * @description 取得活動結帳頁的資料
      */
     async getTicket(numberId) {
