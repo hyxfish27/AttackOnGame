@@ -1,5 +1,7 @@
 import { createApp } from 'vue';
+
 import { createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
 // 匯入 vee-validate 多國語系的功能
 import { localize, setLocale } from '@vee-validate/i18n';
@@ -28,12 +30,14 @@ configure({
 setLocale('zh_TW');
 
 const app = createApp(App);
+
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 // 註冊 vee-validate 三個全域元件
 app.component('VForm', Form);
 app.component('VField', Field);
 app.component('ErrorMessage', ErrorMessage);
 
 app.use(router);
-app.use(createPinia());
-
+app.use(pinia);
 app.mount('#app');
