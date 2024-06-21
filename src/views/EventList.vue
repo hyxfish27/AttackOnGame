@@ -23,10 +23,6 @@
                     />
                 </div>
             </div>
-            <div v-if="loading" class="text-center">
-                <div class="spinner-border" role="status"></div>
-            </div>
-
             <div class="d-flex justify-content-between border-bottom">
                 <div class="border-bottom border-primary">
                     <select
@@ -34,10 +30,10 @@
                         v-model="selectedStatus"
                         class="form-select bg-greyF7 border-0 fw-bold text-primary"
                     >
-                        <option selected value="0">全部狀態</option>
-                        <option value="1">揪團中</option>
-                        <option value="2">已成團</option>
-                        <option value="3">已滿團</option>
+                        <option selected :value="0">全部狀態</option>
+                        <option :value="1">未成團</option>
+                        <option :value="2">已成團</option>
+                        <option :value="3">已滿團</option>
                     </select>
                 </div>
                 <div class="">
@@ -46,7 +42,7 @@
                         class="btn btn-primary mb-2"
                         @click="changeSortBy"
                     >
-                        {{ sortBy }}
+                        排序按照： {{ sortBy.text }}
                     </button>
                 </div>
             </div>
@@ -57,7 +53,10 @@
                     :keywords="keywords"
                 ></EventPanel>
             </div>
-            <div v-if="errorMessage.split()" class="text-center">
+            <div v-if="loading" class="text-center mt-4">
+                <div class="spinner-border" role="status"></div>
+            </div>
+            <div v-if="errorMessage.split()" class="text-center mt-4">
                 <p>{{ errorMessage }}</p>
             </div>
         </div>
@@ -72,8 +71,24 @@ import _debounce from 'lodash/debounce';
 import EventPanel from '../components/event/eventPanel.vue';
 import { SORT_BY, SORT_ORDER } from '../constant/eventList';
 
-// const SORT_BY_MAP = {};
-const sortBy = ref(SORT_BY);
+const SORT_BY_MAP = {
+    eventStartTime: {
+        value: 'eventStartTime',
+        text: '活動時間',
+    },
+    participationFee: {
+        value: 'participationFee',
+        text: '活動費用',
+    },
+};
+const sortByKeys = Object.keys(SORT_BY_MAP);
+const sortBy = ref(SORT_BY_MAP[SORT_BY]);
+
+function changeSortBy() {
+    const currentIndex = sortByKeys.indexOf(sortBy.value.value);
+    const nextIndex = (currentIndex + 1) % sortByKeys.length;
+    sortBy.value = SORT_BY_MAP[sortByKeys[nextIndex]];
+}
 const sortOrder = ref(SORT_ORDER);
 const loading = ref(true);
 const errorMessage = ref('');
@@ -90,12 +105,13 @@ const getEvent = async (query = {}) => {
     await EventAPI.getEvents(query)
         .then((res) => {
             rawEventData.value = res.data;
-            console.log(res);
+            console.log(rawEventData.value);
         })
         .catch((err) => {
             console.log('xxx', err);
             rawEventData.value = [];
-            errorMessage.value = err?.data?.message || err.message;
+            errorMessage.value =
+                err?.data?.message || '連線逾時，靜待雲端伺服器睡醒';
         })
         .finally(() => {
             loading.value = false;
@@ -103,18 +119,18 @@ const getEvent = async (query = {}) => {
 };
 
 const registrationStatus = computed(() => {
+    console.log(selectedStatus.value);
     return selectedStatus.value !== 0 ? 2 : 0;
 });
 
 const query = computed(() => ({
     formationStatus: selectedStatus.value,
     registrationStatus: registrationStatus.value,
-    sortBy: sortBy.value,
+    sortBy: sortBy.value.value,
     sortOrder: sortOrder.value,
     keyword: keywords.value,
 }));
 
-// Watch query changes and call getEvent
 watch(
     query,
     (newQuery) => {

@@ -3,7 +3,8 @@
         <div class="card h-100 p-2">
             <div class="position-relative pt-150per">
                 <p
-                    class="py-1 px-2 bg-warning z-1 position-absolute top-0 fs-10 noto-serif-tc"
+                    class="py-1 px-2 z-1 position-absolute top-0 fs-10 noto-serif-tc"
+                    :class="computedEventData.color"
                 >
                     {{ computedEventData.status }}
                 </p>
@@ -36,7 +37,8 @@
                     class="bg-greyE9 rounded-1 pb-2 mb-2 position-relative"
                 >
                     <div
-                        class="position-absolute h-100 start-0 bg-blue-light rounded-4"
+                        class="position-absolute h-100 start-0 rounded-4"
+                        :class="computedEventData.color"
                         :style="{
                             right: lineStyle(
                                 computedEventData.currentParticipantsCount,
@@ -78,7 +80,7 @@ import toLocalString from '../../utilities/toLocalString';
 const STATUS_MAP = {
     OUT_DATE: {
         text: '不可報名',
-        color: 'bg-grey',
+        color: 'bg-greyD4',
     },
     NOT_FORMED: {
         text: '未成團',
@@ -90,11 +92,11 @@ const STATUS_MAP = {
     },
     FORMED: {
         text: '已成團',
-        color: 'bg-yellow',
+        color: 'bg-yellow-light',
     },
 };
 const today = dayjs();
-const { data } = defineProps({
+const props = defineProps({
     data: {
         type: Object,
         default: () => ({}),
@@ -127,20 +129,21 @@ const calculateEventStatus = (event) => {
     return 'FORMED';
 };
 const computedEventData = computed(() => {
-    if (!data || Object.keys(data).length === 0) {
+    if (!props.data || Object.keys(props.data).length === 0) {
         return {};
     }
-    const status = calculateEventStatus(data);
+    console.log('data', props.data);
+    const status = calculateEventStatus(props.data);
     return {
         status: STATUS_MAP[status].text,
         color: STATUS_MAP[status].color,
-        eventTime: `${dayjs(data.eventStartTime).format('YYYY-MM-DD HH:mm')} - ${dayjs(data.eventEndTime).format('HH:mm')}`,
-        title: data.title,
-        currentParticipantsCount: data.currentParticipantsCount,
-        maxParticipants: data.maxParticipants,
-        participationFee: toLocalString(data.participationFee),
-        district: data.address.slice(0, 6),
-        eventImageUrl: data.eventImageUrl[0],
+        eventTime: `${dayjs(props.data.eventStartTime).format('YYYY-MM-DD HH:mm')} - ${dayjs(props.data.eventEndTime).format('HH:mm')}`,
+        title: props.data.title,
+        currentParticipantsCount: props.data.currentParticipantsCount,
+        maxParticipants: props.data.maxParticipants,
+        participationFee: toLocalString(props.data.participationFee),
+        district: props.data.address.slice(0, 6),
+        eventImageUrl: props.data.eventImageUrl[0],
     };
 });
 </script>

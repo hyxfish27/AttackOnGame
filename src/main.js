@@ -6,8 +6,8 @@ import { localize, setLocale } from '@vee-validate/i18n';
 // 匯入 vee-validate 繁體中文語系檔案
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 // 匯入 vee-validate 相關規則
-import { configure, ErrorMessage, Field, Form } from 'vee-validate';
-// import * as rules from '@vee-validate/rules';
+import { configure, defineRule, ErrorMessage, Field, Form } from 'vee-validate';
+import * as rules from '@vee-validate/rules';
 import 'bootstrap';
 import './assets/all.scss';
 import './assets/style.scss';
@@ -16,9 +16,9 @@ import App from './App.vue';
 import router from './router';
 
 // vee-validate 定義驗證規則(規則啟用)
-// Object.keys(rules).forEach((rule) => {
-//     defineRule(rule, rules[rule]);
-// });
+Object.keys(rules).forEach((rule) => {
+    defineRule(rule, rules[rule]);
+});
 // vee-validate 全域規則、多國語系
 configure({
     generateMessage: localize({ zh_TW: zhTW }), // 載入繁體中文語系
