@@ -5,25 +5,25 @@
                 <p
                     class="py-1 px-2 bg-warning z-1 position-absolute top-0 fs-10 noto-serif-tc"
                 >
-                    {{ data.status.text }}
+                    {{ computedEventData.status }}
                 </p>
                 <img
                     ref="image"
                     class="w-100 h-100 inset-0 object-fit-cover position-absolute"
-                    :src="data.eventImageUrl[0]"
-                    :alt="data.title"
+                    :src="computedEventData.eventImageUrl"
+                    :alt="computedEventData.title"
                 />
             </div>
 
             <div class="card-body p-2">
                 <p class="fs-10 text-grey9F">
-                    {{ data.eventStartTime }}
+                    {{ computedEventData.eventTime }}
                 </p>
                 <p
                     class="card-title noto-serif-tc fw-bold fs-8 mb-0 overflow-hidden card-title-h"
                 >
                     <WordHighlighter :query="keywords">
-                        {{ data.title }}
+                        {{ computedEventData.title }}
                     </WordHighlighter>
                 </p>
                 <p class="card-text text-end text-grey66">
@@ -39,14 +39,14 @@
                         class="position-absolute h-100 start-0 bg-blue-light rounded-4"
                         :style="{
                             right: lineStyle(
-                                data.currentParticipantsCount,
-                                data.maxParticipants
+                                computedEventData.currentParticipantsCount,
+                                computedEventData.maxParticipants
                             ),
                         }"
                     ></div>
                 </div>
                 <p class="fs-6 fw-bold text-primary mb-1">
-                    NT$ {{ data.participationFee }}
+                    NT$ {{ computedEventData.participationFee }}
                 </p>
                 <div class="d-flex text-grey66 align-items-center gap-2">
                     <svg
@@ -62,7 +62,7 @@
                     </svg>
 
                     <p class="noto-serif-tc fs-10 letter-spacing-1">
-                        {{ addressFristText(data.address) }}
+                        {{ computedEventData.district }}
                     </p>
                 </div>
             </div>
@@ -70,12 +70,40 @@
     </div>
 </template>
 <script setup>
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 import WordHighlighter from 'vue-word-highlighter';
+import dayjs from '../../utilities/dayjs';
+import toLocalString from '../../utilities/toLocalString';
 
-const addressFristText = (text) => {
-    return text.slice(0, 6);
+const STATUS_MAP = {
+    OUT_DATE: {
+        text: '不可報名',
+        color: 'bg-grey',
+    },
+    NOT_FORMED: {
+        text: '未成團',
+        color: 'bg-green',
+    },
+    FULL: {
+        text: '已滿團',
+        color: 'bg-blue-light',
+    },
+    FORMED: {
+        text: '已成團',
+        color: 'bg-yellow',
+    },
 };
+const today = dayjs();
+const { data } = defineProps({
+    data: {
+        type: Object,
+        default: () => ({}),
+    },
+    keywords: {
+        type: String,
+        default: '',
+    },
+});
 const lineStyle = (currentNum, maxNum) => {
     if (maxNum === 0) {
         return '0%';
@@ -83,27 +111,37 @@ const lineStyle = (currentNum, maxNum) => {
     const percentage = (currentNum / maxNum) * 100;
     return `${100 - percentage}%`;
 };
-const { data } = defineProps({
-    data: {
-        type: Array,
-        default: () => [],
-    },
-    keywords: {
-        type: String,
-        default: '',
-    },
+const calculateEventStatus = (event) => {
+    const isRegi =
+        today.isSameOrBefore(event.registrationEndTime) &&
+        today.isSameOrAfter(event.registrationStartTime);
+    if (!isRegi) {
+        return 'OUT_DATE';
+    }
+    if (event.currentParticipantsCount < event.minParticipants) {
+        return 'NOT_FORMED';
+    }
+    if (event.currentParticipantsCount === event.maxParticipants) {
+        return 'FULL';
+    }
+    return 'FORMED';
+};
+const computedEventData = computed(() => {
+    if (!data || Object.keys(data).length === 0) {
+        return {};
+    }
+    const status = calculateEventStatus(data);
+    return {
+        status: STATUS_MAP[status].text,
+        color: STATUS_MAP[status].color,
+        eventTime: `${dayjs(data.eventStartTime).format('YYYY-MM-DD HH:mm')} - ${dayjs(data.eventEndTime).format('HH:mm')}`,
+        title: data.title,
+        currentParticipantsCount: data.currentParticipantsCount,
+        maxParticipants: data.maxParticipants,
+        participationFee: toLocalString(data.participationFee),
+        district: data.address.slice(0, 6),
+        eventImageUrl: data.eventImageUrl[0],
+    };
 });
 </script>
-<style>
-/* 已滿團 bg-blue-light*/
-
-.green {
-    background-color: #44cc00;
-}
-/* 已成團 bg-blue-light*/
-.blue {
-}
-/* 揪團中 bg-blue-light*/
-.yellow {
-}
-</style>
+<style></style>

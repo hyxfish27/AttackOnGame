@@ -57,12 +57,12 @@ const EventAPI = {
             console.log(params);
             if (limit !== 12) params.append('limit', limit);
             if (skip !== 0) params.append('skip', skip);
-            if (formationStatus !== 0)
+            if (formationStatus !== FORMATION_STATUS)
                 params.append('formationStatus', formationStatus);
-            if (registrationStatus !== 0)
+            if (registrationStatus !== REGISTRATION_STATUS)
                 params.append('registrationStatus', registrationStatus);
-            if (sortBy !== 'eventStartTime') params.append('sortBy', sortBy);
-            if (sortOrder !== 'desc') params.append('sortOrder', sortOrder);
+            if (sortBy !== SORT_BY) params.append('sortBy', sortBy);
+            if (sortOrder !== SORT_ORDER) params.append('sortOrder', sortOrder);
             if (keyword !== '') params.append('keyword', keyword);
 
             const queryString = params.toString()

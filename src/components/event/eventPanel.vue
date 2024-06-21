@@ -1,5 +1,5 @@
 <template>
-    <div class="row mt-4">
+    <div class="row">
         <EventCard
             v-for="event in data"
             :key="event._id"
