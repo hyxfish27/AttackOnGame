@@ -16,43 +16,17 @@
                     </select>
                     <input
                         id="validationCustom01"
+                        v-model="inputValue"
                         type="text"
                         class="form-control py-2"
-                        value=""
                         required=""
                         placeholder="輸入關鍵字"
                     />
                 </div>
             </div>
-            <!-- 隱藏篩選按鈕 -->
-            <div class="row pb-3 d-none">
-                <div class="col d-flex gap-3">
-                    <select
-                        id="selectCity"
-                        v-model="selectedCity"
-                        class="form-select"
-                        required
-                    >
-                        <option selected value="全部地點">全部地點</option>
-                        <option
-                            v-for="city in CityAll"
-                            :key="city.CityName"
-                            :value="city.CityName"
-                        >
-                            {{ city.CityName }}
-                        </option>
-                    </select>
-                    <select id="selectCity" class="form-select" required="">
-                        <option selected value="allState">全部狀態</option>
-                        <option value="inviting">揪團中</option>
-                        <option value="full">已成團</option>
-                    </select>
-                </div>
-                <div class="col"></div>
-            </div>
             <div class="row">
                 <div
-                    v-for="store in storeData"
+                    v-for="store in filteredStore"
                     :key="store.user"
                     class="col-6 col-lg-3 mb-3"
                 >
@@ -91,14 +65,13 @@
 </template>
 <script setup>
 import EventAPI from '@/api/Event';
-import CityAll from '@/utilities/city';
 import storeBgImage from '@/assets/images/brand_bg.png';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import _debounce from 'lodash/debounce';
 
 const router = useRouter();
 const selectType = ref('searchStore');
-const selectedCity = ref('全部地點');
 
 const storeData = ref(null);
 const getStore = async () => {
@@ -117,7 +90,22 @@ watch(selectType, (newValue) => {
         router.push('/event-list');
     }
 });
+const inputValue = ref('');
+const keywords = ref('');
+const updateKeywords = _debounce(async (value) => {
+    keywords.value = value;
+}, 300);
 
+watch(inputValue, (newValue) => {
+    console.log(newValue);
+    updateKeywords(newValue);
+});
+const filteredStore = computed(() => {
+    if (keywords.value.trim()) {
+        return storeData.value.filter((x) => x.name.includes(keywords.value));
+    }
+    return storeData.value;
+});
 onMounted(() => {
     getStore();
 });
