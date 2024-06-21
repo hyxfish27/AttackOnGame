@@ -1,13 +1,13 @@
 <template>
-    <div class="col-6 col-lg-3 mb-3">
+    <div class="col-6 col-lg-3 mb-3 event-card">
         <div class="card h-100 p-2">
             <div class="position-relative pt-150per">
-                <p
+                <div
                     class="py-1 px-2 z-1 position-absolute top-0 fs-10 noto-serif-tc"
-                    :class="computedEventData.color"
+                    :class="computedEventData.tagcolor"
                 >
-                    {{ computedEventData.status }}
-                </p>
+                    <p>{{ computedEventData.status }}</p>
+                </div>
                 <img
                     ref="image"
                     class="w-100 h-100 inset-0 object-fit-cover position-absolute"
@@ -38,7 +38,7 @@
                 >
                     <div
                         class="position-absolute h-100 start-0 rounded-4"
-                        :class="computedEventData.color"
+                        :class="computedEventData.barColor"
                         :style="{
                             right: lineStyle(
                                 computedEventData.currentParticipantsCount,
@@ -80,19 +80,23 @@ import toLocalString from '../../utilities/toLocalString';
 const STATUS_MAP = {
     OUT_DATE: {
         text: '不可報名',
-        color: 'bg-greyD4',
+        tagcolor: 'mockup',
+        barColor: 'bg-greyD4',
     },
     NOT_FORMED: {
         text: '未成團',
-        color: 'bg-green',
+        tagcolor: 'bg-yellow',
+        barColor: 'bg-blue-light',
     },
     FULL: {
         text: '已滿團',
-        color: 'bg-blue-light',
+        tagcolor: 'mockup',
+        barColor: 'bg-green',
     },
     FORMED: {
         text: '已成團',
-        color: 'bg-yellow-light',
+        tagcolor: 'bg-greyD4',
+        barColor: 'bg-blue-light',
     },
 };
 const today = dayjs();
@@ -136,7 +140,8 @@ const computedEventData = computed(() => {
     const status = calculateEventStatus(props.data);
     return {
         status: STATUS_MAP[status].text,
-        color: STATUS_MAP[status].color,
+        tagcolor: STATUS_MAP[status].tagcolor,
+        barColor: STATUS_MAP[status].barColor,
         eventTime: `${dayjs(props.data.eventStartTime).format('YYYY-MM-DD HH:mm')} - ${dayjs(props.data.eventEndTime).format('HH:mm')}`,
         title: props.data.title,
         currentParticipantsCount: props.data.currentParticipantsCount,
@@ -147,4 +152,20 @@ const computedEventData = computed(() => {
     };
 });
 </script>
-<style></style>
+<style>
+.event-card .mockup {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+        color: #fff;
+        border: 1px solid #fff;
+        padding: 8px 16px;
+    }
+}
+</style>

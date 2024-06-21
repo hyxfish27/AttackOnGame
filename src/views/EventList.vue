@@ -1,5 +1,5 @@
 <template class="">
-    <div class="bg-greyF7">
+    <div class="bg-greyF7 event-list-wrap">
         <div class="container pb-5">
             <div class="row py-7 justify-content-center">
                 <div
@@ -158,3 +158,8 @@ onMounted(() => {
     getEvent(query.value);
 });
 </script>
+<style>
+.event-list-wrap {
+    min-height: calc(100vh - 312px);
+}
+</style>
