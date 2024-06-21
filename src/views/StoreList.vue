@@ -1,5 +1,5 @@
 <template class="">
-    <div class="bg-greyF7">
+    <div class="bg-greyF7 store-list-wrap">
         <div class="container pb-5">
             <div class="row py-7 justify-content-center">
                 <div
@@ -97,7 +97,7 @@ import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const selectType = ref('searchEvent');
+const selectType = ref('searchStore');
 const selectedCity = ref('全部地點');
 
 const storeData = ref(null);
@@ -125,5 +125,8 @@ onMounted(() => {
 <style>
 .card-title-h {
     height: 54px;
+}
+.store-list-wrap {
+    min-height: calc(100vh - 312px);
 }
 </style>
