@@ -129,6 +129,20 @@ const PlayerAPI = {
             throw error;
         }
     },
+    /**
+     * update
+     * @param {string} numberId 活動ID
+     * @description 取得活動結帳頁的資料
+     */
+    async getTicket(numberId) {
+        try {
+            const response = await Axios.get(`/api/v1/${numberId}`);
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
 };
 
 export default PlayerAPI;
