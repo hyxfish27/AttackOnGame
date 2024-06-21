@@ -94,3 +94,16 @@ const { data } = defineProps({
     },
 });
 </script>
+<style>
+/* 已滿團 bg-blue-light*/
+
+.green {
+    background-color: #44cc00;
+}
+/* 已成團 bg-blue-light*/
+.blue {
+}
+/* 揪團中 bg-blue-light*/
+.yellow {
+}
+</style>
