@@ -114,7 +114,7 @@ const PlayerAPI = {
         note,
     }) {
         try {
-            const response = await Axios.patch('/api/v1/order', {
+            const response = await Axios.post('/api/v1/order', {
                 eventId,
                 payment,
                 discount,
