@@ -30,6 +30,7 @@
                     :key="data.user"
                     :data="data"
                     class="col-6 col-lg-3 mb-3"
+                    @click="onStoreCardClick(data.user)"
                 ></StoreCard>
             </div>
         </div>
@@ -57,6 +58,17 @@ const getStore = async () => {
             console.log(err);
         });
 };
+
+/**
+ * onStoreCardClick
+ * @param {string} userId  使用者 id
+ * @description  店家卡片點擊事件
+ */
+const onStoreCardClick = (userId) => {
+    router.push({ name: 'StoreIntroduction', params: { userId } });
+    console.log('store');
+};
+
 watch(selectType, (newValue) => {
     if (newValue === 'searchEvent') {
         router.push('/event-list');
