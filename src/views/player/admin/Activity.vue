@@ -1,6 +1,19 @@
 <script setup>
-// import { ref } from 'vue';
 import ActivityTable from '@/components/player/ActivityTable.vue';
+import { onMounted, ref } from 'vue';
+import Axios from '@/utilities/axios';
+
+const activityList = ref([]);
+
+const getOrderList = async () => {
+    const orderList = await Axios.get('api/v1/order/list');
+
+    activityList.value = orderList.data.data;
+};
+
+onMounted(() => {
+    getOrderList();
+});
 </script>
 
 <template>
@@ -38,7 +51,7 @@ import ActivityTable from '@/components/player/ActivityTable.vue';
                             </button>
                         </div>
 
-                        <ActivityTable />
+                        <ActivityTable :activity-list="activityList" />
                     </div>
                 </div>
             </div>

@@ -1,12 +1,16 @@
 <script setup>
-// import { defineProps } from 'vue';
+import { defineProps, onMounted } from 'vue';
 
-// const props = defineProps({
-//     activityList: {
-//         type: Array,
-//         default: [],
-//     },
-// });
+const props = defineProps({
+    activityList: {
+        type: Array,
+        required: true,
+    },
+});
+
+onMounted(() => {
+    console.log(props.activityList);
+});
 
 const tableTitles = ['活動名稱', '', '時間', '金額', '張數', '訂單編號'];
 </script>
@@ -26,7 +30,7 @@ const tableTitles = ['活動名稱', '', '時間', '金額', '張數', '訂單�
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-for="(value, index) in activityList" :key="index">
                 <tr>
                     <td>
                         <div class="d-flex flex-column align-items-start">
@@ -47,7 +51,7 @@ const tableTitles = ['活動名稱', '', '時間', '金額', '張數', '訂單�
                                 前往票卷
                             </button>
                             <button
-                                v-if="true"
+                                v-if="value.status === '已使用'"
                                 type="button"
                                 class="btn btn-outline-dark btn-sm"
                             >
@@ -56,28 +60,24 @@ const tableTitles = ['活動名稱', '', '時間', '金額', '張數', '訂單�
                         </div>
                     </td>
                     <td>19:00</td>
-                    <td>$200</td>
-                    <td>1張</td>
-                    <td>O-240612-A3Q4</td>
+                    <td>${{ value.payment }}</td>
+                    <td>{{ value.registrationCount }}張</td>
+                    <td>{{ value.idNumber }}</td>
                 </tr>
             </tbody>
         </table>
 
         <!-- pafination -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-end mt-3">
-                <li class="page-item disabled">
+        <nav>
+            <ul class="pagination">
+                <li class="page-item disabled me-2">
                     <a class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">1</a>
-                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item">
                     <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
