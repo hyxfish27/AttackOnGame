@@ -26,23 +26,23 @@
                     <!-- email 暫時不顯示 -->
 
                     <!-- <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <v-field
-                            id="email"
-                            v-model="formData.email"
-                            type="email"
-                            class="form-control"
-                            name="email"
-                            :class="{ 'is-invalid': errors['email'] }"
-                            rules="required|email"
-                            :disabled="!canEdit"
-                        ></v-field>
-                        <error-message
-                            name="email"
-                            class="text-danger"
-                        ></error-message>
-                    </div>
-                    -->
+                      <label for="email" class="form-label">Email</label>
+                      <v-field
+                          id="email"
+                          v-model="formData.email"
+                          type="email"
+                          class="form-control"
+                          name="email"
+                          :class="{ 'is-invalid': errors['email'] }"
+                          rules="required|email"
+                          :disabled="!canEdit"
+                      ></v-field>
+                      <error-message
+                          name="email"
+                          class="text-danger"
+                      ></error-message>
+                  </div>
+                  -->
 
                     <div class="mb-3">
                         <label for="name" class="form-label">姓名</label>

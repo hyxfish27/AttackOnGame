@@ -76,6 +76,73 @@ const PlayerAPI = {
             throw error;
         }
     },
+    /**
+     * update
+     * @param {string} eventId 活動 ID
+     * @description 取得活動結帳頁的資料
+     */
+    async getSummary(eventId) {
+        try {
+            const response = await Axios.get(
+                `/api/v1/event/${eventId}/summary`
+            );
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+    /**
+     * update
+     * @param {string} eventId 活動 ID
+     * @param {number} payment 實際付款金額
+     * @param {number} discount 平台幣
+     * @param {string} name 姓名
+     * @param {string} phone 姓名
+     * @param {number} registrationCount 報名人數
+     * @param {string} note 備註
+     * @description 取得活動結帳頁的資料
+     */
+
+    async postOrder({
+        eventId,
+        payment,
+        discount,
+        name,
+        phone,
+        registrationCount,
+        note,
+    }) {
+        try {
+            const response = await Axios.post('/api/v1/order', {
+                eventId,
+                payment,
+                discount,
+                name,
+                phone,
+                registrationCount,
+                note,
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+    /**
+     * update
+     * @param {string} numberId 活動ID
+     * @description 取得活動結帳頁的資料
+     */
+    async getTicket(numberId) {
+        try {
+            const response = await Axios.get(`/api/v1/${numberId}`);
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
 };
 
 export default PlayerAPI;

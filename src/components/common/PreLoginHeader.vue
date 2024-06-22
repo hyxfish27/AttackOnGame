@@ -1,14 +1,11 @@
 <template>
     <header class="prelogin-header">
         <div class="row">
-            <router-link class="col-3 header__logo" to="/">
-                <h3>聚人</h3>
-                <h6>Attack On Game</h6>
-            </router-link>
+            <Logo></Logo>
             <div class="col-6 d-flex align-items-center">
                 <ul class="menu-list">
                     <li class="menu-list__item">
-                        <router-link to="/">活動列表 | </router-link>
+                        <router-link to="/event-list">活動列表 | </router-link>
                     </li>
                     <li><b>這是未登頁面</b></li>
                 </ul>
@@ -23,15 +20,13 @@
     </header>
 </template>
 
-<script>
+<script setup>
 /**
  * PreLoginHeader
  * @author Vicky
  * @description 未登頁面共用 Header
  */
-export default {
-    name: 'PreLoginHeader',
-};
+import Logo from '@/components/common/Logo.vue';
 </script>
 
 <style lang="scss" scoped>

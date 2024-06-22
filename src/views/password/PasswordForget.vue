@@ -11,11 +11,6 @@ import { useRoute } from 'vue-router';
 
 export default {
     name: 'PasswordForget',
-    data() {
-        return {};
-    },
-    methods: {},
-    mounted() {},
     setup() {
         const route = useRoute();
         const currentRole = computed(() =>
@@ -26,6 +21,11 @@ export default {
             currentRole,
         };
     },
+    data() {
+        return {};
+    },
+    mounted() {},
+    methods: {},
 };
 </script>
 
