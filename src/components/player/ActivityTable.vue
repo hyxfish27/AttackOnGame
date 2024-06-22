@@ -1,9 +1,10 @@
 <script setup>
+import dayjs from 'dayjs';
 import { defineProps, ref, computed } from 'vue';
 
 const currentPage = ref(1);
-const itemsPerPage = 3;
-const tableTitles = ['活動名稱', '', '時間', '金額', '張數', '訂單編號'];
+const itemsPerPage = 5;
+const tableTitles = ['活動名稱', '', '付款狀態', '金額', '張數', '訂單編號'];
 const props = defineProps({
     activityList: {
         type: Array,
@@ -20,6 +21,14 @@ const paginatedList = computed(() => {
     const end = start + itemsPerPage;
     return props.activityList.slice(start, end);
 });
+
+const formatTime = (start, end) => {
+    const Date = dayjs(start).format('YYYY-MM-DD');
+    const startTime = dayjs(start).format('HH:mm');
+    const endTime = dayjs(end).format('HH:mm');
+
+    return `${Date} ${startTime} ~ ${endTime}`;
+};
 </script>
 
 <template>
@@ -39,13 +48,19 @@ const paginatedList = computed(() => {
             </thead>
             <tbody v-for="(value, index) in paginatedList" :key="index">
                 <tr>
-                    <td>
+                    <td class="w-40">
                         <div class="d-flex flex-column align-items-start">
-                            <p class="h5 flex-grow-1">活動名稱</p>
+                            <p class="h6">{{ value.title }}</p>
                             <!-- 時間 -->
                             <div class="d-flex">
-                                <p>2021-09-01</p>
-                                <p>19:00~22:00</p>
+                                <p>
+                                    {{
+                                        formatTime(
+                                            value.eventStartTime,
+                                            value.eventEndTime
+                                        )
+                                    }}
+                                </p>
                             </div>
                         </div>
                     </td>
@@ -66,8 +81,8 @@ const paginatedList = computed(() => {
                             </button>
                         </div>
                     </td>
-                    <td>19:00</td>
-                    <td>${{ value.payment }}</td>
+                    <td>{{ value.paymentStatus }}</td>
+                    <td>${{ value.totalAmount }}</td>
                     <td>{{ value.registrationCount }}張</td>
                     <td>{{ value.idNumber }}</td>
                 </tr>
