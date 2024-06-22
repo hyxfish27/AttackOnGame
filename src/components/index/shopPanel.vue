@@ -57,7 +57,8 @@ const getStore = async () => {
             console.log(res);
         })
         .catch((err) => {
-            console.log(err);
+            errorMessage.value =
+                err?.data?.message || '連線逾時，靜待雲端伺服器睡醒';
         })
         .finally(() => {
             loading.value = false;

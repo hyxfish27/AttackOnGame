@@ -105,10 +105,8 @@ const getEvent = async (query = {}) => {
     await EventAPI.getEvents(query)
         .then((res) => {
             rawEventData.value = res.data;
-            console.log(rawEventData.value);
         })
         .catch((err) => {
-            console.log('xxx', err);
             rawEventData.value = [];
             errorMessage.value =
                 err?.data?.message || '連線逾時，靜待雲端伺服器睡醒';
@@ -119,7 +117,6 @@ const getEvent = async (query = {}) => {
 };
 
 const registrationStatus = computed(() => {
-    console.log(selectedStatus.value);
     return selectedStatus.value !== 0 ? 2 : 0;
 });
 
@@ -150,7 +147,6 @@ const updateKeywords = _debounce(async (value) => {
 }, 300);
 
 watch(inputValue, (newValue) => {
-    console.log(newValue);
     updateKeywords(newValue);
 });
 
