@@ -23,7 +23,7 @@ const routes = [
                 component: () => import('@/views/preLogin/SingleEvent.vue'),
             },
             {
-                path: 'search/store/:storeId',
+                path: 'search/store/:userId',
                 name: 'StoreIntroduction',
                 component: () =>
                     import('@/views/preLogin/StoreIntroduction.vue'),

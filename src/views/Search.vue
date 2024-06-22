@@ -131,7 +131,7 @@
                     v-for="store in storeData"
                     :key="store.user"
                     class="col-6 col-lg-3 mb-3"
-                    @click="onStoreCardClick(store.storeId)"
+                    @click="onStoreCardClick(store.user)"
                 >
                     <div
                         :style="{
@@ -230,11 +230,11 @@ const onEventCardClick = (eventId) => {
 
 /**
  * onStoreCardClick
- * @param {string} storeId  店家 id
+ * @param {string} userId  使用者 id
  * @description  店家卡片點擊事件
  */
-const onStoreCardClick = (storeId) => {
-    router.push({ name: 'StoreIntroduction', params: { storeId } });
+const onStoreCardClick = (userId) => {
+    router.push({ name: 'StoreIntroduction', params: { userId } });
     console.log('store');
 };
 

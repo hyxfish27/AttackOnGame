@@ -64,6 +64,20 @@ const StoreAPI = {
             throw error;
         }
     },
+
+    /**
+     * getRating
+     * @description 取得商店評分
+     */
+    async getRating() {
+        try {
+            const response = await Axios.get('');
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
 };
 
 export default StoreAPI;
