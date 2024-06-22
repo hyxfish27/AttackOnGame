@@ -11,7 +11,7 @@
         <div v-if="loading" class="text-center mt-4">
             <div class="spinner-border" role="status"></div>
         </div>
-        <div class="d-flex">
+        <div class="">
             <TitleCardList
                 v-if="!loading && eventData.length > 0"
                 :data="eventData"
