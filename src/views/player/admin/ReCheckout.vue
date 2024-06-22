@@ -76,11 +76,13 @@
                     </p>
                 </div>
                 <div class="d-flex justify-content-center pb-4 gap-3">
-                    <router-link
-                        :to="{ name: 'Checkout' }"
+                    <button
+                        type="button"
                         class="fw-bold btn btn-outline-primary px-4"
-                        >返回修改</router-link
+                        @click="goBack"
                     >
+                        返回修改
+                    </button>
                     <router-link
                         :to="{ name: 'CheckoutSuccess' }"
                         class="btn btn-primary fw-bold px-4"
@@ -92,17 +94,21 @@
     </div>
 </template>
 <script setup>
-// import { defineProps } from 'vue';
-// const props = defineProps(['formData']);
-// console.log(props);
 import { onMounted } from 'vue';
 import { useFormStore } from '@/stores/order';
 import { useRouter } from 'vue-router';
 
 const orderStore = useFormStore();
 const { formData } = orderStore;
-
 const router = useRouter();
+const goBack = () => {
+    orderStore.setState(false);
+    router.push({
+        name: 'Checkout',
+        path: 'checkout',
+    });
+};
+
 onMounted(() => {
     if (formData.title === '') {
         router.push({
