@@ -27,7 +27,12 @@ const ActivityAPI = {
      */
     async getAll() {
         try {
-            const response = await Axios.get('');
+            // const params = new URLSearchParams();
+            // if (limit !== 5) params.append('limit', limit);
+            // if (skip !== 0) params.append('skip', skip);
+            // if (status) params.append('status', status);
+
+            const response = await Axios.get('/api/v1/order/list');
             return response.data;
         } catch (error) {
             console.error(error);
