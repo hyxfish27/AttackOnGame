@@ -1,15 +1,21 @@
 <script setup>
 import ActivityTable from '@/components/player/ActivityTable.vue';
-import { onMounted, ref } from 'vue';
+import ActivityButtonGroup from '@/components/player/ActivityButtonGroup.vue';
+import { onMounted, ref, computed } from 'vue';
 import Axios from '@/utilities/axios';
+import Status from '@/constant/orderStatus';
 
 const activityList = ref([]);
-
+const selectedStatus = ref(Status.UNUSED);
 const getOrderList = async () => {
     const orderList = await Axios.get('api/v1/order/list');
-
     activityList.value = orderList.data.data;
 };
+const filteredActivityList = computed(() => {
+    return activityList.value.filter(
+        (activity) => activity.status === selectedStatus.value
+    );
+});
 
 onMounted(() => {
     getOrderList();
@@ -29,25 +35,12 @@ onMounted(() => {
                         <h7>活動管理</h7>
                     </div>
                     <!-- button group -->
-                    <div class="d-flex">
-                        <button type="button" class="btn btn-outline-primary">
-                            即將到來
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-outline-primary ms-2"
-                        >
-                            已完成
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-outline-primary ms-2"
-                        >
-                            取消
-                        </button>
-                    </div>
+                    <ActivityButtonGroup
+                        :selected-status="selectedStatus"
+                        @update:selectedStatus="selectedStatus = $event"
+                    />
 
-                    <ActivityTable :activity-list="activityList" />
+                    <ActivityTable :activity-list="filteredActivityList" />
                 </div>
             </div>
         </div>
