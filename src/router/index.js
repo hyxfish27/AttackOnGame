@@ -65,7 +65,7 @@ const routes = [
                                 component: () => import('@/views/Index.vue'),
                             },
                             {
-                                path: 'checkout',
+                                path: 'checkout/:id',
                                 name: 'Checkout',
                                 component: () =>
                                     import('@/views/player/admin/Checkout.vue'),

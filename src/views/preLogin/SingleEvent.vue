@@ -138,7 +138,8 @@
 
                             <button
                                 class="btn btn-primary w-100"
-                                @click="onButtonClick"
+                                :data-test="eventData.idNumber"
+                                @click="goCheckout(eventData.idNumber)"
                             >
                                 我要報名
                             </button>
@@ -157,7 +158,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import EventAPI from '@/api/Event';
 import StoreAPI from '@/api/Store';
 
@@ -192,9 +193,11 @@ const getStore = async (storeId) => {
 };
 
 // TODO: 暫時想不到好的命名QQ
-const onButtonClick = () => {
+const router = useRouter();
+const goCheckout = (eventId) => {
     // 去到結帳頁
-    console.log('click');
+    router.push({ name: 'Checkout', params: { id: eventId } });
+    console.log('store');
 };
 
 onMounted(() => {
