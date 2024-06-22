@@ -50,8 +50,6 @@ const getStore = async () => {
     await EventAPI.getStores()
         .then((res) => {
             storeData.value = res.data;
-
-            console.log(res);
         })
         .catch((err) => {
             console.log(err);
