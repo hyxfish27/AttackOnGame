@@ -12,7 +12,7 @@
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <p>{{ text }}</p>
+                    <div v-html="text"></div>
                 </div>
                 <div class="modal-footer">
                     <button
@@ -40,10 +40,9 @@ import { onMounted, ref } from 'vue';
 import Modal from 'bootstrap/js/dist/modal';
 
 defineProps({
-    title: String,
-    text: String,
+    title: { type: String, default: '' },
+    text: { type: String, default: '' },
 });
-
 const modal = ref(null);
 const myModal = ref(null);
 

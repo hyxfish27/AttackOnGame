@@ -18,6 +18,16 @@ const routes = [
                 component: () => import('@/views/Search.vue'),
             },
             {
+                path: 'event-list',
+                name: 'EventList',
+                component: () => import('@/views/EventList.vue'),
+            },
+            {
+                path: 'store-list',
+                name: 'StoreList',
+                component: () => import('@/views/StoreList.vue'),
+            },
+            {
                 path: '/signup',
                 name: 'SignUp',
                 component: () => import('@/views/signup/SignUp.vue'),
@@ -48,6 +58,14 @@ const routes = [
                                 name: 'Checkout',
                                 component: () =>
                                     import('@/views/player/admin/Checkout.vue'),
+                            },
+                            {
+                                path: 'recheckout',
+                                name: 'ReCheckout',
+                                component: () =>
+                                    import(
+                                        '@/views/player/admin/ReCheckout.vue'
+                                    ),
                             },
                             {
                                 path: 'checkout/fail',

@@ -315,7 +315,7 @@ $theme-colors: (
   "danger": $danger,
   "light": $light,
   "dark": $dark,
-  "yellow-light":$yellow-light,
+  "yellow":$yellow,
   "blue-light":$blue-light,
   "grey1D":$grey1D,
   "grey33":$grey33,
@@ -324,7 +324,7 @@ $theme-colors: (
   "greyD4":$greyD4,
   "greyE9":$greyE9,
   "greyF7":$greyF7,
-  ) !default;
+  "green":$green ) !default;
 // scss-docs-end theme-colors-map
 
 // scss-docs-start theme-text-variables
