@@ -1,10 +1,7 @@
 <template>
     <header class="admin-header">
         <div class="row">
-            <router-link class="col-3 header__logo" to="/">
-                <h3>聚人</h3>
-                <h6>Attack On Game</h6>
-            </router-link>
+            <Logo></Logo>
             <div class="col-6 d-flex align-items-center">
                 <ul class="menu-list">
                     <li class="menu-list__item">
@@ -27,6 +24,7 @@
 </template>
 
 <script>
+import Logo from '@/components/common/Logo.vue';
 import { useRouter } from 'vue-router';
 import UserAPI from '@/api/User';
 // import useIndexStore from '@/stores/index';
@@ -65,6 +63,7 @@ export default {
         };
 
         return {
+            Logo,
             logout,
             toUserAdminPage,
             getStaticImagePath,

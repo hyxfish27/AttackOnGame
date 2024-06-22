@@ -39,7 +39,8 @@
                 </div>
             </div>
         </div>
-
+        <EventPanel></EventPanel>
+        <ShopPanel></ShopPanel>
         <div class="container">
             <div
                 class="row"
@@ -111,6 +112,8 @@ import logoWatermark from '@/assets/images/index_logo_watermark.jpeg';
 import ctaMessageBg from '@/assets/images/index_cta_message_bg.jpeg';
 import ctaMessageImg from '@/assets/images/index_cta_message_image_pc.png';
 import ctaTextImg from '@/assets/images/index_cta_text_img.svg';
+import EventPanel from '@/components/index/eventPanel.vue';
+import ShopPanel from '@/components/index/shopPanel.vue';
 // import user from '@/stores/index';
 // import PlayerAPI from '@/api/Player';
 // import { onMounted } from 'vue';
