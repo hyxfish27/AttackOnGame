@@ -1,6 +1,9 @@
 <script setup>
-import { defineProps, onMounted } from 'vue';
+import { defineProps, ref, computed } from 'vue';
 
+const currentPage = ref(1);
+const itemsPerPage = 3;
+const tableTitles = ['活動名稱', '', '時間', '金額', '張數', '訂單編號'];
 const props = defineProps({
     activityList: {
         type: Array,
@@ -8,15 +11,19 @@ const props = defineProps({
     },
 });
 
-onMounted(() => {
-    console.log(props.activityList);
+const totalPages = computed(() => {
+    return Math.ceil(props.activityList.length / itemsPerPage);
 });
 
-const tableTitles = ['活動名稱', '', '時間', '金額', '張數', '訂單編號'];
+const paginatedList = computed(() => {
+    const start = (currentPage.value - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    return props.activityList.slice(start, end);
+});
 </script>
 
 <template>
-    <div class="d-flex flex-column justify-content-between h-100">
+    <div class="d-flex flex-column justify-content-between flex-grow-1">
         <!-- table -->
         <table class="table align-middle table-hover mt-3">
             <thead>
@@ -30,7 +37,7 @@ const tableTitles = ['活動名稱', '', '時間', '金額', '張數', '訂單�
                     </th>
                 </tr>
             </thead>
-            <tbody v-for="(value, index) in activityList" :key="index">
+            <tbody v-for="(value, index) in paginatedList" :key="index">
                 <tr>
                     <td>
                         <div class="d-flex flex-column align-items-start">
@@ -69,18 +76,46 @@ const tableTitles = ['活動名稱', '', '時間', '金額', '張數', '訂單�
 
         <!-- pafination -->
         <nav>
-            <ul class="pagination">
-                <li class="page-item disabled me-2">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+            <ul class="pagination justify-content-end m-auto">
+                <li
+                    class="page-item me-3"
+                    :class="{ disabled: currentPage === 1 }"
+                >
+                    <a
+                        class="page-link"
+                        href="#"
+                        aria-label="Previous"
+                        @click.prevent="currentPage > 1 && currentPage--"
+                    >
+                        <span aria-hidden="true">&lt;</span>
                     </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                <li
+                    v-for="page in totalPages"
+                    :key="page"
+                    class="page-item"
+                    :class="{ active: page === currentPage }"
+                >
+                    <a
+                        class="page-link rounded me-3 border-dark"
+                        href="#"
+                        @click.prevent="currentPage = page"
+                        >{{ page }}</a
+                    >
+                </li>
+                <li
+                    class="page-item"
+                    :class="{ disabled: currentPage === totalPages }"
+                >
+                    <a
+                        class="page-link"
+                        href="#"
+                        aria-label="Next"
+                        @click.prevent="
+                            currentPage < totalPages && currentPage++
+                        "
+                    >
+                        <span aria-hidden="true">&gt;</span>
                     </a>
                 </li>
             </ul>
