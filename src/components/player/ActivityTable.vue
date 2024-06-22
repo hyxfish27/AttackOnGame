@@ -1,6 +1,7 @@
 <script setup>
 import dayjs from 'dayjs';
 import { defineProps, ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 const currentPage = ref(1);
 const itemsPerPage = 5;
@@ -29,6 +30,14 @@ const formatTime = (start, end) => {
 
     return `${Date} ${startTime} ~ ${endTime}`;
 };
+
+const router = useRouter();
+const goTicket = (idNumber) => {
+    router.push({
+        name: 'PlayerTicket',
+        params: { idNumber },
+    });
+};
 </script>
 
 <template>
@@ -50,7 +59,7 @@ const formatTime = (start, end) => {
                 <tr>
                     <td class="w-40">
                         <div class="d-flex flex-column align-items-start">
-                            <p class="h6">{{ value.title }}</p>
+                            <p class="fs-8 fw-bold">{{ value.title }}</p>
                             <!-- 時間 -->
                             <div class="d-flex">
                                 <p>
@@ -64,11 +73,12 @@ const formatTime = (start, end) => {
                             </div>
                         </div>
                     </td>
-                    <td>
+                    <td width="100">
                         <div class="d-flex flex-column">
                             <button
                                 type="button"
                                 class="btn btn-outline-dark btn-sm mb-2"
+                                @click="goTicket(value.idNumber)"
                             >
                                 前往票卷
                             </button>

@@ -1,5 +1,7 @@
 <template>
-    <div class="index-title-wrap d-flex flex-column align-items-start position-relative">
+    <div
+        class="index-title-wrap d-flex flex-column align-items-start position-relative"
+    >
         <div class="tag">
             <p class="manuale text-white">{{ tag }}</p>
         </div>

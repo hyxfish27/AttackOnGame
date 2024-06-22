@@ -65,13 +65,13 @@ const routes = [
                                 component: () => import('@/views/Index.vue'),
                             },
                             {
-                                path: 'checkout',
+                                path: 'checkout/:eventId',
                                 name: 'Checkout',
                                 component: () =>
                                     import('@/views/player/admin/Checkout.vue'),
                             },
                             {
-                                path: 'recheckout',
+                                path: 'recheckout/:eventId',
                                 name: 'ReCheckout',
                                 component: () =>
                                     import(
@@ -101,7 +101,7 @@ const routes = [
                                     import('@/views/player/admin/Activity.vue'),
                             },
                             {
-                                path: 'ticket',
+                                path: 'ticket/:idNumber',
                                 name: 'PlayerTicket',
                                 component: () =>
                                     import('@/views/player/admin/Ticket.vue'),
@@ -202,6 +202,10 @@ const router = createRouter({
     history: createWebHashHistory(),
     linkActiveClass: 'active',
     routes,
+    scrollBehavior() {
+        // 每次路由變化時都會滾動到頂部
+        return { top: 0, behavior: 'smooth' };
+    },
 });
 
 export default router;

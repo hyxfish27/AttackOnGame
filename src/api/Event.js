@@ -90,6 +90,19 @@ const EventAPI = {
             console.error(error);
             throw error;
         }
+    } /**
+     * getStoreIdEvent
+     * @param {String} storeId 店家id
+     * @description 取得單一活動資料
+     */,
+    async getStoreEvent(storeId) {
+        try {
+            const response = await Axios.get(`/api/v1/event/store/${storeId}`);
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     },
 };
 export default EventAPI;

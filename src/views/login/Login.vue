@@ -10,9 +10,9 @@
                             <router-link class="d-block mb-2" to="/store/login">
                                 <button>立即登入</button>
                             </router-link>
-                            <button @click="onGoogleLogin('store')">
+                            <!-- <button @click="onGoogleLogin('store')">
                                 Google登入
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -31,9 +31,9 @@
                             >
                                 <button>立即登入</button>
                             </router-link>
-                            <button @click="onGoogleLogin('player')">
+                            <!-- <button @click="onGoogleLogin('player')">
                                 Google登入
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -49,22 +49,22 @@ export default {
         return {};
     },
     methods: {
-        onGoogleLogin(role) {
-            switch (role) {
-                case 'store':
-                    // do google login flow
-                    // eslint-disable-next-line no-console
-                    console.log('do store google login flow');
-                    break;
-                case 'player':
-                    // do google signup flow
-                    // eslint-disable-next-line no-console
-                    console.log('do player google login flow');
-                    break;
-                default:
-                    throw new Error('role not found');
-            }
-        },
+        // onGoogleLogin(role) {
+        //     switch (role) {
+        //         case 'store':
+        //             // do google login flow
+        //             // eslint-disable-next-line no-console
+        //             console.log('do store google login flow');
+        //             break;
+        //         case 'player':
+        //             // do google signup flow
+        //             // eslint-disable-next-line no-console
+        //             console.log('do player google login flow');
+        //             break;
+        //         default:
+        //             throw new Error('role not found');
+        //     }
+        // },
     },
 };
 </script>
