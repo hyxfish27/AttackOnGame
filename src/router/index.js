@@ -18,6 +18,16 @@ const routes = [
                 component: () => import('@/views/Search.vue'),
             },
             {
+                path: 'event-list',
+                name: 'EventList',
+                component: () => import('@/views/EventList.vue'),
+            },
+            {
+                path: 'store-list',
+                name: 'StoreList',
+                component: () => import('@/views/StoreList.vue'),
+            },
+            { 
                 path: 'search/event/:eventId',
                 name: 'SingleEvent',
                 component: () => import('@/views/preLogin/SingleEvent.vue'),
@@ -25,8 +35,7 @@ const routes = [
             {
                 path: 'search/store/:userId',
                 name: 'StoreIntroduction',
-                component: () =>
-                    import('@/views/preLogin/StoreIntroduction.vue'),
+                component: () => import('@/views/preLogin/StoreIntroduction.vue'),
             },
             {
                 path: '/signup',
@@ -59,6 +68,14 @@ const routes = [
                                 name: 'Checkout',
                                 component: () =>
                                     import('@/views/player/admin/Checkout.vue'),
+                            },
+                            {
+                                path: 'recheckout',
+                                name: 'ReCheckout',
+                                component: () =>
+                                    import(
+                                        '@/views/player/admin/ReCheckout.vue'
+                                    ),
                             },
                             {
                                 path: 'checkout/fail',

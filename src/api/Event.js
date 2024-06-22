@@ -1,4 +1,10 @@
 import Axios from '@/utilities/axios';
+import {
+    FORMATION_STATUS,
+    REGISTRATION_STATUS,
+    SORT_BY,
+    SORT_ORDER,
+} from '../constant/eventList';
 /**
  * ActivityAPI
  * @author Sweet
@@ -37,17 +43,37 @@ const EventAPI = {
      * @limit 抓取的筆數
      * @description 取得所有活動資料
      */
-    async getEvents(limit = 1) {
+    async getEvents({
+        limit = 12,
+        skip = 0,
+        formationStatus = FORMATION_STATUS,
+        registrationStatus = REGISTRATION_STATUS,
+        sortBy = SORT_BY,
+        sortOrder = SORT_ORDER,
+        keyword = '',
+    } = {}) {
         try {
-            let limitStr = '';
-            if (limit !== 1) {
-                limitStr = `?limit=${limit}`;
-            }
-            const response = await Axios.get(`/api/v1/event${limitStr}`);
+            const params = new URLSearchParams();
+            console.log(params);
+            if (limit !== 12) params.append('limit', limit);
+            if (skip !== 0) params.append('skip', skip);
+            if (formationStatus !== FORMATION_STATUS)
+                params.append('formationStatus', formationStatus);
+            if (registrationStatus !== REGISTRATION_STATUS)
+                params.append('registrationStatus', registrationStatus);
+            if (sortBy !== SORT_BY) params.append('sortBy', sortBy);
+            if (sortOrder !== SORT_ORDER) params.append('sortOrder', sortOrder);
+            if (keyword !== '') params.append('keyword', keyword);
+
+            const queryString = params.toString()
+                ? `?${params.toString()}`
+                : '';
+            console.log(params);
+            const response = await Axios.get(`/api/v1/event${queryString}`);
             return response.data;
         } catch (error) {
             console.error(error);
-            throw error;
+            throw error.response;
         }
     },
 
