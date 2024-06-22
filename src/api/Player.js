@@ -131,12 +131,12 @@ const PlayerAPI = {
     },
     /**
      * update
-     * @param {string} numberId 活動ID
+     * @param {string} idNumber 活動ID
      * @description 取得活動結帳頁的資料
      */
-    async getTicket(numberId) {
+    async getTicket(idNumber) {
         try {
-            const response = await Axios.get(`/api/v1/${numberId}`);
+            const response = await Axios.get(`/api/v1/order/${idNumber}`);
             return response;
         } catch (error) {
             console.error(error);
