@@ -101,7 +101,7 @@ const routes = [
                                     import('@/views/player/admin/Activity.vue'),
                             },
                             {
-                                path: 'ticket',
+                                path: 'ticket/:idNumber',
                                 name: 'PlayerTicket',
                                 component: () =>
                                     import('@/views/player/admin/Ticket.vue'),

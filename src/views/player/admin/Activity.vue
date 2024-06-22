@@ -8,8 +8,13 @@ import ActivityAPI from '@/api/Activity';
 const activityList = ref([]);
 const selectedStatus = ref(Status.UNUSED);
 const getOrderList = async () => {
-    const orderList = await ActivityAPI.getAll();
-    activityList.value = orderList.data;
+    await ActivityAPI.getAll()
+        .then((res) => {
+            activityList.value = res.data;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };
 const filteredActivityList = computed(() => {
     return activityList.value.filter(
@@ -26,10 +31,14 @@ onMounted(() => {
     <main class="container py-4 d-flex flex-column flex-grow-1">
         <div class="row gx-2 flex-grow-1">
             <div class="col-3">
-                <div class="p-3 border rounded">Custom column padding</div>
+                <div class="p-3 border rounded bg-white">
+                    Custom column padding
+                </div>
             </div>
             <div class="col-9">
-                <div class="d-flex p-3 border rounded h-100 flex-column">
+                <div
+                    class="d-flex p-3 border rounded h-100 flex-column bg-white"
+                >
                     <!-- table title -->
                     <div class="border-bottom py-2 mb-2">
                         <h7>活動管理</h7>
