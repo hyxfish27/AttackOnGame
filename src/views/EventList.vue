@@ -46,18 +46,18 @@
                     </button>
                 </div>
             </div>
+            <div v-if="loading" class="text-center mt-4">
+                <div class="spinner-border" role="status"></div>
+            </div>
+            <div v-if="errorMessage.split()" class="text-center mt-4">
+                <p>{{ errorMessage }}</p>
+            </div>
             <div v-if="rawEventData.length > 0">
                 <EventPanel
                     class="mt-4"
                     :data="rawEventData"
                     :keywords="keywords"
                 ></EventPanel>
-            </div>
-            <div v-if="loading" class="text-center mt-4">
-                <div class="spinner-border" role="status"></div>
-            </div>
-            <div v-if="errorMessage.split()" class="text-center mt-4">
-                <p>{{ errorMessage }}</p>
             </div>
         </div>
     </div>

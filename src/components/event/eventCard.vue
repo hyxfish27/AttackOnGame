@@ -74,8 +74,8 @@
 <script setup>
 import { computed, defineProps } from 'vue';
 import WordHighlighter from 'vue-word-highlighter';
-import dayjs from '../../utilities/dayjs';
-import toLocalString from '../../utilities/toLocalString';
+import dayjs from '@/utilities/dayjs';
+import toLocalString from '@/utilities/toLocalString';
 
 const STATUS_MAP = {
     OUT_DATE: {
