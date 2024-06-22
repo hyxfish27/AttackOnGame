@@ -65,13 +65,13 @@ const routes = [
                                 component: () => import('@/views/Index.vue'),
                             },
                             {
-                                path: 'checkout/:id',
+                                path: 'checkout/:eventId',
                                 name: 'Checkout',
                                 component: () =>
                                     import('@/views/player/admin/Checkout.vue'),
                             },
                             {
-                                path: 'recheckout',
+                                path: 'recheckout/:eventId',
                                 name: 'ReCheckout',
                                 component: () =>
                                     import(

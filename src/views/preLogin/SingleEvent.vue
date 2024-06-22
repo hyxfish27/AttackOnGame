@@ -192,11 +192,9 @@ const getStore = async (storeId) => {
         });
 };
 
-// TODO: 暫時想不到好的命名QQ
 const router = useRouter();
 const goCheckout = (eventId) => {
-    // 去到結帳頁
-    router.push({ name: 'Checkout', params: { id: eventId } });
+    router.push({ name: 'Checkout', params: { eventId } });
     console.log('store');
 };
 
