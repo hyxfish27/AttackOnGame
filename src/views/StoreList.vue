@@ -25,50 +25,22 @@
                 </div>
             </div>
             <div class="row">
-                <div
-                    v-for="store in filteredStore"
-                    :key="store.user"
+                <StoreCard
+                    v-for="data in filteredStore"
+                    :key="data.user"
+                    :data="data"
                     class="col-6 col-lg-3 mb-3"
-                >
-                    <div
-                        :style="{
-                            background: 'url(' + storeBgImage + ')',
-                            backgroundSize: '100% 100%',
-                            paddingTop: '182%',
-                        }"
-                        class="position-relative"
-                    >
-                        <div
-                            class="position-absolute inset-0 d-flex justify-content-center align-items-center flex-column px-4 pb-4 noto-serif-tc gap-2 w-100"
-                        >
-                            <img
-                                width="50%"
-                                height="23%"
-                                class="rounded-circle object-fit-cover mb-2 border"
-                                :src="store.avatar"
-                                :alt="store.name"
-                            />
-
-                            <p
-                                class="fw-bold fs-8"
-                                style="height: 27px; overflow: hidden"
-                            >
-                                {{ store.name }}
-                            </p>
-                            <p class="fs-10 text-grey66">{{ store.address }}</p>
-                        </div>
-                    </div>
-                </div>
+                ></StoreCard>
             </div>
         </div>
     </div>
 </template>
 <script setup>
 import EventAPI from '@/api/Event';
-import storeBgImage from '@/assets/images/brand_bg.png';
 import { onMounted, computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import _debounce from 'lodash/debounce';
+import StoreCard from '@/components/store/storeCard.vue';
 
 const router = useRouter();
 const selectType = ref('searchStore');
@@ -111,9 +83,6 @@ onMounted(() => {
 });
 </script>
 <style>
-.card-title-h {
-    height: 54px;
-}
 .store-list-wrap {
     min-height: calc(100vh - 312px);
 }
