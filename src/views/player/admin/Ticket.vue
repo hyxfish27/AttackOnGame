@@ -70,10 +70,11 @@
     </div>
 </template>
 <script setup>
-// import PlayerAPI from '@/api/Player';
+import PlayerAPI from '@/api/Player';
 import { onMounted, ref } from 'vue';
-// import { useRoute } from 'vue-router';
-
+import { useRouter } from 'vue-router';
+// useRoute,
+const router = useRouter();
 const event = ref({});
 const order = ref({});
 const tickets = ref([]);
@@ -131,21 +132,30 @@ const testData = {
     ],
 };
 
-// const getTicket = async (idNumber) => {
-//     await PlayerAPI.getTicket(idNumber)
-//         .then((res) => {
-//             console.log('ticket', res);
-//             event.value = res.data.data.event;
-//             order.value = res.data.data.order;
-//             tickets.value = res.data.data.tickets;
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//         });
-// };
+const getTicket = async (idNumber) => {
+    await PlayerAPI.getTicket(idNumber)
+        .then((res) => {
+            console.log('ticket', res);
+            event.value = res.data.data.event;
+            order.value = res.data.data.order;
+            tickets.value = res.data.data.tickets;
+        })
+        .catch((err) => {
+            console.log(err);
+            if (err.response.status === 401) {
+                alert('請先完成登入');
+                router.push({
+                    name: 'PlayerLogin',
+                });
+            } else {
+                alert(`${err.response.data.message}`);
+                console.log(err);
+            }
+        });
+};
 onMounted(() => {
     // const { eventId } = route.params;
-    // getTicket('o-240617-t0ok');
+    getTicket('o-240617-t0ok');
 
     event.value = testData.event;
     order.value = testData.order;
