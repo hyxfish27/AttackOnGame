@@ -30,7 +30,7 @@
                     :key="data.user"
                     :data="data"
                     class="col-6 col-lg-3 mb-3"
-                    @click="onStoreCardClick(data.user)"
+                    @click="onStoreCardClick(data.user, data._id)"
                 ></StoreCard>
             </div>
         </div>
@@ -42,6 +42,7 @@ import { onMounted, computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import _debounce from 'lodash/debounce';
 import StoreCard from '@/components/store/storeCard.vue';
+import { selectStoreData } from '@/stores/selectStore';
 
 const router = useRouter();
 const selectType = ref('searchStore');
@@ -50,6 +51,7 @@ const storeData = ref(null);
 const getStore = async () => {
     await EventAPI.getStores()
         .then((res) => {
+            console.log(res.data);
             storeData.value = res.data;
         })
         .catch((err) => {
@@ -62,9 +64,12 @@ const getStore = async () => {
  * @param {string} userId  使用者 id
  * @description  店家卡片點擊事件
  */
-const onStoreCardClick = (userId) => {
+const selectTheStore = selectStoreData();
+const onStoreCardClick = (userId, _id) => {
     router.push({ name: 'StoreIntroduction', params: { userId } });
-    console.log('store');
+    selectTheStore.updateSelectStoreData({ _id, userId });
+
+    console.log('selectTheStore', selectTheStore.selectStore._id);
 };
 
 watch(selectType, (newValue) => {
