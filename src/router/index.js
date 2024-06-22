@@ -202,6 +202,10 @@ const router = createRouter({
     history: createWebHashHistory(),
     linkActiveClass: 'active',
     routes,
+    scrollBehavior() {
+        // 每次路由變化時都會滾動到頂部
+        return { top: 0, behavior: 'smooth' };
+    },
 });
 
 export default router;
