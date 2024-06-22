@@ -261,7 +261,6 @@ const getSummary = async (eventid) => {
             formData.value.address = summaryData.value.address;
             formData.value.startTime = summaryData.value.eventStartTime;
             formData.value.endTime = summaryData.value.eventEndTime;
-            console.log('data', summaryData.value);
         })
         .catch((err) => {
             console.log(err);
@@ -269,6 +268,12 @@ const getSummary = async (eventid) => {
 };
 onMounted(() => {
     getSummary('lb6wmkd2');
+    if (orderStore.isNew === false) {
+        formData.value.phoneNum = orderStore.formData.phoneNum;
+        formData.value.personNum = orderStore.formData.personNum;
+        formData.value.note = orderStore.formData.note;
+        formData.value.userName = orderStore.formData.userName;
+    }
 });
 </script>
 <style lang="scss" scope>
