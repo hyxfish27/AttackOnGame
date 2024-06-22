@@ -1,5 +1,9 @@
 <template>
     <div class="index-store-section">
+        <div
+            class="dot-bg"
+            :style="{ backgroundImage: 'url(' + DotBg + ')' }"
+        ></div>
         <div class="py-16 container">
             <TitlePanel
                 :tag="titleData.tag"
@@ -28,6 +32,7 @@
     </div>
 </template>
 <script setup>
+import DotBg from '@/assets/images/dot_bg.svg';
 import EventAPI from '@/api/Event';
 import { onMounted, ref } from 'vue';
 import StoreCard from '@/components/store/storeCard.vue';
@@ -60,12 +65,23 @@ onMounted(() => {
     getStore();
 });
 </script>
-<style>
+<style lang="scss" scoped>
 .index-store-section {
-    background: linear-gradient(180deg, #ffffff 0%, #ffdd33 100%);
+    background: linear-gradient(180deg, #ffffff 30%, #ffdd33 100%);
+    position: relative;
+
+    .dot-bg {
+        background-position: bottom;
+        background-size: 3%;
+        position: absolute;
+        background-repeat: repeat-x;
+        inset: -1px;
+    }
+
     .title-card-list {
         gap: 16px;
     }
+
     .py-16 {
         padding: 64px 0;
     }
