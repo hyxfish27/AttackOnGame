@@ -76,15 +76,16 @@ const EventAPI = {
             throw error.response;
         }
     },
+
     /**
-     * get
-     * @param {String} id 活動id
+     * getEvent
+     * @param {String} eventId 活動id
      * @description 取得單一活動資料
      */
-    async getEventID(id) {
+    async getEvent(eventId) {
         try {
-            const response = await Axios.get(`/api/v1/event/${id}`);
-            return response.data;
+            const response = await Axios.get(`/api/v1/event/${eventId}`);
+            return response;
         } catch (error) {
             console.error(error);
             throw error;

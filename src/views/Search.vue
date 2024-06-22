@@ -53,8 +53,9 @@
             <div v-if="selectType === 'searchEvent'" class="row">
                 <div
                     v-for="event in eventData"
-                    :key="event._id"
+                    :key="event.idNumber"
                     class="col-6 col-lg-3 mb-3"
+                    @click="onEventCardClick(event.idNumber)"
                 >
                     <div class="card h-100 p-2">
                         <div class="position-relative pt-150per">
@@ -130,6 +131,7 @@
                     v-for="store in storeData"
                     :key="store.user"
                     class="col-6 col-lg-3 mb-3"
+                    @click="onStoreCardClick(store.user)"
                 >
                     <div
                         :style="{
@@ -169,6 +171,9 @@ import EventAPI from '@/api/Event';
 import CityAll from '@/utilities/city';
 import storeBgImage from '@/assets/images/brand_bg.png';
 import { onMounted, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const selectType = ref('searchEvent');
 const selectedCity = ref('全部地點');
@@ -212,6 +217,26 @@ watch(selectType, (newValue) => {
         getStore();
     }
 });
+
+/**
+ * onEventCardClick
+ * @param {string} eventId  活動 id
+ * @description  活動卡片點擊事件
+ */
+const onEventCardClick = (eventId) => {
+    router.push({ name: 'SingleEvent', params: { eventId } });
+    console.log(eventId);
+};
+
+/**
+ * onStoreCardClick
+ * @param {string} userId  使用者 id
+ * @description  店家卡片點擊事件
+ */
+const onStoreCardClick = (userId) => {
+    router.push({ name: 'StoreIntroduction', params: { userId } });
+    console.log('store');
+};
 
 onMounted(() => {
     getEvent();

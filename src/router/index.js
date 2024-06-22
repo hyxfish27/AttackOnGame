@@ -27,6 +27,16 @@ const routes = [
                 name: 'StoreList',
                 component: () => import('@/views/StoreList.vue'),
             },
+            { 
+                path: 'search/event/:eventId',
+                name: 'SingleEvent',
+                component: () => import('@/views/preLogin/SingleEvent.vue'),
+            },
+            {
+                path: 'search/store/:userId',
+                name: 'StoreIntroduction',
+                component: () => import('@/views/preLogin/StoreIntroduction.vue'),
+            },
             {
                 path: '/signup',
                 name: 'SignUp',

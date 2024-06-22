@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-column min-vh-100">
+    <div class="d-flex flex-column min-vh-100 noto-serif-tc">
         <MainHeader
             :is-login="isLogin"
             @toUserAdminPage="toUserAdminPage"
@@ -85,3 +85,5 @@ export default {
     },
 };
 </script>
+
+<style scoped lang="scss"></style>

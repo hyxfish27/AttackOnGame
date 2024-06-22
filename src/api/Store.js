@@ -5,7 +5,7 @@ import Axios from '@/utilities/axios';
  * @author Vicky
  * @description 商店相關 API
  */
-export const StoreAPI = {
+const StoreAPI = {
     /**
      * create
      * @param {*} data
@@ -23,12 +23,13 @@ export const StoreAPI = {
 
     /**
      * get
+     * @param {string} userId  使用者 ID
      * @description 取得商店資料
      */
-    async get() {
+    async get(userId) {
         try {
-            const response = await Axios.get('');
-            return response.data;
+            const response = await Axios.get(`/api/v1/store/${userId}`);
+            return response;
         } catch (error) {
             console.error(error);
             throw error;
@@ -58,6 +59,20 @@ export const StoreAPI = {
         try {
             const response = await Axios.delete('');
             return response.data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+
+    /**
+     * getRating
+     * @description 取得商店評分
+     */
+    async getRating() {
+        try {
+            const response = await Axios.get('');
+            return response;
         } catch (error) {
             console.error(error);
             throw error;
