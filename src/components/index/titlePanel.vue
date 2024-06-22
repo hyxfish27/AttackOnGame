@@ -1,12 +1,19 @@
-<template lang="pug">
-    .index-title-wrap.d-flex.flex-column.align-items-start.position-relative
-        .tag
-            p.manuale {{ tag }}
-        .title-wrap
-            .bg-yellow.title.d-inline-block.position-relative
-                h2.mb-0 {{ title }}
-            .bg-greyE9.desc
-                h3.mb-0 # {{ desc }}
+<template>
+    <div
+        class="index-title-wrap d-flex flex-column align-items-start position-relative"
+    >
+        <div class="tag">
+            <p class="manuale">{{ tag }}</p>
+        </div>
+        <div class="title-wrap">
+            <div class="bg-yellow title d-inline-block position-relative">
+                <h2 class="mb-0">{{ title }}</h2>
+            </div>
+            <div class="bg-greyE9 desc">
+                <h3 class="mb-0"># {{ desc }}</h3>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup>
