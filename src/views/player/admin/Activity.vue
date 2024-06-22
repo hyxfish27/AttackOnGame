@@ -4,7 +4,9 @@ import ActivityButtonGroup from '@/components/player/ActivityButtonGroup.vue';
 import { onMounted, ref, computed } from 'vue';
 import Status from '@/constant/orderStatus';
 import ActivityAPI from '@/api/Activity';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const activityList = ref([]);
 const selectedStatus = ref(Status.UNUSED);
 const getOrderList = async () => {
@@ -13,6 +15,14 @@ const getOrderList = async () => {
             activityList.value = res.data;
         })
         .catch((err) => {
+            if (err.request.status === 401) {
+                alert('請先完成登入');
+                router.push({
+                    name: 'PlayerLogin',
+                });
+            } else {
+                alert(err.data.message);
+            }
             console.log(err);
         });
 };
