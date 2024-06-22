@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="background-color: #ffff">
         <div
             class="d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
             :style="{
@@ -61,7 +61,11 @@
                 </div>
             </div>
         </div>
-        <div class="bg-warning">
+        <div
+            class="bg-warning dot-bg"
+            :style="{ backgroundImage: 'url(' + DotBg + ')' }"
+        >
+            <div></div>
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -81,7 +85,8 @@
                         class="col p-4 d-flex justify-content-center align-items-center flex-column gap-4"
                     >
                         <img class="w-70 mx-auto" :src="ctaTextImg" alt="" />
-                        <button
+                        <router-link
+                            :to="{ name: 'EventList' }"
                             type="button"
                             class="find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
                         >
@@ -97,7 +102,7 @@
                                     d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
                                 />
                             </svg>
-                        </button>
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -106,6 +111,7 @@
 </template>
 
 <script setup>
+import DotBg from '@/assets/images/dot_bg_2.svg';
 import bennerBg from '@/assets/images/index_banner_bg_pc.png';
 import bennerImg from '@/assets/images/index_banner_img.png';
 import logoWatermark from '@/assets/images/index_logo_watermark.jpeg';
@@ -164,5 +170,13 @@ import ShopPanel from '@/components/index/shopPanel.vue';
 
 .find-btn {
     box-shadow: 12px 12px 0px 0px #333333;
+}
+
+.dot-bg {
+    // background-position: bottom;
+    background-size: 3%;
+    // position: absolute;
+    background-repeat: repeat-x;
+    inset: -1px;
 }
 </style>
