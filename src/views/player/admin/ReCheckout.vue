@@ -94,7 +94,6 @@
                     >
                         完成結帳
                     </button>
-                    >
                 </div>
             </div>
         </div>
@@ -107,7 +106,7 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 const orderStore = useFormStore();
-const { formData } = orderStore;
+const { formData, orderData } = orderStore;
 const router = useRouter();
 const goBack = () => {
     orderStore.setState(false);
@@ -120,17 +119,11 @@ const goBack = () => {
 const sendOrder = async () => {
     try {
         const res = await axios.post(
-            'https://ccore.newebpay.com/MPG/mpg_gateway ',
-            {
-                MerchantID: 'MS152866964',
-                TradeInfo:
-                    'e46b5982d955db734a39ed7409adbcf9c969a5f3114d0a5a12b7fa6bc9b2dbe770a6e2a3bd020dd2cf0c129455c9047ccd377f6f9460ae97bb188f8ec815d6f8b07f67dea0cdd8adf1e0cab23574dc5854bf01fc29187aa9a5f2f0b29a4d2f713010d57ab7a983a9712ef833e3810786097d608e65232c336dbbf712d590845717b0973aa99229bbabf6c87c3e295820de952d7573754282ec2186004294987fcf6eac97f0a41035ab3c18dc37a6b6814d5367b79a577e8d2ac3507e6232d3798a77229cadc824ebf2dcd71cd9e836e5b25861ac7f47a0c515e5adbcd579910dfcb64685e38098ec2907c6add133adeec3842f960f40279192b7522f15770120b067cea6c07bc6e0b8ece0784a3d49b4',
-                TradeSha:
-                    '55B8A395EEAD6B4C7391854FDE3367CE725C4F81322283C5A450BF95E4DBED93',
-                Version: '2.0',
-            },
+            import.meta.env.VITE_PayGateWay,
+            orderData
         );
         console.log('Response', res);
+        orderStore.setState(true);
     } catch (error) {
         console.log(error);
     }

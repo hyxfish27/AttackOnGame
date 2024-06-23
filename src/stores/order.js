@@ -14,10 +14,19 @@ export const useFormStore = defineStore('form', {
             payPrice: 0,
         },
         isNew: true,
+        orderData: {
+            MerchantID: '',
+            TradeInfo: '',
+            TradeSha: '',
+            Version: '',
+        },
     }),
     actions: {
         updateFormData(data) {
             this.formData = data;
+        },
+        updateOrderData(data) {
+            this.orderData = data;
         },
         setState(state) {
             this.isNew = state;
@@ -33,11 +42,18 @@ export const useFormStore = defineStore('form', {
                     note: '',
                     payPrice: 0,
                 };
+                this.orderData = {
+                    MerchantID: '',
+                    TradeInfo: '',
+                    TradeSha: '',
+                    Version: '',
+                };
             }
         },
     },
     getters: {
         getFormData: (state) => state.formData,
+        getOrderData: (state) => state.orderData,
         getFormState: (state) => state.isNew,
     },
     persist: {

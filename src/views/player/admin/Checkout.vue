@@ -200,7 +200,7 @@ const ContentText = ref(
 );
 // lb6wmkd2
 // m7sds2vb
-const theEventId = ref('lb6wmkd2');
+const theEventId = ref('8rmdwla3');
 const summaryData = ref(null);
 const formData = ref({
     title: '',
@@ -219,10 +219,10 @@ const postOrder = async (formdata) => {
     await PlayerAPI.postOrder(formdata)
         .then((res) => {
             console.log(res);
+            orderStore.updateOrderData(res.data.data);
             router.push({
                 name: 'ReCheckout',
                 path: 'recheckout',
-                params: { formData: formData.value },
             });
         })
         .catch((err) => {
@@ -267,7 +267,7 @@ const getSummary = async (eventid) => {
         });
 };
 onMounted(() => {
-    getSummary('lb6wmkd2');
+    getSummary('8rmdwla3');
     if (orderStore.isNew === false) {
         formData.value.phoneNum = orderStore.formData.phoneNum;
         formData.value.personNum = orderStore.formData.personNum;
