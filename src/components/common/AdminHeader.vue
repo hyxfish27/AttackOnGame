@@ -1,15 +1,7 @@
 <template>
-    <header class="admin-header">
+    <header id="admin-header">
         <div class="row">
-            <Logo></Logo>
-            <div class="col-6 d-flex align-items-center">
-                <ul class="menu-list">
-                    <li class="menu-list__item">
-                        <router-link to="/event-list">活動列表 | </router-link>
-                    </li>
-                    <li><b>這是已登頁面</b></li>
-                </ul>
-            </div>
+            <PrimaryHeader class="col-9"></PrimaryHeader>
             <div
                 class="col-3 header__nav d-flex justify-content-end align-items-center"
             >
@@ -24,7 +16,7 @@
 </template>
 
 <script>
-import Logo from '@/components/common/Logo.vue';
+import PrimaryHeader from '@/components/common/PrimaryHeader.vue';
 import { useRouter } from 'vue-router';
 import UserAPI from '@/api/User';
 // import useIndexStore from '@/stores/index';
@@ -38,9 +30,10 @@ import getStaticImagePath from '@/utilities/image';
  */
 export default {
     name: 'AdminHeader',
-
+    components: {
+        PrimaryHeader,
+    },
     emits: ['toUserAdminPage'],
-
     setup(props, context) {
         const router = useRouter();
 
@@ -63,7 +56,6 @@ export default {
         };
 
         return {
-            Logo,
             logout,
             toUserAdminPage,
             getStaticImagePath,
@@ -72,33 +64,26 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.admin-header {
-    .menu-list {
-        display: flex;
-        justify-content: start;
-        list-style: none;
-        padding: 0;
-        margin: 0;
+<style lang="scss">
+// TODO:暫時 button 樣式
+#admin-header {
+    a {
+        color: #fff;
+        text-decoration: none;
+        display: inline-block;
+
+        &:hover {
+            color: #0088cc;
+            text-decoration: none;
+        }
     }
 }
-
-// TODO:暫時 button 樣式
 .btn {
     background-color: #0088cc;
     border-radius: 8px;
     color: #fff;
 }
-
-// TODO: router-link style 需要從變數檔控制
-a {
-    color: #fff;
-    text-decoration: none;
-    display: inline-block;
-
-    &:hover {
-        color: #0088cc;
-        text-decoration: none;
-    }
+.btn + .btn {
+    margin-left: 16px;
 }
 </style>

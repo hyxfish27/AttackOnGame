@@ -1,5 +1,7 @@
 import Axios from '@/utilities/axios';
 import {
+    LIMIT,
+    SKIP,
     FORMATION_STATUS,
     REGISTRATION_STATUS,
     SORT_BY,
@@ -44,8 +46,8 @@ const EventAPI = {
      * @description 取得所有活動資料
      */
     async getEvents({
-        limit = 12,
-        skip = 0,
+        limit = LIMIT,
+        skip = SKIP,
         formationStatus = FORMATION_STATUS,
         registrationStatus = REGISTRATION_STATUS,
         sortBy = SORT_BY,
@@ -56,7 +58,7 @@ const EventAPI = {
             const params = new URLSearchParams();
             console.log(params);
             if (limit !== 12) params.append('limit', limit);
-            if (skip !== 0) params.append('skip', skip);
+            if (skip !== SKIP) params.append('skip', skip);
             if (formationStatus !== FORMATION_STATUS)
                 params.append('formationStatus', formationStatus);
             if (registrationStatus !== REGISTRATION_STATUS)
