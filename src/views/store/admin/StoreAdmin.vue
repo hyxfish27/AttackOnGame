@@ -1,7 +1,7 @@
 <template>
     <div class="store-admin container vh-100">
-        <div class="row">
-            <div class="col-3"></div>
+        <div class="row p-3">
+            <LeftEl></LeftEl>
             <div class="col-9 store-admin__info">
                 <div class="d-flex">
                     <div class="store-admin__info__img"></div>
@@ -43,9 +43,10 @@
 <script>
 import { ref } from 'vue';
 import EditStoreModal from '@/components/EditStoreModal.vue';
+import LeftEl from '@/components/store/StoreLeftEl.vue';
 
 export default {
-    components: { EditStoreModal },
+    components: { EditStoreModal, LeftEl },
     setup() {
         const store = ref({
             name: '好玩工作室',

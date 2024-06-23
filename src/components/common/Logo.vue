@@ -1,5 +1,5 @@
 <template>
-    <router-link class="col-3 header__logo" to="/">
+    <router-link class="header__logo" to="/">
         <div class="img-wrap h-100">
             <img class="h-100" :src="Logo" alt="" />
         </div>
@@ -11,5 +11,6 @@ import Logo from '@/assets/images/img_logo.png';
 <style>
 .header__logo {
     height: 84px;
+    margin-right: 8px;
 }
 </style>

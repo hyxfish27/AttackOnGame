@@ -2,42 +2,27 @@
     <v-form v-slot="{ errors }" @submit="onSubmit">
         <div class="mb-3">
             <label for="email" class="form-label">帳號</label>
-            <v-field
-                id="email"
-                v-model="formData.email"
-                type="email"
-                class="form-control"
-                name="email"
-                :rules="playerLoginSchema.email"
-                :class="{ 'is-invalid': errors['email'] }"
-            ></v-field>
+            <v-field id="email" v-model="formData.email" type="email" class="form-control" name="email"
+                :rules="playerLoginSchema.email" :class="{ 'is-invalid': errors['email'] }"></v-field>
             <error-message name="email" class="text-danger"></error-message>
         </div>
 
         <div class="mb-3">
             <label for="password" class="form-label">密碼</label>
-            <v-field
-                id="password"
-                v-model="formData.password"
-                type="password"
-                class="form-control"
-                name="password"
-                :rules="playerLoginSchema.password"
-                :class="{ 'is-invalid': errors['password'] }"
-            ></v-field>
+            <v-field id="password" v-model="formData.password" type="password" class="form-control" name="password"
+                :rules="playerLoginSchema.password" :class="{ 'is-invalid': errors['password'] }"></v-field>
             <error-message name="password" class="text-danger"></error-message>
         </div>
 
         <div class="password-forget d-flex justify-content-end mt-1">
-            <span
-                class="text-muted text-decoration-underline"
-                @click="goToForgetPasswordPage"
-                >忘記密碼
+            <span class="text-muted" @click="goToForgetPasswordPage">忘記密碼
             </span>
         </div>
 
         <div class="d-flex justify-content-center form-footer">
-            <button type="submit" class="btn btn-primary">登入</button>
+            <button type="submit" class="btn btn-primary px-4 mt-4">
+                登入
+            </button>
         </div>
     </v-form>
 </template>
@@ -55,7 +40,7 @@ import {
 import userAdapter from '@/adapter/user';
 import UserAPI from '@/api/User';
 import cookie from '@/utilities/cookie/cookie';
-
+import useIndexStore from '@/stores/index';
 /**
  * playerLoginSchema
  * @author Vicky
@@ -88,7 +73,7 @@ export default defineComponent({
     },
     setup() {
         const router = useRouter();
-
+        const indexStore = useIndexStore();
         const formData = ref({
             email: '',
             password: '',
@@ -99,34 +84,42 @@ export default defineComponent({
         // });
 
         const onSubmitSuccess = async () => {
-            await UserAPI.login({
-                email: formData.value.email,
-                password: formData.value.password,
-            })
-                .then((response) => {
-                    console.log('login', response);
-                    const { user, token } = response.data.data;
-                    // const setUserData = setUser();
-
-                    const userViewObject = userAdapter.toViewObject(user);
-
-                    // setUserData.setUser(userViewObject);
-
-                    // 短解，之後使用 pinia 來管理
-                    localStorage.setItem(
-                        'attack-on-game-user',
-                        JSON.stringify(userViewObject)
-                    );
-
-                    cookie.set({ name: 'AttackOnGameJWT', value: token });
-
-                    router.push({ name: 'Index' });
-                })
-                .catch((error) => {
-                    console.log(error);
-                    const errorMessage = error.response.data.message;
-                    alert(errorMessage);
+            try {
+                const response = await UserAPI.login({
+                    email: formData.value.email,
+                    password: formData.value.password,
                 });
+
+                console.log('login', response);
+                const { user, token } = response.data.data;
+                const userViewObject = userAdapter.toViewObject(user);
+                indexStore.setUser(userViewObject);
+                cookie.set({ name: 'AttackOnGameJWT', value: token });
+
+                // set role data
+                let roleDataExist = false;
+                if (userViewObject) {
+                    if (userViewObject.role === 'player') {
+                        roleDataExist = await indexStore.getPlayer(
+                            userViewObject.id,
+                            router
+                        );
+                    } else if (userViewObject.role === 'store') {
+                        roleDataExist = await indexStore.getStore(
+                            userViewObject.id,
+                            router
+                        );
+                    }
+                }
+                console.log('indexStore', roleDataExist);
+                if (roleDataExist) {
+                    router.push({ name: 'Index' });
+                }
+            } catch (error) {
+                console.log(error);
+                const errorMessage = error.response.data.message;
+                alert(errorMessage);
+            }
         };
 
         // const onSubmitError = (errors) => {

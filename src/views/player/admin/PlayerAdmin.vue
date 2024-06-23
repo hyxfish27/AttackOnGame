@@ -1,20 +1,7 @@
 <template>
-    <div class="player-admin container vh-100">
+    <div class="player-admin container">
         <div class="row">
-            <div class="col-3 player-admin__sidebar">
-                <div>
-                    <h4>玩家</h4>
-                    <img class="player-admin__img" :url="formData.url" />
-                    <div>{{ formData.email }}</div>
-                    <div class="mb-4">{{ formData.name }}</div>
-
-                    <div class="player-admin__switcher">
-                        <div>帳戶資訊</div>
-                        <div>平台幣</div>
-                        <div>我的活動</div>
-                    </div>
-                </div>
-            </div>
+            <LeftEl></LeftEl>
             <div class="col-9 player-admin__info">
                 <h3
                     class="border-bottom border-3 border-black mt-5 d-inline-block"
@@ -150,12 +137,12 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, computed } from 'vue';
+import { defineComponent, ref, computed, onMounted } from 'vue';
 import * as yup from 'yup';
-import { useRoute, useRouter } from 'vue-router';
 import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate';
 import PlayerAPI from '@/api/Player';
 import useIndexStore from '@/stores/index';
+import LeftEl from '@/components/player/PlayerLeftEl.vue';
 
 const playerSchema = yup.object({
     name: yup.string().required('姓名為必填欄位'),
@@ -168,10 +155,9 @@ export default defineComponent({
         VForm,
         VField,
         ErrorMessage,
+        LeftEl,
     },
     setup() {
-        const route = useRoute();
-        const router = useRouter();
         const indexStore = useIndexStore();
 
         const formData = ref({
@@ -183,28 +169,19 @@ export default defineComponent({
         });
 
         const playerData = computed(() => indexStore.playerData);
-
-        const getPlayer = async (userId) => {
-            await PlayerAPI.get(userId)
-                .then((response) => {
-                    formData.value = response.data.data;
-                })
-                .catch((error) => {
-                    const errorMessage = error.response.data.message;
-                    alert(`取得玩家資料失敗: ${errorMessage}`);
-                    router.push({ name: 'Index' });
-                });
-        };
-
         const canEdit = ref(false);
 
         const onSubmit = async (playerInfo) => {
-            await PlayerAPI.update({
-                userId: playerData.value.user,
-                ...playerInfo,
-            })
-                .then(() => alert('更新成功'))
-                .catch((error) => alert(`更新失敗: ${error}`));
+            try {
+                await PlayerAPI.update({
+                    userId: playerData.value.id,
+                    ...playerInfo,
+                });
+                alert('更新成功');
+                indexStore.getPlayer(playerData.value.id);
+            } catch (error) {
+                alert(`更新失敗: ${error}`);
+            }
         };
 
         const handleFileUpload = (event) => {
@@ -217,8 +194,9 @@ export default defineComponent({
         };
 
         onMounted(() => {
-            const userId = route.params.id;
-            getPlayer(userId);
+            formData.value = {
+                ...playerData.value,
+            };
         });
 
         return {
@@ -245,18 +223,6 @@ export default defineComponent({
     &__img {
         width: 80px;
         height: 80px;
-    }
-
-    &__switcher {
-        > div {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 120px;
-            height: 38px;
-            border: 1px solid black;
-        }
     }
 }
 

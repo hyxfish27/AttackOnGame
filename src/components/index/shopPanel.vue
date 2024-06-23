@@ -1,31 +1,17 @@
 <template>
     <div class="index-store-section">
-        <div
-            class="dot-bg"
-            :style="{ backgroundImage: 'url(' + DotBg + ')' }"
-        ></div>
+        <div class="dot-bg" :style="{ backgroundImage: 'url(' + DotBg + ')' }"></div>
         <div class="py-16 container">
-            <TitlePanel
-                :tag="titleData.tag"
-                :title="titleData.title"
-                :desc="titleData.desc"
-            ></TitlePanel>
-            <div
-                v-if="errorMessage.split() && !loading"
-                class="text-center mt-4"
-            >
+            <TitlePanel :tag="titleData.tag" :title="titleData.title" :desc="titleData.desc"></TitlePanel>
+            <div v-if="errorMessage.split() && !loading" class="text-center mt-4">
                 <p>{{ errorMessage }}</p>
             </div>
             <div v-if="loading" class="text-center mt-4">
                 <div class="spinner-border" role="status"></div>
             </div>
             <div v-if="!loading && storeData.length > 0" class="row">
-                <StoreCard
-                    v-for="data in storeData"
-                    :key="data.user"
-                    :data="data"
-                    class="col-6 col-lg-3 mb-3"
-                >
+                <StoreCard v-for="data in storeData" :key="data.user" :data="data" class="col-6 col-lg-3 mb-3"
+                    @click="onStoreCardClick(data.user)">
                 </StoreCard>
             </div>
         </div>
@@ -36,6 +22,7 @@ import DotBg from '@/assets/images/dot_bg.svg';
 import EventAPI from '@/api/Event';
 import { onMounted, ref } from 'vue';
 import StoreCard from '@/components/store/storeCard.vue';
+import { useRouter } from 'vue-router';
 import TitlePanel from './titlePanel.vue';
 
 const storeData = ref([]);
@@ -62,6 +49,17 @@ const getStore = async () => {
             loading.value = false;
         });
 };
+const router = useRouter();
+/**
+ * onStoreCardClick
+ * @param {string} userId  使用者 id
+ * @description  店家卡片點擊事件
+ */
+const onStoreCardClick = (userId) => {
+    router.push({ name: 'StoreIntroduction', params: { userId } });
+    console.log('store');
+};
+
 onMounted(() => {
     getStore();
 });

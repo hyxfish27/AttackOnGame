@@ -1,7 +1,5 @@
 <template>
-    <div
-        class="index-title-wrap d-flex flex-column align-items-start position-relative"
-    >
+    <div class="index-title-wrap d-flex flex-column align-items-start position-relative">
         <div class="tag">
             <p class="manuale text-white">{{ tag }}</p>
         </div>
@@ -39,7 +37,6 @@ defineProps({
     .tag {
         font-weight: 800;
         font-size: 96px;
-
         -webkit-text-stroke: 2px #000000;
         text-stroke: 2px #000000;
     }
