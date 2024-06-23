@@ -1,19 +1,13 @@
 <template>
-    <div class="container">
-        <div class="row align-content-center vh-100 justify-content-center">
-            <div class="col-5 align-self-center justify-content-center">
-                <h2 class="text-center">我是店家</h2>
-            </div>
-
-            <div class="col-7">
-                <h1>填寫店家資訊</h1>
-                <signUpForm />
-            </div>
-        </div>
-    </div>
+    <UserAccess role="store">
+        <template #form>
+            <signUpForm></signUpForm>
+        </template>
+    </UserAccess>
 </template>
 
 <script setup>
+import UserAccess from '@/components/UserAccess.vue';
 import signUpForm from '@/components/common/SingUp.vue';
 </script>
 

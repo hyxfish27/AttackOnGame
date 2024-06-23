@@ -185,11 +185,13 @@
 </template>
 <script setup>
 import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+
 import PlayerAPI from '@/api/Player';
 import { useFormStore } from '@/stores/order';
 import modal from '@/components/common/simpleModal.vue';
 
+const route = useRoute();
 const BsModal = ref(null);
 const openModal = () => {
     BsModal.value.myModalShow();
@@ -200,7 +202,7 @@ const ContentText = ref(
 );
 // lb6wmkd2
 // m7sds2vb
-const theEventId = ref('lb6wmkd2');
+const theEventId = ref('');
 const summaryData = ref(null);
 const formData = ref({
     title: '',
@@ -221,13 +223,14 @@ const postOrder = async (formdata) => {
             console.log(res);
             router.push({
                 name: 'ReCheckout',
-                path: 'recheckout',
-                params: { formData: formData.value },
+                params: { eventId: theEventId.value },
             });
         })
         .catch((err) => {
             if (err.response.data.message.includes('E11000')) {
                 alert('每位玩家只能在一個活動上建立一筆訂單');
+            } else if (err.response.status === 401) {
+                alert('請先完成登入');
             } else {
                 alert(`${err.response.data.message}`);
                 console.log(err);
@@ -261,14 +264,23 @@ const getSummary = async (eventid) => {
             formData.value.address = summaryData.value.address;
             formData.value.startTime = summaryData.value.eventStartTime;
             formData.value.endTime = summaryData.value.eventEndTime;
-            console.log('data', summaryData.value);
         })
         .catch((err) => {
             console.log(err);
         });
 };
 onMounted(() => {
-    getSummary('lb6wmkd2');
+    const { eventId } = route.params;
+    getSummary(eventId);
+    theEventId.value = eventId;
+    console.log('eventId', eventId);
+    console.log('theEventId', theEventId.value);
+    if (orderStore.isNew === false) {
+        formData.value.phoneNum = orderStore.formData.phoneNum;
+        formData.value.personNum = orderStore.formData.personNum;
+        formData.value.note = orderStore.formData.note;
+        formData.value.userName = orderStore.formData.userName;
+    }
 });
 </script>
 <style lang="scss" scope>

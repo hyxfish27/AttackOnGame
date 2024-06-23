@@ -1,5 +1,5 @@
 <template class="">
-    <div class="bg-greyF7 store-list-wrap">
+    <div class="bg-greyF7 store-list-wrap cursor">
         <div class="container pb-5">
             <div class="row py-7 justify-content-center">
                 <div
@@ -30,6 +30,7 @@
                     :key="data.user"
                     :data="data"
                     class="col-6 col-lg-3 mb-3"
+                    @click="onStoreCardClick(data.user, data._id)"
                 ></StoreCard>
             </div>
         </div>
@@ -41,6 +42,7 @@ import { onMounted, computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import _debounce from 'lodash/debounce';
 import StoreCard from '@/components/store/storeCard.vue';
+import { selectStoreData } from '@/stores/selectStore';
 
 const router = useRouter();
 const selectType = ref('searchStore');
@@ -49,12 +51,27 @@ const storeData = ref(null);
 const getStore = async () => {
     await EventAPI.getStores()
         .then((res) => {
+            console.log(res.data);
             storeData.value = res.data;
         })
         .catch((err) => {
             console.log(err);
         });
 };
+
+/**
+ * onStoreCardClick
+ * @param {string} userId  使用者 id
+ * @description  店家卡片點擊事件
+ */
+const selectTheStore = selectStoreData();
+const onStoreCardClick = (userId, _id) => {
+    router.push({ name: 'StoreIntroduction', params: { userId } });
+    selectTheStore.updateSelectStoreData({ _id, userId });
+
+    console.log('selectTheStore', selectTheStore.selectStore._id);
+};
+
 watch(selectType, (newValue) => {
     if (newValue === 'searchEvent') {
         router.push('/event-list');

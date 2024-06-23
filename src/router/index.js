@@ -60,18 +60,18 @@ const routes = [
                         component: () =>
                             import('@/views/player/admin/Admin.vue'),
                         children: [
+                            // {
+                            //     path: '',
+                            //     component: () => import('@/views/Index.vue'),
+                            // },
                             {
-                                path: '',
-                                component: () => import('@/views/Index.vue'),
-                            },
-                            {
-                                path: 'checkout',
+                                path: 'checkout/:eventId',
                                 name: 'Checkout',
                                 component: () =>
                                     import('@/views/player/admin/Checkout.vue'),
                             },
                             {
-                                path: 'recheckout',
+                                path: 'recheckout/:eventId',
                                 name: 'ReCheckout',
                                 component: () =>
                                     import(
@@ -101,13 +101,13 @@ const routes = [
                                     import('@/views/player/admin/Activity.vue'),
                             },
                             {
-                                path: 'ticket',
+                                path: 'ticket/:idNumber',
                                 name: 'PlayerTicket',
                                 component: () =>
                                     import('@/views/player/admin/Ticket.vue'),
                             },
                             {
-                                path: ':id',
+                                path: '',
                                 name: 'PlayerAdminId',
                                 component: () =>
                                     import(
@@ -118,6 +118,7 @@ const routes = [
                     },
                     {
                         path: '',
+                        name: 'PlayerIndex',
                         component: () => import('@/views/Index.vue'),
                     },
 
@@ -147,7 +148,42 @@ const routes = [
                     {
                         path: 'admin',
                         name: 'StoreAdmin',
-                        component: () => import('@/views/store/Admin.vue'),
+                        component: () =>
+                            import('@/views/store/admin/Admin.vue'),
+                        children: [
+                            {
+                                path: '',
+                                name: 'StoreAdminId',
+                                component: () =>
+                                    import(
+                                        '@/views/store/admin/StoreAdmin.vue'
+                                    ),
+                            },
+                            {
+                                path: 'activity-list',
+                                name: 'StoreActivityList',
+                                component: () =>
+                                    import(
+                                        '@/views/store/admin/ActivityList.vue'
+                                    ),
+                            },
+                            {
+                                path: 'activity',
+                                name: 'StoreActivity',
+                                component: () =>
+                                    import(
+                                        '@/views/store/admin/ActivityList.vue'
+                                    ),
+                            },
+                            {
+                                path: 'activity-edit',
+                                name: 'StoreActivityEdit',
+                                component: () =>
+                                    import(
+                                        '@/views/store/admin/EditActivity.vue'
+                                    ),
+                            },
+                        ],
                     },
                     {
                         path: 'login',
@@ -202,6 +238,10 @@ const router = createRouter({
     history: createWebHashHistory(),
     linkActiveClass: 'active',
     routes,
+    scrollBehavior() {
+        // 每次路由變化時都會滾動到頂部
+        return { top: 0, behavior: 'smooth' };
+    },
 });
 
 export default router;

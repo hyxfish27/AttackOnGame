@@ -1,7 +1,7 @@
 <template>
-    <div class="col-6 col-lg-3 mb-3 event-card">
+    <div class="col-6 col-lg-3 mb-3 event-card cursor">
         <div class="card h-100 p-2">
-            <div class="position-relative pt-150per">
+            <div class="position-relative pt-150per event-card-img-wrap">
                 <div
                     class="py-1 px-2 z-1 position-absolute top-0 fs-10 noto-serif-tc"
                     :class="computedEventData.tagcolor"
@@ -21,7 +21,7 @@
                     {{ computedEventData.eventTime }}
                 </p>
                 <p
-                    class="card-title noto-serif-tc fw-bold fs-8 mb-0 overflow-hidden card-title-h"
+                    class="card-title noto-serif-tc fw-bold fs-8 mb-0 overflow-hidden card-title-h line-clamp line-clamp-2"
                 >
                     <WordHighlighter :query="keywords">
                         {{ computedEventData.title }}
@@ -152,7 +152,22 @@ const computedEventData = computed(() => {
     };
 });
 </script>
-<style>
+<style lang="scss">
+.event-card {
+    .event-card-img-wrap {
+        overflow: hidden;
+
+        img {
+            transform: scale(1, 1);
+            transition: all 0.8s ease-out;
+        }
+
+        img:hover {
+            transform: scale(1.1, 1.1);
+        }
+    }
+}
+
 .event-card .mockup {
     top: 0;
     bottom: 0;
@@ -162,6 +177,8 @@ const computedEventData = computed(() => {
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
+
     p {
         color: #fff;
         border: 1px solid #fff;

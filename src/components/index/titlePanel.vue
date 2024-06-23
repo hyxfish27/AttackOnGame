@@ -39,7 +39,6 @@ defineProps({
     .tag {
         font-weight: 800;
         font-size: 96px;
-
         -webkit-text-stroke: 2px #000000;
         text-stroke: 2px #000000;
     }
