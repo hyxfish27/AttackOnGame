@@ -107,6 +107,7 @@
                 </div>
             </div>
         </div>
+        <UserAccessPanel></UserAccessPanel>
     </div>
 </template>
 
@@ -120,6 +121,7 @@ import ctaMessageImg from '@/assets/images/index_cta_message_image_pc.png';
 import ctaTextImg from '@/assets/images/index_cta_text_img.svg';
 import EventPanel from '@/components/index/eventPanel.vue';
 import ShopPanel from '@/components/index/shopPanel.vue';
+import UserAccessPanel from '@/components/index/UserAccessPanel.vue';
 // import user from '@/stores/index';
 // import PlayerAPI from '@/api/Player';
 // import { onMounted } from 'vue';
