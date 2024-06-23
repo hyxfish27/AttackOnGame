@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div v-show="showContent" :ref="otherContent">
+        <div v-if="showContent" :ref="otherContent">
             <EventPanel></EventPanel>
             <ShopPanel></ShopPanel>
             <div class="container">
