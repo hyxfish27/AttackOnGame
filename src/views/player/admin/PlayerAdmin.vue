@@ -1,7 +1,10 @@
 <template>
-    <div class="player-admin container vh-100">
+    <div class="player-admin container">
         <div class="row">
-            <div class="col-3 player-admin__sidebar">
+            <div
+                class="col-3 p-3 border rounded bg-white h-100"
+                style="min-height: 80vh"
+            >
                 <div>
                     <h4>玩家</h4>
                     <img class="player-admin__img" :url="formData.url" />
