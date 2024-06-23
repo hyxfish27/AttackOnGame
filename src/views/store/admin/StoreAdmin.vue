@@ -13,7 +13,9 @@
                             <p id="storeAddress">{{ store.address }}</p>
                         </div>
                         <div class="mb-3">
-                            <label for="storeRating" class="form-label">評價</label>
+                            <label for="storeRating" class="form-label"
+                                >評價</label
+                            >
                             <p id="storeRating">{{ store.rating }}</p>
                         </div>
                     </div>
@@ -29,7 +31,12 @@
             </div>
         </div>
 
-        <EditStoreModal v-if="showModal" :store="store" @close="closeModal" @save="saveChanges" />
+        <EditStoreModal
+            v-if="showModal"
+            :store="store"
+            @close="closeModal"
+            @save="saveChanges"
+        />
     </div>
 </template>
 
