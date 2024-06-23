@@ -16,7 +16,12 @@
                 <div
                     class="user-access_main user-access_section d-flex flex-column justify-content-center"
                 >
-                    <h1 class="fw-12">填寫{{ roleAttr.text }}資訊</h1>
+                    <h1
+                        class="fw-12 title d-flex align-items-center"
+                        :class="roleAttr.key"
+                    >
+                        填寫{{ roleAttr.text }}資訊
+                    </h1>
                     <slot name="form"></slot>
                 </div>
             </div>
@@ -72,6 +77,22 @@ const roleAttr = computed(() => {
     }
     .fw-12 {
         font-size: 3rem;
+    }
+    .title.player::before {
+        content: '';
+        display: block;
+        width: 8px;
+        height: 100%;
+        background-color: #ffdd33;
+        margin-right: 16px;
+    }
+    .title.store::before {
+        content: '';
+        display: block;
+        width: 8px;
+        height: 100%;
+        background-color: #ff8025;
+        margin-right: 16px;
     }
     .img-wrap {
         width: 160px;
