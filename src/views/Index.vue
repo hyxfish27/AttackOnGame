@@ -1,5 +1,5 @@
 <template>
-    <div style="background-color: #ffff">
+    <div style="background-color: #ffff" :class="{ fixed: !showContent }">
         <div
             class="full-sceen-without-footer d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
             :style="{
@@ -20,8 +20,11 @@
                             <button
                                 type="button"
                                 class="btn btn-dark d-flex justify-content-center flex-column align-items-center bg-black position-absolute border-white border border-2 rounded-circle gap-1 pt-2 shadow-sm mt-15 banner-btn"
+                                @click.prevent="clickScrollBtn"
                             >
-                                <p class="fw-semibold text-warning">SCROLL</p>
+                                <p class="fw-semibold text-warning cursor">
+                                    SCROLL
+                                </p>
                                 <svg
                                     style="width: 24px"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -39,75 +42,84 @@
                 </div>
             </div>
         </div>
-        <EventPanel></EventPanel>
-        <ShopPanel></ShopPanel>
-        <div class="container">
-            <div
-                class="row"
-                :style="{ backgroundImage: 'url(' + logoWatermark + ')' }"
-                style="
-                    background-position: center 50px;
-                    background-size: contain;
-                    background-repeat: no-repeat;
-                "
-            >
-                <div class="col">
-                    <div
-                        class="py-10 text-center fs-4 noto-serif-tc fw-bold lh-lg"
-                    >
-                        <p>不論你要找什麼樣的桌遊團？</p>
-                        <p>這裡都有你的容身之處</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div
-            class="bg-warning dot-bg"
-            :style="{ backgroundImage: 'url(' + DotBg + ')' }"
-        >
-            <div></div>
+        <div v-if="showContent" :ref="otherContent">
+            <EventPanel></EventPanel>
+            <ShopPanel></ShopPanel>
             <div class="container">
-                <div class="row">
+                <div
+                    class="row"
+                    :style="{ backgroundImage: 'url(' + logoWatermark + ')' }"
+                    style="
+                        background-position: center 50px;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    "
+                >
                     <div class="col">
                         <div
-                            style="margin-top: -80px"
-                            :style="{
-                                backgroundImage: 'url(' + ctaMessageBg + ')',
-                            }"
-                            class="p-3 d-flex justify-content-center"
+                            class="py-10 text-center fs-4 noto-serif-tc fw-bold lh-lg"
                         >
-                            <img class="w-90" :src="ctaMessageImg" alt="" />
+                            <p>不論你要找什麼樣的桌遊團？</p>
+                            <p>這裡都有你的容身之處</p>
                         </div>
                     </div>
                 </div>
-                <div class="row py-3">
-                    <div
-                        class="col p-4 d-flex justify-content-center align-items-center flex-column gap-4"
-                    >
-                        <img class="w-70 mx-auto" :src="ctaTextImg" alt="" />
-                        <router-link
-                            :to="{ name: 'EventList' }"
-                            type="button"
-                            class="find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
-                        >
-                            <p class="pe-2">沙沙給油！找出屬於你的桌遊兵團！</p>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                width="32"
+            </div>
+            <div
+                class="bg-warning dot-bg"
+                :style="{ backgroundImage: 'url(' + DotBg + ')' }"
+            >
+                <div></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div
+                                style="margin-top: -80px"
+                                :style="{
+                                    backgroundImage:
+                                        'url(' + ctaMessageBg + ')',
+                                }"
+                                class="p-3 d-flex justify-content-center"
                             >
-                                <title>chevron-right</title>
-                                <path
-                                    fill="#ffff"
-                                    d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
-                                />
-                            </svg>
-                        </router-link>
+                                <img class="w-90" :src="ctaMessageImg" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row py-3">
+                        <div
+                            class="col p-4 d-flex justify-content-center align-items-center flex-column gap-4"
+                        >
+                            <img
+                                class="w-70 mx-auto"
+                                :src="ctaTextImg"
+                                alt=""
+                            />
+                            <router-link
+                                :to="{ name: 'EventList' }"
+                                type="button"
+                                class="find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
+                            >
+                                <p class="pe-2">
+                                    沙沙給油！找出屬於你的桌遊兵團！
+                                </p>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    width="32"
+                                >
+                                    <title>chevron-right</title>
+                                    <path
+                                        fill="#ffff"
+                                        d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                                    />
+                                </svg>
+                            </router-link>
+                        </div>
                     </div>
                 </div>
             </div>
+            <UserAccessPanel></UserAccessPanel>
         </div>
-        <UserAccessPanel></UserAccessPanel>
     </div>
 </template>
 
@@ -122,34 +134,20 @@ import ctaTextImg from '@/assets/images/index_cta_text_img.svg';
 import EventPanel from '@/components/index/eventPanel.vue';
 import ShopPanel from '@/components/index/shopPanel.vue';
 import UserAccessPanel from '@/components/index/UserAccessPanel.vue';
-// import user from '@/stores/index';
-// import PlayerAPI from '@/api/Player';
-// import { onMounted } from 'vue';
-// import { useRouter } from 'vue-router';
-// import HelloWorld from '../components/HelloWorld.vue';
+import { ref, nextTick } from 'vue';
 
-// const router = useRouter();
-// const theUserData = user();
-// console.log(theUserData.userData);
-
-// const getPlayer = async (userId) => {
-//     await PlayerAPI.get(userId)
-//         .then((res) => {
-//             console.log(res);
-//         })
-//         .catch(() => {
-//             router.push({
-//                 name: 'PlayerForm',
-//             });
-//         });
-// };
-// onMounted(() => {
-//     const { isLogin } = theUserData;
-//     if (isLogin) {
-//         const userId = theUserData.userData._id;
-//         getPlayer(userId);
-//     }
-// });
+const showContent = ref(false);
+const sectionIsFixed = ref(true);
+const clickScrollBtn = () => {
+    sectionIsFixed.value = false;
+    showContent.value = true;
+    nextTick(() => {
+        const nextSection = document.getElementById('scroll-section');
+        if (nextSection) {
+            nextSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -157,6 +155,13 @@ import UserAccessPanel from '@/components/index/UserAccessPanel.vue';
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.fixed {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 .banner-btn {
