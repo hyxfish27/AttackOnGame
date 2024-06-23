@@ -1,5 +1,8 @@
 <template>
-    <div class="full-sceen-with-footer bg-greyF7">
+    <div
+        class="full-sceen-with-footer bg-greyF7"
+        :class="{ 'full-sceen-with-footer': isFullScrean }"
+    >
         <div class="container h-100 user-access_wrap">
             <div class="d-flex justify-content-between user-access_panel h-100">
                 <div
@@ -48,10 +51,14 @@ const ROLE_MAP = {
         icon: userIcon,
     },
 };
-const { role } = defineProps({
+const { role, isFullScrean } = defineProps({
     role: {
         type: String,
         default: 'store',
+    },
+    isFullScrean: {
+        type: Boolean,
+        default: true,
     },
 });
 const roleAttr = computed(() => {
