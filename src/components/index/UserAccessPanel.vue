@@ -49,7 +49,8 @@ const titleData = {
 <style lang="scss">
 .user-access_wrap {
     padding: 48px 0;
-    background: linear-gradient(to bottom, #f9de59 10%, #ffffff 30%);
+    background: linear-gradient(to bottom, #ffdd33 0%, #ffffff 15%);
+
     .user-access_panel {
         padding: 40px 32px;
     }
