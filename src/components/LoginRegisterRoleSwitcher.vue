@@ -28,7 +28,9 @@
                                 class="d-block mb-2"
                                 :to="storeBehaviorUrl"
                             >
-                                <button class="btn-common fw-bold py-2 px-3">
+                                <button
+                                    class="btn btn-primary fw-bold py-2 px-3"
+                                >
                                     立即{{ behavior }}
                                 </button>
                             </router-link>
@@ -64,7 +66,9 @@
                                 class="d-block mb-2"
                                 :to="userBehaviorUrl"
                             >
-                                <button class="btn-common fw-bold py-2 px-3">
+                                <button
+                                    class="btn btn-primary fw-bold py-2 px-3"
+                                >
                                     立即{{ behavior }}
                                 </button>
                             </router-link>

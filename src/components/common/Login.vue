@@ -29,15 +29,15 @@
         </div>
 
         <div class="password-forget d-flex justify-content-end mt-1">
-            <span
-                class="text-muted text-decoration-underline"
-                @click="goToForgetPasswordPage"
+            <span class="text-muted" @click="goToForgetPasswordPage"
                 >忘記密碼
             </span>
         </div>
 
         <div class="d-flex justify-content-center form-footer">
-            <button type="submit" class="btn btn-primary">登入</button>
+            <button type="submit" class="btn btn-primary px-4 mt-4">
+                登入
+            </button>
         </div>
     </v-form>
 </template>
