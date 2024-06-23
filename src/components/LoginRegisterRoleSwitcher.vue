@@ -7,7 +7,7 @@
         >
             <div class="login-register-role-switcher_section bg-white">
                 <div
-                    class="py-7 d-flex flex-column justify-content-center align-items-center"
+                    class="h-100 d-flex flex-column justify-content-center align-items-center"
                 >
                     <div
                         class="img-wrap store-icon mb-2 d-flex justify-content-center align-items-center"
@@ -17,7 +17,9 @@
                     <div
                         class="d-flex flex-column justify-content-center align-items-center"
                     >
-                        <h3 class="mb-2 fw-bold py-3">店家{{ behavior }}</h3>
+                        <h4 class="mb-2 fw-bold pt-3 pb-2">
+                            店家{{ behavior }}
+                        </h4>
                         <p class="mb-2 pb-3 fw-bold">
                             我要成為始祖聚人，創造源源不絕的聚人!
                         </p>
@@ -40,17 +42,19 @@
 
             <div class="login-register-role-switcher_section bg-white">
                 <div
-                    class="py-7 d-flex flex-column justify-content-center align-items-center"
+                    class="h-100 d-flex flex-column justify-content-center align-items-center"
                 >
                     <div
                         class="img-wrap player-icon mb-2 d-flex justify-content-center align-items-center"
                     >
-                        <img :src="userIcon" alt="" />
+                        <img width="150" :src="userIcon" alt="" />
                     </div>
                     <div
                         class="d-flex flex-column justify-content-center align-items-center"
                     >
-                        <h3 class="mb-2 fw-bold py-3">玩家{{ behavior }}</h3>
+                        <h4 class="mb-2 fw-bold pt-3 pb-2">
+                            玩家{{ behavior }}
+                        </h4>
                         <p class="mb-2 pb-3 fw-bold">
                             我要成為GG的聚人，希望可以來個Good Game!
                         </p>
@@ -102,21 +106,20 @@ defineProps({
     }
 
     .img-wrap {
-        width: 160px;
-        height: 160px;
+        width: 140px;
+        height: 140px;
         border-radius: 50%;
 
         img {
-            width: 80px;
-            height: 80px;
+            width: 60px;
         }
 
         &.player-icon {
-            border: 8px solid #ffdd33;
+            border: 6px solid #ffdd33;
         }
 
         &.store-icon {
-            border: 8px solid #ff8025;
+            border: 6px solid #ff8025;
         }
     }
 }
