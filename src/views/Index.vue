@@ -20,11 +20,9 @@
                             <button
                                 type="button"
                                 class="btn btn-dark d-flex justify-content-center flex-column align-items-center bg-black position-absolute border-white border border-2 rounded-circle gap-1 pt-2 shadow-sm mt-15 banner-btn"
+                                @click.prevent="clickScrollBtn"
                             >
-                                <p
-                                    class="fw-semibold text-warning cursor"
-                                    @click.prevent.once="clickScrollBtn"
-                                >
+                                <p class="fw-semibold text-warning cursor">
                                     SCROLL
                                 </p>
                                 <svg
@@ -158,12 +156,14 @@ const clickScrollBtn = () => {
     background-size: cover;
     background-repeat: no-repeat;
 }
+
 .fixed {
     position: fixed;
     bottom: 0;
     right: 0;
     left: 0;
 }
+
 .banner-btn {
     width: 100px;
     height: 100px;
