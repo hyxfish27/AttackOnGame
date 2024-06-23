@@ -21,7 +21,7 @@
                     {{ computedEventData.eventTime }}
                 </p>
                 <p
-                    class="card-title noto-serif-tc fw-bold fs-8 mb-0 overflow-hidden card-title-h"
+                    class="card-title noto-serif-tc fw-bold fs-8 mb-0 overflow-hidden card-title-h line-clamp line-clamp-2"
                 >
                     <WordHighlighter :query="keywords">
                         {{ computedEventData.title }}
