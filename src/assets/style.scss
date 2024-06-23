@@ -2,6 +2,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Manuale:ital,wght@0,300..800;1,300..800&family=Noto+Serif+TC:wght@200..900&display=swap');
 
+$header: calc(84px + 16px + 1px);
+$footer: calc(84px + 16px + 1px);
+
+.full-sceen-with-footer {
+  height: calc(100vh - $footer - $header);
+}
+
+.full-sceen-without-footer {
+  height: calc(100vh - $header);
+}
 
 .noto-serif-tc {
   font-family: "Noto Serif TC", serif;
