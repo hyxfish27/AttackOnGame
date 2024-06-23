@@ -2,7 +2,9 @@
     <header id="admin-header">
         <div class="row">
             <PrimaryHeader class="col-9"></PrimaryHeader>
-            <div class="col-3 header__nav d-flex gap-3 justify-content-end align-items-center">
+            <div
+                class="col-3 header__nav d-flex gap-3 justify-content-end align-items-center"
+            >
                 <button class="btn btn-primary btn-logout mr-2" @click="logout">
                     登出
                 </button>
