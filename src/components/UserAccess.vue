@@ -19,7 +19,7 @@
                     class="user-access_main user-access_section d-flex flex-column justify-content-center"
                 >
                     <h1
-                        class="fs-5 pb-6 fw-bold title d-flex align-items-center"
+                        class="fs-5 pb-3 fw-bold title d-flex align-items-center"
                         :class="roleAttr.key"
                     >
                         填寫{{ roleAttr.text }}資訊
