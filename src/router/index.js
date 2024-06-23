@@ -118,6 +118,7 @@ const routes = [
                     },
                     {
                         path: '',
+                        name: 'PlayerIndex',
                         component: () => import('@/views/Index.vue'),
                     },
 

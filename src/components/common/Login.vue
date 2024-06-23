@@ -56,6 +56,7 @@ import userAdapter from '@/adapter/user';
 import UserAPI from '@/api/User';
 import cookie from '@/utilities/cookie/cookie';
 import useIndexStore from '@/stores/index';
+import _ from 'lodash';
 /**
  * playerLoginSchema
  * @author Vicky
@@ -106,15 +107,21 @@ export default defineComponent({
                 .then((response) => {
                     console.log('login', response);
                     const { user, token } = response.data.data;
-                    // const setUserData = setUser();
-
                     const userViewObject = userAdapter.toViewObject(user);
-
-                    // setUserData.setUser(userViewObject);
                     indexStore.setUser(userViewObject);
                     cookie.set({ name: 'AttackOnGameJWT', value: token });
 
-                    router.push({ name: 'Index' });
+                    // set role data
+                    if (userViewObject) {
+                        if (userViewObject.role === 'player') {
+                            indexStore.getPlayer(userViewObject.id, router);
+                        } else if (userViewObject.role === 'store') {
+                            indexStore.getStore(userViewObject.id, router);
+                        }
+                    }
+                    if (!_.isEmpty(indexStore.userData.roleData)) {
+                        router.push({ name: 'Index' });
+                    }
                 })
                 .catch((error) => {
                     console.log(error);
