@@ -19,7 +19,10 @@
                     :alt="data.name"
                 />
 
-                <p class="fw-bold fs-8" style="height: 27px; overflow: hidden">
+                <p
+                    class="fw-bold fs-8 line-clamp line-clamp-1"
+                    style="height: 27px; overflow: hidden"
+                >
                     {{ data.name }}
                 </p>
                 <p class="fs-10 text-grey66">{{ data.address }}</p>
