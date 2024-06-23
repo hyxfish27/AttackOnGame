@@ -1,7 +1,7 @@
 <template>
     <div style="background-color: #ffff">
         <div
-            class="d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
+            class="full-sceen-without-footer d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
             :style="{
                 backgroundImage: 'url(' + bennerBg + ')',
             }"
@@ -155,7 +155,6 @@ import ShopPanel from '@/components/index/shopPanel.vue';
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: calc(100vh - 114px);
 }
 
 .banner-btn {
