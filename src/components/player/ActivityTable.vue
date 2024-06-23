@@ -4,6 +4,11 @@ import { defineProps, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import toLocalString from '@/utilities/toLocalString';
 
+const PaymentStatus = {
+    pending: '尚未付款',
+    completed: '已付款',
+    failed: '付款失敗',
+};
 const currentPage = ref(1);
 const itemsPerPage = 5;
 const tableTitles = ['活動名稱', '', '付款狀態', '金額', '張數', '訂單編號'];
@@ -23,7 +28,9 @@ const paginatedList = computed(() => {
     const end = start + itemsPerPage;
     return props.activityList.slice(start, end);
 });
-
+const setStatus = (x) => {
+    return PaymentStatus[x];
+};
 const formatTime = (start, end) => {
     const Date = dayjs(start).format('YYYY-MM-DD');
     const startTime = dayjs(start).format('HH:mm');
@@ -92,7 +99,7 @@ const goTicket = (idNumber) => {
                             </button>
                         </div>
                     </td>
-                    <td>{{ value.paymentStatus }}</td>
+                    <td>{{ setStatus(value.paymentStatus) }}</td>
                     <td>${{ toLocalString(value.totalAmount) }}</td>
                     <td>{{ value.registrationCount }}張</td>
                     <td>{{ value.idNumber }}</td>
