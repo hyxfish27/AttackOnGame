@@ -12,12 +12,14 @@
                         />
                     </div>
                     <div class="event-description mb-4">
-                        <h6
-                            class="text-primary fw-bold pb-2 border-bottom border-2 border-primary"
-                        >
-                            詳細內容
-                        </h6>
-                        <p>{{ eventData.description }}</p>
+                        <div class="sub-title_wrap">
+                            <h2
+                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fs-6 d-inline-block sub-title mb-0"
+                            >
+                                詳細內容
+                            </h2>
+                        </div>
+                        <p class="mt-4">{{ eventData.description }}</p>
                     </div>
                     <div class="event-store">
                         <div
@@ -47,6 +49,16 @@
                         </div>
                     </div>
                     <div class="event-message"></div>
+                    <div class="event-description mt-4">
+                        <div class="sub-title_wrap">
+                            <h2
+                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fs-6 d-inline-block sub-title mb-0"
+                            >
+                                活動答疑區
+                            </h2>
+                        </div>
+                        <p class="mt-4">{{ eventData.description }}</p>
+                    </div>
                 </div>
                 <div class="col-4">
                     <div class="event-header mb-4">
@@ -74,7 +86,12 @@
                             </p>
 
                             <div class="d-flex mb-2">
-                                <div class="mr-2">icon</div>
+                                <div class="icon-img_wrap mr-2">
+                                    <image
+                                        :src="moneyIcon"
+                                        class="w-100"
+                                    ></image>
+                                </div>
                                 <div>
                                     <h6 class="fw-bold mb-1">
                                         {{ eventData.participationFee }}幣 /
@@ -89,11 +106,11 @@
                             <hr class="bg-greyE9" />
 
                             <div class="d-flex mb-2">
-                                <div class="mr-2">
-                                    <div v-if="eventData.isFoodAllowed">
-                                        isFoodAllowed icon
-                                    </div>
-                                    <div v-else>isFoodNotAllowed icon</div>
+                                <div class="icon-img_wrap mr-2">
+                                    <image
+                                        :src="foodIcon"
+                                        class="w-100"
+                                    ></image>
                                 </div>
                                 <div>
                                     <h6 class="text-primary fw-bold mb-1">
@@ -110,7 +127,12 @@
                             </div>
 
                             <div class="d-flex mb-2">
-                                <div class="mr-2">icon</div>
+                                <div class="icon-img_wrap mr-2">
+                                    <image
+                                        :src="minPeopleIcon"
+                                        class="w-100"
+                                    ></image>
+                                </div>
                                 <div>
                                     <h6 class="fw-bold mb-1">
                                         最低人數
@@ -121,7 +143,12 @@
                             </div>
 
                             <div class="d-flex mb-2">
-                                <div class="mr-2">icon</div>
+                                <div class="icon-img_wrap mr-2">
+                                    <image
+                                        :src="maxPeopleIcon"
+                                        class="w-100"
+                                    ></image>
+                                </div>
                                 <div>
                                     <h6 class="fw-bold mb-1">
                                         最高人數
@@ -145,7 +172,12 @@
                             </button>
 
                             <div class="d-flex mt-2">
-                                <p>icon</p>
+                                <div class="icon-img_wrap mr-2">
+                                    <image
+                                        :src="timeIcon"
+                                        class="w-100"
+                                    ></image>
+                                </div>
                                 <p>截止時間： {{ eventData.eventEndTime }}</p>
                             </div>
                         </div>
@@ -161,6 +193,11 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import EventAPI from '@/api/Event';
 import StoreAPI from '@/api/Store';
+import foodIcon from '@/assets/images/event/event-food.png';
+import minPeopleIcon from '@/assets/images/event/event-min-people.png';
+import moneyIcon from '@/assets/images/event/event-money.png';
+import timeIcon from '@/assets/images/event/event-time.png';
+import maxPeopleIcon from '@/assets/images/event/evet-max-people.png';
 
 const route = useRoute();
 
@@ -210,6 +247,28 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+.fs-6 {
+    font-size: 24px;
+}
+.icon-img_wrap {
+    width: 50px;
+    height: 50px;
+}
+.sub-title_wrap {
+    position: relative;
+    .sub-title {
+        position: relative;
+        z-index: 2;
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0px;
+        width: 100%;
+        border-bottom: 2px solid #d4d4d4;
+    }
+}
 .single-event {
     background: linear-gradient(180deg, #fff6cc 0%, #ffffff 100%);
 
