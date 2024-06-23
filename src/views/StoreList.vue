@@ -1,5 +1,5 @@
 <template class="">
-    <div class="bg-greyF7 store-list-wrap">
+    <div class="bg-greyF7 store-list-wrap cursor">
         <div class="container pb-5">
             <div class="row py-7 justify-content-center">
                 <div
