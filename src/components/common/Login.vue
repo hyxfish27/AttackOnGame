@@ -55,7 +55,7 @@ import {
 import userAdapter from '@/adapter/user';
 import UserAPI from '@/api/User';
 import cookie from '@/utilities/cookie/cookie';
-
+import useIndexStore from '@/stores/index';
 /**
  * playerLoginSchema
  * @author Vicky
@@ -88,7 +88,7 @@ export default defineComponent({
     },
     setup() {
         const router = useRouter();
-
+        const indexStore = useIndexStore();
         const formData = ref({
             email: '',
             password: '',
@@ -111,13 +111,7 @@ export default defineComponent({
                     const userViewObject = userAdapter.toViewObject(user);
 
                     // setUserData.setUser(userViewObject);
-
-                    // 短解，之後使用 pinia 來管理
-                    localStorage.setItem(
-                        'attack-on-game-user',
-                        JSON.stringify(userViewObject)
-                    );
-
+                    indexStore.setUser(userViewObject);
                     cookie.set({ name: 'AttackOnGameJWT', value: token });
 
                     router.push({ name: 'Index' });

@@ -60,10 +60,10 @@ const routes = [
                         component: () =>
                             import('@/views/player/admin/Admin.vue'),
                         children: [
-                            {
-                                path: '',
-                                component: () => import('@/views/Index.vue'),
-                            },
+                            // {
+                            //     path: '',
+                            //     component: () => import('@/views/Index.vue'),
+                            // },
                             {
                                 path: 'checkout/:eventId',
                                 name: 'Checkout',
@@ -107,7 +107,7 @@ const routes = [
                                     import('@/views/player/admin/Ticket.vue'),
                             },
                             {
-                                path: ':id',
+                                path: '',
                                 name: 'PlayerAdminId',
                                 component: () =>
                                     import(

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import PlayerAPI from '@/api/Player';
 import playerAdapter from '@/adapter/player';
+import EventAPI from '@/api/Event';
 // import { useRouter } from 'vue-router';
 
 // const router = useRouter();
@@ -10,9 +11,6 @@ export default defineStore('index', {
     state: () => ({
         isLogin: false,
         userData: {},
-
-        // TODO: 先用 playerData 來接，之後重新整理資料
-        playerData: [],
     }),
     actions: {
         setIsLogin(value) {
@@ -21,8 +19,8 @@ export default defineStore('index', {
         setUser(data) {
             this.userData = data;
         },
-        setPlayer(data) {
-            this.playerData = data;
+        setRole(data) {
+            this.userData.roleData = data;
         },
         async getPlayer(userId, router) {
             await PlayerAPI.get(userId)
@@ -30,7 +28,7 @@ export default defineStore('index', {
                     const playerViewObject = playerAdapter.toViewObject(
                         res.data.data
                     );
-                    this.setPlayer(playerViewObject);
+                    this.setRole(playerViewObject);
                 })
                 .catch((err) => {
                     console.error(err);
@@ -38,8 +36,29 @@ export default defineStore('index', {
                     router.push({ name: 'PlayerForm' });
                 });
         },
-        getStore(userId) {
-            console.log('getStore', userId);
+        async getStore(userId, router) {
+            try {
+                const stores = await EventAPI.getStores();
+                console.log('stroeData', stores.data);
+                const storeId = stores.data.filters(
+                    (store) => store.userId === userId
+                );
+                if (storeId.length === 0) {
+                    alert('尚未建立店家資料，將轉導至店家資料建立頁');
+                    router.push({ name: 'StoreForm' });
+                } else {
+                    const storeData = await EventAPI.getStore(storeId[0]._id);
+                    this.setRole(storeData);
+                }
+            } catch (error) {
+                console.error(error);
+            }
         },
+        getUserData() {
+            return this.userData;
+        },
+    },
+    persist: {
+        key: 'attack-on-game-user',
     },
 });

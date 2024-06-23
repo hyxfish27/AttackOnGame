@@ -7,7 +7,7 @@
                     <router-link to="/event-list">活動列表 </router-link>
                 </li>
                 <li class="menu-list__item">
-                    <router-link to="/shop-list"> 店家列表 </router-link>
+                    <router-link to="/store-list"> 店家列表 </router-link>
                 </li>
             </ul>
         </div>

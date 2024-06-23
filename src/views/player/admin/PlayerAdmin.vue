@@ -150,9 +150,8 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, computed } from 'vue';
+import { defineComponent, ref, computed, onMounted } from 'vue';
 import * as yup from 'yup';
-import { useRoute, useRouter } from 'vue-router';
 import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate';
 import PlayerAPI from '@/api/Player';
 import useIndexStore from '@/stores/index';
@@ -170,8 +169,6 @@ export default defineComponent({
         ErrorMessage,
     },
     setup() {
-        const route = useRoute();
-        const router = useRouter();
         const indexStore = useIndexStore();
 
         const formData = ref({
@@ -182,29 +179,20 @@ export default defineComponent({
             avatar: null,
         });
 
-        const playerData = computed(() => indexStore.playerData);
-
-        const getPlayer = async (userId) => {
-            await PlayerAPI.get(userId)
-                .then((response) => {
-                    formData.value = response.data.data;
-                })
-                .catch((error) => {
-                    const errorMessage = error.response.data.message;
-                    alert(`取得玩家資料失敗: ${errorMessage}`);
-                    router.push({ name: 'Index' });
-                });
-        };
-
+        const playerData = computed(() => indexStore.getUserData());
         const canEdit = ref(false);
 
         const onSubmit = async (playerInfo) => {
-            await PlayerAPI.update({
-                userId: playerData.value.user,
-                ...playerInfo,
-            })
-                .then(() => alert('更新成功'))
-                .catch((error) => alert(`更新失敗: ${error}`));
+            try {
+                await PlayerAPI.update({
+                    userId: playerData.value.id,
+                    ...playerInfo,
+                });
+                alert('更新成功');
+                indexStore.getPlayer(playerData.value.id);
+            } catch (error) {
+                alert(`更新失敗: ${error}`);
+            }
         };
 
         const handleFileUpload = (event) => {
@@ -217,8 +205,9 @@ export default defineComponent({
         };
 
         onMounted(() => {
-            const userId = route.params.id;
-            getPlayer(userId);
+            formData.value = {
+                ...playerData.value.roleData,
+            };
         });
 
         return {
