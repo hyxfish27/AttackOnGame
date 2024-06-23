@@ -5,6 +5,7 @@ import { onMounted, ref, computed } from 'vue';
 import Status from '@/constant/orderStatus';
 import ActivityAPI from '@/api/Activity';
 import { useRouter } from 'vue-router';
+import LeftEl from '@/components/player/PlayerLeftEl.vue';
 
 const router = useRouter();
 const activityList = ref([]);
@@ -40,11 +41,7 @@ onMounted(() => {
 <template>
     <main class="container py-4 d-flex flex-column flex-grow-1">
         <div class="row gx-2 flex-grow-1">
-            <div class="col-3">
-                <div class="p-3 border rounded bg-white">
-                    Custom column padding
-                </div>
-            </div>
+            <LeftEl></LeftEl>
             <div class="col-9">
                 <div
                     class="d-flex p-3 border rounded h-100 flex-column bg-white"
