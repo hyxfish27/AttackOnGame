@@ -3,13 +3,15 @@
         <div class="row">
             <PrimaryHeader class="col-9"></PrimaryHeader>
             <div
-                class="col-3 header__nav d-flex justify-content-end align-items-center"
+                class="col-3 header__nav d-flex gap-3 justify-content-end align-items-center"
             >
-                <button class="btn btn-logout mr-2" @click="logout">
+                <button class="btn btn-primary btn-logout mr-2" @click="logout">
                     登出
                 </button>
 
-                <button class="btn" @click="toUserAdminPage">會員</button>
+                <button class="btn btn-primary" @click="toUserAdminPage">
+                    會員
+                </button>
             </div>
         </div>
     </header>
@@ -77,13 +79,5 @@ export default {
             text-decoration: none;
         }
     }
-}
-.btn {
-    background-color: #0088cc;
-    border-radius: 8px;
-    color: #fff;
-}
-.btn + .btn {
-    margin-left: 16px;
 }
 </style>
