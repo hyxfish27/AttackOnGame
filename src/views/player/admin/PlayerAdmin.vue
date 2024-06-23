@@ -1,23 +1,7 @@
 <template>
     <div class="player-admin container">
         <div class="row">
-            <div
-                class="col-3 p-3 border rounded bg-white h-100"
-                style="min-height: 80vh"
-            >
-                <div>
-                    <h4>玩家</h4>
-                    <img class="player-admin__img" :url="formData.url" />
-                    <div>{{ formData.email }}</div>
-                    <div class="mb-4">{{ formData.name }}</div>
-
-                    <div class="player-admin__switcher">
-                        <div>帳戶資訊</div>
-                        <div>平台幣</div>
-                        <div>我的活動</div>
-                    </div>
-                </div>
-            </div>
+            <LeftEl></LeftEl>
             <div class="col-9 player-admin__info">
                 <h3
                     class="border-bottom border-3 border-black mt-5 d-inline-block"
@@ -159,6 +143,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate';
 import PlayerAPI from '@/api/Player';
 import useIndexStore from '@/stores/index';
+import LeftEl from '@/components/player/PlayerLeftEl.vue';
 
 const playerSchema = yup.object({
     name: yup.string().required('姓名為必填欄位'),
@@ -171,6 +156,7 @@ export default defineComponent({
         VForm,
         VField,
         ErrorMessage,
+        LeftEl,
     },
     setup() {
         const route = useRoute();
@@ -248,18 +234,6 @@ export default defineComponent({
     &__img {
         width: 80px;
         height: 80px;
-    }
-
-    &__switcher {
-        > div {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 120px;
-            height: 38px;
-            border: 1px solid black;
-        }
     }
 }
 
