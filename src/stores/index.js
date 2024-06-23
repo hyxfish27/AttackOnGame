@@ -39,8 +39,7 @@ export default defineStore('index', {
         async getStore(userId, router) {
             try {
                 const stores = await EventAPI.getStores();
-                console.log('stroeData', stores.data);
-                const storeId = stores.data.filters(
+                const storeId = stores.data.filter(
                     (store) => store.userId === userId
                 );
                 if (storeId.length === 0) {

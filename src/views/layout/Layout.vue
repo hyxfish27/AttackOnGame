@@ -59,11 +59,16 @@ export default {
 
         onUpdated(() => {
             checkIsLogin();
+            console.log('currentUser', currentUser.value);
             if (isLogin.value) {
                 if (currentUser.value) {
                     if (currentUser.value.role === 'player') {
                         indexStore.getPlayer(currentUser.value.id, router);
                     } else if (currentUser.value.role === 'store') {
+                        console.log(
+                            'currentUser.value.id',
+                            currentUser.value.id
+                        );
                         indexStore.getStore(currentUser.value.id, router);
                     }
                 }
