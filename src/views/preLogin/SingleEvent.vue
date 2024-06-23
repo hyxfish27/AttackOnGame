@@ -4,23 +4,37 @@
             <div class="row">
                 <div class="col-8">
                     <div class="event-image mb-4 rounded-2">
-                        <img ref="image" class="w-100 inset-0 object-fit-cover rounded-2" :src="eventData.eventImageUrl"
-                            :alt="eventData.title" />
+                        <img
+                            ref="image"
+                            class="w-100 inset-0 object-fit-cover rounded-2"
+                            :src="eventData.eventImageUrl"
+                            :alt="eventData.title"
+                        />
                     </div>
                     <div class="event-description mb-4">
-                        <h6 class="text-primary fw-bold pb-2 border-bottom border-2 border-primary">
+                        <h6
+                            class="text-primary fw-bold pb-2 border-bottom border-2 border-primary"
+                        >
                             詳細內容
                         </h6>
                         <p>{{ eventData.description }}</p>
                     </div>
                     <div class="event-store">
-                        <div class="event-store-card bg-greyF7 border-1 border border-grey rounded-2 p-4">
-                            <p class="fw-bold pb-2 border-bottom border-2 border-greyD3">
+                        <div
+                            class="event-store-card bg-greyF7 border-1 border border-grey rounded-2 p-4"
+                        >
+                            <p
+                                class="fw-bold pb-2 border-bottom border-2 border-greyD3"
+                            >
                                 店家資料
                             </p>
                             <div class="d-flex">
                                 <div class="me-3">
-                                    <img class="w-100 rounded-2" :src="storeData.avatar" :alt="storeData.name" />
+                                    <img
+                                        class="w-100 rounded-2"
+                                        :src="storeData.avatar"
+                                        :alt="storeData.name"
+                                    />
                                 </div>
                                 <div>
                                     <h6 class="fw-bold">
@@ -36,7 +50,9 @@
                 </div>
                 <div class="col-4">
                     <div class="event-header mb-4">
-                        <div class="bg-success fw-bold py-1 px-2 d-inline-block">
+                        <div
+                            class="bg-success fw-bold py-1 px-2 d-inline-block"
+                        >
                             已滿團
                         </div>
                         <h6 class="fw-bold my-2">{{ eventData.title }}</h6>
@@ -47,9 +63,13 @@
                         </div>
                     </div>
                     <div class="event-info">
-                        <div class="event-info__card border border-grey66 p-3 pt-0 rounded-2 bg-white">
+                        <div
+                            class="event-info__card border border-grey66 p-3 pt-0 rounded-2 bg-white"
+                        >
                             <!-- TODO: 補上 icon -->
-                            <p class="bg-greyE9 fw-bold pt-1 pb-2 px-2 mb-2 d-inline-block rounded-bottom-2">
+                            <p
+                                class="bg-greyE9 fw-bold pt-1 pb-2 px-2 mb-2 d-inline-block rounded-bottom-2"
+                            >
                                 活動模式
                             </p>
 
@@ -78,10 +98,10 @@
                                 <div>
                                     <h6 class="text-primary fw-bold mb-1">
                                         {{
-                            eventData.isFoodAllowed
-                                ? '可'
-                                : '不可'
-                        }}帶外食
+                                            eventData.isFoodAllowed
+                                                ? '可'
+                                                : '不可'
+                                        }}帶外食
                                     </h6>
                                     <p>
                                         關於參與者是否可以攜帶外部食物到活動場地的規定。
@@ -116,8 +136,11 @@
                             <div class="d-flex mb-2"></div>
                             <div class="d-flex mb-2"></div>
 
-                            <button class="btn btn-primary w-100" :data-test="eventData.idNumber"
-                                @click="goCheckout(eventData.idNumber)">
+                            <button
+                                class="btn btn-primary w-100"
+                                :data-test="eventData.idNumber"
+                                @click="goCheckout(eventData.idNumber)"
+                            >
                                 我要報名
                             </button>
 

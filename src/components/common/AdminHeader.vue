@@ -56,7 +56,6 @@ export default {
         };
 
         return {
-            Logo,
             logout,
             toUserAdminPage,
             getStaticImagePath,

@@ -43,14 +43,18 @@ onMounted(() => {
         <div class="row gx-2 flex-grow-1">
             <LeftEl></LeftEl>
             <div class="col-9">
-                <div class="d-flex p-3 border rounded h-100 flex-column bg-white">
+                <div
+                    class="d-flex p-3 border rounded h-100 flex-column bg-white"
+                >
                     <!-- table title -->
                     <div class="border-bottom py-2 mb-2">
                         <h7>活動管理</h7>
                     </div>
                     <!-- button group -->
-                    <ActivityButtonGroup :selected-status="selectedStatus"
-                        @update:selectedStatus="selectedStatus = $event" />
+                    <ActivityButtonGroup
+                        :selected-status="selectedStatus"
+                        @update:selectedStatus="selectedStatus = $event"
+                    />
 
                     <ActivityTable :activity-list="filteredActivityList" />
                 </div>

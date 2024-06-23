@@ -1,6 +1,10 @@
 <template>
     <div id="scroll-section" class="py-16 container">
-        <TitlePanel :tag="titleData.tag" :title="titleData.title" :desc="titleData.desc"></TitlePanel>
+        <TitlePanel
+            :tag="titleData.tag"
+            :title="titleData.title"
+            :desc="titleData.desc"
+        ></TitlePanel>
         <div v-if="errorMessage.split() && !loading" class="text-center mt-4">
             <p>{{ errorMessage }}</p>
         </div>
@@ -8,7 +12,10 @@
             <div class="spinner-border" role="status"></div>
         </div>
         <div class="">
-            <TitleCardList v-if="!loading && eventData.length > 0" :data="eventData"></TitleCardList>
+            <TitleCardList
+                v-if="!loading && eventData.length > 0"
+                :data="eventData"
+            ></TitleCardList>
         </div>
     </div>
 </template>

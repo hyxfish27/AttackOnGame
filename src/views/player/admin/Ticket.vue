@@ -1,7 +1,9 @@
 <template>
     <div class="container">
         <div class="row py-3 justify-content-center">
-            <div class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg">
+            <div
+                class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg"
+            >
                 <div class="px-4 pb-3">
                     <p class="fw-bold fs-6">
                         {{ event.title }}
@@ -29,21 +31,28 @@
                             <p class="fs-10 text-grey9F fw-bold">票價</p>
                             <p>
                                 NT$ {{ event.participationFee }} / 張，共 NT${{
-                            order.payment
-                        }}
+                                    order.payment
+                                }}
                                 元
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="pt-5 d-flex flex-wrap justify-content-center gap-3">
-                    <img v-for="(img, idx) in tickets" :key="img.orderId" class="w-40" :src="img.qrCodeUrl"
-                        :alt="'活動票券' + (idx + 1)" />
+                    <img
+                        v-for="(img, idx) in tickets"
+                        :key="img.orderId"
+                        class="w-40"
+                        :src="img.qrCodeUrl"
+                        :alt="'活動票券' + (idx + 1)"
+                    />
                 </div>
             </div>
         </div>
         <div class="row py-3 justify-content-center">
-            <div class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg">
+            <div
+                class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg"
+            >
                 <p class="fs-7 fw-bold border-bottom pb-3 mb-3">活動詳情</p>
                 <p>票卷狀態：{{ order.status }}</p>
                 <p>地址：{{ event.address }}</p>
@@ -51,7 +60,9 @@
             </div>
         </div>
         <div class="row py-3 justify-content-center">
-            <div class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg">
+            <div
+                class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg"
+            >
                 <p class="fs-7 fw-bold border-bottom pb-3 mb-3">店家資料</p>
                 <p class="fw-bold fs-6">笨蛋工作室</p>
             </div>
