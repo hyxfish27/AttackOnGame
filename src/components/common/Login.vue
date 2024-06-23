@@ -56,7 +56,6 @@ import userAdapter from '@/adapter/user';
 import UserAPI from '@/api/User';
 import cookie from '@/utilities/cookie/cookie';
 import useIndexStore from '@/stores/index';
-import _ from 'lodash';
 /**
  * playerLoginSchema
  * @author Vicky
@@ -100,34 +99,42 @@ export default defineComponent({
         // });
 
         const onSubmitSuccess = async () => {
-            await UserAPI.login({
-                email: formData.value.email,
-                password: formData.value.password,
-            })
-                .then((response) => {
-                    console.log('login', response);
-                    const { user, token } = response.data.data;
-                    const userViewObject = userAdapter.toViewObject(user);
-                    indexStore.setUser(userViewObject);
-                    cookie.set({ name: 'AttackOnGameJWT', value: token });
-
-                    // set role data
-                    if (userViewObject) {
-                        if (userViewObject.role === 'player') {
-                            indexStore.getPlayer(userViewObject.id, router);
-                        } else if (userViewObject.role === 'store') {
-                            indexStore.getStore(userViewObject.id, router);
-                        }
-                    }
-                    if (!_.isEmpty(indexStore.userData.roleData)) {
-                        router.push({ name: 'Index' });
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    const errorMessage = error.response.data.message;
-                    alert(errorMessage);
+            try {
+                const response = await UserAPI.login({
+                    email: formData.value.email,
+                    password: formData.value.password,
                 });
+
+                console.log('login', response);
+                const { user, token } = response.data.data;
+                const userViewObject = userAdapter.toViewObject(user);
+                indexStore.setUser(userViewObject);
+                cookie.set({ name: 'AttackOnGameJWT', value: token });
+
+                // set role data
+                let roleDataExist = false;
+                if (userViewObject) {
+                    if (userViewObject.role === 'player') {
+                        roleDataExist = await indexStore.getPlayer(
+                            userViewObject.id,
+                            router
+                        );
+                    } else if (userViewObject.role === 'store') {
+                        roleDataExist = await indexStore.getStore(
+                            userViewObject.id,
+                            router
+                        );
+                    }
+                }
+                console.log('indexStore', roleDataExist);
+                if (roleDataExist) {
+                    router.push({ name: 'Index' });
+                }
+            } catch (error) {
+                console.log(error);
+                const errorMessage = error.response.data.message;
+                alert(errorMessage);
+            }
         };
 
         // const onSubmitError = (errors) => {

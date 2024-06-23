@@ -168,7 +168,7 @@ export default defineComponent({
             avatar: null,
         });
 
-        const playerData = computed(() => indexStore.getUserData());
+        const playerData = computed(() => indexStore.playerData);
         const canEdit = ref(false);
 
         const onSubmit = async (playerInfo) => {
@@ -195,7 +195,7 @@ export default defineComponent({
 
         onMounted(() => {
             formData.value = {
-                ...playerData.value.roleData,
+                ...playerData.value,
             };
         });
 

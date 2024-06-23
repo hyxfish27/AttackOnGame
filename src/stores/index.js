@@ -11,6 +11,8 @@ export default defineStore('index', {
     state: () => ({
         isLogin: false,
         userData: {},
+        playerData: {},
+        storeData: {},
     }),
     actions: {
         setIsLogin(value) {
@@ -19,38 +21,45 @@ export default defineStore('index', {
         setUser(data) {
             this.userData = data;
         },
-        setRole(data) {
-            this.userData.roleData = data;
+        setPlayer(data) {
+            this.playerData = data;
+        },
+        setStore(data) {
+            this.storeData = data;
         },
         async getPlayer(userId, router) {
-            await PlayerAPI.get(userId)
-                .then((res) => {
-                    const playerViewObject = playerAdapter.toViewObject(
-                        res.data.data
-                    );
-                    this.setRole(playerViewObject);
-                })
-                .catch((err) => {
-                    console.error(err);
-                    alert('取得使用者資料失敗，將轉導至資料編輯頁');
-                    router.push({ name: 'PlayerForm' });
-                });
+            try {
+                const res = await PlayerAPI.get(userId);
+                const playerViewObject = playerAdapter.toViewObject(
+                    res.data.data
+                );
+                this.setPlayer(playerViewObject);
+                return true;
+            } catch (error) {
+                console.error(error);
+                alert('取得使用者資料失敗，將轉導至資料編輯頁');
+                router.push({ name: 'PlayerForm' });
+                return false;
+            }
         },
         async getStore(userId, router) {
             try {
                 const stores = await EventAPI.getStores();
                 const storeId = stores.data.filter(
-                    (store) => store.userId === userId
+                    (store) => store.user === userId
                 );
+                console.log('storeId', storeId, 'stores', stores.data);
                 if (storeId.length === 0) {
                     alert('尚未建立店家資料，將轉導至店家資料建立頁');
                     router.push({ name: 'StoreForm' });
-                } else {
-                    const storeData = await EventAPI.getStore(storeId[0]._id);
-                    this.setRole(storeData);
+                    return false;
                 }
+                const storeData = await EventAPI.getStore(storeId[0]._id);
+                this.setStore(storeData);
+                return true;
             } catch (error) {
                 console.error(error);
+                return false;
             }
         },
         getUserData() {
