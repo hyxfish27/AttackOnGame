@@ -2,6 +2,7 @@
 import dayjs from 'dayjs';
 import { defineProps, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import toLocalString from '@/utilities/toLocalString';
 
 const currentPage = ref(1);
 const itemsPerPage = 5;
@@ -51,7 +52,7 @@ const goTicket = (idNumber) => {
                         :key="index"
                         scope="col"
                     >
-                        {{ title }}
+                        <p class="line-clamp line-clamp-2">{{ title }}</p>
                     </th>
                 </tr>
             </thead>
@@ -92,7 +93,7 @@ const goTicket = (idNumber) => {
                         </div>
                     </td>
                     <td>{{ value.paymentStatus }}</td>
-                    <td>${{ value.totalAmount }}</td>
+                    <td>${{ toLocalString(value.totalAmount) }}</td>
                     <td>{{ value.registrationCount }}張</td>
                     <td>{{ value.idNumber }}</td>
                 </tr>

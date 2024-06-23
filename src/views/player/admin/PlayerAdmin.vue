@@ -1,10 +1,12 @@
 <template>
-    <div class="player-admin container">
-        <div class="row">
-            <LeftEl></LeftEl>
-            <div class="col-9 player-admin__info">
+    <div class="player-admin container full-sceen-with-footer">
+        <div class="d-flex justify-content-between h-100">
+            <LeftEl class="player-admin_aside"></LeftEl>
+            <div
+                class="player-admin__info player-admin_main border rounded bg-white"
+            >
                 <h3
-                    class="border-bottom border-3 border-black mt-5 d-inline-block"
+                    class="border-bottom border-3 border-black mt-5 d-inline-block mb-3"
                 >
                     帳戶資訊
                 </h3>
@@ -230,18 +232,32 @@ export default defineComponent({
 <style lang="scss" scoped>
 .player-admin {
     padding: 24px;
-
+    gap: 0 16px;
     &__img {
         width: 80px;
         height: 80px;
     }
+    .player-admin_aside {
+        flex: 0 0 calc(33.3333% - 16px / 2);
+    }
+    .player-admin_main {
+        flex: 0 0 calc(66.6667% - 16px / 2);
+        border-radius: 8px;
+        padding: 48px;
+    }
 }
-
+.form-label:last-child {
+    margin-bottom: 0;
+}
 .is-invalid {
     border-color: #dc3545;
 }
 
 .text-danger {
     color: #dc3545;
+}
+.section {
+    display: flex;
+    gap: 0 8px;
 }
 </style>
