@@ -1,12 +1,7 @@
 <template>
-    <div class="container">
-        <div class="row align-content-center vh-100 justify-content-center">
-            <div class="col-5 align-self-center justify-content-center">
-                <h2 class="text-center">我是玩家</h2>
-            </div>
-
-            <div class="col-7">
-                <h1>填寫玩家資訊</h1>
+    <UserAccess role="player">
+        <template #form>
+            <div>
                 <v-form v-slot="{ errors }">
                     <div class="mb-3">
                         <label for="playerName" class="form-label">暱稱</label>
@@ -44,7 +39,7 @@
                         ></error-message>
                     </div>
                     <div class="mb-3">
-                        <h3>喜歡的桌遊類型</h3>
+                        <h3 class="fs-6 fw-bold mt-3">喜歡的桌遊類型</h3>
                         <div class="form-check">
                             <input
                                 id="favorite"
@@ -87,16 +82,12 @@
                     完成基本資料
                 </button>
             </div>
-        </div>
-        <div>{{ userForm.preferGame }}</div>
-    </div>
+        </template>
+    </UserAccess>
 </template>
 
 <script setup>
-// Creates a form context
-// This component now acts as a form
-// Usually you will destruct the form context to get what you need
-// import user from '@/stores/index';
+import UserAccess from '@/components/UserAccess.vue';
 import PlayerAPI from '@/api/Player';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
