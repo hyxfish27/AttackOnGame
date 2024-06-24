@@ -1,6 +1,9 @@
 <template>
     <div class="single-event container-fluid positon-relative">
-        <Loading></Loading>
+        <Loading
+            v-if="isLoading"
+            :class="{ 'loading-fade': !isLoading }"
+        ></Loading>
         <div class="container py-4">
             <div class="row">
                 <div class="col-8">
@@ -226,11 +229,17 @@ const eventData = ref({});
 
 const storeData = ref({});
 
+const isLoading = ref(true);
+
 const getEvent = async (eventId) => {
     await EventAPI.getEvent(eventId)
         .then((response) => {
             eventData.value = response.data.data.event;
             storeData.value = response.data.data.store;
+
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 500);
             console.log(response);
         })
         .catch((err) => {
@@ -300,12 +309,15 @@ onMounted(() => {
 .fz-6 {
     font-size: 24px;
 }
+
 .fz-4 {
     font-size: 16px;
 }
+
 .round {
     border-radius: 50%;
 }
+
 .icon-img_wrap {
     flex-shrink: 0;
     overflow: hidden;
@@ -317,22 +329,27 @@ onMounted(() => {
         width: 25px;
         height: 25px;
     }
+
     &.icon-img_wrap-large {
         width: 150px;
         height: 150px;
     }
+
     img {
         min-width: 100%;
         min-height: 100%;
         object-fit: cover;
     }
 }
+
 .sub-title_wrap {
     position: relative;
+
     .sub-title {
         position: relative;
         z-index: 2;
     }
+
     &::after {
         content: '';
         position: absolute;
@@ -342,6 +359,7 @@ onMounted(() => {
         border-bottom: 2px solid #d4d4d4;
     }
 }
+
 .single-event {
     background: linear-gradient(180deg, #fff6cc 0%, #ffffff 100%);
 
