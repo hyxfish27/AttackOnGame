@@ -1,10 +1,48 @@
 # 聚人 AttackOnGame
 
-## 協作指南
+![image](”https://imgur.com/LEWxuCh“)
 
-### start
+- 首頁： [AttackOnGame](https://attack-on-game.vercel.app/#/)
 
-#### Node Version
+AttackOnGame 聚人 是一個專為桌遊愛好者設計的揪團平台，讓玩家輕鬆組隊參加店家舉辦的各類桌遊活動。無論你是策略遊戲高手，還是尋求輕鬆休閒的遊戲體驗，AttackOnGame 聚人都能幫助你找到志同道合的夥伴，一起享受桌遊的樂趣！
+
+### 測試帳號
+
+```bash
+
+【玩家1號 : 皓月清涼】
+帳號：Leo2728@gmail.com
+密碼：123456789
+
+【玩家2號 : Frank】
+帳號：Frank2930@gmail.com
+密碼：123456789
+
+【店家1號 : PartyTime 派對時光】
+帳號：Alice1234@gmail.com
+密碼：123456789
+
+【店家2號 : 桌遊貓貓♡派對樂園♡南京店】
+帳號：Jack2425@gmail.com
+密碼：123456789
+
+```
+
+### 畫面
+
+
+### 專案技術
+
+```plaintext
+Vue v3.4.21
+Vue-router v4.3.0
+Pinia v2.1.7
+Bootstrap v5.3.3
+```
+
+### 安裝指南
+
+## Node Version
 
 ```plaintext
 v18.20.2
@@ -14,47 +52,35 @@ v18.20.2
 nvm use 18.20.2
 ```
 
-### git clone project
+## 取得專案
+
 ```bash
 git clone git@github.com:hyxfish27/AttackOnGame.git
 cd AttackOnGame
 ```
 
-### install node modules
+## 安裝套件
 ```bash
 npm install
 ```
 
-### start vite server
+## 運行專案
 ```bash
 npm run dev
 ```
 
-### 格式化 src路徑下所有代碼
+## 格式化 src路徑下所有代碼
 ```bash
 npm run format
 ```
 使用 Prettier 工具格式化 src路徑下所有代碼。
 
-### 風格檢查 src路徑下所有代碼
+## 風格檢查 src路徑下所有代碼
 ```bash
 npm run lint
 ```
 使用 eslint 工具做代碼檢查，檢查不合規範的代碼。
 
-#### Vue3 x Vite
-
-##### Vue version
-
-```plaintext
-v3.4.21
-```
-
-##### Vite version
-
-```plaintext
-v5.2.9
-```
 
 ### 命名規則
 
