@@ -48,14 +48,13 @@ export default defineStore('index', {
                 const storeId = stores.data.filter(
                     (store) => store.user === userId
                 );
-                console.log('storeId', storeId, 'stores', stores.data);
                 if (storeId.length === 0) {
                     alert('尚未建立店家資料，將轉導至店家資料建立頁');
                     router.push({ name: 'StoreForm' });
                     return false;
                 }
                 const storeData = await EventAPI.getStore(storeId[0]._id);
-                this.setStore(storeData);
+                this.setStore(storeData.data);
                 return true;
             } catch (error) {
                 console.error(error);
