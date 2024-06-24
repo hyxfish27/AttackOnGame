@@ -83,7 +83,6 @@ const getOrder = async (idNumber) => {
   await StoreAPI.getTheOrder(idNumber)
     .then((res) => {
       console.log('order', res);
-
       order.value = res.data.data.event;
       users.value = res.data.data.user;
     })
