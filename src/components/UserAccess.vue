@@ -86,7 +86,7 @@ const roleAttr = computed(() => {
 
     .user-access_section {
         border-radius: 8px;
-        padding: 48px;
+        padding: 12px 48px;
         border: 1px solid #d4d4d4;
         background-color: #fff;
     }
