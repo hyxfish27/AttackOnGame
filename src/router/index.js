@@ -168,12 +168,10 @@ const routes = [
                                     ),
                             },
                             {
-                                path: 'activity',
+                                path: 'activity/:idNumber',
                                 name: 'StoreActivity',
                                 component: () =>
-                                    import(
-                                        '@/views/store/admin/ActivityList.vue'
-                                    ),
+                                    import('@/views/store/admin/Activity.vue'),
                             },
                             {
                                 path: 'activity-edit',

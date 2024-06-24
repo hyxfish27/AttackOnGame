@@ -81,6 +81,33 @@ const StoreAPI = {
             throw error;
         }
     },
+    /**
+     * getTheOrder
+     * @description 取得後台活動詳細
+     * * @param {string} idNumber  活動 ID
+     */
+    async getTheOrder(idNumber) {
+        try {
+            const response = await Axios.get(`/api/v1/myevent/${idNumber}`);
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+    /**
+     * getOrderlist
+     * @description 取得後台活動詳細
+     */
+    async getMyEvent() {
+        try {
+            const response = await Axios.get('/api/v1/myevent/list');
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
 };
 
 export default StoreAPI;
