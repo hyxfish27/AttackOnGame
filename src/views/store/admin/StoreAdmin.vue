@@ -86,6 +86,7 @@ const saveChanges = async (updatedStore) => {
     try {
         await StoreAPI.update(store.value._id, updatedStore);
         store.value = updatedStore;
+        indexStore.setStore(updatedStore);
         closeModal();
     } catch (error) {
         console.error(error);

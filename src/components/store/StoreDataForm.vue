@@ -29,7 +29,10 @@ const handleSubmit = (value) => {
 
 const formDataSchema = {
     name: yup.string().required('店家名稱為必填項目'),
-    phone: yup.string().required('聯絡電話為必填項目'),
+    phone: yup
+        .string()
+        .required('聯絡電話為必填項目')
+        .matches(/^0[0-9]{9}$/, '請輸入10位數的手機號碼'),
     address: yup.string().required('地址為必填項目'),
     introduce: yup.string().required('店家描述為必填項目'),
 };

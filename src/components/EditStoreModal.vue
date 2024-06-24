@@ -11,7 +11,7 @@
                         type="text"
                         class="form-control"
                         name="name"
-                        rules="required"
+                        :rules="formDataSchema.name"
                         :class="{ 'is-invalid': errors['name'] }"
                     ></v-field>
                     <error-message
@@ -28,7 +28,7 @@
                         type="text"
                         class="form-control"
                         name="phone"
-                        rules="required"
+                        :rules="formDataSchema.phone"
                         :class="{ 'is-invalid': errors['phone'] }"
                     ></v-field>
                     <error-message
@@ -45,7 +45,7 @@
                         type="text"
                         class="form-control"
                         name="address"
-                        rules="required"
+                        :rules="formDataSchema.address"
                     ></v-field>
                     <error-message
                         name="address"
@@ -61,7 +61,7 @@
                         as="textarea"
                         class="form-control"
                         name="introduce"
-                        rules="required"
+                        :rules="formDataSchema.introduce"
                         style="min-height: 200px"
                         :class="{ 'is-invalid': errors['introduce'] }"
                     ></v-field>
@@ -90,6 +90,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import * as yup from 'yup';
 
 const props = defineProps({
     store: {
@@ -104,6 +105,16 @@ const formData = ref({ ...props.store });
 
 const close = () => {
     emit('close');
+};
+
+const formDataSchema = {
+    name: yup.string().required('店家名稱為必填項目'),
+    phone: yup
+        .string()
+        .required('聯絡電話為必填項目')
+        .matches(/^0[0-9]{9}$/, '請輸入10位數的手機號碼'),
+    address: yup.string().required('地址為必填項目'),
+    introduce: yup.string().required('店家描述為必填項目'),
 };
 
 const onSubmit = (values) => {

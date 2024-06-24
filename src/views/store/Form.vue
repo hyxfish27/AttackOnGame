@@ -27,8 +27,3 @@ const handleSubmit = async (value) => {
         </template>
     </UserAccess>
 </template>
-
-<script setup>
-import UserAccess from '@/components/UserAccess.vue';
-import CreateForm from '@/components/store/creatStoreForm.vue';
-</script>
