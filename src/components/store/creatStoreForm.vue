@@ -71,24 +71,26 @@
                 ></v-field>
                 <error-message name="地址" class="text-danger"></error-message>
             </div>
-            <div class="mb-3">
-                <h3>店家介紹</h3>
-                <v-field
-                    id="shopIntroduce"
-                    as="textarea"
-                    name="shopIntroduce"
-                    cols="30"
-                    rows="10"
-                    rules="required"
-                    :class="{
-                        'is-invalid': errors['店家介紹'],
-                    }"
-                ></v-field>
+            <div class="mb-3 d-flex flex-column align-items-center p-0">
+                <label for="shopIntroduce" class="form-label w-100"
+                    >店家介紹
+
+                    <v-field
+                        id="shopIntroduce"
+                        as="textarea"
+                        name="shopIntroduce"
+                        class="form-control w-100"
+                        rules="required"
+                        :class="{
+                            'is-invalid': errors['店家介紹'],
+                        }"
+                    ></v-field>
+                </label>
                 <error-message
                     name="店家介紹"
                     class="text-danger"
                 ></error-message>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary mt-2">
                     完成基本資料
                 </button>
             </div>

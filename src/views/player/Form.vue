@@ -39,7 +39,7 @@
                         ></error-message>
                     </div>
                     <div class="mb-3">
-                        <h3>喜歡的桌遊類型</h3>
+                        <h3 class="fs-6 fw-bold mt-3">喜歡的桌遊類型</h3>
                         <div class="form-check">
                             <input
                                 id="favorite"
