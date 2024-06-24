@@ -1,27 +1,19 @@
 <template>
-    <div class="full-sceen-with-footer bg-greyF7">
-        <div class="container h-100 user-access_wrap">
-            <div class="d-flex justify-content-between user-access_panel h-100">
+    <div class="bg-greyF7">
+        <div class="container h-100 user-access_wrap d-flex py-3" style="min-height: calc(100vh - 200px)">
+            <div class="d-flex justify-content-between user-access_panel h-100 w-100 m-auto">
                 <div
-                    class="user-access_section user-access_aside d-flex flex-column justify-content-center align-items-center"
-                >
-                    <div
-                        class="img-wrap mb-4 d-flex justify-content-center align-items-center"
-                        :class="`${roleAttr.key}-icon`"
-                    >
+                    class="user-access_section user-access_aside d-flex flex-column justify-content-center align-items-center py-5">
+                    <div class="img-wrap mb-4 d-flex justify-content-center align-items-center"
+                        :class="`${roleAttr.key}-icon`">
                         <img :src="roleAttr.icon" alt="" />
                     </div>
                     <h2 class="text-center fs-4 fw-bold">
                         我是{{ roleAttr.text }}
                     </h2>
                 </div>
-                <div
-                    class="user-access_main user-access_section d-flex flex-column justify-content-center"
-                >
-                    <h1
-                        class="fs-5 pb-3 fw-bold title d-flex align-items-center"
-                        :class="roleAttr.key"
-                    >
+                <div class="user-access_main user-access_section d-flex flex-column justify-content-center py-5">
+                    <h1 class="fs-5 pb-3 fw-bold title d-flex align-items-center" :class="roleAttr.key">
                         填寫{{ roleAttr.text }}資訊
                     </h1>
                     <slot name="form"></slot>
@@ -53,6 +45,10 @@ const { role } = defineProps({
         type: String,
         default: 'store',
     },
+    // isFullScrean: {
+    //     type: Boolean,
+    //     default: true,
+    // },
 });
 const roleAttr = computed(() => {
     return ROLE_MAP[role];
@@ -61,8 +57,6 @@ const roleAttr = computed(() => {
 
 <style lang="scss" scoped>
 .user-access_wrap {
-    padding: 48px 0;
-
     .user-access_panel {
         gap: 48px;
     }
@@ -77,7 +71,7 @@ const roleAttr = computed(() => {
 
     .user-access_section {
         border-radius: 8px;
-        padding: 48px;
+        padding: 12px 48px;
         border: 1px solid #d4d4d4;
         background-color: #fff;
     }

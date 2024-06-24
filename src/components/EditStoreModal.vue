@@ -1,8 +1,8 @@
 <template>
     <div class="modal-overlay" @click.self="close">
         <div class="modal-content">
-            <h2>編輯店家資料</h2>
-            <v-form v-slot="{ errors }" @submit="handleSubmit(onSubmit)">
+            <div class="h5">編輯店家資料</div>
+            <v-form v-slot="{ errors }" @submit="onSubmit">
                 <div class="mb-3">
                     <label for="editName" class="form-label">名稱</label>
                     <v-field
@@ -11,7 +11,7 @@
                         type="text"
                         class="form-control"
                         name="name"
-                        rules="required"
+                        :rules="formDataSchema.name"
                         :class="{ 'is-invalid': errors['name'] }"
                     ></v-field>
                     <error-message
@@ -24,15 +24,31 @@
                     <label for="editContact" class="form-label">聯絡電話</label>
                     <v-field
                         id="editContact"
-                        v-model="formData.contact"
+                        v-model="formData.phone"
                         type="text"
                         class="form-control"
-                        name="contact"
-                        rules="required"
-                        :class="{ 'is-invalid': errors['contact'] }"
+                        name="phone"
+                        :rules="formDataSchema.phone"
+                        :class="{ 'is-invalid': errors['phone'] }"
                     ></v-field>
                     <error-message
-                        name="contact"
+                        name="phone"
+                        class="text-danger"
+                    ></error-message>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">地址</label>
+                    <v-field
+                        id="address"
+                        v-model="formData.address"
+                        type="text"
+                        class="form-control"
+                        name="address"
+                        :rules="formDataSchema.address"
+                    ></v-field>
+                    <error-message
+                        name="address"
                         class="text-danger"
                     ></error-message>
                 </div>
@@ -41,105 +57,69 @@
                     <label for="editDescription" class="form-label">簡介</label>
                     <v-field
                         id="editDescription"
-                        v-model="formData.description"
+                        v-model="formData.introduce"
                         as="textarea"
                         class="form-control"
-                        name="description"
-                        rules="required"
-                        :class="{ 'is-invalid': errors['description'] }"
+                        name="introduce"
+                        :rules="formDataSchema.introduce"
+                        style="min-height: 200px"
+                        :class="{ 'is-invalid': errors['introduce'] }"
                     ></v-field>
                     <error-message
-                        name="description"
+                        name="introduce"
                         class="text-danger"
                     ></error-message>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">活動地區</label>
-                    <div class="row">
-                        <div class="col">
-                            <v-field
-                                v-model="formData.location.city"
-                                type="text"
-                                class="form-control"
-                                placeholder="縣市"
-                                name="city"
-                                rules="required"
-                                :class="{ 'is-invalid': errors['city'] }"
-                            ></v-field>
-                            <error-message
-                                name="city"
-                                class="text-danger"
-                            ></error-message>
-                        </div>
-                        <div class="col">
-                            <v-field
-                                v-model="formData.location.district"
-                                type="text"
-                                class="form-control"
-                                placeholder="地區"
-                                name="district"
-                                rules="required"
-                                :class="{ 'is-invalid': errors['district'] }"
-                            ></v-field>
-                            <error-message
-                                name="district"
-                                class="text-danger"
-                            ></error-message>
-                        </div>
-                        <div class="col">
-                            <v-field
-                                v-model="formData.location.detailedAddress"
-                                type="text"
-                                class="form-control"
-                                placeholder="詳細地址"
-                                name="detailedAddress"
-                                rules="required"
-                                :class="{
-                                    'is-invalid': errors['detailedAddress'],
-                                }"
-                            ></v-field>
-                            <error-message
-                                name="detailedAddress"
-                                class="text-danger"
-                            ></error-message>
-                        </div>
-                    </div>
+                <div class="row flex-row">
+                    <button
+                        type="button"
+                        class="btn btn-secondary col me-2"
+                        @click="close"
+                    >
+                        取消
+                    </button>
+                    <button type="submit" class="btn btn-primary col">
+                        更改
+                    </button>
                 </div>
-
-                <button type="button" class="btn btn-secondary" @click="close">
-                    取消
-                </button>
-                <button type="submit" class="btn btn-primary">更改</button>
             </v-form>
         </div>
     </div>
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue';
+<script setup>
+import { ref } from 'vue';
+import * as yup from 'yup';
 
-export default defineComponent({
-    props: {
-        store: {
-            type: Object,
-            required: true,
-        },
-    },
-    setup(props, { emit }) {
-        const formData = ref({ ...props.store });
-
-        const close = () => {
-            emit('close');
-        };
-
-        const onSubmit = (values) => {
-            emit('save', values);
-        };
-
-        return { formData, close, onSubmit };
+const props = defineProps({
+    store: {
+        type: Object,
+        required: true,
     },
 });
+
+const emit = defineEmits(['close', 'save']);
+
+const formData = ref({ ...props.store });
+
+const close = () => {
+    emit('close');
+};
+
+const formDataSchema = {
+    name: yup.string().required('店家名稱為必填項目'),
+    phone: yup
+        .string()
+        .required('聯絡電話為必填項目')
+        .matches(/^0[0-9]{9}$/, '請輸入10位數的手機號碼'),
+    address: yup.string().required('地址為必填項目'),
+    introduce: yup.string().required('店家描述為必填項目'),
+};
+
+const onSubmit = (values) => {
+    emit('save', values);
+};
 </script>
 
 <style scoped>

@@ -1,20 +1,16 @@
 <script setup>
-import Status from '@/constant/orderStatus';
-
 defineProps({
     selectedStatus: {
         type: String,
-        required: true,
+        default: '',
+    },
+    statusList: {
+        type: Array,
+        default: () => [{ length: 0, name: '', value: '' }],
     },
 });
 
 const emits = defineEmits(['update:selectedStatus']);
-
-const status = [
-    { name: '即將到來', value: Status.UNUSED },
-    { name: '已完成', value: Status.USED },
-    { name: '取消', value: Status.CANCEL },
-];
 
 const handleSelectStatus = (value) => {
     emits('update:selectedStatus', value);
@@ -22,19 +18,17 @@ const handleSelectStatus = (value) => {
 </script>
 
 <template>
-    <div class="d-flex">
-        <button
-            v-for="(item, index) in status"
-            :key="index"
-            type="button"
-            class="btn btn-outline-primary"
-            :class="{
-                active: item.value === selectedStatus,
-                'me-2': index !== status.length - 1,
-            }"
-            @click="handleSelectStatus(item.value)"
-        >
-            {{ item.name }}
+    <div class="d-flex activity-button-group-wrap">
+        <button v-for="(item, index) in statusList" :key="index" type="button" class="btn btn-outline-primary" :class="{
+            active: item.value === selectedStatus,
+        }" @click="handleSelectStatus(item.value)">
+            {{ item.name }} 共 {{ item.length }} 筆
         </button>
     </div>
 </template>
+
+<style scoped>
+.activity-button-group-wrap {
+    gap: 0 16px;
+}
+</style>

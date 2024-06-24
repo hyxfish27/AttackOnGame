@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
     <div class="index-store-section">
+=======
+    <div class="index-store-section container-fluid">
+>>>>>>> dev
         <div
             class="dot-bg"
             :style="{ backgroundImage: 'url(' + DotBg + ')' }"

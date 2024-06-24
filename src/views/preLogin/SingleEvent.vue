@@ -1,85 +1,99 @@
 <template>
-    <div class="single-event container-fluid">
+    <div class="single-event container-fluid positon-relative lh-lg">
+        <Loading v-if="isLoading" :class="{ 'loading-fade': !isLoading }"></Loading>
         <div class="container py-4">
             <div class="row">
                 <div class="col-8">
                     <div class="event-image mb-4 rounded-2">
-                        <img
-                            ref="image"
-                            class="w-100 inset-0 object-fit-cover rounded-2"
-                            :src="eventData.eventImageUrl"
-                            :alt="eventData.title"
-                        />
+                        <img ref="image" class="w-100 inset-0 object-fit-cover rounded-2" :src="eventData.eventImageUrl"
+                            :alt="eventData.title" />
                     </div>
                     <div class="event-description mb-4">
-                        <h6
-                            class="text-primary fw-bold pb-2 border-bottom border-2 border-primary"
-                        >
-                            詳細內容
-                        </h6>
-                        <p>{{ eventData.description }}</p>
+                        <div class="sub-title_wrap">
+                            <h2
+                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0">
+                                詳細內容
+                            </h2>
+                        </div>
+                        <p class="mt-4">{{ eventData.description }}</p>
                     </div>
                     <div class="event-store">
-                        <div
-                            class="event-store-card bg-greyF7 border-1 border border-grey rounded-2 p-4"
-                        >
-                            <p
-                                class="fw-bold pb-2 border-bottom border-2 border-greyD3"
-                            >
+                        <div class="event-store-card bg-greyF7 border-1 border border-grey rounded-2 p-4">
+                            <p class="fw-bold pb-2 border-bottom border-2 border-greyD3">
                                 店家資料
                             </p>
-                            <div class="d-flex">
-                                <div class="me-3">
-                                    <img
-                                        class="w-100 rounded-2"
-                                        :src="storeData.avatar"
-                                        :alt="storeData.name"
-                                    />
+                            <div class="d-flex mt-2 align-items-center">
+                                <div class="icon-img_wrap icon-img_wrap-large round">
+                                    <img class="w-100" :src="storeData.avatar" :alt="storeData.name" />
                                 </div>
-                                <div>
-                                    <h6 class="fw-bold">
+                                <div class="">
+                                    <h3 class="fz-6 fw-bold">
                                         {{ storeData.name }}
-                                    </h6>
-                                    <p>{{ eventData.address }}</p>
-                                    <p>{{ eventData.description }}</p>
+                                    </h3>
+
+                                    <p>{{ storeData.address }}</p>
+                                    <p>{{ storeData.introduce }}</p>
+                                    <!-- <router-link
+                                        v-if="storeData"
+                                        :to="{
+                                            name: 'StoreIntroduction',
+                                            params: { userId: storeData._id },
+                                        }"
+                                        >前往店家詳情頁面</router-link
+                                    > -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="event-message"></div>
+                    <div class="event-description mt-4">
+                        <div class="sub-title_wrap">
+                            <h2
+                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0">
+                                活動答疑區
+                            </h2>
+                        </div>
+                        <p class="mt-4">{{ eventData.description }}</p>
+                    </div>
                 </div>
-                <div class="col-4">
+                <div class="col-4 position-sticky top-0">
                     <div class="event-header mb-4">
-                        <div
-                            class="bg-success fw-bold py-1 px-2 d-inline-block"
-                        >
-                            已滿團
+                        <div class="fw-bold py-1 px-2 d-inline-block" :class="eventPrograss.bgcColor">
+                            {{ eventPrograss.text }}
                         </div>
-                        <h6 class="fw-bold my-2">{{ eventData.title }}</h6>
-                        <p class="mb-2">{{ eventData.address }}</p>
-                        <div class="progress-bar">
-                            <div>報名進度條</div>
-                            <div>TODO</div>
+                        <h3 class="fz-6 fw-bold my-2">{{ eventData.title }}</h3>
+                        <div class="d-flex mb-2 align-items-center">
+                            <div class="icon-img_wrap icon-img_wrap-small mr-2">
+                                <img :src="pinIcon" class="w-100" />
+                            </div>
+                            <p class="">{{ eventData.address }}</p>
                         </div>
+                        <div class="shape bg-greyE9">
+                            <p class="">報名進度條</p>
+                        </div>
+                        <div class=""></div>
                     </div>
                     <div class="event-info">
-                        <div
-                            class="event-info__card border border-grey66 p-3 pt-0 rounded-2 bg-white"
-                        >
+                        <div class="event-info__card border border-grey66 p-3 pt-0 rounded-2 bg-white">
                             <!-- TODO: 補上 icon -->
-                            <p
-                                class="bg-greyE9 fw-bold pt-1 pb-2 px-2 mb-2 d-inline-block rounded-bottom-2"
-                            >
+                            <p class="bg-greyE9 fw-bold pt-1 pb-2 px-2 mb-2 d-inline-block rounded-bottom-2">
                                 活動模式
                             </p>
 
-                            <div class="d-flex mb-2">
-                                <div class="mr-2">icon</div>
+                            <div class="d-flex mb-2 align-items-center">
+                                <div class="icon-img_wrap mr-2">
+                                    <img :src="moneyIcon" class="w-100" />
+                                </div>
                                 <div>
-                                    <h6 class="fw-bold mb-1">
-                                        {{ eventData.participationFee }}幣 /
-                                        活動費用
-                                    </h6>
+                                    <h3 class="fz-6 fw-bold mb-1 text-primary">
+                                        {{
+            toLocalString(
+                eventData.participationFee
+            )
+        }}
+                                        NT
+                                        <span class="fz-4 text-dark">/ 活動費用</span>
+                                    </h3>
                                     <p>
                                         參與活動所需的費用，可能包含場地、材料等各種成本。
                                     </p>
@@ -88,45 +102,46 @@
 
                             <hr class="bg-greyE9" />
 
-                            <div class="d-flex mb-2">
-                                <div class="mr-2">
-                                    <div v-if="eventData.isFoodAllowed">
-                                        isFoodAllowed icon
-                                    </div>
-                                    <div v-else>isFoodNotAllowed icon</div>
+                            <div class="d-flex mb-2 align-items-center">
+                                <div class="icon-img_wrap mr-2">
+                                    <img :src="foodIcon" class="w-100" />
                                 </div>
                                 <div>
-                                    <h6 class="text-primary fw-bold mb-1">
+                                    <h3 class="fz-6 text-primary fw-bold mb-1">
                                         {{
-                                            eventData.isFoodAllowed
-                                                ? '可'
-                                                : '不可'
-                                        }}帶外食
-                                    </h6>
+            eventData.isFoodAllowed
+                ? '可'
+                : '不可'
+        }}<span class="text-dark">帶外食</span>
+                                    </h3>
                                     <p>
                                         關於參與者是否可以攜帶外部食物到活動場地的規定。
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="d-flex mb-2">
-                                <div class="mr-2">icon</div>
+                            <div class="d-flex mb-2 align-items-center">
+                                <div class="icon-img_wrap mr-2">
+                                    <img :src="minPeopleIcon" class="w-100" />
+                                </div>
                                 <div>
-                                    <h6 class="fw-bold mb-1">
+                                    <h3 class="fz-6 fw-bold mb-1">
                                         最低人數
-                                        {{ eventData.minParticipants }} 人
-                                    </h6>
+                                        {{ eventData.minParticipants || 0 }} 人
+                                    </h3>
                                     <p>確保活動能順利進行的最小參與者數量。</p>
                                 </div>
                             </div>
 
-                            <div class="d-flex mb-2">
-                                <div class="mr-2">icon</div>
+                            <div class="d-flex mb-2 align-items-center">
+                                <div class="icon-img_wrap mr-2">
+                                    <img :src="maxPeopleIcon" class="w-100" />
+                                </div>
                                 <div>
-                                    <h6 class="fw-bold mb-1">
+                                    <h3 class="fz-6 fw-bold mb-1">
                                         最高人數
-                                        {{ eventData.minParticipants }} 人
-                                    </h6>
+                                        {{ eventData.maxParticipants || 0 }} 人
+                                    </h3>
                                     <p>
                                         為了保證活動質量和參與者體驗，設定的最大參與者數量。
                                     </p>
@@ -136,16 +151,16 @@
                             <div class="d-flex mb-2"></div>
                             <div class="d-flex mb-2"></div>
 
-                            <button
-                                class="btn btn-primary w-100"
-                                :data-test="eventData.idNumber"
-                                @click="goCheckout(eventData.idNumber)"
-                            >
+                            <button :disabled="isEventClosed || isEventUnregiistable
+            " class="btn btn-primary w-100" :data-test="eventData.idNumber"
+                                @click="goCheckout(eventData.idNumber)">
                                 我要報名
                             </button>
 
-                            <div class="d-flex mt-2">
-                                <p>icon</p>
+                            <div class="d-flex mt-2 align-items-center">
+                                <div class="icon-img_wrap icon-img_wrap-small mr-2">
+                                    <img :src="timeIcon" class="w-100" />
+                                </div>
                                 <p>截止時間： {{ eventData.eventEndTime }}</p>
                             </div>
                         </div>
@@ -157,10 +172,21 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import setEventAttr from '@/utilities/setEventAttr';
+import STATUS_MAP from '@/constant/eventStatus';
+import toLocalString from '@/utilities/toLocalString';
+import { onMounted, ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import EventAPI from '@/api/Event';
 import StoreAPI from '@/api/Store';
+import foodIcon from '@/assets/images/event/food.png';
+import minPeopleIcon from '@/assets/images/event/min_people.png';
+import moneyIcon from '@/assets/images/event/money.png';
+import timeIcon from '@/assets/images/event/time.png';
+import maxPeopleIcon from '@/assets/images/event/max_people.png';
+import pinIcon from '@/assets/images/event/pin.png';
+import dayjs from '@/utilities/dayjs';
+import Loading from '@/components/common/Loading.vue';
 
 const route = useRoute();
 
@@ -168,11 +194,17 @@ const eventData = ref({});
 
 const storeData = ref({});
 
+const isLoading = ref(true);
+
 const getEvent = async (eventId) => {
     await EventAPI.getEvent(eventId)
         .then((response) => {
-            eventData.value = response.data.data;
+            eventData.value = response.data.data.event;
+            storeData.value = response.data.data.store;
 
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 500);
             console.log(response);
         })
         .catch((err) => {
@@ -191,7 +223,29 @@ const getStore = async (storeId) => {
             console.log(err);
         });
 };
-
+const today = dayjs();
+const isEventClosed = computed(() => {
+    return (
+        today.isBefore(eventData.value.registrationStartTime) ||
+        today.isAfter(eventData.value.registrationEndTime)
+    );
+});
+const isEventUnregiistable = computed(() => {
+    return (
+        eventData.value.currentParticipantsCount ===
+        eventData.value.maxParticipants
+    );
+});
+const eventPrograss = computed(() => {
+    if (Object.keys(eventData.value).length === 0) {
+        return {};
+    }
+    const status = setEventAttr(eventData.value);
+    return {
+        text: STATUS_MAP[status].text,
+        bgcColor: STATUS_MAP[status].barColor,
+    };
+});
 const router = useRouter();
 const goCheckout = (eventId) => {
     router.push({ name: 'Checkout', params: { eventId } });
@@ -210,6 +264,67 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+.shape {
+    padding-left: 8px;
+    width: 120px;
+    height: 1.5rem;
+    clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+}
+
+.fz-6 {
+    font-size: 24px;
+}
+
+.fz-4 {
+    font-size: 16px;
+}
+
+.round {
+    border-radius: 50%;
+}
+
+.icon-img_wrap {
+    flex-shrink: 0;
+    overflow: hidden;
+    margin-right: 8px;
+    width: 50px;
+    height: 50px;
+
+    &.icon-img_wrap-small {
+        width: 25px;
+        height: 25px;
+    }
+
+    &.icon-img_wrap-large {
+        width: 150px;
+        height: 150px;
+    }
+
+    img {
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+    }
+}
+
+.sub-title_wrap {
+    position: relative;
+
+    .sub-title {
+        position: relative;
+        z-index: 2;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0px;
+        width: 100%;
+        border-bottom: 2px solid #d4d4d4;
+    }
+}
+
 .single-event {
     background: linear-gradient(180deg, #fff6cc 0%, #ffffff 100%);
 
