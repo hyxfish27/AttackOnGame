@@ -1,9 +1,9 @@
 <template>
-    <div class="store-admin container flex-grow-1 py-4">
-        <div class="row">
+    <div class="container-xxl">
+        <div class="row p-3">
             <StoreLeftEl />
-            <div class="col-9">
-                <div class="border rounded h-100 py-4 px-6 shadow">
+            <div class="col-9 min-h-screen">
+                <div class="border rounded bg-white h-100 py-4 shadow px-6">
                     <div class="d-flex row justify-between border-bottom pb-2">
                         <div class="col h6">店家資料</div>
                         <div class="col text-end">
@@ -84,19 +84,6 @@ const toPasswordModify = () => {
 </script>
 
 <style lang="scss" scoped>
-.store-admin {
-    &__info {
-        padding: 24px;
-
-        &__img {
-            width: 100px;
-            height: 100px;
-            background-color: #ccc;
-            margin-right: 24px;
-        }
-    }
-}
-
 .shadow {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
