@@ -1,5 +1,5 @@
 <template>
-    <div class="single-event container-fluid positon-relative">
+    <div class="single-event container-fluid positon-relative lh-lg">
         <Loading
             v-if="isLoading"
             :class="{ 'loading-fade': !isLoading }"
@@ -237,10 +237,10 @@ const getEvent = async (eventId) => {
             eventData.value = response.data.data.event;
             storeData.value = response.data.data.store;
 
-            // setTimeout(() => {
-            //     isLoading.value = false;
-            // }, 500);
-            // console.log(response);
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 500);
+            console.log(response);
         })
         .catch((err) => {
             console.log(err);
