@@ -1,5 +1,5 @@
 <template>
-    <div class="loding-area">
+    <div class="loding-area backdrop-blur">
         <div class="text-primary d-flex align-items-center">
             <div
                 class="py-3 px-4 bg-white shadow border h-30 d-flex align-items-center rounded-2"
@@ -17,13 +17,15 @@
 }
 
 .loding-area {
+    top: 0;
+    bottom: 0;
     left: 0;
     display: flex;
     position: fixed;
     justify-content: center;
     right: 0;
-    height: 80vh;
     transition: opacity 0.5s ease;
+    z-index: 3;
 }
 
 .fadeout {

@@ -1,5 +1,5 @@
 <template>
-    <div class="single-event container-fluid positon-relative">
+    <div class="single-event container-fluid positon-relative lh-lg">
         <Loading
             v-if="isLoading"
             :class="{ 'loading-fade': !isLoading }"
