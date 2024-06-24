@@ -26,7 +26,7 @@
                     <div
                         class="d-flex h-100 justify-content-center align-items-center"
                     >
-                        <div class="flex-grow-1">
+                        <div class="flex-grow-1 bg-white">
                             <StoreDataForm v-model="store" />
                         </div>
                     </div>
@@ -50,21 +50,6 @@ import useIndexStore from '@/stores/index';
 import StoreLeftEl from '@/components/store/StoreLeftEl.vue';
 import StoreDataForm from '@/components/store/StoreDataForm.vue';
 import StoreAPI from '@/api/Store';
-
-/**
- * {
-            name: '好玩工作室',
-            address: '台北市信義區信義路20號20樓',
-            rating: 4.5,
-            contact: '0987654321',
-            description: '這是一家很棒的店家。',
-            location: {
-                city: '',
-                district: '',
-                detailedAddress: '',
-            },
-        }
- */
 
 const indexStore = useIndexStore();
 const store = computed(() => indexStore.storeData);
@@ -91,6 +76,10 @@ const saveChanges = async (updatedStore) => {
     } catch (error) {
         console.error(error);
     }
+};
+
+const toPasswordModify = () => {
+    alert('未來更新，敬請期待');
 };
 </script>
 
