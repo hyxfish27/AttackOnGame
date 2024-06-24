@@ -1,6 +1,6 @@
 <template>
     <div class="col-3 ps-0">
-        <div class="border rounded bg-white h-100" style="min-height: 80vh">
+        <div class="border rounded bg-white h-100 min-h-screen">
             <p class="fs-8 fw-bold text-grey66 p-3">店家帳戶資訊</p>
             <!-- <img class="player-admin__img" :url="formData.url" /> -->
             <div

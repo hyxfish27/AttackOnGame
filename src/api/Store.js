@@ -13,7 +13,7 @@ const StoreAPI = {
      */
     async create(data) {
         try {
-            const response = await Axios.post('', data);
+            const response = await Axios.post('/api/v1/store', data);
             return response.data;
         } catch (error) {
             console.error(error);
@@ -41,9 +41,12 @@ const StoreAPI = {
      * @param {*} data
      * @description 更新商店資料
      */
-    async update(data) {
+    async update(storeId, data) {
         try {
-            const response = await Axios.put('', data);
+            const response = await Axios.patch(
+                `/api/v1/store/${storeId}`,
+                data
+            );
             return response.data;
         } catch (error) {
             console.error(error);
@@ -72,6 +75,33 @@ const StoreAPI = {
     async getRating() {
         try {
             const response = await Axios.get('');
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+    /**
+     * getTheOrder
+     * @description 取得後台活動詳細
+     * * @param {string} idNumber  活動 ID
+     */
+    async getTheOrder(idNumber) {
+        try {
+            const response = await Axios.get(`/api/v1/myevent/${idNumber}`);
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+    /**
+     * getOrderlist
+     * @description 取得後台活動詳細
+     */
+    async getMyEvent() {
+        try {
+            const response = await Axios.get('/api/v1/myevent/list');
             return response;
         } catch (error) {
             console.error(error);
