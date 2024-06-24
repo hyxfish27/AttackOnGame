@@ -95,7 +95,6 @@ const StoreAPI = {
     /**
      * getOrderlist
      * @description 取得後台活動詳細
-     * * @param {string} idNumber  活動 ID
      */
     async getMyEvent() {
         try {
