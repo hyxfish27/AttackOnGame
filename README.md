@@ -1,6 +1,6 @@
 # 聚人 AttackOnGame
 
-![image](”https://imgur.com/LEWxuCh“)
+<img width="400" src="https://imgur.com/rs7cEYF.png" />
 
 - 首頁： [AttackOnGame](https://attack-on-game.vercel.app/#/)
 
@@ -29,7 +29,14 @@ AttackOnGame 聚人 是一個專為桌遊愛好者設計的揪團平台，讓玩
 ```
 
 ### 畫面
+- 首頁
+<img width="800" src="https://imgur.com/LEWxuCh.png" />
+  
+- 活動列表
+<img width="800" src="https://imgur.com/4NosUC8.png" />
 
+- 店家列表
+<img width="800" src="https://imgur.com/aNfW5J1.png" />
 
 ### 專案技術
 
