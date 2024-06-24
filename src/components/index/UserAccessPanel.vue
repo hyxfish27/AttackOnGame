@@ -1,9 +1,17 @@
 <template>
     <div class="index-user-access_wrap">
         <div class="container">
-            <TitlePanel :tag="titleData.tag" :title="titleData.title" :desc="titleData.desc"></TitlePanel>
+            <TitlePanel
+                :tag="titleData.tag"
+                :title="titleData.title"
+                :desc="titleData.desc"
+            ></TitlePanel>
             <div class="user-access_panel">
-                <UserAccessCard v-for="card in SECTION_MAP" :key="card.key" :data="card"></UserAccessCard>
+                <UserAccessCard
+                    v-for="card in SECTION_MAP"
+                    :key="card.key"
+                    :data="card"
+                ></UserAccessCard>
             </div>
         </div>
     </div>

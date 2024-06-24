@@ -3,12 +3,22 @@
         <div>
             <p class="fs-8 fw-bold text-grey66">玩家帳戶資訊</p>
             <!-- <img class="player-admin__img" :url="formData.url" /> -->
-            <div v-if="isImg" style="width: 130px; height: 130px"
-                class="img-wrap border-5 border border-warning rounded-circle mx-auto mt-5 mb-2">
-                <img class="avatar" :src="indexStore.playerData.avatar" alt="玩家圖片" />
+            <div
+                v-if="isImg"
+                style="width: 130px; height: 130px"
+                class="img-wrap border-5 border border-warning rounded-circle mx-auto mt-5 mb-2"
+            >
+                <img
+                    class="avatar"
+                    :src="indexStore.playerData.avatar"
+                    alt="玩家圖片"
+                />
             </div>
-            <div v-else style="width: 130px; height: 130px"
-                class="border-5 border border-warning rounded-circle p-4 mx-auto mt-5 mb-2">
+            <div
+                v-else
+                style="width: 130px; height: 130px"
+                class="border-5 border border-warning rounded-circle p-4 mx-auto mt-5 mb-2"
+            >
                 <img class="w-100" :src="defaultPic" alt="玩家圖片" />
             </div>
             <!-- <div>{{ formData.email }}</div> -->
@@ -17,11 +27,19 @@
             </div>
 
             <div class="d-flex flex-column gap-2">
-                <button type="button" class="p-2 btn w-100 side-list" @click="goPlayerPage">
+                <button
+                    type="button"
+                    class="p-2 btn w-100 side-list"
+                    @click="goPlayerPage"
+                >
                     我的帳戶
                 </button>
                 <!-- <div>平台幣</div> -->
-                <button type="button" class="p-2 btn w-100 m-0 side-list" @click="goActivityPage">
+                <button
+                    type="button"
+                    class="p-2 btn w-100 m-0 side-list"
+                    @click="goActivityPage"
+                >
                     我的活動
                 </button>
             </div>

@@ -12,17 +12,17 @@
                         <p class="fw-bold">
                             NT$
                             {{
-                        order.participationFee *
-                        order.currentParticipantsCount
-                    }}
+                                order.participationFee *
+                                order.currentParticipantsCount
+                            }}
                         </p>
                     </div>
                     <div>
                         <p class="text-grey9F fs-10">報名狀態</p>
                         <p class="fw-bold">
                             {{ order.currentParticipantsCount }}/{{
-                        order.maxParticipants
-                    }}
+                                order.maxParticipants
+                            }}
                         </p>
                     </div>
                 </div>
@@ -46,8 +46,10 @@
                         </p>
                     </div>
                 </div>
-                <div class="d-grid pb-2 pt-3 gap-2 text-grey9F border-bottom"
-                    style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr">
+                <div
+                    class="d-grid pb-2 pt-3 gap-2 text-grey9F border-bottom"
+                    style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr"
+                >
                     <p>報名者</p>
                     <p>總額</p>
                     <p>數量</p>
@@ -55,8 +57,12 @@
                     <p>付款狀態</p>
                     <p>訂單編號</p>
                 </div>
-                <div v-for="user in users" :key="user.idNumber" class="d-grid gap-2 py-2 border-bottom"
-                    style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr">
+                <div
+                    v-for="user in users"
+                    :key="user.idNumber"
+                    class="d-grid gap-2 py-2 border-bottom"
+                    style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr"
+                >
                     <p>{{ user.name }}</p>
                     <p>{{ user.payment }}</p>
                     <p>{{ user.registrationCount }}</p>
