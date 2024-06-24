@@ -1,5 +1,6 @@
 <template>
     <div class="single-event container-fluid positon-relative">
+        <Loading></Loading>
         <div class="container py-4">
             <div class="row">
                 <div class="col-8">
@@ -47,13 +48,14 @@
 
                                     <p>{{ storeData.address }}</p>
                                     <p>{{ storeData.introduce }}</p>
-                                    <router-link
+                                    <!-- <router-link
+                                        v-if="storeData"
                                         :to="{
                                             name: 'StoreIntroduction',
                                             params: { userId: storeData._id },
                                         }"
                                         >前往店家詳情頁面</router-link
-                                    >
+                                    > -->
                                 </div>
                             </div>
                         </div>
@@ -216,6 +218,7 @@ import timeIcon from '@/assets/images/event/time.png';
 import maxPeopleIcon from '@/assets/images/event/max_people.png';
 import pinIcon from '@/assets/images/event/pin.png';
 import dayjs from '@/utilities/dayjs';
+import Loading from '@/components/common/Loading.vue';
 
 const route = useRoute();
 
