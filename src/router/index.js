@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import useIndexStore from '@/stores/index';
 
 const routes = [
     {
@@ -53,6 +54,7 @@ const routes = [
                 path: '/player',
                 name: 'Player',
                 component: () => import('@/views/player/Player.vue'),
+                meta: { requiresAuth: true, roles: ['player'] },
                 children: [
                     {
                         path: 'admin',
@@ -126,11 +128,13 @@ const routes = [
                         path: 'login',
                         name: 'PlayerLogin',
                         component: () => import('@/views/player/Login.vue'),
+                        meta: { requiresAuth: false },
                     },
                     {
                         path: 'signup',
                         name: 'PlayerSignUp',
                         component: () => import('@/views/player/SignUp.vue'),
+                        meta: { requiresAuth: false },
                     },
                     {
                         path: 'form',
@@ -144,6 +148,7 @@ const routes = [
                 path: '/store',
                 name: 'Store',
                 component: () => import('@/views/store/Store.vue'),
+                meta: { requiresAuth: true, roles: ['store'] },
                 children: [
                     {
                         path: 'admin',
@@ -187,11 +192,13 @@ const routes = [
                         path: 'login',
                         name: 'StoreLogin',
                         component: () => import('@/views/store/Login.vue'),
+                        meta: { requiresAuth: false },
                     },
                     {
                         path: 'signup',
                         name: 'StoreSignUp',
                         component: () => import('@/views/store/SignUp.vue'),
+                        meta: { requiresAuth: false },
                     },
                     {
                         path: 'form',
@@ -240,6 +247,46 @@ const router = createRouter({
         // 每次路由變化時都會滾動到頂部
         return { top: 0, behavior: 'smooth' };
     },
+});
+
+// 路由保護
+router.beforeEach((to, from, next) => {
+    const indxStore = useIndexStore();
+    const { isLogin, userData } = indxStore;
+    const { roles, requiresAuth } = to.meta;
+
+    if (requiresAuth) {
+        // console.log('需要驗證');
+        if (isLogin) {
+            // console.log('已登入');
+            if (roles) {
+                // console.log('需要權限');
+                if (roles.includes(userData.role)) {
+                    // console.log('有權限');
+                    next();
+                } else {
+                    // console.log('無權限');
+                    if (userData.role === 'player') {
+                        alert('你不是商家，需要商家權限');
+                    }
+                    if (userData.role === 'store') {
+                        alert('你不是玩家，需要玩家權限');
+                    }
+                    next({ name: 'Index' });
+                }
+            } else {
+                // console.log('不需要權限');
+                next();
+            }
+        } else {
+            // console.log('未登入');
+            next({ name: 'Login' });
+            alert('請先登入');
+        }
+    } else {
+        // console.log('不需要驗證');
+        next();
+    }
 });
 
 export default router;

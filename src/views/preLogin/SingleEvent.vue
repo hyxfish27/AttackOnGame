@@ -180,6 +180,7 @@
                             <div class="d-flex mb-2"></div>
 
                             <button
+                                v-if="userRole !== 'store'"
                                 :disabled="
                                     isEventClosed || isEventUnregiistable
                                 "
@@ -222,6 +223,7 @@ import maxPeopleIcon from '@/assets/images/event/max_people.png';
 import pinIcon from '@/assets/images/event/pin.png';
 import dayjs from '@/utilities/dayjs';
 import Loading from '@/components/common/Loading.vue';
+import useIndexStore from '@/stores/index';
 
 const route = useRoute();
 
@@ -230,6 +232,7 @@ const eventData = ref({});
 const storeData = ref({});
 
 const isLoading = ref(true);
+const userRole = useIndexStore().userData.role;
 
 const getEvent = async (eventId) => {
     await EventAPI.getEvent(eventId)
