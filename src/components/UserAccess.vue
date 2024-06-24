@@ -1,14 +1,14 @@
 <template>
     <div class="bg-greyF7">
         <div
-            class="container h-100 user-access_wrap d-flex"
+            class="container h-100 user-access_wrap d-flex py-3"
             style="min-height: calc(100vh - 200px)"
         >
             <div
                 class="d-flex justify-content-between user-access_panel h-100 w-100 m-auto"
             >
                 <div
-                    class="user-access_section user-access_aside d-flex flex-column justify-content-center align-items-center"
+                    class="user-access_section user-access_aside d-flex flex-column justify-content-center align-items-center py-5"
                 >
                     <div
                         class="img-wrap mb-4 d-flex justify-content-center align-items-center"
@@ -21,7 +21,7 @@
                     </h2>
                 </div>
                 <div
-                    class="user-access_main user-access_section d-flex flex-column justify-content-center"
+                    class="user-access_main user-access_section d-flex flex-column justify-content-center py-5"
                 >
                     <h1
                         class="fs-5 pb-3 fw-bold title d-flex align-items-center"
@@ -70,8 +70,6 @@ const roleAttr = computed(() => {
 
 <style lang="scss" scoped>
 .user-access_wrap {
-    padding: 48px 0;
-
     .user-access_panel {
         gap: 48px;
     }

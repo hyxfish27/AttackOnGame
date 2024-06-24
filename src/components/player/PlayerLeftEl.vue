@@ -68,6 +68,9 @@ const goActivityPage = () => {
 };
 
 const isImg = computed(() => {
+    if (indexStore.playerData.avatar === 'https://example.com/avatar.jpg') {
+        return false;
+    }
     return !!indexStore.playerData.avatar;
 });
 </script>
@@ -77,9 +80,11 @@ const isImg = computed(() => {
     height: 100%;
     object-fit: cover;
 }
+
 .img-wrap {
     overflow: hidden;
 }
+
 .side-list:hover {
     background-color: #eeecec;
 }

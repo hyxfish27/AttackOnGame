@@ -1,6 +1,10 @@
 <template>
     <div class="container-xxl">
         <div class="row p-3">
+            <Loading
+                v-if="isLoading"
+                :class="{ 'loading-fade': !isLoading }"
+            ></Loading>
             <LeftEl></LeftEl>
             <div class="col-9 border rounded bg-white h-100 p-3 min-h-screen">
                 <!-- <div>
@@ -90,7 +94,9 @@
                         </div>
                     </div>
                 </div>
-                <div v-else>您目前沒有活動</div>
+                <div v-else>
+                    <p>您目前沒有活動</p>
+                </div>
             </div>
         </div>
     </div>
@@ -100,50 +106,11 @@ import LeftEl from '@/components/store/StoreLeftEl.vue';
 import StoreAPI from '@/api/Store';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import Loading from '@/components/common/Loading.vue';
 
 const events = ref([]);
 const router = useRouter();
-// const events = [
-//     {
-//         idNumber: 'f2gmybp8',
-//         storeId: '666fb08dd0bb0dbef3fb6c40',
-//         isFoodAllowed: true,
-//         description:
-//             '週末帶著孩子們來參加我們的親子桌遊下午茶活動吧！這次活動專為家庭設計，提供各種適合不同年齡段的桌遊，讓大人和孩子們都能享受其中。我們還會準備豐富的下午茶點心，讓您和家人在遊戲之餘也能享受到美食。歡迎各位家庭來參加，讓我們一起度過一個充滿歡笑和溫馨的下午吧！',
-//         title: '👨‍👩‍👧‍👦親子桌遊下午茶，樂享親子時光！寵物可接受唷',
-//         address: '台北市中山區南京東路三段65號',
-//         eventStartTime: '2024-07-20 22:00',
-//         eventEndTime: '2024-07-21 01:00',
-//         registrationStartTime: '2024-05-05 08:00',
-//         registrationEndTime: '2024-06-20 21:59',
-//         maxParticipants: 4,
-//         minParticipants: 2,
-//         currentParticipantsCount: 4,
-//         participationFee: 250,
-//         eventImageUrl: [
-//             'https://i.imgur.com/l3rD07m.jpeg',
-//             'https://i.imgur.com/yZtxUKz.jpeg',
-//         ],
-//     },
-//     {
-//         idNumber: '3yu4jfvt',
-//         storeId: '666fb08dd0bb0dbef3fb6c40',
-//         isFoodAllowed: true,
-//         description:
-//             '夜貓子們，這場桌遊之夜就是為你們準備的！我們將提供一整晚的桌遊活動，讓你能夠在夜深人靜的時候盡情玩樂。我們會挑選一些耐玩的策略遊戲和充滿挑戰的卡牌遊戲，讓你和朋友們可以盡情挑戰和競賽。還會有一些夜宵供應，確保你們能夠保持精力。趕快報名，來體驗一場不一樣的桌遊之夜吧！',
-//         title: '夜貓子桌遊之夜，不眠不休！🌙',
-//         address: '台北市中山區南京東路三段65號',
-//         eventStartTime: '2024-07-28 06:00',
-//         eventEndTime: '2024-07-28 10:00',
-//         registrationStartTime: '2024-06-10 08:00',
-//         registrationEndTime: '2024-07-28 05:59',
-//         maxParticipants: 6,
-//         minParticipants: 2,
-//         currentParticipantsCount: 6,
-//         participationFee: 300,
-//         eventImageUrl: ['https://i.imgur.com/zrkw8ae.jpeg'],
-//     },
-// ];
+const isLoading = ref(true);
 
 const stateText = (current, max, min) => {
     if (current === max) return '已成團';
@@ -157,6 +124,9 @@ const getEventAll = async () => {
         .then((res) => {
             console.log('order', res);
             events.value = res.data.data;
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 500);
         })
         .catch((err) => {
             console.log(err);

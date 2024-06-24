@@ -62,7 +62,9 @@ onMounted(() => {
 
 <template>
     <main class="container py-4 d-flex flex-column flex-grow-1">
-        <div class="player-activy d-flex justify-content-between h-100">
+        <div
+            class="player-activy d-flex justify-content-between h-100 min-h-screen"
+        >
             <LeftEl class="player-activy_aside"></LeftEl>
             <div class="player-activy_main">
                 <div
