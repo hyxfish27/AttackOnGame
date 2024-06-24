@@ -1,33 +1,48 @@
 <template>
-    <div class="store-admin container vh-100">
+    <div class="container-xxl">
         <div class="row p-3">
             <LeftEl></LeftEl>
-            <div class="col-9 store-admin__info">
+            <div
+                class="col-9 border rounded bg-white h-100 p-3 min-h-screen lh-lg"
+            >
                 <div class="d-flex">
-                    <div class="store-admin__info__img"></div>
                     <div>
                         <div class="mb-3">
-                            <h3 id="storeName">{{ store.name }}</h3>
-                        </div>
-                        <div class="mb-3">
-                            <p id="storeAddress">{{ store.address }}</p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="storeRating" class="form-label"
-                                >評價</label
+                            <h3
+                                id="storeName"
+                                class="fs-5 fw-bold pt-2 pb-3 border-bottom"
                             >
-                            <p id="storeRating">{{ store.rating }}</p>
+                                {{ store.storeData.data.name }}
+                            </h3>
+                        </div>
+                        <div class="mb-3">
+                            <p class="text-grey9F fs-10">地址</p>
+                            <p id="storeAddress">
+                                {{ store.storeData.data.address }}
+                            </p>
+                        </div>
+                        <div class="mb-3">
+                            <p class="text-grey9F fs-10">店家電話</p>
+                            <p>
+                                {{ store.storeData.data.phone }}
+                            </p>
+                        </div>
+                        <div class="mb-3">
+                            <p class="text-grey9F fs-10">介紹</p>
+                            <p>
+                                {{ store.storeData.data.introduce }}
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <button class="btn btn-primary" @click="openModal">
+                <!-- <button class="btn btn-primary" @click="openModal">
                     編輯資料
                 </button>
 
                 <button class="btn btn-primary" @click="toPasswordModify">
                     更改密碼
-                </button>
+                </button> -->
             </div>
         </div>
 
@@ -44,28 +59,17 @@
 import { ref } from 'vue';
 import EditStoreModal from '@/components/EditStoreModal.vue';
 import LeftEl from '@/components/store/StoreLeftEl.vue';
+import storeData from '@/stores/index';
 
 export default {
     components: { EditStoreModal, LeftEl },
     setup() {
-        const store = ref({
-            name: '好玩工作室',
-            address: '台北市信義區信義路20號20樓',
-            rating: 4.5,
-            contact: '0987654321',
-            description: '這是一家很棒的店家。',
-            location: {
-                city: '',
-                district: '',
-                detailedAddress: '',
-            },
-        });
-
+        const store = storeData();
         const showModal = ref(false);
 
-        const openModal = () => {
-            showModal.value = true;
-        };
+        // const openModal = () => {
+        //     showModal.value = true;
+        // };
 
         const closeModal = () => {
             showModal.value = false;
@@ -76,22 +80,13 @@ export default {
             closeModal();
         };
 
-        return { store, showModal, openModal, closeModal, saveChanges };
+        return { store, showModal, closeModal, saveChanges };
     },
 };
 </script>
 
 <style lang="scss" scoped>
-.store-admin {
-    &__info {
-        padding: 24px;
-
-        &__img {
-            width: 100px;
-            height: 100px;
-            background-color: #ccc;
-            margin-right: 24px;
-        }
-    }
+body {
+    background-color: #f7f7f7;
 }
 </style>

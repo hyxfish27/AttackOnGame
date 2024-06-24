@@ -2,14 +2,14 @@
     <div class="container-xxl">
         <div class="row p-3">
             <LeftEl></LeftEl>
-            <div class="col-9 border rounded bg-white h-100 p-3">
-                <div>
+            <div class="col-9 border rounded bg-white h-100 p-3 min-h-screen">
+                <!-- <div>
                     <input
                         class="rounded form-control w-50"
                         type="text"
                         placeholder="快速搜尋"
                     />
-                </div>
+                </div> -->
                 <div
                     class="d-grid mt-3 gap-2 align-items-center fw-bold border-bottom pb-2"
                     style="grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr"
@@ -25,12 +25,19 @@
                 </div>
                 <div
                     v-for="event in events"
-                    :key="event.inNumber"
+                    :key="event.idNumber"
                     style="grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr"
                     class="py-2 d-grid gap-2 align-items-center border-bottom"
                 >
                     <div class="d-flex gap-2">
-                        <button type="button" class="btn btn-primary py-1 px-2">
+                        <router-link
+                            :to="{
+                                name: 'StoreActivity',
+                                params: { idNumber: event.idNumber },
+                            }"
+                            type="button"
+                            class="btn btn-primary py-1 px-2"
+                        >
                             <svg
                                 width="16"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -42,8 +49,9 @@
                                     d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"
                                 />
                             </svg>
-                        </button>
-                        <button type="button" class="btn btn-danger py-1 px-2">
+                        </router-link>
+                        <!-- TODO之後活動編輯好了再開放這顆按鈕 -->
+                        <!-- <button type="button" class="btn btn-danger py-1 px-2">
                             <svg
                                 width="16"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +63,7 @@
                                     d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
                                 />
                             </svg>
-                        </button>
+                        </button> -->
                     </div>
                     <div>
                         {{ event.title }}
