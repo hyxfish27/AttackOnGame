@@ -1,5 +1,5 @@
 <template>
-    <div class="user-access_wrap">
+    <div class="index-user-access_wrap">
         <div class="container">
             <TitlePanel
                 :tag="titleData.tag"
@@ -46,8 +46,8 @@ const titleData = {
     desc: '加入桌遊兵團，找到你的容身之處',
 };
 </script>
-<style lang="scss">
-.user-access_wrap {
+<style lang="scss" scoped>
+.index-user-access_wrap {
     padding: 48px 0;
     background: linear-gradient(to bottom, #ffdd33 0%, #ffffff 15%);
 
