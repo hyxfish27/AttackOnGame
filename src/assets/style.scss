@@ -9,6 +9,10 @@ $footer: calc(84px + 16px + 1px);
   height: calc(100vh - $footer - $header);
 }
 
+.min-full-sceen-with-footer {
+  min-height: calc(100vh - $footer - $header);
+}
+
 .full-sceen-without-footer {
   height: calc(100vh - $header);
 }

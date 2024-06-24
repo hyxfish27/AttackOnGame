@@ -63,12 +63,18 @@ const goTicket = (idNumber) => {
                     </th>
                 </tr>
             </thead>
-            <tbody v-for="(value, index) in paginatedList" :key="index">
-                <tr>
+            <tbody>
+                <tr v-if="paginatedList.length === 0">
+                    <td colspan="6" class="text-center py-5">
+                        <div class="d-flex flex-column align-items-center">
+                            <p class="mt-3">暫無數據</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr v-for="(value, index) in paginatedList" :key="index">
                     <td class="w-40">
                         <div class="d-flex flex-column align-items-start">
                             <p class="fs-8 fw-bold">{{ value.title }}</p>
-                            <!-- 時間 -->
                             <div class="d-flex">
                                 <p>
                                     {{
