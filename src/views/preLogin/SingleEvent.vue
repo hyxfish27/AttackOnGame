@@ -315,6 +315,8 @@ onMounted(() => {
         height: 150px;
     }
     img {
+        min-width: 100%;
+        min-height: 100%;
         object-fit: cover;
     }
 }
