@@ -47,8 +47,12 @@
 
                                     <p>{{ storeData.address }}</p>
                                     <p>{{ storeData.introduce }}</p>
-                                    <a :href="`/search/store/${storeData._id}`"
-                                        >前往店家詳情頁面</a
+                                    <router-link
+                                        :to="{
+                                            name: 'StoreIntroduction',
+                                            params: { userId: storeData._id },
+                                        }"
+                                        >前往店家詳情頁面</router-link
                                     >
                                 </div>
                             </div>
