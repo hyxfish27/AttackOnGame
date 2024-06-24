@@ -13,7 +13,7 @@ const StoreAPI = {
      */
     async create(data) {
         try {
-            const response = await Axios.post('', data);
+            const response = await Axios.post('/api/v1/store', data);
             return response.data;
         } catch (error) {
             console.error(error);
