@@ -1,33 +1,36 @@
 <template>
-    <div class="store-admin container vh-100">
+    <div class="container-xxl">
         <div class="row p-3">
-            <LeftEl></LeftEl>
-            <div class="col-9 store-admin__info">
-                <div class="d-flex">
-                    <div class="store-admin__info__img"></div>
-                    <div>
-                        <div class="mb-3">
-                            <h3 id="storeName">{{ store.name }}</h3>
-                        </div>
-                        <div class="mb-3">
-                            <p id="storeAddress">{{ store.address }}</p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="storeRating" class="form-label"
-                                >評價</label
+            <StoreLeftEl />
+            <div class="col-9 min-h-screen">
+                <div class="border rounded bg-white h-100 py-4 shadow px-6">
+                    <div class="d-flex row justify-between border-bottom pb-2">
+                        <div class="col h6">店家資料</div>
+                        <div class="col text-end">
+                            <button
+                                class="btn btn-outline-primary me-2"
+                                @click="openModal"
                             >
-                            <p id="storeRating">{{ store.rating }}</p>
+                                編輯資料
+                            </button>
+
+                            <button
+                                class="btn btn-outline-primary"
+                                @click="toPasswordModify"
+                            >
+                                更改密碼
+                            </button>
+                        </div>
+                    </div>
+
+                    <div
+                        class="d-flex h-100 justify-content-center align-items-center"
+                    >
+                        <div class="flex-grow-1 bg-white">
+                            <StoreDataForm v-model="store" />
                         </div>
                     </div>
                 </div>
-
-                <button class="btn btn-primary" @click="openModal">
-                    編輯資料
-                </button>
-
-                <button class="btn btn-primary" @click="toPasswordModify">
-                    更改密碼
-                </button>
             </div>
         </div>
 
@@ -40,58 +43,48 @@
     </div>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup>
+import { computed, ref } from 'vue';
 import EditStoreModal from '@/components/EditStoreModal.vue';
-import LeftEl from '@/components/store/StoreLeftEl.vue';
+import useIndexStore from '@/stores/index';
+import StoreLeftEl from '@/components/store/StoreLeftEl.vue';
+import StoreDataForm from '@/components/store/StoreDataForm.vue';
+import StoreAPI from '@/api/Store';
 
-export default {
-    components: { EditStoreModal, LeftEl },
-    setup() {
-        const store = ref({
-            name: '好玩工作室',
-            address: '台北市信義區信義路20號20樓',
-            rating: 4.5,
-            contact: '0987654321',
-            description: '這是一家很棒的店家。',
-            location: {
-                city: '',
-                district: '',
-                detailedAddress: '',
-            },
-        });
+const indexStore = useIndexStore();
+const store = computed(() => indexStore.storeData);
 
-        const showModal = ref(false);
+console.log('StroeData', store.value);
 
-        const openModal = () => {
-            showModal.value = true;
-        };
+const showModal = ref(false);
 
-        const closeModal = () => {
-            showModal.value = false;
-        };
+const openModal = () => {
+    console.log('openModal');
+    showModal.value = true;
+};
 
-        const saveChanges = (updatedStore) => {
-            store.value = updatedStore;
-            closeModal();
-        };
+const closeModal = () => {
+    showModal.value = false;
+};
 
-        return { store, showModal, openModal, closeModal, saveChanges };
-    },
+const saveChanges = async (updatedStore) => {
+    try {
+        await StoreAPI.update(store.value._id, updatedStore);
+        store.value = updatedStore;
+        indexStore.setStore(updatedStore);
+        closeModal();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const toPasswordModify = () => {
+    alert('未來更新，敬請期待');
 };
 </script>
 
 <style lang="scss" scoped>
-.store-admin {
-    &__info {
-        padding: 24px;
-
-        &__img {
-            width: 100px;
-            height: 100px;
-            background-color: #ccc;
-            margin-right: 24px;
-        }
-    }
+.shadow {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 </style>
