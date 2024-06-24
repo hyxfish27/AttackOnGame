@@ -80,21 +80,18 @@ const formDataSchema = {
         </div>
 
         <div class="mb-3">
-            <label for="description" class="form-label">店家描述</label>
+            <label for="introduce" class="form-label">店家描述</label>
             <v-field
-                id="description"
+                id="introduce"
                 v-model="formData.introduce"
                 as="textarea"
                 class="form-control"
                 style="min-height: 100px; max-height: 200px"
-                name="description"
+                name="introduce"
                 :rules="formDataSchema.introduce"
                 :disabled="!conEdit"
             ></v-field>
-            <error-message
-                name="description"
-                class="text-danger"
-            ></error-message>
+            <error-message name="introduce" class="text-danger"></error-message>
         </div>
 
         <!-- if canEdit is true display comfirm button -->

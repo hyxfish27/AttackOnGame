@@ -41,9 +41,12 @@ const StoreAPI = {
      * @param {*} data
      * @description 更新商店資料
      */
-    async update(data) {
+    async update(storeId, data) {
         try {
-            const response = await Axios.put('', data);
+            const response = await Axios.patch(
+                `/api/v1/store/${storeId}`,
+                data
+            );
             return response.data;
         } catch (error) {
             console.error(error);

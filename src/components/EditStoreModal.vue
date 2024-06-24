@@ -2,7 +2,7 @@
     <div class="modal-overlay" @click.self="close">
         <div class="modal-content">
             <div class="h5">編輯店家資料</div>
-            <v-form v-slot="{ errors }" @submit="handleSubmit(onSubmit)">
+            <v-form v-slot="{ errors }" @submit="onSubmit">
                 <div class="mb-3">
                     <label for="editName" class="form-label">名稱</label>
                     <v-field

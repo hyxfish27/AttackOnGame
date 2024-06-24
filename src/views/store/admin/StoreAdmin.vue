@@ -49,6 +49,7 @@ import EditStoreModal from '@/components/EditStoreModal.vue';
 import useIndexStore from '@/stores/index';
 import StoreLeftEl from '@/components/store/StoreLeftEl.vue';
 import StoreDataForm from '@/components/store/StoreDataForm.vue';
+import StoreAPI from '@/api/Store';
 
 /**
  * {
@@ -81,9 +82,14 @@ const closeModal = () => {
     showModal.value = false;
 };
 
-const saveChanges = (updatedStore) => {
-    store.value = updatedStore;
-    closeModal();
+const saveChanges = async (updatedStore) => {
+    try {
+        await StoreAPI.update(store.value._id, updatedStore);
+        store.value = updatedStore;
+        closeModal();
+    } catch (error) {
+        console.error(error);
+    }
 };
 </script>
 
