@@ -36,17 +36,20 @@
                                 >
                                     <img
                                         class="w-100"
-                                        :src="FAKE_SHOP.avatar"
-                                        :alt="FAKE_SHOP.name"
+                                        :src="storeData.avatar"
+                                        :alt="storeData.name"
                                     />
                                 </div>
                                 <div class="">
                                     <h3 class="fz-6 fw-bold">
-                                        {{ FAKE_SHOP.name }}
+                                        {{ storeData.name }}
                                     </h3>
 
-                                    <p>{{ FAKE_SHOP.address }}</p>
-                                    <p>{{ FAKE_SHOP.description }}</p>
+                                    <p>{{ storeData.address }}</p>
+                                    <p>{{ storeData.introduce }}</p>
+                                    <a :href="`/search/store/${storeData._id}`"
+                                        >前往店家詳情頁面</a
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -210,17 +213,6 @@ import maxPeopleIcon from '@/assets/images/event/max_people.png';
 import pinIcon from '@/assets/images/event/pin.png';
 import dayjs from '@/utilities/dayjs';
 
-const FAKE_SHOP = {
-    _id: '666fb0f6d0bb0dbef3fb6c47',
-    name: 'PartyTime 派對時光 | 桌遊市府店 | 深夜時段營業中，歡迎傳訊訂位',
-    user: '666fb046d0bb0dbef3fb6c25',
-    avatar: 'https://i.imgur.com/NgszI7b.jpeg',
-    introduce:
-        '桌遊咖啡館提供了一個舒適的環境，讓桌遊愛好者能夠一邊享受美味的咖啡，一邊享受各種桌遊的樂趣。無論是想與朋友一起挑戰複雜的策略遊戲，還是簡單的卡牌遊戲，這裡都能滿足您的需求。此外，店內的員工非常友好且樂於助人，隨時為您提供遊戲的指導和建議。',
-    address: '台北市大安區敦化南路一段245號',
-    phone: '02-1234-5678',
-    __v: 0,
-};
 const route = useRoute();
 
 const eventData = ref({});
@@ -230,8 +222,8 @@ const storeData = ref({});
 const getEvent = async (eventId) => {
     await EventAPI.getEvent(eventId)
         .then((response) => {
-            eventData.value = response.data.data;
-
+            eventData.value = response.data.data.event;
+            storeData.value = response.data.data.store;
             console.log(response);
         })
         .catch((err) => {
