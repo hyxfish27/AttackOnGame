@@ -76,30 +76,9 @@ import { computed, defineProps } from 'vue';
 import WordHighlighter from 'vue-word-highlighter';
 import dayjs from '@/utilities/dayjs';
 import toLocalString from '@/utilities/toLocalString';
+import STATUS_MAP from '@/constant/eventStatus';
+import setEventAttr from '@/utilities/setEventAttr';
 
-const STATUS_MAP = {
-    OUT_DATE: {
-        text: '不可報名',
-        tagcolor: 'mockup',
-        barColor: 'bg-greyD4',
-    },
-    NOT_FORMED: {
-        text: '未成團',
-        tagcolor: 'bg-yellow',
-        barColor: 'bg-blue-light',
-    },
-    FULL: {
-        text: '已滿團',
-        tagcolor: 'mockup',
-        barColor: 'bg-green',
-    },
-    FORMED: {
-        text: '已成團',
-        tagcolor: 'bg-greyD4',
-        barColor: 'bg-blue-light',
-    },
-};
-const today = dayjs();
 const props = defineProps({
     data: {
         type: Object,
@@ -117,27 +96,11 @@ const lineStyle = (currentNum, maxNum) => {
     const percentage = (currentNum / maxNum) * 100;
     return `${100 - percentage}%`;
 };
-const calculateEventStatus = (event) => {
-    const isRegi =
-        today.isSameOrBefore(event.registrationEndTime) &&
-        today.isSameOrAfter(event.registrationStartTime);
-    if (!isRegi) {
-        return 'OUT_DATE';
-    }
-    if (event.currentParticipantsCount < event.minParticipants) {
-        return 'NOT_FORMED';
-    }
-    if (event.currentParticipantsCount === event.maxParticipants) {
-        return 'FULL';
-    }
-    return 'FORMED';
-};
 const computedEventData = computed(() => {
     if (!props.data || Object.keys(props.data).length === 0) {
         return {};
     }
-    console.log('data', props.data);
-    const status = calculateEventStatus(props.data);
+    const status = setEventAttr(props.data);
     return {
         status: STATUS_MAP[status].text,
         tagcolor: STATUS_MAP[status].tagcolor,
