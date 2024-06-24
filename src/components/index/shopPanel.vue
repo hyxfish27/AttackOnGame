@@ -1,36 +1,17 @@
 <template>
-<<<<<<< HEAD
-    <div class="index-store-section">
-=======
     <div class="index-store-section container-fluid">
->>>>>>> dev
-        <div
-            class="dot-bg"
-            :style="{ backgroundImage: 'url(' + DotBg + ')' }"
-        ></div>
+        <div class="dot-bg" :style="{ backgroundImage: 'url(' + DotBg + ')' }"></div>
         <div class="py-16 container">
-            <TitlePanel
-                :tag="titleData.tag"
-                :title="titleData.title"
-                :desc="titleData.desc"
-            ></TitlePanel>
-            <div
-                v-if="errorMessage.split() && !loading"
-                class="text-center mt-4"
-            >
+            <TitlePanel :tag="titleData.tag" :title="titleData.title" :desc="titleData.desc"></TitlePanel>
+            <div v-if="errorMessage.split() && !loading" class="text-center mt-4">
                 <p>{{ errorMessage }}</p>
             </div>
             <div v-if="loading" class="text-center mt-4">
                 <div class="spinner-border" role="status"></div>
             </div>
             <div v-if="!loading && storeData.length > 0" class="row">
-                <StoreCard
-                    v-for="data in storeData"
-                    :key="data.user"
-                    :data="data"
-                    class="col-6 col-lg-3 mb-3"
-                    @click="onStoreCardClick(data.user)"
-                >
+                <StoreCard v-for="data in storeData" :key="data.user" :data="data" class="col-6 col-lg-3 mb-3"
+                    @click="onStoreCardClick(data.user)">
                 </StoreCard>
             </div>
         </div>
