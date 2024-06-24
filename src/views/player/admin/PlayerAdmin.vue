@@ -5,9 +5,7 @@
             <div
                 class="player-admin__info player-admin_main border rounded bg-white"
             >
-                <h3
-                    class="border-bottom border-3 border-black mt-5 d-inline-block mb-3"
-                >
+                <h3 class="border-bottom border-1 mt-5 mb-3 pb-2 fs-6">
                     帳戶資訊
                 </h3>
 
@@ -116,7 +114,7 @@
 
                     <div class="section">
                         <button
-                            class="btn btn-success mr-4"
+                            class="btn btn-outline-primary mr-4"
                             @click.prevent="toggleEditStatus"
                         >
                             {{ canEdit ? '編輯完成' : '編輯資料' }}
@@ -233,22 +231,27 @@ export default defineComponent({
 .player-admin {
     padding: 24px;
     gap: 0 16px;
+
     &__img {
         width: 80px;
         height: 80px;
     }
+
     .player-admin_aside {
         flex: 0 0 calc(33.3333% - 16px / 2);
     }
+
     .player-admin_main {
         flex: 0 0 calc(66.6667% - 16px / 2);
         border-radius: 8px;
-        padding: 48px;
+        padding: 0 48px;
     }
 }
+
 .form-label:last-child {
     margin-bottom: 0;
 }
+
 .is-invalid {
     border-color: #dc3545;
 }
@@ -256,6 +259,7 @@ export default defineComponent({
 .text-danger {
     color: #dc3545;
 }
+
 .section {
     display: flex;
     gap: 0 8px;

@@ -61,9 +61,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <main
-        class="container py-4 d-flex flex-column flex-grow-1 full-sceen-with-footer"
-    >
+    <main class="container py-4 d-flex flex-column flex-grow-1">
         <div class="player-activy d-flex justify-content-between h-100">
             <LeftEl class="player-activy_aside"></LeftEl>
             <div class="player-activy_main">
@@ -71,8 +69,8 @@ onMounted(() => {
                     class="d-flex p-3 border rounded h-100 flex-column bg-white"
                 >
                     <!-- table title -->
-                    <div class="border-bottom py-2 mb-2">
-                        <h3>活動管理</h3>
+                    <div class="border-bottom py-1 mb-2">
+                        <h3 class="fs-6">活動管理</h3>
                     </div>
                     <div v-if="loading" class="text-center mt-4">
                         <div class="spinner-border" role="status"></div>
@@ -101,13 +99,16 @@ onMounted(() => {
 .player-activy {
     padding: 24px;
     gap: 0 16px;
+
     &__img {
         width: 80px;
         height: 80px;
     }
+
     .player-activy_aside {
         flex: 0 0 calc(33.3333% - 16px / 2);
     }
+
     .player-activy_main {
         flex: 0 0 calc(66.6667% - 16px / 2);
         border-radius: 8px;
