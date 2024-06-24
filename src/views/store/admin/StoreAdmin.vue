@@ -26,71 +26,8 @@
                     <div
                         class="d-flex h-100 justify-content-center align-items-center"
                     >
-                        <div class="justify-center align-center">
-                            <v-form>
-                                <div class="d-flex row">
-                                    <div class="mb-3 col">
-                                        <label for="name" class="form-label"
-                                            >店家名稱</label
-                                        >
-                                        <v-field
-                                            id="name"
-                                            v-model="store.name"
-                                            type="text"
-                                            class="form-control"
-                                            name="name"
-                                            rules="required"
-                                            disabled
-                                        ></v-field>
-                                    </div>
-
-                                    <div class="mb-3 col">
-                                        <label for="contact" class="form-label"
-                                            >聯絡電話</label
-                                        >
-                                        <v-field
-                                            id="contact"
-                                            v-model="store.phone"
-                                            type="text"
-                                            class="form-control"
-                                            name="contact"
-                                            rules="required"
-                                            disabled
-                                        ></v-field>
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="address" class="form-label"
-                                        >地址</label
-                                    >
-                                    <v-field
-                                        id="address"
-                                        v-model="store.address"
-                                        type="text"
-                                        class="form-control"
-                                        name="address"
-                                        rules="required"
-                                        disabled
-                                    ></v-field>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="description" class="form-label"
-                                        >店家描述</label
-                                    >
-                                    <v-field
-                                        id="description"
-                                        v-model="store.introduce"
-                                        as="textarea"
-                                        class="form-control"
-                                        style="min-height: 200px"
-                                        name="description"
-                                        rules="required"
-                                        disabled
-                                    ></v-field>
-                                </div>
-                            </v-form>
+                        <div class="flex-grow-1">
+                            <StoreDataForm v-model="store" />
                         </div>
                     </div>
                 </div>
@@ -111,7 +48,7 @@ import { computed, ref } from 'vue';
 import EditStoreModal from '@/components/EditStoreModal.vue';
 import useIndexStore from '@/stores/index';
 import StoreLeftEl from '@/components/store/StoreLeftEl.vue';
-import { Form as VForm, Field as VField } from 'vee-validate';
+import StoreDataForm from '@/components/store/StoreDataForm.vue';
 
 /**
  * {

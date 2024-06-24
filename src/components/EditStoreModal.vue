@@ -24,7 +24,7 @@
                     <label for="editContact" class="form-label">聯絡電話</label>
                     <v-field
                         id="editContact"
-                        v-model="formData.car"
+                        v-model="formData.phone"
                         type="text"
                         class="form-control"
                         name="phone"
