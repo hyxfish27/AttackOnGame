@@ -1,5 +1,5 @@
 <template>
-    <div id="scroll-section" class="py-16 container">
+    <div id="scroll-section" v-in-view="{ once: true }" class="py-16 container">
         <TitlePanel
             :tag="titleData.tag"
             :title="titleData.title"
@@ -23,6 +23,7 @@
 import TitleCardList from '@/components/event/eventPanel.vue';
 import EventAPI from '@/api/Event';
 import { onMounted, ref } from 'vue';
+import vInView from '@/directives/observeInView';
 import TitlePanel from './titlePanel.vue';
 
 const eventData = ref([]);
