@@ -1,5 +1,9 @@
 <template>
-    <div style="background-color: #ffff" :class="{ fixed: !showContent }">
+    <div style="background-color: #ffff" :class="{ fixed: !isContentDisplay }">
+        <Loading
+            v-if="isLoading && isContentDisplay"
+            :class="{ 'loading-fade': !isLoading }"
+        ></Loading>
         <div
             class="full-sceen-without-footer d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
             :style="{
@@ -42,9 +46,15 @@
                 </div>
             </div>
         </div>
-        <div v-if="showContent" :ref="otherContent">
-            <EventPanel></EventPanel>
-            <ShopPanel></ShopPanel>
+        <div v-if="isContentDisplay" :ref="otherContent">
+            <EventPanel
+                :error-message="errorMessage"
+                :data="eventData"
+            ></EventPanel>
+            <ShopPanel
+                :error-message="errorMessage"
+                :data="storeData"
+            ></ShopPanel>
             <div class="container">
                 <div
                     class="row"
@@ -134,13 +144,18 @@ import ctaTextImg from '@/assets/images/index_cta_text_img.svg';
 import EventPanel from '@/components/index/eventPanel.vue';
 import ShopPanel from '@/components/index/shopPanel.vue';
 import UserAccessPanel from '@/components/index/UserAccessPanel.vue';
-import { ref, nextTick } from 'vue';
+import { onMounted, ref, nextTick } from 'vue';
+import EventAPI from '@/api/Event';
 
-const showContent = ref(false);
+const storeData = ref([]);
+const eventData = ref([]);
+const isLoading = ref(true);
+const errorMessage = ref('');
+const isContentDisplay = ref(false);
 const sectionIsFixed = ref(true);
 const clickScrollBtn = () => {
     sectionIsFixed.value = false;
-    showContent.value = true;
+    isContentDisplay.value = true;
     nextTick(() => {
         const nextSection = document.getElementById('scroll-section');
         if (nextSection) {
@@ -148,6 +163,37 @@ const clickScrollBtn = () => {
         }
     });
 };
+const loadData = async () => {
+    isLoading.value = true;
+    errorMessage.value = '';
+
+    const eventsPromise = EventAPI.getEvents({
+        limit: 4,
+        registrationStatus: 2,
+    });
+    const storesPromise = EventAPI.getStores();
+
+    try {
+        const [eventsResponse, storesResponse] = await Promise.all([
+            eventsPromise,
+            storesPromise,
+        ]);
+
+        eventData.value = eventsResponse.data;
+        storeData.value = storesResponse.data.slice(0, 4);
+    } catch (err) {
+        eventData.value = [];
+        storeData.value = [];
+        errorMessage.value =
+            err?.data?.message || '連線逾時，靜待雲端伺服器睡醒';
+    } finally {
+        isLoading.value = false;
+    }
+};
+
+onMounted(() => {
+    loadData(); // 頁面裝載時加載數據
+});
 </script>
 
 <style lang="scss" scoped>

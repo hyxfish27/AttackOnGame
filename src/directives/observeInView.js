@@ -1,5 +1,5 @@
 import _get from 'lodash/get';
-import IntersectionObserver from 'intersection-observer';
+import 'intersection-observer';
 
 const DEFAULT_INTERSECTION = Object.freeze({
     threshold: 0.3,
