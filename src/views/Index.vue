@@ -65,9 +65,9 @@
                         background-repeat: no-repeat;
                     "
                 >
-                    <div class="col">
+                    <div v-in-view="{ once: true }" class="col in-view">
                         <div
-                            class="py-10 text-center fs-4 noto-serif-tc fw-bold lh-lg"
+                            class="py-10 text-center fs-4 noto-serif-tc fw-bold lh-lg ani-entrance ani-entrance-0"
                         >
                             <p>不論你要找什麼樣的桌遊團？</p>
                             <p>這裡都有你的容身之處</p>
@@ -97,7 +97,8 @@
                     </div>
                     <div class="row py-3">
                         <div
-                            class="col p-4 d-flex justify-content-center align-items-center flex-column gap-4"
+                            v-in-view="{ once: true }"
+                            class="col p-4 d-flex justify-content-center align-items-center flex-column gap-4 in-view"
                         >
                             <img
                                 class="w-70 mx-auto"
@@ -107,7 +108,7 @@
                             <router-link
                                 :to="{ name: 'EventList' }"
                                 type="button"
-                                class="find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
+                                class="ani-entrance ani-entrance-0 find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
                             >
                                 <p class="pe-2">
                                     沙沙給油！找出屬於你的桌遊兵團！
@@ -146,6 +147,7 @@ import ShopPanel from '@/components/index/shopPanel.vue';
 import UserAccessPanel from '@/components/index/UserAccessPanel.vue';
 import { onMounted, ref, nextTick } from 'vue';
 import EventAPI from '@/api/Event';
+import vInView from '@/directives/observeInView';
 
 const storeData = ref([]);
 const eventData = ref([]);

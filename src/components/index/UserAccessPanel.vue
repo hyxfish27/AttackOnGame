@@ -1,7 +1,8 @@
 <template>
     <div class="index-user-access_wrap">
-        <div class="container">
+        <div v-in-view="{ once: true }" class="container in-view">
             <TitlePanel
+                class="ani-entrance ani-entrance-0"
                 :tag="titleData.tag"
                 :title="titleData.title"
                 :desc="titleData.desc"
@@ -22,6 +23,7 @@ import hugFace from '@/assets/images/hug-face.png';
 import partyingFace from '@/assets/images/partying-face.png';
 import playerBenifit from '@/assets/images/player-benifit.png';
 import storeBenifit from '@/assets/images/store-benifit.png';
+import vInView from '@/directives/observeInView';
 import TitlePanel from './titlePanel.vue';
 
 const SECTION_MAP = [
