@@ -1,6 +1,9 @@
 <template>
     <div id="layout" class="d-flex flex-column min-vh-100 noto-serif-tc">
-        <MainHeader :is-login="isLogin" @toUserAdminPage="toUserAdminPage"></MainHeader>
+        <MainHeader
+            :is-login="isLogin"
+            @toUserAdminPage="toUserAdminPage"
+        ></MainHeader>
         <router-view />
         <MainFooter class="mt-auto"></MainFooter>
         <Alert />

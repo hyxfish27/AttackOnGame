@@ -1,15 +1,30 @@
 <template>
-    <div v-in-view="{ once: true }" class="index-store-section container-fluid in-view">
-        <div class="dot-bg" :style="{ backgroundImage: 'url(' + DotBg + ')' }"></div>
+    <div
+        v-in-view="{ once: true }"
+        class="index-store-section container-fluid in-view"
+    >
+        <div
+            class="dot-bg"
+            :style="{ backgroundImage: 'url(' + DotBg + ')' }"
+        ></div>
         <div class="py-16 container">
-            <TitlePanel class="ani-entrance ani-entrance-0" :tag="titleData.tag" :title="titleData.title"
-                :desc="titleData.desc"></TitlePanel>
+            <TitlePanel
+                class="ani-entrance ani-entrance-0"
+                :tag="titleData.tag"
+                :title="titleData.title"
+                :desc="titleData.desc"
+            ></TitlePanel>
             <div v-if="errorMessage.split()" class="text-center mt-4">
                 <p>{{ errorMessage }}</p>
             </div>
             <div v-if="data.length > 0" class="row">
-                <StoreCard v-for="store in data" :key="store.user" :data="store"
-                    class="col-6 col-lg-3 mb-3 ani-entrance ani-entrance-2" @click="onStoreCardClick(store.user)">
+                <StoreCard
+                    v-for="store in data"
+                    :key="store.user"
+                    :data="store"
+                    class="col-6 col-lg-3 mb-3 ani-entrance ani-entrance-2"
+                    @click="onStoreCardClick(store.user)"
+                >
                 </StoreCard>
             </div>
         </div>

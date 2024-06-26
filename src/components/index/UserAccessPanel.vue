@@ -2,12 +2,24 @@
     <div class="index-user-access_wrap">
         <div class="container">
             <div v-in-view="{ once: true }" class="in-view">
-                <TitlePanel class="ani-entrance ani-entrance-0" :tag="titleData.tag" :title="titleData.title"
-                    :desc="titleData.desc"></TitlePanel>
+                <TitlePanel
+                    class="ani-entrance ani-entrance-0"
+                    :tag="titleData.tag"
+                    :title="titleData.title"
+                    :desc="titleData.desc"
+                ></TitlePanel>
             </div>
             <div class="user-access_panel">
-                <div v-for="card in SECTION_MAP" :key="card.key" v-in-view="{ once: true }" class="in-view">
-                    <UserAccessCard class="ani-entrance ani-entrance-2" :data="card"></UserAccessCard>
+                <div
+                    v-for="card in SECTION_MAP"
+                    :key="card.key"
+                    v-in-view="{ once: true }"
+                    class="in-view"
+                >
+                    <UserAccessCard
+                        class="ani-entrance ani-entrance-2"
+                        :data="card"
+                    ></UserAccessCard>
                 </div>
             </div>
         </div>
