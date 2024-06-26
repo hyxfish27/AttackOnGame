@@ -97,34 +97,35 @@
                     </div>
                     <div class="row py-3">
                         <div
-                            v-in-view="{ once: true }"
-                            class="col p-4 d-flex justify-content-center align-items-center flex-column gap-4 in-view"
+                            class="col p-4 d-flex justify-content-center align-items-center flex-column gap-4"
                         >
                             <img
                                 class="w-70 mx-auto"
                                 :src="ctaTextImg"
                                 alt=""
                             />
-                            <router-link
-                                :to="{ name: 'EventList' }"
-                                type="button"
-                                class="ani-entrance ani-entrance-0 find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
-                            >
-                                <p class="pe-2">
-                                    沙沙給油！找出屬於你的桌遊兵團！
-                                </p>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    width="32"
+                            <div v-in-view="{ once: true }" class="in-view">
+                                <router-link
+                                    :to="{ name: 'EventList' }"
+                                    type="button"
+                                    class="ani-entrance ani-entrance-0 find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
                                 >
-                                    <title>chevron-right</title>
-                                    <path
-                                        fill="#ffff"
-                                        d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
-                                    />
-                                </svg>
-                            </router-link>
+                                    <p class="pe-2">
+                                        沙沙給油！找出屬於你的桌遊兵團！
+                                    </p>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="32"
+                                    >
+                                        <title>chevron-right</title>
+                                        <path
+                                            fill="#ffff"
+                                            d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                                        />
+                                    </svg>
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
