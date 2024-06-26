@@ -149,6 +149,7 @@ import UserAccessPanel from '@/components/index/UserAccessPanel.vue';
 import { onMounted, ref, nextTick } from 'vue';
 import EventAPI from '@/api/Event';
 import vInView from '@/directives/observeInView';
+import Loading from '@/components/common/Loading.vue';
 
 const storeData = ref([]);
 const eventData = ref([]);
@@ -190,12 +191,14 @@ const loadData = async () => {
         errorMessage.value =
             err?.data?.message || '連線逾時，靜待雲端伺服器睡醒';
     } finally {
-        isLoading.value = false;
+        setTimeout(() => {
+            isLoading.value = false;
+        }, 500);
     }
 };
 
 onMounted(() => {
-    loadData(); // 頁面裝載時加載數據
+    loadData();
 });
 </script>
 
