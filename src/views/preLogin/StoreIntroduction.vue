@@ -11,6 +11,7 @@
                             :style="{ height: '300px' }"
                         >
                             <img
+                                referrerpolicy="no-referrer"
                                 class="w-100 inset-0 object-fit-cover rounded-top-4"
                                 height="300px"
                                 :src="storeViewObject.avatar"
@@ -19,6 +20,7 @@
                         <div class="banner__content row p-4">
                             <div class="col-3 col-lg-2">
                                 <img
+                                    referrerpolicy="no-referrer"
                                     width="160px"
                                     height="160px"
                                     class="rounded-circle object-fit-cover mb-2 border"

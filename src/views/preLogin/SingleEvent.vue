@@ -10,6 +10,7 @@
                     <div class="event-image mb-4 rounded-2">
                         <img
                             ref="image"
+                            referrerpolicy="no-referrer"
                             class="w-100 inset-0 object-fit-cover rounded-2"
                             :src="eventData.eventImageUrl"
                             :alt="eventData.title"
@@ -39,6 +40,7 @@
                                     class="icon-img_wrap icon-img_wrap-large round"
                                 >
                                     <img
+                                        referrerpolicy="no-referrer"
                                         class="w-100"
                                         :src="storeData.avatar"
                                         :alt="storeData.name"
@@ -180,6 +182,7 @@
                             <div class="d-flex mb-2"></div>
 
                             <button
+                                v-if="userRole !== 'store'"
                                 :disabled="
                                     isEventClosed || isEventUnregiistable
                                 "
@@ -222,6 +225,7 @@ import maxPeopleIcon from '@/assets/images/event/max_people.png';
 import pinIcon from '@/assets/images/event/pin.png';
 import dayjs from '@/utilities/dayjs';
 import Loading from '@/components/common/Loading.vue';
+import useIndexStore from '@/stores/index';
 
 const route = useRoute();
 
@@ -230,6 +234,7 @@ const eventData = ref({});
 const storeData = ref({});
 
 const isLoading = ref(true);
+const userRole = useIndexStore().userData.role;
 
 const getEvent = async (eventId) => {
     await EventAPI.getEvent(eventId)
@@ -237,13 +242,15 @@ const getEvent = async (eventId) => {
             eventData.value = response.data.data.event;
             storeData.value = response.data.data.store;
 
-            setTimeout(() => {
-                isLoading.value = false;
-            }, 500);
             console.log(response);
         })
         .catch((err) => {
             console.log(err);
+        })
+        .finally(() => {
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 500);
         });
 };
 

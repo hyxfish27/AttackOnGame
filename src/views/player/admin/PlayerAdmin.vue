@@ -96,7 +96,7 @@
                         ></error-message>
                     </div>
 
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="avatar" class="form-label">上傳頭像</label>
                         <input
                             id="avatar"
@@ -110,7 +110,7 @@
                             name="avatar"
                             class="text-danger"
                         ></error-message>
-                    </div>
+                    </div> -->
 
                     <div class="section">
                         <button
@@ -169,16 +169,17 @@ export default defineComponent({
         });
 
         const playerData = computed(() => indexStore.playerData);
+        const userData = computed(() => indexStore.userData);
         const canEdit = ref(false);
 
         const onSubmit = async (playerInfo) => {
             try {
                 await PlayerAPI.update({
-                    userId: playerData.value.id,
+                    userId: userData.value.id,
                     ...playerInfo,
                 });
                 alert('更新成功');
-                indexStore.getPlayer(playerData.value.id);
+                indexStore.getPlayer(userData.value.id);
             } catch (error) {
                 alert(`更新失敗: ${error}`);
             }

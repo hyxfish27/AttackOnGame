@@ -1,6 +1,6 @@
 import Axios from '@/utilities/axios';
 import cookie from '@/utilities/cookie/cookie';
-
+import useIndexStore from '@/stores/index';
 /**
  * UserAPI
  * @author Vicky
@@ -66,8 +66,8 @@ const UserAPI = {
     async logout() {
         try {
             await cookie.delete('AttackOnGameJWT');
-            localStorage.removeItem('attack-on-game-user');
-            window.location.reload();
+            localStorage.clear();
+            useIndexStore().reset();
         } catch (error) {
             console.error(error);
             throw error;

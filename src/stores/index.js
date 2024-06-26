@@ -64,6 +64,12 @@ export default defineStore('index', {
         getUserData() {
             return this.userData;
         },
+        reset() {
+            this.isLogin = false;
+            this.userData = {};
+            this.playerData = {};
+            this.storeData = {};
+        },
     },
     persist: {
         key: 'attack-on-game-user',
