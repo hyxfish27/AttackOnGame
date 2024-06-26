@@ -9,6 +9,7 @@
                 class="img-wrap border-5 border border-warning rounded-circle mx-auto mt-5 mb-2"
             >
                 <img
+                    referrerpolicy="no-referrer"
                     class="avatar"
                     :src="indexStore.playerData.avatar"
                     alt="玩家圖片"

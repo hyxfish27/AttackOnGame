@@ -12,6 +12,7 @@
                 class="position-absolute inset-0 d-flex justify-content-center align-items-center flex-column px-4 pb-4 noto-serif-tc gap-2 w-100"
             >
                 <img
+                    referrerpolicy="no-referrer"
                     width="50%"
                     height="23%"
                     class="rounded-circle object-fit-cover mb-2 border"
