@@ -1,11 +1,12 @@
 <template>
-    <div class="d-flex flex-column min-vh-100 noto-serif-tc">
+    <div id="layout" class="d-flex flex-column min-vh-100 noto-serif-tc">
         <MainHeader
             :is-login="isLogin"
             @toUserAdminPage="toUserAdminPage"
         ></MainHeader>
         <router-view />
         <MainFooter class="mt-auto"></MainFooter>
+        <Alert />
     </div>
 </template>
 
@@ -20,6 +21,7 @@ import MainHeader from '@/components/common/MainHeader.vue';
 import MainFooter from '@/components/common/MainFooter.vue';
 import UserAPI from '@/api/User';
 import useIndexStore from '@/stores/index';
+import Alert from '@/components/common/Alert.vue';
 
 /**
  * Layout
@@ -31,6 +33,7 @@ export default {
     components: {
         MainHeader,
         MainFooter,
+        Alert,
     },
     setup() {
         const router = useRouter();

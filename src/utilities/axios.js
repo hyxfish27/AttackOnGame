@@ -1,5 +1,6 @@
 import axios from 'axios';
 import cookie from '@/utilities/cookie/cookie';
+import useAlert from '@/stores/alert';
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -31,6 +32,10 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     (error) => {
+        // if is timeout, open error modal
+        if (error.code === 'ECONNABORTED') {
+            useAlert().openModal('timeout', '連線逾時，請重新整理頁面');
+        }
         return Promise.reject(error);
     }
 );
