@@ -2,11 +2,10 @@
     <div class="col-6 col-lg-3 mb-3">
         <div
             :style="{
-                background: 'url(' + storeBgImage + ')',
-                backgroundSize: '100% 100%',
-                paddingTop: '182%',
+                '--bgImg': 'url(' + storeBgImage + ')',
+                '--bgHover': 'url(' + storeBgHover + ')',
             }"
-            class="position-relative"
+            class="position-relative card-wrap"
         >
             <div
                 class="position-absolute inset-0 d-flex justify-content-center align-items-center flex-column px-4 pb-4 noto-serif-tc gap-2 w-100"
@@ -15,8 +14,9 @@
                     width="50%"
                     height="23%"
                     class="rounded-circle object-fit-cover mb-2 border"
-                    :src="data.avatar"
+                    :src="storeImg"
                     :alt="data.name"
+                    @error="handleErrorImage()"
                 />
 
                 <p
@@ -31,18 +31,38 @@
     </div>
 </template>
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, computed } from 'vue';
 import storeBgImage from '@/assets/images/brand_bg.png';
+import storeBgHover from '@/assets/images/brand_bg_hover.png';
+import storeDefaultIcon from '@/assets/images/brand_icon.png';
+import _isEmpty from 'lodash/isEmpty';
 
-defineProps({
+const { data } = defineProps({
     data: {
         type: Object,
         default: () => ({}),
     },
 });
+const storeImg = computed(() => {
+    if (_isEmpty(data.avatar)) return storeDefaultIcon;
+    return data.avatar;
+});
+function handleErrorImage(e) {
+    e.src = storeDefaultIcon;
+}
 </script>
-<style>
+<style lang="scss" scoped>
 .card-title-h {
     height: 54px;
+}
+.card-wrap {
+    background-image: var(--bgImg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 550px;
+}
+.card-wrap:hover {
+    background-image: var(--bgHover);
 }
 </style>
