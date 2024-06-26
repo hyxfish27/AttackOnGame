@@ -1,17 +1,14 @@
 <template>
     <div class="index-user-access_wrap">
         <div class="container">
-            <TitlePanel
-                :tag="titleData.tag"
-                :title="titleData.title"
-                :desc="titleData.desc"
-            ></TitlePanel>
+            <div v-in-view="{ once: true }" class="in-view">
+                <TitlePanel class="ani-entrance ani-entrance-0" :tag="titleData.tag" :title="titleData.title"
+                    :desc="titleData.desc"></TitlePanel>
+            </div>
             <div class="user-access_panel">
-                <UserAccessCard
-                    v-for="card in SECTION_MAP"
-                    :key="card.key"
-                    :data="card"
-                ></UserAccessCard>
+                <div v-for="card in SECTION_MAP" :key="card.key" v-in-view="{ once: true }" class="in-view">
+                    <UserAccessCard class="ani-entrance ani-entrance-2" :data="card"></UserAccessCard>
+                </div>
             </div>
         </div>
     </div>
@@ -22,6 +19,7 @@ import hugFace from '@/assets/images/hug-face.png';
 import partyingFace from '@/assets/images/partying-face.png';
 import playerBenifit from '@/assets/images/player-benifit.png';
 import storeBenifit from '@/assets/images/store-benifit.png';
+import vInView from '@/directives/observeInView';
 import TitlePanel from './titlePanel.vue';
 
 const SECTION_MAP = [

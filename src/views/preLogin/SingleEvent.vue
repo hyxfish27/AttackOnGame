@@ -1,48 +1,31 @@
 <template>
     <div class="single-event container-fluid positon-relative lh-lg">
-        <Loading
-            v-if="isLoading"
-            :class="{ 'loading-fade': !isLoading }"
-        ></Loading>
+        <Loading v-if="isLoading" :class="{ 'loading-fade': !isLoading }"></Loading>
         <div class="container py-4">
             <div class="row">
                 <div class="col-8">
                     <div class="event-image mb-4 rounded-2">
-                        <img
-                            ref="image"
-                            class="w-100 inset-0 object-fit-cover rounded-2"
-                            :src="eventData.eventImageUrl"
-                            :alt="eventData.title"
-                        />
+                        <img ref="image" referrerpolicy="no-referrer" class="w-100 inset-0 object-fit-cover rounded-2"
+                            :src="eventData.eventImageUrl" :alt="eventData.title" />
                     </div>
                     <div class="event-description mb-4">
                         <div class="sub-title_wrap">
                             <h2
-                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0"
-                            >
+                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0">
                                 詳細內容
                             </h2>
                         </div>
                         <p class="mt-4">{{ eventData.description }}</p>
                     </div>
                     <div class="event-store">
-                        <div
-                            class="event-store-card bg-greyF7 border-1 border border-grey rounded-2 p-4"
-                        >
-                            <p
-                                class="fw-bold pb-2 border-bottom border-2 border-greyD3"
-                            >
+                        <div class="event-store-card bg-greyF7 border-1 border border-grey rounded-2 p-4">
+                            <p class="fw-bold pb-2 border-bottom border-2 border-greyD3">
                                 店家資料
                             </p>
                             <div class="d-flex mt-2 align-items-center">
-                                <div
-                                    class="icon-img_wrap icon-img_wrap-large round"
-                                >
-                                    <img
-                                        class="w-100"
-                                        :src="storeData.avatar"
-                                        :alt="storeData.name"
-                                    />
+                                <div class="icon-img_wrap icon-img_wrap-large round">
+                                    <img referrerpolicy="no-referrer" class="w-100" :src="storeData.avatar"
+                                        :alt="storeData.name" />
                                 </div>
                                 <div class="">
                                     <h3 class="fz-6 fw-bold">
@@ -67,8 +50,7 @@
                     <div class="event-description mt-4">
                         <div class="sub-title_wrap">
                             <h2
-                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0"
-                            >
+                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0">
                                 活動答疑區
                             </h2>
                         </div>
@@ -77,10 +59,7 @@
                 </div>
                 <div class="col-4 position-sticky top-0">
                     <div class="event-header mb-4">
-                        <div
-                            class="fw-bold py-1 px-2 d-inline-block"
-                            :class="eventPrograss.bgcColor"
-                        >
+                        <div class="fw-bold py-1 px-2 d-inline-block" :class="eventPrograss.bgcColor">
                             {{ eventPrograss.text }}
                         </div>
                         <h3 class="fz-6 fw-bold my-2">{{ eventData.title }}</h3>
@@ -96,13 +75,9 @@
                         <div class=""></div>
                     </div>
                     <div class="event-info">
-                        <div
-                            class="event-info__card border border-grey66 p-3 pt-0 rounded-2 bg-white"
-                        >
+                        <div class="event-info__card border border-grey66 p-3 pt-0 rounded-2 bg-white">
                             <!-- TODO: 補上 icon -->
-                            <p
-                                class="bg-greyE9 fw-bold pt-1 pb-2 px-2 mb-2 d-inline-block rounded-bottom-2"
-                            >
+                            <p class="bg-greyE9 fw-bold pt-1 pb-2 px-2 mb-2 d-inline-block rounded-bottom-2">
                                 活動模式
                             </p>
 
@@ -113,14 +88,12 @@
                                 <div>
                                     <h3 class="fz-6 fw-bold mb-1 text-primary">
                                         {{
-                                            toLocalString(
-                                                eventData.participationFee
-                                            )
-                                        }}
+            toLocalString(
+                eventData.participationFee
+            )
+        }}
                                         NT
-                                        <span class="fz-4 text-dark"
-                                            >/ 活動費用</span
-                                        >
+                                        <span class="fz-4 text-dark">/ 活動費用</span>
                                     </h3>
                                     <p>
                                         參與活動所需的費用，可能包含場地、材料等各種成本。
@@ -137,10 +110,10 @@
                                 <div>
                                     <h3 class="fz-6 text-primary fw-bold mb-1">
                                         {{
-                                            eventData.isFoodAllowed
-                                                ? '可'
-                                                : '不可'
-                                        }}<span class="text-dark">帶外食</span>
+            eventData.isFoodAllowed
+                ? '可'
+                : '不可'
+        }}<span class="text-dark">帶外食</span>
                                     </h3>
                                     <p>
                                         關於參與者是否可以攜帶外部食物到活動場地的規定。
@@ -179,21 +152,14 @@
                             <div class="d-flex mb-2"></div>
                             <div class="d-flex mb-2"></div>
 
-                            <button
-                                :disabled="
-                                    isEventClosed || isEventUnregiistable
-                                "
-                                class="btn btn-primary w-100"
-                                :data-test="eventData.idNumber"
-                                @click="goCheckout(eventData.idNumber)"
-                            >
+                            <button v-if="userRole !== 'store'" :disabled="isEventClosed || isEventUnregiistable
+            " class="btn btn-primary w-100" :data-test="eventData.idNumber"
+                                @click="goCheckout(eventData.idNumber)">
                                 我要報名
                             </button>
 
                             <div class="d-flex mt-2 align-items-center">
-                                <div
-                                    class="icon-img_wrap icon-img_wrap-small mr-2"
-                                >
+                                <div class="icon-img_wrap icon-img_wrap-small mr-2">
                                     <img :src="timeIcon" class="w-100" />
                                 </div>
                                 <p>截止時間： {{ eventData.eventEndTime }}</p>
@@ -222,6 +188,7 @@ import maxPeopleIcon from '@/assets/images/event/max_people.png';
 import pinIcon from '@/assets/images/event/pin.png';
 import dayjs from '@/utilities/dayjs';
 import Loading from '@/components/common/Loading.vue';
+import useIndexStore from '@/stores/index';
 
 const route = useRoute();
 
@@ -230,6 +197,7 @@ const eventData = ref({});
 const storeData = ref({});
 
 const isLoading = ref(true);
+const userRole = useIndexStore().userData.role;
 
 const getEvent = async (eventId) => {
     await EventAPI.getEvent(eventId)
@@ -237,13 +205,15 @@ const getEvent = async (eventId) => {
             eventData.value = response.data.data.event;
             storeData.value = response.data.data.store;
 
-            setTimeout(() => {
-                isLoading.value = false;
-            }, 500);
             console.log(response);
         })
         .catch((err) => {
             console.log(err);
+        })
+        .finally(() => {
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 500);
         });
 };
 

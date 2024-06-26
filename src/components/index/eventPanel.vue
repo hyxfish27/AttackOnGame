@@ -1,10 +1,21 @@
 <template>
+<<<<<<< HEAD
     <div id="scroll-section" class="py-16 container">
         <TitlePanel
+=======
+    <div
+        id="scroll-section"
+        v-in-view="{ once: true }"
+        class="py-16 container in-view"
+    >
+        <TitlePanel
+            class="ani-entrance ani-entrance-0"
+>>>>>>> dev
             :tag="titleData.tag"
             :title="titleData.title"
             :desc="titleData.desc"
         ></TitlePanel>
+<<<<<<< HEAD
         <div v-if="errorMessage.split() && !loading" class="text-center mt-4">
             <p>{{ errorMessage }}</p>
         </div>
@@ -16,11 +27,24 @@
                 v-if="!loading && eventData.length > 0"
                 :data="eventData"
             ></TitleCardList>
+=======
+        <div class="section">
+            <div v-if="errorMessage.split()" class="text-center mt-4">
+                <p>{{ errorMessage }}</p>
+            </div>
+            <div class="ani-entrance ani-entrance-2">
+                <TitleCardList
+                    v-if="data.length > 0"
+                    :data="data"
+                ></TitleCardList>
+            </div>
+>>>>>>> dev
         </div>
     </div>
 </template>
 <script setup>
 import TitleCardList from '@/components/event/eventPanel.vue';
+<<<<<<< HEAD
 import EventAPI from '@/api/Event';
 import { onMounted, ref } from 'vue';
 import TitlePanel from './titlePanel.vue';
@@ -28,11 +52,29 @@ import TitlePanel from './titlePanel.vue';
 const eventData = ref([]);
 const loading = ref(true);
 const errorMessage = ref('');
+=======
+import { defineProps } from 'vue';
+import vInView from '@/directives/observeInView';
+import TitlePanel from './titlePanel.vue';
+
+defineProps({
+    errorMessage: {
+        type: String,
+        default: '',
+    },
+    data: {
+        type: Array,
+        default: () => [],
+    },
+});
+
+>>>>>>> dev
 const titleData = {
     tag: 'HOT',
     title: '推薦活動',
     desc: '無論做什麼選擇，不要讓自己遺憾！',
 };
+<<<<<<< HEAD
 const getEvent = async (query = {}) => {
     loading.value = true;
     errorMessage.value = '';
@@ -58,6 +100,13 @@ onMounted(() => {
 /* .title-card-list {
     gap: 16px;
 } */
+=======
+</script>
+<style scoped>
+.section {
+    min-height: 600px;
+}
+>>>>>>> dev
 .py-16 {
     padding: 64px 0;
 }
