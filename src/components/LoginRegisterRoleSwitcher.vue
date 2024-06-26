@@ -12,7 +12,11 @@
                     <div
                         class="img-wrap store-icon mb-2 d-flex justify-content-center align-items-center"
                     >
-                        <img :src="storeIcon" alt="" />
+                        <img
+                            :src="storeIcon"
+                            alt=""
+                            referrerpolicy="no-referrer"
+                        />
                     </div>
                     <div
                         class="d-flex flex-column justify-content-center align-items-center"

@@ -10,6 +10,7 @@
                     <div class="event-image mb-4 rounded-2">
                         <img
                             ref="image"
+                            referrerpolicy="no-referrer"
                             class="w-100 inset-0 object-fit-cover rounded-2"
                             :src="eventData.eventImageUrl"
                             :alt="eventData.title"
@@ -39,6 +40,7 @@
                                     class="icon-img_wrap icon-img_wrap-large round"
                                 >
                                     <img
+                                        referrerpolicy="no-referrer"
                                         class="w-100"
                                         :src="storeData.avatar"
                                         :alt="storeData.name"

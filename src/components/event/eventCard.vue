@@ -10,6 +10,7 @@
                 </div>
                 <img
                     ref="image"
+                    referrerpolicy="no-referrer"
                     class="w-100 h-100 inset-0 object-fit-cover position-absolute"
                     :src="computedEventData.eventImageUrl"
                     :alt="computedEventData.title"

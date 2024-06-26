@@ -8,6 +8,7 @@
                 class="border-5 rounded-circle p-4 mx-auto mt-5 mb-2"
             >
                 <img
+                    referrerpolicy="no-referrer"
                     class="w-100"
                     src="/src/assets/images/store-icon.png"
                     alt="玩家圖片"
