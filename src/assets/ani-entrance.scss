@@ -1,0 +1,41 @@
+.ani-entrance {
+    will-change: transform, opacity, filter;
+    opacity: 0;
+}
+
+.in-view {
+    .ani-entrance {
+        animation: slide-in-blurred-bottom 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+
+    .ani-entrance-0 {
+        animation-delay: 0s;
+    }
+
+    .ani-entrance-1 {
+        animation-delay: 0.05s;
+    }
+
+    .ani-entrance-2 {
+        animation-delay: 0.3s;
+    }
+}
+
+@keyframes slide-in-blurred-bottom {
+    0% {
+        transform: translateY(100px);
+        transform-origin: 50% 100%;
+        filter: blur(10px);
+        opacity: 0;
+    }
+
+    50% {
+        filter: blur(0);
+    }
+
+    100% {
+        transform: translateY(0);
+        transform-origin: 50% 50%;
+        opacity: 1;
+    }
+}

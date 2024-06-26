@@ -1,31 +1,29 @@
 <template>
-    <div class="index-store-section container-fluid">
+    <div
+        v-in-view="{ once: true }"
+        class="index-store-section container-fluid in-view"
+    >
         <div
             class="dot-bg"
             :style="{ backgroundImage: 'url(' + DotBg + ')' }"
         ></div>
         <div class="py-16 container">
             <TitlePanel
+                class="ani-entrance ani-entrance-0"
                 :tag="titleData.tag"
                 :title="titleData.title"
                 :desc="titleData.desc"
             ></TitlePanel>
-            <div
-                v-if="errorMessage.split() && !loading"
-                class="text-center mt-4"
-            >
+            <div v-if="errorMessage.split()" class="text-center mt-4">
                 <p>{{ errorMessage }}</p>
             </div>
-            <div v-if="loading" class="text-center mt-4">
-                <div class="spinner-border" role="status"></div>
-            </div>
-            <div v-if="!loading && storeData.length > 0" class="row">
+            <div v-if="data.length > 0" class="row">
                 <StoreCard
-                    v-for="data in storeData"
-                    :key="data.user"
-                    :data="data"
-                    class="col-6 col-lg-3 mb-3"
-                    @click="onStoreCardClick(data.user)"
+                    v-for="store in data"
+                    :key="store.user"
+                    :data="store"
+                    class="col-6 col-lg-3 mb-3 ani-entrance ani-entrance-2"
+                    @click="onStoreCardClick(store.user)"
                 >
                 </StoreCard>
             </div>
@@ -34,50 +32,32 @@
 </template>
 <script setup>
 import DotBg from '@/assets/images/dot_bg.svg';
-import EventAPI from '@/api/Event';
-import { onMounted, ref } from 'vue';
+import { defineProps } from 'vue';
 import StoreCard from '@/components/store/storeCard.vue';
 import { useRouter } from 'vue-router';
+import vInView from '@/directives/observeInView';
 import TitlePanel from './titlePanel.vue';
 
-const storeData = ref([]);
-const loading = ref(true);
-const errorMessage = ref('');
+defineProps({
+    errorMessage: {
+        type: String,
+        default: '',
+    },
+    data: {
+        type: Array,
+        default: () => [],
+    },
+});
+
 const titleData = {
     tag: 'BRAND',
     title: '推薦店家',
     desc: '在這裡，沒有什麼惡魔，都是天使主揪',
 };
-
-const getStore = async () => {
-    loading.value = true;
-    await EventAPI.getStores()
-        .then((res) => {
-            storeData.value = res.data.slice(0, 4);
-            console.log(res);
-        })
-        .catch((err) => {
-            errorMessage.value =
-                err?.data?.message || '連線逾時，靜待雲端伺服器睡醒';
-        })
-        .finally(() => {
-            loading.value = false;
-        });
-};
 const router = useRouter();
-/**
- * onStoreCardClick
- * @param {string} userId  使用者 id
- * @description  店家卡片點擊事件
- */
 const onStoreCardClick = (userId) => {
     router.push({ name: 'StoreIntroduction', params: { userId } });
-    console.log('store');
 };
-
-onMounted(() => {
-    getStore();
-});
 </script>
 <style lang="scss" scoped>
 .index-store-section {
