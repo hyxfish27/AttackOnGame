@@ -3,17 +3,17 @@
         <button @click="open">open modal</button>
         <div v-if="showModal" class="modal-overlay" @click.self="close">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content noto-serif-tc fw-bold">
                     <div class="modal-header">
                         <h5 class="modal-title">{{ title }}</h5>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body text-grey66 pt-2 pb-4">
                         <p>{{ message }}</p>
                     </div>
                     <div class="modal-footer">
                         <button
                             type="button"
-                            class="btn btn-secondary"
+                            class="btn btn-primary"
                             @click="close"
                         >
                             關閉
@@ -51,7 +51,11 @@ const title = computed(() => {
 });
 
 const close = () => {
-    alert.closeModal();
+    if (alert.type === 'timeout') {
+        alert.closeModal();
+        return window.location.reload();
+    }
+    return alert.closeModal();
 };
 </script>
 
