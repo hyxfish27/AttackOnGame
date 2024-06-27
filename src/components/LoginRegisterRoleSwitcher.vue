@@ -1,6 +1,6 @@
 <template>
     <div
-        class="full-sceen-with-footer bg-greyF7 login-register-role-switcher_wrap"
+        class="full-screen-with-footer bg-greyF7 login-register-role-switcher_wrap"
     >
         <div
             class="container d-flex h-100 login-register-role-switcher_panel justify-content-between"

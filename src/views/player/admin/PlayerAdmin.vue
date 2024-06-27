@@ -1,5 +1,5 @@
 <template>
-    <div class="player-admin container full-sceen-with-footer">
+    <div class="player-admin container full-screen-with-footer">
         <div class="d-flex justify-content-between h-100">
             <LeftEl class="player-admin_aside"></LeftEl>
             <div
