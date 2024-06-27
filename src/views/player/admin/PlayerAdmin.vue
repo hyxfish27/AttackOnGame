@@ -143,12 +143,15 @@ import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate';
 import PlayerAPI from '@/api/Player';
 import useIndexStore from '@/stores/index';
 import LeftEl from '@/components/player/PlayerLeftEl.vue';
+import useAlert from '@/stores/alert';
 
 const playerSchema = yup.object({
     name: yup.string().required('姓名為必填欄位'),
     email: yup.string().required().email(),
     phone: yup.string().required().min(10).max(10),
 });
+
+const alterStore = useAlert();
 
 export default defineComponent({
     components: {
@@ -178,10 +181,10 @@ export default defineComponent({
                     userId: userData.value.id,
                     ...playerInfo,
                 });
-                alert('更新成功');
+                alterStore.openModal('success', '更新成功');
                 indexStore.getPlayer(userData.value.id);
             } catch (error) {
-                alert(`更新失敗: ${error}`);
+                alterStore.openModal('error', `更新失敗: ${error}`);
             }
         };
 

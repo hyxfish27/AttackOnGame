@@ -21,7 +21,7 @@
 import PrimaryHeader from '@/components/common/PrimaryHeader.vue';
 import { useRouter } from 'vue-router';
 import UserAPI from '@/api/User';
-// import useIndexStore from '@/stores/index';
+import useAlert from '@/stores/alert';
 import getStaticImagePath from '@/utilities/image';
 // import { getCurrentInstance } from 'vue';
 
@@ -38,19 +38,18 @@ export default {
     emits: ['toUserAdminPage'],
     setup(props, context) {
         const router = useRouter();
-
+        const alterStore = useAlert();
         // const indexStore = useIndexStore();
 
-        const logout = () => {
-            UserAPI.logout()
-                .then(() => {
-                    alert('登出成功');
-                    router.push('/');
-                })
-                .catch((err) => {
-                    console.error(err);
-                    router.push('/');
-                });
+        const logout = async () => {
+            try {
+                await UserAPI.logout();
+                alterStore.openModal('success', '登出成功~歡迎再來玩唷');
+                router.push('/');
+            } catch (err) {
+                alterStore.openModal('error', err.message || '登出失敗');
+                router.push('/');
+            }
         };
 
         const toUserAdminPage = () => {
