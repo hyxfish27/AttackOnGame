@@ -26,7 +26,12 @@
                 >
                     {{ data.name }}
                 </p>
-                <p class="fs-10 text-grey66">{{ data.address }}</p>
+                <div class="d-flex align-items-center noto-serif-tc gap-1">
+                    <span class="material-symbols-outlined fs-8">
+                        location_on
+                    </span>
+                    <p class="fs-10 text-grey66">{{ data.address }}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -62,6 +67,7 @@ function handleErrorImage(e) {
     background-size: cover;
     background-repeat: no-repeat;
     height: 550px;
+    transition: background-image 0.5s ease-in-out;
 }
 .card-wrap:hover {
     background-image: var(--bgHover);

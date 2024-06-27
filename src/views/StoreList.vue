@@ -1,5 +1,5 @@
 <template class="">
-    <div class="bg-greyF7 store-list-wrap cursor">
+    <div class="bg-greyF7 min-full-screen-with-footer cursor">
         <div class="container pb-5">
             <div class="row py-7 justify-content-center">
                 <div
@@ -97,8 +97,4 @@ onMounted(() => {
     getStore();
 });
 </script>
-<style>
-.store-list-wrap {
-    min-height: calc(100vh - 312px);
-}
-</style>
+<style></style>
