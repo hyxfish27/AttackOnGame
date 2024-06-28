@@ -21,12 +21,12 @@
             <li v-for="route in routes" :key="route.name">
                 <router-link
                     :to="{ name: route.name, params: route.params }"
-                    class="nav-link d-flex justify-content-between"
+                    class="nav-link d-flex"
                 >
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-outlined text-grey33">
                         {{ route.icon }}
                     </span>
-                    <p>{{ route.label }}</p>
+                    <p class="flex-grow-1 text-center">{{ route.label }}</p>
                 </router-link>
             </li>
         </ul>
