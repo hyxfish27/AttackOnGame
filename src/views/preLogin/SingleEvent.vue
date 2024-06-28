@@ -48,7 +48,9 @@
                                     <h3 class="fz-6 fw-bold">
                                         {{ storeData.name }}
                                     </h3>
-                                    <p>{{ storeData.introduce }}</p>
+                                    <p class="line-clamp line-clamp-3">
+                                        {{ storeData.introduce }}
+                                    </p>
                                     <div
                                         class="d-flex align-items-center justify-content-end"
                                     >
