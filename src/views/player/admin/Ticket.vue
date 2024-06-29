@@ -1,9 +1,25 @@
 <template>
-    <div class="container">
+    <div class="container ticket-page_wrap">
+        <Loading
+            v-if="isLoading"
+            :class="{ 'loading-fade': !isLoading }"
+        ></Loading>
         <div class="row py-3 justify-content-center">
             <div
-                class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg"
+                class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg position-relative"
             >
+                <router-link
+                    v-if="store && store._id"
+                    class="link position-absolute back-button"
+                    :to="{
+                        name: 'PlayerActivity',
+                    }"
+                    ><div class="d-flex align-items-center text-primary">
+                        <span class="material-symbols-outlined"> reply </span>
+                        <p>返回上頁</p>
+                    </div></router-link
+                >
+
                 <div class="px-4 pb-3">
                     <p class="fw-bold fs-6">
                         {{ event.title }}
@@ -36,6 +52,14 @@
                                 元
                             </p>
                         </div>
+                        <div class="w-45">
+                            <p class="fs-10 text-grey9F fw-bold">付款狀態</p>
+                            <p>{{ order.paymentStatus }}</p>
+                        </div>
+                        <div class="w-45">
+                            <p class="fs-10 text-grey9F fw-bold">付款方式</p>
+                            <p>{{ order.paymentMethod }}</p>
+                        </div>
                     </div>
                 </div>
                 <div class="pt-5 d-flex flex-wrap justify-content-center gap-3">
@@ -54,9 +78,25 @@
                 class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg"
             >
                 <p class="fs-7 fw-bold border-bottom pb-3 mb-3">活動詳情</p>
-                <p>票卷狀態：{{ order.status }}</p>
                 <p>地址：{{ event.address }}</p>
-                <p>已報名人數：{{ event.currentParticipantsCount }}</p>
+                <p>最小成團人數：{{ event.minParticipants }}</p>
+                <p>最大成團人數：{{ event.maxParticipants }}</p>
+                <div class="d-flex align-items-center justify-content-end">
+                    <span class="material-symbols-outlined text-primary">
+                        double_arrow
+                    </span>
+                    <router-link
+                        v-if="store && store._id"
+                        class="link text-primary"
+                        :to="{
+                            name: 'StoreIntroduction',
+                            params: {
+                                userId: store._id,
+                            },
+                        }"
+                        >查看活動詳情</router-link
+                    >
+                </div>
             </div>
         </div>
         <div class="row py-3 justify-content-center">
@@ -64,51 +104,42 @@
                 class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg"
             >
                 <p class="fs-7 fw-bold border-bottom pb-3 mb-3">店家資料</p>
-                <div class="event-store">
-                    <div
-                        class="event-store-card bg-greyF7 border-1 border border-grey rounded-2 p-4"
-                    >
-                        <p
-                            class="fw-bold pb-2 border-bottom border-2 border-greyD3"
-                        >
-                            店家資料
-                        </p>
-                        <div class="d-flex mt-4 align-items-center">
-                            <div class="img-wrap round">
-                                <img
-                                    referrerpolicy="no-referrer"
-                                    class="w-100"
-                                    :src="store.avatar"
-                                    :alt="store.name"
-                                />
-                            </div>
-                            <div class="">
-                                <h3 class="fz-6 fw-bold">
-                                    {{ store.name }}
-                                </h3>
-                                <p class="line-clamp line-clamp-3">
-                                    {{ store.introduce }}
-                                </p>
-                                <div
-                                    class="d-flex align-items-center justify-content-end"
+                <div class="ticket-page-store_wrap">
+                    <div class="d-flex mt-4 align-items-center">
+                        <div class="img-wrap round">
+                            <img
+                                referrerpolicy="no-referrer"
+                                class="w-100"
+                                :src="store.avatar"
+                                :alt="store.name"
+                            />
+                        </div>
+                        <div class="">
+                            <h3 class="fs-7 fw-bold mb-3">
+                                {{ store.name }}
+                            </h3>
+                            <p class="line-clamp line-clamp-3">
+                                {{ store.introduce }}
+                            </p>
+                            <div
+                                class="d-flex align-items-center justify-content-end"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-primary"
                                 >
-                                    <span
-                                        class="material-symbols-outlined text-primary"
-                                    >
-                                        double_arrow
-                                    </span>
-                                    <router-link
-                                        v-if="store && store._id"
-                                        class="link text-primary"
-                                        :to="{
-                                            name: 'StoreIntroduction',
-                                            params: {
-                                                userId: store._id,
-                                            },
-                                        }"
-                                        >查看詳情</router-link
-                                    >
-                                </div>
+                                    double_arrow
+                                </span>
+                                <router-link
+                                    v-if="store && store._id"
+                                    class="link text-primary"
+                                    :to="{
+                                        name: 'StoreIntroduction',
+                                        params: {
+                                            userId: store._id,
+                                        },
+                                    }"
+                                    >查看店家詳情</router-link
+                                >
                             </div>
                         </div>
                     </div>
@@ -119,28 +150,36 @@
 </template>
 <script setup>
 import PlayerAPI from '@/api/Player';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import Loading from '@/components/common/Loading.vue';
+import toLocalString from '@/utilities/toLocalString';
+import formatTaiwanPhoneNumber from '@/utilities/formatTaiwanPhoneNumber';
+import { PaymentStatus, PaymentMethod } from '@/constant/orderStatus';
+import useAlert from '@/stores/alert';
 
+const alterStore = useAlert();
+const isLoading = ref(true);
 const router = useRouter();
 const route = useRoute();
 const store = ref({});
 const event = ref({});
-const order = ref({});
+const rawOrder = ref({});
 const tickets = ref([]);
 
 const getTicket = async (idNumber) => {
+    isLoading.value = true;
     await PlayerAPI.getTicket(idNumber)
         .then((res) => {
             store.value = res.data.data.store;
             event.value = res.data.data.event;
-            order.value = res.data.data.order;
+            rawOrder.value = res.data.data.order;
             tickets.value = res.data.data.tickets;
         })
         .catch((err) => {
             console.log(err);
-            if (err.response.status === 401) {
-                alert('請先完成登入');
+            if (err.response.status >= 400) {
+                alterStore.openModal('error', '請先完成登入唷');
                 router.push({
                     name: 'PlayerLogin',
                 });
@@ -148,15 +187,27 @@ const getTicket = async (idNumber) => {
                 alert(`${err.response.data.message}`);
                 console.log(err);
             }
+        })
+        .finally(() => {
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 500);
         });
 };
 onMounted(() => {
     const { idNumber } = route.params;
     getTicket(idNumber);
-
-    // event.value = testData.event;
-    // order.value = testData.order;
-    // tickets.value = testData.tickets;
+});
+const order = computed(() => {
+    return {
+        phone: formatTaiwanPhoneNumber(rawOrder.value.phone),
+        payment: toLocalString(rawOrder.value.payment),
+        name: rawOrder.value.name,
+        paymentStatus: PaymentStatus[rawOrder.value.paymentStatus],
+        paymentMethod: PaymentMethod[rawOrder.value.paymentMethod],
+        registrationCount: rawOrder.value.registrationCount,
+        discount: rawOrder.value.discount,
+    };
 });
 </script>
 <style lang="scss" scope>
@@ -166,5 +217,37 @@ body {
 
 .bor-bttom-s-dot {
     border-bottom: 2px dotted #d4d4d4;
+}
+.ticket-page_wrap {
+    .back-button {
+        top: 24px;
+        right: 24px;
+        cursor: pointer;
+        &:hover {
+            color: #0074ad;
+        }
+    }
+    .link {
+        display: block;
+        text-align: end;
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+}
+.ticket-page-store_wrap {
+    .img-wrap {
+        flex-shrink: 0;
+        overflow: hidden;
+        margin-right: 8px;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        img {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+    }
 }
 </style>
