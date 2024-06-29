@@ -60,6 +60,10 @@
                             <p class="fs-10 text-grey9F fw-bold">付款方式</p>
                             <p>{{ order.paymentMethod }}</p>
                         </div>
+                        <div class="w-45">
+                            <p class="fs-10 text-grey9F fw-bold">訂單備註</p>
+                            <p>{{ order.note }}</p>
+                        </div>
                     </div>
                 </div>
                 <div class="pt-5 d-flex flex-wrap justify-content-center gap-3">
@@ -204,6 +208,7 @@ const order = computed(() => {
         paymentMethod: PaymentMethod[rawOrder.value.paymentMethod],
         registrationCount: rawOrder.value.registrationCount,
         discount: rawOrder.value.discount,
+        note: rawOrder.value.note ?? '無',
     };
 });
 </script>
