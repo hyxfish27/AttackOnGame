@@ -1,6 +1,6 @@
 <template>
     <div class="p-3 border rounded bg-white">
-        <ElCard :routes="routes" :user="user"></ElCard>
+        <ElCard :routes="playerRoute" :user="user"></ElCard>
     </div>
 </template>
 <script setup>
@@ -9,23 +9,10 @@ import useIndexStore from '@/stores/index';
 import ElCard from '@/components/common/adminEl.vue';
 import defaultPic from '@/assets/images/user-icon.png';
 import _ from 'lodash';
+import playerRoute from '@/constant/playerRoute';
 
 const indexStore = useIndexStore();
-const routes = computed(() => {
-    return [
-        {
-            icon: 'remember_me',
-            name: 'PlayerAdminId',
-            label: '帳戶資訊',
-        },
-        {
-            icon: 'event',
-            name: 'PlayerActivity',
-            params: {},
-            label: '我的活動',
-        },
-    ];
-});
+
 const user = computed(() => {
     console.log(indexStore.playerData);
     let imgUrl = indexStore.playerData.avatar;
