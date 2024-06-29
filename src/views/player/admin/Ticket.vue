@@ -81,19 +81,16 @@
                 <p>地址：{{ event.address }}</p>
                 <p>最小成團人數：{{ event.minParticipants }}</p>
                 <p>最大成團人數：{{ event.maxParticipants }}</p>
-                <div class="d-flex align-items-center justify-content-end">
+                <div
+                    v-if="event && event.idNumber"
+                    class="d-flex align-items-center justify-content-end"
+                >
                     <span class="material-symbols-outlined text-primary">
                         double_arrow
                     </span>
                     <router-link
-                        v-if="store && store._id"
                         class="link text-primary"
-                        :to="{
-                            name: 'StoreIntroduction',
-                            params: {
-                                userId: store._id,
-                            },
-                        }"
+                        :to="{ name: 'SingleEvent', params: event.idNumber }"
                         >查看活動詳情</router-link
                     >
                 </div>
