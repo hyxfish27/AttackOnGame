@@ -56,6 +56,9 @@ import userAdapter from '@/adapter/user';
 import UserAPI from '@/api/User';
 import cookie from '@/utilities/cookie/cookie';
 import useIndexStore from '@/stores/index';
+import useAlert from '@/stores/alert';
+
+const alterStore = useAlert();
 /**
  * playerLoginSchema
  * @author Vicky
@@ -126,14 +129,13 @@ export default defineComponent({
                         );
                     }
                 }
-                console.log('indexStore', roleDataExist);
                 if (roleDataExist) {
                     router.push({ name: 'Index' });
                 }
             } catch (error) {
-                console.log(error);
-                const errorMessage = error.response.data.message;
-                alert(errorMessage);
+                const errorMessage =
+                    error.response.data.message || '連線失敗，別灰心，再來一次';
+                alterStore.openModal('error', errorMessage);
             }
         };
 
