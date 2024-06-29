@@ -129,6 +129,7 @@ const getEventAll = async () => {
                 });
             } else {
                 alert(`${err.response.data.message}`);
+                isLoading.value = false;
                 console.log(err);
             }
         });

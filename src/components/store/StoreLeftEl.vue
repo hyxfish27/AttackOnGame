@@ -18,7 +18,7 @@ const user = computed(() => {
     let imgUrl = store.value.avatar;
     if (
         imgUrl === 'https://example.com/avatar.jpg' ||
-        _.isEmpty(imgUrl.trim())
+        _.isEmpty(imgUrl?.trim())
     ) {
         imgUrl = defaultPic;
     }
