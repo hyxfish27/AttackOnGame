@@ -54,7 +54,7 @@
                 class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg"
             >
                 <p class="fs-7 fw-bold border-bottom pb-3 mb-3">活動詳情</p>
-                <p>票卷狀態：{{ order.status }}</p>
+                <p>票券狀態：{{ order.status }}</p>
                 <p>地址：{{ event.address }}</p>
                 <p>已報名人數：{{ event.currentParticipantsCount }}</p>
             </div>

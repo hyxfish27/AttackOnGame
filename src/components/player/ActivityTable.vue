@@ -88,7 +88,7 @@ const goTicket = (idNumber) => {
                                 class="btn btn-outline-dark btn-sm mb-2"
                                 @click="goTicket(value.idNumber)"
                             >
-                                前往票卷
+                                前往票券
                             </button>
                             <button
                                 v-if="value.status === '已使用'"
