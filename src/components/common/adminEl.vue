@@ -18,15 +18,22 @@
         </div>
 
         <ul class="user-admin-el-ul">
-            <li v-for="route in routes" :key="route.name">
+            <li v-for="route in routes" :key="route.name" class="mb-1">
                 <router-link
                     :to="{ name: route.name, params: route.params }"
-                    class="nav-link d-flex"
+                    class="nav-link d-flex rounded justify-content-center"
                 >
-                    <span class="material-symbols-outlined text-grey33">
+                    <span
+                        class="material-symbols-outlined"
+                        :class="[
+                            isActive(route.name)
+                                ? 'text-primary'
+                                : 'text-grey33',
+                        ]"
+                    >
                         {{ route.icon }}
                     </span>
-                    <p class="flex-grow-1 text-center">{{ route.label }}</p>
+                    <p class="ps-3 text-center">{{ route.label }}</p>
                 </router-link>
             </li>
         </ul>
@@ -35,6 +42,9 @@
 <script setup>
 import { defineProps, computed } from 'vue';
 import ROLE from '@/constant/role_map';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const { user } = defineProps({
     routes: {
@@ -53,6 +63,9 @@ const profile = computed(() => {
         ...user,
     };
 });
+const isActive = (thisroute) => {
+    return route.name === thisroute;
+};
 </script>
 <style lang="scss" scoped>
 .user-admin-el-wrap {
@@ -61,12 +74,15 @@ const profile = computed(() => {
         height: 100%;
         object-fit: cover;
     }
+
     .img-wrap {
         overflow: hidden;
     }
+
     .side-list:hover {
         background-color: #eeecec;
     }
+
     .nav-link {
         text-decoration: none;
         text-decoration: none;
@@ -75,15 +91,18 @@ const profile = computed(() => {
         transition:
             background-color 0.3s,
             color 0.3s;
+
         &.router-link-exact-active {
             background-color: #e5f6ff;
             color: #0088cc;
         }
     }
+
     .nav-link:hover {
         background-color: #e0e0e0;
         color: #000;
     }
+
     .user-admin-el-ul {
         list-style: none;
         padding-left: 0px;
