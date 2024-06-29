@@ -94,7 +94,12 @@
                     </span>
                     <router-link
                         class="link text-primary"
-                        :to="{ name: 'SingleEvent', params: event.idNumber }"
+                        :to="{
+                            name: 'SingleEvent',
+                            params: {
+                                eventId: event.idNumber,
+                            },
+                        }"
                         >查看活動詳情</router-link
                     >
                 </div>
