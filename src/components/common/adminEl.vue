@@ -34,17 +34,8 @@
 </template>
 <script setup>
 import { defineProps, computed } from 'vue';
+import ROLE from '@/constant/role_map';
 
-const ROLE = {
-    player: {
-        color: 'warning',
-        label: '玩家',
-    },
-    store: {
-        color: 'warning',
-        label: '商家',
-    },
-};
 const { user } = defineProps({
     routes: {
         type: Array,
