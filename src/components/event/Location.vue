@@ -40,13 +40,6 @@ const initializeMap = () => {
                 iconUrl: MapIcon,
                 iconSize: [80, 80],
             });
-            L.circle([props.locationData.lat, props.locationData.lng], {
-                radius: 85,
-                color: '#d8c2ce',
-                fillColor: '#d8c2ce',
-                fillOpacity: 0,
-                stroke: false,
-            }).addTo(map);
             L.marker([props.locationData.lat, props.locationData.lng], {
                 icon,
             }).addTo(map);
