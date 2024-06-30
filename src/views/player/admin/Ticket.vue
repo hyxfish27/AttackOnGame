@@ -10,15 +10,18 @@
             >
                 <router-link
                     v-if="store && store._id"
-                    class="link position-absolute back-button"
+                    class="btn btn-outline-primary float-end mt-2"
                     :to="{
                         name: 'PlayerActivity',
                     }"
-                    ><div class="d-flex align-items-center text-primary">
-                        <span class="material-symbols-outlined"> reply </span>
-                        <p>返回上頁</p>
-                    </div></router-link
                 >
+                    <div class="d-flex align-items-center">
+                        <span class="material-symbols-outlined fs-9 pe-1">
+                            reply
+                        </span>
+                        <p>返回上頁</p>
+                    </div>
+                </router-link>
 
                 <div class="px-4 pb-3">
                     <p class="fw-bold fs-6">
@@ -89,17 +92,17 @@
                     v-if="event && event.idNumber"
                     class="d-flex align-items-center justify-content-end"
                 >
-                    <span class="material-symbols-outlined text-primary">
-                        double_arrow
-                    </span>
                     <router-link
-                        class="link text-primary"
+                        class="btn btn-outline-primary d-flex align-items-center"
                         :to="{
                             name: 'SingleEvent',
                             params: {
                                 eventId: event.idNumber,
                             },
                         }"
+                    >
+                        <span class="material-symbols-outlined fs-9 pe-1">
+                            double_arrow </span
                         >查看活動詳情</router-link
                     >
                 </div>
@@ -111,7 +114,7 @@
             >
                 <p class="fs-7 fw-bold border-bottom pb-3 mb-3">店家資料</p>
                 <div class="ticket-page-store_wrap">
-                    <div class="d-flex mt-4 align-items-center">
+                    <div class="d-flex mt-4 align-items-center gap-3">
                         <div class="img-wrap round">
                             <img
                                 referrerpolicy="no-referrer"
@@ -127,27 +130,26 @@
                             <p class="line-clamp line-clamp-3">
                                 {{ store.introduce }}
                             </p>
-                            <div
-                                class="d-flex align-items-center justify-content-end"
-                            >
-                                <span
-                                    class="material-symbols-outlined text-primary"
-                                >
-                                    double_arrow
-                                </span>
-                                <router-link
-                                    v-if="store && store._id"
-                                    class="link text-primary"
-                                    :to="{
-                                        name: 'StoreIntroduction',
-                                        params: {
-                                            userId: store._id,
-                                        },
-                                    }"
-                                    >查看店家詳情</router-link
-                                >
-                            </div>
                         </div>
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-end pt-2"
+                    >
+                        <router-link
+                            v-if="store && store._id"
+                            class="btn btn-outline-primary"
+                            :to="{
+                                name: 'StoreIntroduction',
+                                params: {
+                                    userId: store._id,
+                                },
+                            }"
+                        >
+                            <span class="material-symbols-outlined fe-1 fs-9">
+                                double_arrow
+                            </span>
+                            查看店家詳情</router-link
+                        >
                     </div>
                 </div>
             </div>
@@ -225,23 +227,11 @@ body {
 .bor-bttom-s-dot {
     border-bottom: 2px dotted #d4d4d4;
 }
-.ticket-page_wrap {
-    .back-button {
-        top: 24px;
-        right: 24px;
-        cursor: pointer;
-        &:hover {
-            color: #0074ad;
-        }
-    }
-    .link {
-        display: block;
-        text-align: end;
-        display: block;
-        text-decoration: none;
-        color: inherit;
-    }
+
+.btn-outline-primary:hover {
+    color: #ffff !important;
 }
+
 .ticket-page-store_wrap {
     .img-wrap {
         flex-shrink: 0;
@@ -250,6 +240,7 @@ body {
         width: 150px;
         height: 150px;
         border-radius: 50%;
+
         img {
             min-width: 100%;
             min-height: 100%;
