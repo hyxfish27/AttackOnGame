@@ -35,10 +35,8 @@
                             >
                                 店家資料
                             </p>
-                            <div class="d-flex mt-2 align-items-center">
-                                <div
-                                    class="icon-img_wrap icon-img_wrap-large round"
-                                >
+                            <div class="d-flex mt-4 align-items-center">
+                                <div class="img-wrap round">
                                     <img
                                         referrerpolicy="no-referrer"
                                         class="w-100"
@@ -50,17 +48,29 @@
                                     <h3 class="fz-6 fw-bold">
                                         {{ storeData.name }}
                                     </h3>
-
-                                    <p>{{ storeData.address }}</p>
-                                    <p>{{ storeData.introduce }}</p>
-                                    <!-- <router-link
-                                        v-if="storeData"
-                                        :to="{
-                                            name: 'StoreIntroduction',
-                                            params: { userId: storeData._id },
-                                        }"
-                                        >前往店家詳情頁面</router-link
-                                    > -->
+                                    <p class="line-clamp line-clamp-3">
+                                        {{ storeData.introduce }}
+                                    </p>
+                                    <div
+                                        class="d-flex align-items-center justify-content-end"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-primary"
+                                        >
+                                            double_arrow
+                                        </span>
+                                        <router-link
+                                            v-if="storeData && storeData._id"
+                                            class="link text-primary"
+                                            :to="{
+                                                name: 'StoreIntroduction',
+                                                params: {
+                                                    userId: storeData._id,
+                                                },
+                                            }"
+                                            >查看詳情</router-link
+                                        >
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -71,10 +81,17 @@
                             <h2
                                 class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0"
                             >
-                                活動答疑區
+                                地理位置
                             </h2>
                         </div>
-                        <p class="mt-4">{{ eventData.description }}</p>
+                        <div class="d-flex mt-2 align-items-center">
+                            <span
+                                class="fz-6 material-symbols-outlined text-greyD4 mr-2"
+                            >
+                                location_on
+                            </span>
+                            <p>{{ storeData.address }}</p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-4 position-sticky top-0">
@@ -87,9 +104,11 @@
                         </div>
                         <h3 class="fz-6 fw-bold my-2">{{ eventData.title }}</h3>
                         <div class="d-flex mb-2 align-items-center">
-                            <div class="icon-img_wrap icon-img_wrap-small mr-2">
-                                <img :src="pinIcon" class="w-100" />
-                            </div>
+                            <span
+                                class="fz-6 material-symbols-outlined text-greyD4 mr-2"
+                            >
+                                location_on
+                            </span>
                             <p class="">{{ eventData.address }}</p>
                         </div>
                         <div class="shape bg-greyE9">
@@ -109,9 +128,11 @@
                             </p>
 
                             <div class="d-flex mb-2 align-items-center">
-                                <div class="icon-img_wrap mr-2">
-                                    <img :src="moneyIcon" class="w-100" />
-                                </div>
+                                <span
+                                    class="material-symbols-outlined icon-48 text-greyD4 mr-2"
+                                >
+                                    paid
+                                </span>
                                 <div>
                                     <h3 class="fz-6 fw-bold mb-1 text-primary">
                                         {{
@@ -133,9 +154,11 @@
                             <hr class="bg-greyE9" />
 
                             <div class="d-flex mb-2 align-items-center">
-                                <div class="icon-img_wrap mr-2">
-                                    <img :src="foodIcon" class="w-100" />
-                                </div>
+                                <span
+                                    class="material-symbols-outlined icon-48 text-greyD4 mr-2"
+                                >
+                                    fastfood
+                                </span>
                                 <div>
                                     <h3 class="fz-6 text-primary fw-bold mb-1">
                                         {{
@@ -151,9 +174,11 @@
                             </div>
 
                             <div class="d-flex mb-2 align-items-center">
-                                <div class="icon-img_wrap mr-2">
-                                    <img :src="minPeopleIcon" class="w-100" />
-                                </div>
+                                <span
+                                    class="material-symbols-outlined icon-48 text-greyD4 mr-2"
+                                >
+                                    person_remove
+                                </span>
                                 <div>
                                     <h3 class="fz-6 fw-bold mb-1">
                                         最低人數
@@ -164,9 +189,11 @@
                             </div>
 
                             <div class="d-flex mb-2 align-items-center">
-                                <div class="icon-img_wrap mr-2">
-                                    <img :src="maxPeopleIcon" class="w-100" />
-                                </div>
+                                <span
+                                    class="material-symbols-outlined icon-48 text-greyD4 mr-2"
+                                >
+                                    person_add
+                                </span>
                                 <div>
                                     <h3 class="fz-6 fw-bold mb-1">
                                         最高人數
@@ -182,9 +209,10 @@
                             <div class="d-flex mb-2"></div>
 
                             <button
-                                v-if="userRole !== 'store'"
                                 :disabled="
-                                    isEventClosed || isEventUnregiistable
+                                    isEventClosed ||
+                                    isEventUnregiistable ||
+                                    isShopper
                                 "
                                 class="btn btn-primary w-100"
                                 :data-test="eventData.idNumber"
@@ -194,11 +222,11 @@
                             </button>
 
                             <div class="d-flex mt-2 align-items-center">
-                                <div
-                                    class="icon-img_wrap icon-img_wrap-small mr-2"
+                                <span
+                                    class="material-symbols-outlined fz-6 text-greyD4 mr-2"
                                 >
-                                    <img :src="timeIcon" class="w-100" />
-                                </div>
+                                    date_range
+                                </span>
                                 <p>截止時間： {{ eventData.eventEndTime }}</p>
                             </div>
                         </div>
@@ -217,12 +245,6 @@ import { onMounted, ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import EventAPI from '@/api/Event';
 import StoreAPI from '@/api/Store';
-import foodIcon from '@/assets/images/event/food.png';
-import minPeopleIcon from '@/assets/images/event/min_people.png';
-import moneyIcon from '@/assets/images/event/money.png';
-import timeIcon from '@/assets/images/event/time.png';
-import maxPeopleIcon from '@/assets/images/event/max_people.png';
-import pinIcon from '@/assets/images/event/pin.png';
 import dayjs from '@/utilities/dayjs';
 import Loading from '@/components/common/Loading.vue';
 import useIndexStore from '@/stores/index';
@@ -234,7 +256,7 @@ const eventData = ref({});
 const storeData = ref({});
 
 const isLoading = ref(true);
-const userRole = useIndexStore().userData.role;
+const isShopper = useIndexStore().userData.role === 'store';
 
 const getEvent = async (eventId) => {
     await EventAPI.getEvent(eventId)
@@ -291,7 +313,6 @@ const eventPrograss = computed(() => {
 const router = useRouter();
 const goCheckout = (eventId) => {
     router.push({ name: 'Checkout', params: { eventId } });
-    console.log('store');
 };
 
 onMounted(() => {
@@ -306,67 +327,65 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.shape {
-    padding-left: 8px;
-    width: 120px;
-    height: 1.5rem;
-    clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
-}
-
-.fz-6 {
-    font-size: 24px;
-}
-
-.fz-4 {
-    font-size: 16px;
-}
-
-.round {
-    border-radius: 50%;
-}
-
-.icon-img_wrap {
-    flex-shrink: 0;
-    overflow: hidden;
-    margin-right: 8px;
-    width: 50px;
-    height: 50px;
-
-    &.icon-img_wrap-small {
-        width: 25px;
-        height: 25px;
+.single-event {
+    .shape {
+        padding-left: 8px;
+        width: 120px;
+        height: 1.5rem;
+        clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+    }
+    .mr-2 {
+        margin-right: 8px;
+    }
+    .icon-48 {
+        font-size: 48px;
+    }
+    .fz-6 {
+        font-size: 24px;
     }
 
-    &.icon-img_wrap-large {
+    .fz-4 {
+        font-size: 16px;
+    }
+
+    .round {
+        border-radius: 50%;
+    }
+    .link {
+        display: block;
+        text-align: end;
+        text-decoration: none;
+    }
+    .sub-title_wrap {
+        position: relative;
+
+        .sub-title {
+            position: relative;
+            z-index: 2;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0px;
+            width: 100%;
+            border-bottom: 2px solid #d4d4d4;
+        }
+    }
+    .img-wrap {
+        flex-shrink: 0;
+        overflow: hidden;
+        margin-right: 8px;
         width: 150px;
         height: 150px;
-    }
-
-    img {
-        min-width: 100%;
-        min-height: 100%;
-        object-fit: cover;
-    }
-}
-
-.sub-title_wrap {
-    position: relative;
-
-    .sub-title {
-        position: relative;
-        z-index: 2;
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0px;
-        width: 100%;
-        border-bottom: 2px solid #d4d4d4;
+        img {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
     }
 }
-
 .single-event {
     background: linear-gradient(180deg, #fff6cc 0%, #ffffff 100%);
 

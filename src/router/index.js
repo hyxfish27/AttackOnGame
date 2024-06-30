@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import useIndexStore from '@/stores/index';
+import useAlert from '@/stores/alert';
 
 const routes = [
     {
@@ -250,27 +251,30 @@ const router = createRouter({
 });
 
 // 路由保護
+
 router.beforeEach((to, from, next) => {
     const indxStore = useIndexStore();
+    const alterStore = useAlert();
     const { isLogin, userData } = indxStore;
     const { roles, requiresAuth } = to.meta;
 
     if (requiresAuth) {
-        // console.log('需要驗證');
         if (isLogin) {
-            // console.log('已登入');
             if (roles) {
-                // console.log('需要權限');
                 if (roles.includes(userData.role)) {
-                    // console.log('有權限');
                     next();
                 } else {
-                    // console.log('無權限');
                     if (userData.role === 'player') {
-                        alert('你不是商家，需要商家權限');
+                        alterStore.openModal(
+                            'error',
+                            '你不是商家，需要商家權限'
+                        );
                     }
                     if (userData.role === 'store') {
-                        alert('你不是玩家，需要玩家權限');
+                        alterStore.openModal(
+                            'error',
+                            '你不是玩家，需要玩家權限'
+                        );
                     }
                     next({ name: 'Index' });
                 }
@@ -279,9 +283,8 @@ router.beforeEach((to, from, next) => {
                 next();
             }
         } else {
-            // console.log('未登入');
+            alterStore.openModal('', '請先登入');
             next({ name: 'Login' });
-            alert('請先登入');
         }
     } else {
         // console.log('不需要驗證');
