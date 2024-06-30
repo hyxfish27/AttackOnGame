@@ -4,7 +4,7 @@ export default {
         label: '玩家',
     },
     store: {
-        color: 'warning',
+        color: 'shop',
         label: '商家',
     },
 };
