@@ -6,7 +6,7 @@
             >
                 <div class="col-11 mx-auto py-4">
                     <h2 class="fw-bold pb-5 title">確認活動資訊</h2>
-                    <h3 class="fw-bold sub-title line-clamp line-clamp-1 mb-2">
+                    <h3 class="fw-bold sub-title mb-2">
                         {{ summaryData?.title }}
                     </h3>
                     <div class="d-flex align-items-center">
@@ -323,13 +323,16 @@ onMounted(() => {
 body {
     background-color: #f7f7f7;
 }
+
 .player-admin-checkout {
     .title {
         font-size: 2rem;
     }
+
     .sub-title {
         font-size: 1.5rem;
     }
+
     .require-icon::before {
         content: '*';
         font-size: 0.75rem;
