@@ -112,11 +112,10 @@ onMounted(() => {
     userId.value = route.params.userId;
 
     StoreAPI.get(selectTheStore.selectStore._id).then((response) => {
-        console.log('apiiii', response);
         storeViewObject.value = response.data.data;
     });
 
-    EventAPI.getStoreEvent(userId.value).then((response) => {
+    EventAPI.getStoreEvent(selectTheStore.selectStore._id).then((response) => {
         eventCards.value = response.data.data;
     });
 });

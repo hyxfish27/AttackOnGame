@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { defineProps, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import toLocalString from '@/utilities/toLocalString';
+import EmptyTable from '@/components/common/EmptyTable.vue';
 
 const PaymentStatus = {
     pending: '尚未付款',
@@ -49,7 +50,9 @@ const goTicket = (idNumber) => {
 </script>
 
 <template>
-    <div class="d-flex flex-column justify-content-between flex-grow-1">
+    <div
+        class="d-flex flex-column justify-content-between flex-grow-1 activity-page-table-wrap"
+    >
         <!-- table -->
         <table class="table align-middle table-hover mt-3">
             <thead>
@@ -59,15 +62,22 @@ const goTicket = (idNumber) => {
                         :key="index"
                         scope="col"
                     >
-                        <p class="line-clamp line-clamp-2">{{ title }}</p>
+                        <p class="">{{ title }}</p>
                     </th>
                 </tr>
             </thead>
-            <tbody v-for="(value, index) in paginatedList" :key="index">
+            <EmptyTable
+                v-if="activityList.length === 0"
+                :length="tableTitles.length"
+                text="目前還沒有相關的訂單唷"
+            ></EmptyTable>
+            <tbody v-for="(value, index) in paginatedList" v-else :key="index">
                 <tr>
                     <td class="w-40">
                         <div class="d-flex flex-column align-items-start">
-                            <p class="fs-8 fw-bold">{{ value.title }}</p>
+                            <p class="fs-8 fw-bold line-clamp line-clamp-2">
+                                {{ value.title }}
+                            </p>
                             <!-- 時間 -->
                             <div class="d-flex">
                                 <p>
@@ -85,10 +95,17 @@ const goTicket = (idNumber) => {
                         <div class="d-flex flex-column">
                             <button
                                 type="button"
-                                class="btn btn-outline-dark btn-sm mb-2"
+                                class="btn btn-outline-dark btn-sm mb-2 d-flex align-items-center justify-content-between"
                                 @click="goTicket(value.idNumber)"
                             >
-                                前往票卷
+                                <span
+                                    class="material-symbols-outlined qrcode-style"
+                                >
+                                    qr_code
+                                </span>
+                                <p class="flex-grow-1">
+                                    前往 <span class="d-block">票券 </span>
+                                </p>
                             </button>
                             <button
                                 v-if="value.status === '已使用'"
@@ -106,9 +123,7 @@ const goTicket = (idNumber) => {
                 </tr>
             </tbody>
         </table>
-
-        <!-- pafination -->
-        <nav>
+        <nav v-if="activityList.length > 0">
             <ul class="pagination justify-content-end m-auto">
                 <li
                     class="page-item me-3"
@@ -156,10 +171,15 @@ const goTicket = (idNumber) => {
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .my-component {
-    /* 在這裡為你的組件添加樣式 */
     padding: 20px;
     background-color: #f0f0f0;
+}
+
+.activity-page-table-wrap {
+    .qrcode-style {
+        position: relative;
+    }
 }
 </style>
