@@ -44,7 +44,7 @@ const initializeMap = () => {
                 radius: 85,
                 color: '#d8c2ce',
                 fillColor: '#d8c2ce',
-                fillOpacity: 0.2,
+                fillOpacity: 0,
                 stroke: false,
             }).addTo(map);
             L.marker([props.locationData.lat, props.locationData.lng], {
@@ -76,6 +76,7 @@ watch(
 .mapContainer-wrap {
     overflow: hidden;
 }
+
 .mapContainer {
     height: 300px;
 }
