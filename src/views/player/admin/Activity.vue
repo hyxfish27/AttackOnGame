@@ -86,7 +86,7 @@ onMounted(() => {
                     />
 
                     <ActivityTable
-                        v-if="activityList.length === 0 && !loading"
+                        v-if="!loading"
                         :activity-list="filteredActivityList"
                     />
                 </div>
