@@ -1,5 +1,5 @@
-import storeIcon from '@/assets/images/store-icon.png';
-import userIcon from '@/assets/images/user-icon.png';
+import storeIcon from '@/assets/images/storeBoxImg.png';
+import userIcon from '@/assets/images/playerBoxImg.png';
 
 export default {
     store: {

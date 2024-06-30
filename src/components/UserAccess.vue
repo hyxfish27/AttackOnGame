@@ -98,10 +98,10 @@ const roleAttr = computed(() => {
         width: 160px;
         height: 160px;
         border-radius: 50%;
-
+        overflow: hidden;
         img {
-            width: 80px;
-            height: 80px;
+            width: 100%;
+            height: 100%;
         }
 
         &.player-icon {

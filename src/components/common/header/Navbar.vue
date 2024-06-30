@@ -7,11 +7,16 @@
             <div
                 class="profile-img border-3 border border-warning rounded-circle"
                 :class="`border-${userAttr.color}`"
+                @click="handelNavbar()"
             >
                 <img :src="userAttr.imgUrl" alt="" />
             </div>
         </div>
-        <nav class="navbar position-absolute bg-white rounded border">
+        <nav
+            v-show="isMenuActive"
+            v-click-outside="onClickOutside"
+            class="navbar position-absolute bg-white rounded border"
+        >
             <div class="navbar-menu bg-white w-100 rounded">
                 <p class="navbar-menu-title text-grey33">
                     管理 {{ userAttr.role }} 後台
@@ -50,7 +55,8 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue';
+import { defineProps, computed, ref } from 'vue';
+import { directive as vClickOutside } from 'click-outside-vue3';
 import ROLE_MAP from '@/constant/role_map';
 import dayjs from '@/utilities/dayjs';
 import UserAPI from '@/api/User';
@@ -58,7 +64,6 @@ import useAlert from '@/stores/alert';
 import { useRouter } from 'vue-router';
 
 const currentTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
-console.log(currentTime);
 const { role, user } = defineProps({
     routeList: {
         type: Array,
@@ -82,6 +87,7 @@ const { role, user } = defineProps({
         default: 'player',
     },
 });
+const isMenuActive = ref(false);
 const router = useRouter();
 const alterStore = useAlert();
 const userAttr = computed(() => {
@@ -102,9 +108,14 @@ const helloWord = computed(() => {
     }
     return '晚安';
 });
-// function toggleMenu() {
-//     this.isMenuActive = !this.isMenuActive;
-// }
+function handelNavbar() {
+    setTimeout(() => {
+        isMenuActive.value = !isMenuActive.value;
+    }, 300);
+}
+function onClickOutside() {
+    isMenuActive.value = false;
+}
 const logout = async () => {
     try {
         await UserAPI.logout();
@@ -145,6 +156,7 @@ const logout = async () => {
         height: 50px;
         overflow: hidden;
         background-color: #fff;
+        cursor: pointer;
         img {
             width: 100%;
             height: 100%;

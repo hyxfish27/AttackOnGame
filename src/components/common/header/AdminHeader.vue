@@ -43,12 +43,16 @@ export default {
             let name;
             let avatar;
             const defaultData = indexStore[`${indexStore.userData.role}Data`];
-            if (defaultData.name === '' || _.isEmpty(defaultData.name)) {
+            if (
+                defaultData?.name === '' ||
+                _.isEmpty(defaultData?.name) ||
+                _.isEmpty(defaultData)
+            ) {
                 name = '會員';
             } else {
                 name = defaultData.name;
             }
-            if (_.isEmpty(defaultData.avatar)) {
+            if (_.isEmpty(defaultData?.avatar) || _.isEmpty(defaultData)) {
                 avatar = '';
             } else {
                 avatar = defaultData.avatar;
