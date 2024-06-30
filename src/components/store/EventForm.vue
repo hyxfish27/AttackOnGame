@@ -90,7 +90,7 @@ const formDataSchema = {
 <template>
     <v-form v-slot="{ errors }" class="text-start" @submit="handleSubmit">
         <div class="mb-3">
-            <label for="title" class="form-label">活動名稱</label>
+            <label for="title" class="form-label require-icon">活動名稱</label>
             <v-field
                 id="title"
                 v-model="formData.title"
@@ -104,7 +104,9 @@ const formDataSchema = {
             <error-message name="title" class="text-danger"></error-message>
         </div>
         <div class="mb-3">
-            <label for="description" class="form-label">活動介紹</label>
+            <label for="description" class="form-label require-icon"
+                >活動介紹</label
+            >
             <v-field
                 id="description"
                 v-model="formData.description"
@@ -122,7 +124,9 @@ const formDataSchema = {
             ></error-message>
         </div>
         <div class="mb-3">
-            <label for="address" class="form-label">活動地址</label>
+            <label for="address" class="form-label require-icon"
+                >活動地址</label
+            >
             <v-field
                 id="address"
                 v-model="formData.address"
@@ -136,7 +140,7 @@ const formDataSchema = {
         </div>
         <div class="d-flex gap-3">
             <div class="mb-3 w-50">
-                <label for="eventStartTime" class="form-label"
+                <label for="eventStartTime" class="form-label require-icon"
                     >活動開始日期</label
                 >
                 <v-field
@@ -155,7 +159,7 @@ const formDataSchema = {
                 ></error-message>
             </div>
             <div class="mb-3 w-50">
-                <label for="eventEndTime" class="form-label"
+                <label for="eventEndTime" class="form-label require-icon"
                     >活動截止日期</label
                 >
                 <v-field
@@ -176,7 +180,9 @@ const formDataSchema = {
         </div>
         <div class="d-flex gap-3">
             <div class="mb-3 w-50">
-                <label for="registrationStartTime" class="form-label"
+                <label
+                    for="registrationStartTime"
+                    class="form-label require-icon"
                     >報名開始日期</label
                 >
                 <v-field
@@ -195,7 +201,7 @@ const formDataSchema = {
                 ></error-message>
             </div>
             <div class="mb-3 w-50">
-                <label for="registrationEndTime" class="form-label"
+                <label for="registrationEndTime" class="form-label require-icon"
                     >報名截止日期</label
                 >
                 <v-field
@@ -217,7 +223,7 @@ const formDataSchema = {
 
         <div class="d-flex gap-3">
             <div class="mb-3 w-50">
-                <label for="maxParticipants" class="form-label"
+                <label for="maxParticipants" class="form-label require-icon"
                     >最大參與人數</label
                 >
                 <v-field
@@ -237,7 +243,7 @@ const formDataSchema = {
             </div>
 
             <div class="mb-3 w-50">
-                <label for="minParticipants" class="form-label"
+                <label for="minParticipants" class="form-label require-icon"
                     >最低開設人數</label
                 >
                 <v-field
@@ -262,7 +268,7 @@ const formDataSchema = {
         </div>
         <div class="d-flex gap-3">
             <div class="mb-3 w-50">
-                <p for="isFoodAllowed" class="form-label mb-3">
+                <p for="isFoodAllowed" class="form-label mb-3 require-icon">
                     是否可攜帶外食
                 </p>
                 <div class="d-flex gap-3">
@@ -295,7 +301,9 @@ const formDataSchema = {
                 ></error-message>
             </div>
             <div class="mb-3 w-50">
-                <label for="participationFee" class="form-label">票價</label>
+                <label for="participationFee" class="form-label require-icon"
+                    >票價</label
+                >
                 <v-field
                     id="participationFee"
                     v-model="formData.participationFee"
@@ -313,7 +321,7 @@ const formDataSchema = {
         </div>
 
         <div class="mb-3">
-            <p class="mb-2">活動封面圖片</p>
+            <p class="mb-2 require-icon">活動封面圖片</p>
             <div class="input-group">
                 <v-field
                     id="eventImageUrl"
@@ -346,3 +354,11 @@ const formDataSchema = {
         </div>
     </v-form>
 </template>
+<style>
+.require-icon::before {
+    content: '*';
+    font-size: 0.75rem;
+    color: #dc3545;
+    margin-right: 4px;
+}
+</style>
