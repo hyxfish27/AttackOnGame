@@ -13,6 +13,7 @@ export const useFormStore = defineStore('form', {
             note: '',
             payPrice: 0,
         },
+        paymentData: {},
         isNew: true,
     }),
     actions: {
@@ -35,10 +36,14 @@ export const useFormStore = defineStore('form', {
                 };
             }
         },
+        updatePaymentData(data) {
+            this.paymentData = data;
+        },
     },
     getters: {
         getFormData: (state) => state.formData,
         getFormState: (state) => state.isNew,
+        getPaymentData: (state) => state.paymentData,
     },
     persist: {
         key: 'player-order-form-data',

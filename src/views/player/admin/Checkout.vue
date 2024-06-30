@@ -221,9 +221,9 @@ const postOrder = async (formdata) => {
     await PlayerAPI.postOrder(formdata)
         .then((res) => {
             console.log(res);
+            orderStore.updatePaymentData(res.data);
             router.push({
                 name: 'ReCheckout',
-                params: { eventId: theEventId.value },
             });
         })
         .catch((err) => {

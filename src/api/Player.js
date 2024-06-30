@@ -114,7 +114,7 @@ const PlayerAPI = {
         note,
     }) {
         try {
-            const response = await Axios.post('/api/v1/order', {
+            const response = await Axios.post('/api/v1/payment', {
                 eventId,
                 payment,
                 discount,

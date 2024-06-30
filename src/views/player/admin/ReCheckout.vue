@@ -83,11 +83,12 @@
                     >
                         返回修改
                     </button>
-                    <router-link
-                        :to="{ name: 'CheckoutSuccess' }"
+                    <button
                         class="btn btn-primary fw-bold px-4"
-                        >完成結帳</router-link
+                        @click="payment"
                     >
+                        完成結帳
+                    </button>
                 </div>
             </div>
         </div>
@@ -97,9 +98,10 @@
 import { onMounted } from 'vue';
 import { useFormStore } from '@/stores/order';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 const orderStore = useFormStore();
-const { formData } = orderStore;
+const { formData, paymentData } = orderStore;
 const router = useRouter();
 const goBack = () => {
     orderStore.setState(false);
@@ -107,6 +109,14 @@ const goBack = () => {
         name: 'Checkout',
         path: 'checkout',
     });
+};
+
+const payment = async () => {
+    try {
+        await axios.post(import.meta.env.VITE_PayGateWay, paymentData);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 onMounted(() => {
