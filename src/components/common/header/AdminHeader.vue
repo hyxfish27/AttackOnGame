@@ -42,22 +42,19 @@ export default {
         const userData = computed(() => {
             let name;
             let avatar;
-            if (_.isEmpty(indexStore.userData.role)) {
-                return 'store';
-            }
             const defaultData = indexStore[`${indexStore.userData.role}Data`];
-            if (defaultData.name === 'eeeee' || defaultData.name === '') {
+            if (defaultData.name === '' || _.isEmpty(defaultData.name)) {
                 name = '會員';
             } else {
                 name = defaultData.name;
             }
-            if (defaultData.avatar === 'https://example.com/avatar.jpg') {
+            if (_.isEmpty(defaultData.avatar)) {
                 avatar = '';
             } else {
                 avatar = defaultData.avatar;
             }
             return {
-                role: defaultData.role || 'store',
+                role: indexStore.userData.role,
                 name,
                 avatar,
             };
