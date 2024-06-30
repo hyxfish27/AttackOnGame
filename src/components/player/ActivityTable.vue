@@ -123,7 +123,7 @@ const goTicket = (idNumber) => {
                 </tr>
             </tbody>
         </table>
-        <nav>
+        <nav v-if="activityList.length > 0">
             <ul class="pagination justify-content-end m-auto">
                 <li
                     class="page-item me-3"
@@ -176,6 +176,7 @@ const goTicket = (idNumber) => {
     padding: 20px;
     background-color: #f0f0f0;
 }
+
 .activity-page-table-wrap {
     .qrcode-style {
         position: relative;
