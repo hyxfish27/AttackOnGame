@@ -68,7 +68,7 @@ import EventAPI from '@/api/Event';
 import { onMounted, ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import _debounce from 'lodash/debounce';
-import EventPanel from '../components/event/eventPanel.vue';
+import EventPanel from '../components/event/EventPanel.vue';
 import { SORT_BY, SORT_ORDER } from '../constant/eventList';
 
 const SORT_BY_MAP = {
