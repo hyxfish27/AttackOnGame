@@ -6,49 +6,52 @@
                 :class="{ 'loading-fade': !isLoading }"
             ></Loading>
             <LeftEl></LeftEl>
-            <div class="col-9 border rounded bg-white h-100 p-3 min-h-screen">
-                <!-- <div>
+            <div class="col-9 ps-3">
+                <div class="border rounded bg-white h-100 p-3 min-h-screen">
+                    <!-- <div>
                     <input
                         class="rounded form-control w-50"
                         type="text"
                         placeholder="快速搜尋"
                     />
                 </div> -->
-                <div
-                    class="d-grid mt-3 gap-2 align-items-center fw-bold border-bottom pb-2"
-                    style="grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr"
-                >
-                    <p>操作</p>
-                    <p>名稱</p>
-
-                    <p>活動日期</p>
-
-                    <p class="text-center">狀態</p>
-                    <p>報名人數 /<br />額滿狀態</p>
-                    <p>截止日期</p>
-                </div>
-                <div v-if="events.length > 0">
                     <div
-                        v-for="event in events"
-                        :key="event.idNumber"
+                        class="d-grid mt-3 gap-2 align-items-center fw-bold border-bottom pb-2"
                         style="grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr"
-                        class="py-2 d-grid gap-2 align-items-center border-bottom"
                     >
-                        <div class="d-flex gap-2">
-                            <router-link
-                                :to="{
-                                    name: 'StoreActivity',
-                                    params: { idNumber: event.idNumber },
-                                }"
-                                type="button"
-                                class="btn btn-primary py-1 px-2"
-                            >
-                                <span class="material-symbols-outlined">
-                                    visibility
-                                </span>
-                            </router-link>
-                            <!-- TODO之後活動編輯好了再開放這顆按鈕 -->
-                            <!-- <button type="button" class="btn btn-danger py-1 px-2">
+                        <p>操作</p>
+                        <p>名稱</p>
+
+                        <p>活動日期</p>
+
+                        <p class="text-center">狀態</p>
+                        <p>報名人數 /<br />額滿狀態</p>
+                        <p>截止日期</p>
+                    </div>
+                    <div v-if="events.length > 0">
+                        <div
+                            v-for="event in events"
+                            :key="event.idNumber"
+                            style="
+                                grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+                            "
+                            class="py-2 d-grid gap-2 align-items-center border-bottom"
+                        >
+                            <div class="d-flex gap-2">
+                                <router-link
+                                    :to="{
+                                        name: 'StoreActivity',
+                                        params: { idNumber: event.idNumber },
+                                    }"
+                                    type="button"
+                                    class="btn btn-primary py-1 px-2"
+                                >
+                                    <span class="material-symbols-outlined">
+                                        visibility
+                                    </span>
+                                </router-link>
+                                <!-- TODO之後活動編輯好了再開放這顆按鈕 -->
+                                <!-- <button type="button" class="btn btn-danger py-1 px-2">
                             <svg
                                 width="16"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -61,33 +64,34 @@
                                 />
                             </svg>
                         </button> -->
-                        </div>
-                        <div>
-                            {{ event.title }}
-                        </div>
-                        <div>
-                            {{ event.eventStartTime }}
-                        </div>
-                        <div class="text-center">
-                            {{
-                                stateText(
-                                    event.currentParticipantsCount,
-                                    event.maxParticipants,
-                                    event.minParticipants
-                                )
-                            }}
-                        </div>
-                        <div class="text-center">
-                            {{ event.currentParticipantsCount }} /
-                            {{ event.maxParticipants }}
-                        </div>
-                        <div>
-                            {{ event.registrationEndTime }}
+                            </div>
+                            <div>
+                                {{ event.title }}
+                            </div>
+                            <div>
+                                {{ event.eventStartTime }}
+                            </div>
+                            <div class="text-center">
+                                {{
+                                    stateText(
+                                        event.currentParticipantsCount,
+                                        event.maxParticipants,
+                                        event.minParticipants
+                                    )
+                                }}
+                            </div>
+                            <div class="text-center">
+                                {{ event.currentParticipantsCount }} /
+                                {{ event.maxParticipants }}
+                            </div>
+                            <div>
+                                {{ event.registrationEndTime }}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div v-else>
-                    <p>您目前沒有活動</p>
+                    <div v-else>
+                        <p>您目前沒有活動</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -129,6 +133,7 @@ const getEventAll = async () => {
                 });
             } else {
                 alert(`${err.response.data.message}`);
+                isLoading.value = false;
                 console.log(err);
             }
         });
