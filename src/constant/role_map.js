@@ -7,11 +7,13 @@ export default {
         text: '店家',
         icon: storeIcon,
         color: 'orange',
+        label: '店家',
     },
     player: {
         key: 'player',
         text: '玩家',
         icon: userIcon,
         color: 'warning',
+        label: '玩家',
     },
 };

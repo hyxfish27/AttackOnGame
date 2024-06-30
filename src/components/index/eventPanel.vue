@@ -24,7 +24,7 @@
     </div>
 </template>
 <script setup>
-import TitleCardList from '@/components/event/eventPanel.vue';
+import TitleCardList from '@/components/event/EventPanel.vue';
 import { defineProps } from 'vue';
 import vInView from '@/directives/observeInView';
 import TitlePanel from './titlePanel.vue';

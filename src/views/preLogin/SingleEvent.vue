@@ -84,14 +84,15 @@
                                 地理位置
                             </h2>
                         </div>
-                        <div class="d-flex mt-2 align-items-center">
+                        <div class="d-flex mt-4 mb-4 align-items-center">
                             <span
                                 class="fz-6 material-symbols-outlined text-greyD4 mr-2"
                             >
                                 location_on
                             </span>
-                            <p>{{ storeData.address }}</p>
+                            <p>{{ eventData.address }}</p>
                         </div>
+                        <Location :location-data="locationData"></Location>
                     </div>
                 </div>
                 <div class="col-4 position-sticky top-0">
@@ -247,12 +248,13 @@ import EventAPI from '@/api/Event';
 import StoreAPI from '@/api/Store';
 import dayjs from '@/utilities/dayjs';
 import Loading from '@/components/common/Loading.vue';
+import Location from '@/components/event/Location.vue';
 import useIndexStore from '@/stores/index';
 
 const route = useRoute();
 
 const eventData = ref({});
-
+const locationData = ref({});
 const storeData = ref({});
 
 const isLoading = ref(true);
@@ -263,7 +265,7 @@ const getEvent = async (eventId) => {
         .then((response) => {
             eventData.value = response.data.data.event;
             storeData.value = response.data.data.store;
-
+            locationData.value = response.data.data.event.location;
             console.log(response);
         })
         .catch((err) => {

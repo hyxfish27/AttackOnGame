@@ -21,6 +21,7 @@
     "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "intersection-observer": "^0.12.2",
+    "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
