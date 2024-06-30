@@ -17,7 +17,7 @@ import {
     // onMounted
 } from 'vue';
 import { useRouter } from 'vue-router';
-import MainHeader from '@/components/common/MainHeader.vue';
+import MainHeader from '@/components/common/header/MainHeader.vue';
 import MainFooter from '@/components/common/MainFooter.vue';
 import UserAPI from '@/api/User';
 import useIndexStore from '@/stores/index';

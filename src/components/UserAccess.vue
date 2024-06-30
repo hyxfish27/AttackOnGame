@@ -38,21 +38,8 @@
 
 <script setup>
 import { computed } from 'vue';
-import storeIcon from '@/assets/images/store-icon.png';
-import userIcon from '@/assets/images/user-icon.png';
+import ROLE_MAP from '@/constant/role_map';
 
-const ROLE_MAP = {
-    store: {
-        key: 'store',
-        text: '店家',
-        icon: storeIcon,
-    },
-    player: {
-        key: 'player',
-        text: '玩家',
-        icon: userIcon,
-    },
-};
 const { role } = defineProps({
     role: {
         type: String,
