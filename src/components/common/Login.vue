@@ -1,45 +1,65 @@
 <template>
-    <v-form v-slot="{ errors }" @submit="onSubmit">
-        <div class="mb-3">
-            <label for="email" class="form-label">帳號</label>
-            <v-field
-                id="email"
-                v-model="formData.email"
-                type="email"
-                class="form-control"
-                name="email"
-                :rules="playerLoginSchema.email"
-                :class="{ 'is-invalid': errors['email'] }"
-            ></v-field>
-            <error-message name="email" class="text-danger"></error-message>
-        </div>
+    <div class="login-wrap">
+        <v-form v-slot="{ errors }" @submit="onSubmit">
+            <div class="mb-3">
+                <label for="email" class="form-label require-icon">帳號</label>
+                <v-field
+                    id="email"
+                    v-model="formData.email"
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    :rules="playerLoginSchema.email"
+                    :class="{ 'is-invalid': errors['email'] }"
+                ></v-field>
+                <error-message name="email" class="text-danger"></error-message>
+            </div>
 
-        <div class="mb-3">
-            <label for="password" class="form-label">密碼</label>
-            <v-field
-                id="password"
-                v-model="formData.password"
-                type="password"
-                class="form-control"
-                name="password"
-                :rules="playerLoginSchema.password"
-                :class="{ 'is-invalid': errors['password'] }"
-            ></v-field>
-            <error-message name="password" class="text-danger"></error-message>
-        </div>
+            <div class="mb-3">
+                <label for="password" class="form-label require-icon"
+                    >密碼</label
+                >
+                <div class="position-relative">
+                    <span
+                        class="material-symbols-outlined position-absolute eyes-icon fs-8 me-2"
+                        @click="togglePasswordVisibility('password')"
+                    >
+                        {{
+                            passwordFieldType === 'password'
+                                ? 'visibility_off'
+                                : 'visibility'
+                        }}
+                    </span>
+                    <v-field
+                        id="InputPassword1"
+                        v-model="formData.password"
+                        :type="passwordFieldType"
+                        class="form-control"
+                        rules="required|min:8|regex:(?=.*[A-Za-z])(?=.*\d)"
+                        placeholder="請輸入密碼"
+                        name="密碼"
+                        :class="{ 'is-invalid': errors['密碼'] }"
+                    ></v-field>
+                </div>
+                <error-message
+                    name="password"
+                    class="text-danger"
+                ></error-message>
+            </div>
 
-        <div class="password-forget d-flex justify-content-end mt-1">
-            <span class="text-muted" @click="goToForgetPasswordPage"
-                >忘記密碼
-            </span>
-        </div>
+            <div class="password-forget d-flex justify-content-end mt-1">
+                <span class="text-muted" @click="goToForgetPasswordPage"
+                    >忘記密碼
+                </span>
+            </div>
 
-        <div class="d-flex justify-content-center form-footer">
-            <button type="submit" class="btn btn-primary px-4 mt-4">
-                登入
-            </button>
-        </div>
-    </v-form>
+            <div class="d-flex justify-content-center form-footer">
+                <button type="submit" class="btn btn-primary px-4 mt-4">
+                    登入
+                </button>
+            </div>
+        </v-form>
+    </div>
 </template>
 <script>
 // import setUser from '@/stores/index';
@@ -100,7 +120,11 @@ export default defineComponent({
         // const { handleSubmit } = useForm({
         //     validationSchema: yup.object(playerLoginSchema),
         // });
-
+        const passwordFieldType = ref('password');
+        const togglePasswordVisibility = () => {
+            passwordFieldType.value =
+                passwordFieldType.value === 'password' ? 'text' : 'password';
+        };
         const onSubmitSuccess = async () => {
             try {
                 const response = await UserAPI.login({
@@ -170,7 +194,22 @@ export default defineComponent({
             playerLoginSchema,
             onSubmit,
             goToForgetPasswordPage,
+            togglePasswordVisibility,
+            passwordFieldType,
         };
     },
 });
 </script>
+<style lang="scss">
+.login-wrap .eyes-icon {
+    right: 16px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    color: #9f9f9f;
+
+    &:hover {
+        color: #0088cc;
+    }
+}
+</style>

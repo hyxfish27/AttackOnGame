@@ -332,12 +332,5 @@ body {
     .sub-title {
         font-size: 1.5rem;
     }
-
-    .require-icon::before {
-        content: '*';
-        font-size: 0.75rem;
-        color: #dc3545;
-        margin-right: 4px;
-    }
 }
 </style>
