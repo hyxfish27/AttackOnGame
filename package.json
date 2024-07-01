@@ -17,6 +17,7 @@
     "@vee-validate/rules": "^4.12.8",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "click-outside-vue3": "^4.0.1",
     "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "intersection-observer": "^0.12.2",

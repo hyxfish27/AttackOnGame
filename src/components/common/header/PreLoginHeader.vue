@@ -18,7 +18,7 @@
  * @author Vicky
  * @description 未登頁面共用 Header
  */
-import PrimaryHeader from '@/components/common/PrimaryHeader.vue';
+import PrimaryHeader from '@/components/common/header/PrimaryHeader.vue';
 </script>
 
 <style lang="scss">

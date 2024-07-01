@@ -18,22 +18,22 @@
         </div>
 
         <ul class="user-admin-el-ul">
-            <li v-for="route in routes" :key="route.name" class="mb-1">
+            <li v-for="routeItem in routes" :key="routeItem.name" class="mb-1">
                 <router-link
-                    :to="{ name: route.name, params: route.params }"
+                    :to="{ name: routeItem.name, params: routeItem.params }"
                     class="nav-link d-flex rounded justify-content-center"
                 >
                     <span
                         class="material-symbols-outlined"
                         :class="[
-                            isActive(route.name)
+                            isActive(routeItem.name)
                                 ? 'text-primary'
                                 : 'text-grey33',
                         ]"
                     >
-                        {{ route.icon }}
+                        {{ routeItem.icon }}
                     </span>
-                    <p class="ps-3 text-center">{{ route.label }}</p>
+                    <p class="ps-3 text-center">{{ routeItem.label }}</p>
                 </router-link>
             </li>
         </ul>

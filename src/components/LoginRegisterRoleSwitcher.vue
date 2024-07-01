@@ -85,8 +85,8 @@
 </template>
 <script setup>
 import { defineProps } from 'vue';
-import storeIcon from '@/assets/images/store-icon.png';
-import userIcon from '@/assets/images/user-icon.png';
+import storeIcon from '@/assets/images/storeBoxImg.png';
+import userIcon from '@/assets/images/playerBoxImg.png';
 
 defineProps({
     behavior: {
@@ -117,9 +117,10 @@ defineProps({
         width: 140px;
         height: 140px;
         border-radius: 50%;
-
+        overflow: hidden;
         img {
-            width: 60px;
+            width: 100%;
+            height: 100%;
         }
 
         &.player-icon {

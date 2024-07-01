@@ -7,7 +7,8 @@
 import { computed } from 'vue';
 import useIndexStore from '@/stores/index';
 import ElCard from '@/components/common/adminEl.vue';
-import defaultPic from '@/assets/images/user-icon.png';
+import defaultPic from '@/assets/images/playerBoxImg.png';
+
 import _ from 'lodash';
 import playerRoute from '@/constant/playerRoute';
 

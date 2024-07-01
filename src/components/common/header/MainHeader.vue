@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import PreLoginHeader from '@/components/common/PreLoginHeader.vue';
-import AdminHeader from '@/components/common/AdminHeader.vue';
+import PreLoginHeader from '@/components/common/header/PreLoginHeader.vue';
+import AdminHeader from '@/components/common/header/AdminHeader.vue';
 
 /**
  * MainHeader
