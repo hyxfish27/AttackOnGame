@@ -11,7 +11,11 @@
                         <p>{{ message }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" @click="close">
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            @click="close"
+                        >
                             關閉
                         </button>
                     </div>

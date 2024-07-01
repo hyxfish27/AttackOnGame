@@ -62,10 +62,14 @@ onMounted(() => {
 
 <template>
     <main class="container py-4 d-flex flex-column flex-grow-1">
-        <div class="player-activy d-flex justify-content-between h-100 min-h-screen">
+        <div
+            class="player-activy d-flex justify-content-between h-100 min-h-screen"
+        >
             <LeftEl class="player-activy_aside"></LeftEl>
             <div class="player-activy_main">
-                <div class="d-flex p-3 border rounded h-100 flex-column bg-white">
+                <div
+                    class="d-flex p-3 border rounded h-100 flex-column bg-white"
+                >
                     <!-- table title -->
                     <div class="border-bottom py-1 mb-2">
                         <h3 class="fs-6">活動管理</h3>
@@ -74,10 +78,17 @@ onMounted(() => {
                         <div class="spinner-border" role="status"></div>
                     </div>
 
-                    <ActivityButtonGroup v-if="!loading" :status-list="statusList" :selected-status="selectedStatus"
-                        @update:selectedStatus="selectedStatus = $event" />
+                    <ActivityButtonGroup
+                        v-if="!loading"
+                        :status-list="statusList"
+                        :selected-status="selectedStatus"
+                        @update:selectedStatus="selectedStatus = $event"
+                    />
 
-                    <ActivityTable v-if="!loading" :activity-list="filteredActivityList" />
+                    <ActivityTable
+                        v-if="!loading"
+                        :activity-list="filteredActivityList"
+                    />
                 </div>
             </div>
         </div>

@@ -1,31 +1,48 @@
 <template>
     <div class="single-event container-fluid positon-relative lh-lg">
-        <Loading v-if="isLoading" :class="{ 'loading-fade': !isLoading }"></Loading>
+        <Loading
+            v-if="isLoading"
+            :class="{ 'loading-fade': !isLoading }"
+        ></Loading>
         <div class="container py-4">
             <div class="row">
                 <div class="col-8">
                     <div class="event-image mb-4 rounded-2">
-                        <img ref="image" referrerpolicy="no-referrer" class="w-100 inset-0 object-fit-cover rounded-2"
-                            :src="eventData.eventImageUrl" :alt="eventData.title" />
+                        <img
+                            ref="image"
+                            referrerpolicy="no-referrer"
+                            class="w-100 inset-0 object-fit-cover rounded-2"
+                            :src="eventData.eventImageUrl"
+                            :alt="eventData.title"
+                        />
                     </div>
                     <div class="event-description mb-4">
                         <div class="sub-title_wrap">
                             <h2
-                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0">
+                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0"
+                            >
                                 詳細內容
                             </h2>
                         </div>
                         <p class="mt-4">{{ eventData.description }}</p>
                     </div>
                     <div class="event-store">
-                        <div class="event-store-card bg-greyF7 border-1 border border-grey rounded-2 p-4">
-                            <p class="fw-bold pb-2 border-bottom border-2 border-greyD3">
+                        <div
+                            class="event-store-card bg-greyF7 border-1 border border-grey rounded-2 p-4"
+                        >
+                            <p
+                                class="fw-bold pb-2 border-bottom border-2 border-greyD3"
+                            >
                                 店家資料
                             </p>
                             <div class="d-flex mt-4 align-items-center">
                                 <div class="img-wrap round">
-                                    <img referrerpolicy="no-referrer" class="w-100" :src="storeData.avatar"
-                                        :alt="storeData.name" />
+                                    <img
+                                        referrerpolicy="no-referrer"
+                                        class="w-100"
+                                        :src="storeData.avatar"
+                                        :alt="storeData.name"
+                                    />
                                 </div>
                                 <div class="">
                                     <h3 class="fz-6 fw-bold">
@@ -34,16 +51,25 @@
                                     <p class="line-clamp line-clamp-3">
                                         {{ storeData.introduce }}
                                     </p>
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <span class="material-symbols-outlined text-primary">
+                                    <div
+                                        class="d-flex align-items-center justify-content-end"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-primary"
+                                        >
                                             double_arrow
                                         </span>
-                                        <router-link v-if="storeData && storeData._id" class="link text-primary" :to="{
-            name: 'StoreIntroduction',
-            params: {
-                userId: storeData._id,
-            },
-        }">查看詳情</router-link>
+                                        <router-link
+                                            v-if="storeData && storeData._id"
+                                            class="link text-primary"
+                                            :to="{
+                                                name: 'StoreIntroduction',
+                                                params: {
+                                                    userId: storeData._id,
+                                                },
+                                            }"
+                                            >查看詳情</router-link
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -53,12 +79,15 @@
                     <div class="event-description mt-4">
                         <div class="sub-title_wrap">
                             <h2
-                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0">
+                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0"
+                            >
                                 地理位置
                             </h2>
                         </div>
                         <div class="d-flex mt-4 mb-4 align-items-center">
-                            <span class="fz-6 material-symbols-outlined text-greyD4 mr-2">
+                            <span
+                                class="fz-6 material-symbols-outlined text-greyD4 mr-2"
+                            >
                                 location_on
                             </span>
                             <p>{{ eventData.address }}</p>
@@ -68,12 +97,17 @@
                 </div>
                 <div class="col-4 position-sticky top-0">
                     <div class="event-header mb-4">
-                        <div class="fw-bold py-1 px-2 d-inline-block" :class="eventPrograss.bgcColor">
+                        <div
+                            class="fw-bold py-1 px-2 d-inline-block"
+                            :class="eventPrograss.bgcColor"
+                        >
                             {{ eventPrograss.text }}
                         </div>
                         <h3 class="fz-6 fw-bold my-2">{{ eventData.title }}</h3>
                         <div class="d-flex mb-2 align-items-center">
-                            <span class="fz-6 material-symbols-outlined text-greyD4 mr-2">
+                            <span
+                                class="fz-6 material-symbols-outlined text-greyD4 mr-2"
+                            >
                                 location_on
                             </span>
                             <p class="">{{ eventData.address }}</p>
@@ -84,25 +118,33 @@
                         <div class=""></div>
                     </div>
                     <div class="event-info">
-                        <div class="event-info__card border border-grey66 p-3 pt-0 rounded-2 bg-white">
+                        <div
+                            class="event-info__card border border-grey66 p-3 pt-0 rounded-2 bg-white"
+                        >
                             <!-- TODO: 補上 icon -->
-                            <p class="bg-greyE9 fw-bold pt-1 pb-2 px-2 mb-2 d-inline-block rounded-bottom-2">
+                            <p
+                                class="bg-greyE9 fw-bold pt-1 pb-2 px-2 mb-2 d-inline-block rounded-bottom-2"
+                            >
                                 活動模式
                             </p>
 
                             <div class="d-flex mb-2 align-items-center">
-                                <span class="material-symbols-outlined icon-48 text-greyD4 mr-2">
+                                <span
+                                    class="material-symbols-outlined icon-48 text-greyD4 mr-2"
+                                >
                                     paid
                                 </span>
                                 <div>
                                     <h3 class="fz-6 fw-bold mb-1 text-primary">
                                         {{
-            toLocalString(
-                eventData.participationFee
-            )
-        }}
+                                            toLocalString(
+                                                eventData.participationFee
+                                            )
+                                        }}
                                         NT
-                                        <span class="fz-4 text-dark">/ 活動費用</span>
+                                        <span class="fz-4 text-dark"
+                                            >/ 活動費用</span
+                                        >
                                     </h3>
                                     <p>
                                         參與活動所需的費用，可能包含場地、材料等各種成本。
@@ -113,16 +155,18 @@
                             <hr class="bg-greyE9" />
 
                             <div class="d-flex mb-2 align-items-center">
-                                <span class="material-symbols-outlined icon-48 text-greyD4 mr-2">
+                                <span
+                                    class="material-symbols-outlined icon-48 text-greyD4 mr-2"
+                                >
                                     fastfood
                                 </span>
                                 <div>
                                     <h3 class="fz-6 text-primary fw-bold mb-1">
                                         {{
-                eventData.isFoodAllowed
-                    ? '可'
-                    : '不可'
-            }}<span class="text-dark">帶外食</span>
+                                            eventData.isFoodAllowed
+                                                ? '可'
+                                                : '不可'
+                                        }}<span class="text-dark">帶外食</span>
                                     </h3>
                                     <p>
                                         關於參與者是否可以攜帶外部食物到活動場地的規定。
@@ -131,7 +175,9 @@
                             </div>
 
                             <div class="d-flex mb-2 align-items-center">
-                                <span class="material-symbols-outlined icon-48 text-greyD4 mr-2">
+                                <span
+                                    class="material-symbols-outlined icon-48 text-greyD4 mr-2"
+                                >
                                     person_remove
                                 </span>
                                 <div>
@@ -144,7 +190,9 @@
                             </div>
 
                             <div class="d-flex mb-2 align-items-center">
-                                <span class="material-symbols-outlined icon-48 text-greyD4 mr-2">
+                                <span
+                                    class="material-symbols-outlined icon-48 text-greyD4 mr-2"
+                                >
                                     person_add
                                 </span>
                                 <div>
@@ -161,16 +209,23 @@
                             <div class="d-flex mb-2"></div>
                             <div class="d-flex mb-2"></div>
 
-                            <button :disabled="isEventClosed ||
-            isEventUnregiistable ||
-            isShopper
-            " class="btn btn-primary w-100" :data-test="eventData.idNumber"
-                                @click="goCheckout(eventData.idNumber)">
+                            <button
+                                :disabled="
+                                    isEventClosed ||
+                                    isEventUnregiistable ||
+                                    isShopper
+                                "
+                                class="btn btn-primary w-100"
+                                :data-test="eventData.idNumber"
+                                @click="goCheckout(eventData.idNumber)"
+                            >
                                 我要報名
                             </button>
 
                             <div class="d-flex mt-2 align-items-center">
-                                <span class="material-symbols-outlined fz-6 text-greyD4 mr-2">
+                                <span
+                                    class="material-symbols-outlined fz-6 text-greyD4 mr-2"
+                                >
                                     date_range
                                 </span>
                                 <p>截止時間： {{ eventData.eventEndTime }}</p>

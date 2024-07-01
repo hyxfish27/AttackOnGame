@@ -2,20 +2,35 @@
     <v-form v-slot="{ errors }" @submit="onSubmit">
         <div class="mb-3">
             <label for="email" class="form-label">帳號</label>
-            <v-field id="email" v-model="formData.email" type="email" class="form-control" name="email"
-                :rules="playerLoginSchema.email" :class="{ 'is-invalid': errors['email'] }"></v-field>
+            <v-field
+                id="email"
+                v-model="formData.email"
+                type="email"
+                class="form-control"
+                name="email"
+                :rules="playerLoginSchema.email"
+                :class="{ 'is-invalid': errors['email'] }"
+            ></v-field>
             <error-message name="email" class="text-danger"></error-message>
         </div>
 
         <div class="mb-3">
             <label for="password" class="form-label">密碼</label>
-            <v-field id="password" v-model="formData.password" type="password" class="form-control" name="password"
-                :rules="playerLoginSchema.password" :class="{ 'is-invalid': errors['password'] }"></v-field>
+            <v-field
+                id="password"
+                v-model="formData.password"
+                type="password"
+                class="form-control"
+                name="password"
+                :rules="playerLoginSchema.password"
+                :class="{ 'is-invalid': errors['password'] }"
+            ></v-field>
             <error-message name="password" class="text-danger"></error-message>
         </div>
 
         <div class="password-forget d-flex justify-content-end mt-1">
-            <span class="text-muted" @click="goToForgetPasswordPage">忘記密碼
+            <span class="text-muted" @click="goToForgetPasswordPage"
+                >忘記密碼
             </span>
         </div>
 

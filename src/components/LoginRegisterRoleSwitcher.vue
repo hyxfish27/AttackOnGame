@@ -1,12 +1,26 @@
 <template>
-    <div class="full-screen-with-footer bg-greyF7 login-register-role-switcher_wrap">
-        <div class="container d-flex h-100 login-register-role-switcher_panel justify-content-between">
+    <div
+        class="full-screen-with-footer bg-greyF7 login-register-role-switcher_wrap"
+    >
+        <div
+            class="container d-flex h-100 login-register-role-switcher_panel justify-content-between"
+        >
             <div class="login-register-role-switcher_section bg-white">
-                <div class="h-100 d-flex flex-column justify-content-center align-items-center">
-                    <div class="img-wrap store-icon mb-2 d-flex justify-content-center align-items-center">
-                        <img :src="storeIcon" alt="" referrerpolicy="no-referrer" />
+                <div
+                    class="h-100 d-flex flex-column justify-content-center align-items-center"
+                >
+                    <div
+                        class="img-wrap store-icon mb-2 d-flex justify-content-center align-items-center"
+                    >
+                        <img
+                            :src="storeIcon"
+                            alt=""
+                            referrerpolicy="no-referrer"
+                        />
                     </div>
-                    <div class="d-flex flex-column justify-content-center align-items-center">
+                    <div
+                        class="d-flex flex-column justify-content-center align-items-center"
+                    >
                         <h4 class="mb-2 fw-bold pt-3 pb-2">
                             店家{{ behavior }}
                         </h4>
@@ -14,8 +28,13 @@
                             我要成為始祖聚人，創造源源不絕的聚人!
                         </p>
                         <div class="">
-                            <router-link class="d-block mb-2" :to="storeBehaviorUrl">
-                                <button class="btn btn-primary fw-bold py-2 px-3">
+                            <router-link
+                                class="d-block mb-2"
+                                :to="storeBehaviorUrl"
+                            >
+                                <button
+                                    class="btn btn-primary fw-bold py-2 px-3"
+                                >
                                     立即{{ behavior }}
                                 </button>
                             </router-link>
@@ -28,11 +47,17 @@
             </div>
 
             <div class="login-register-role-switcher_section bg-white">
-                <div class="h-100 d-flex flex-column justify-content-center align-items-center">
-                    <div class="img-wrap player-icon mb-2 d-flex justify-content-center align-items-center">
+                <div
+                    class="h-100 d-flex flex-column justify-content-center align-items-center"
+                >
+                    <div
+                        class="img-wrap player-icon mb-2 d-flex justify-content-center align-items-center"
+                    >
                         <img width="150" :src="userIcon" alt="" />
                     </div>
-                    <div class="d-flex flex-column justify-content-center align-items-center">
+                    <div
+                        class="d-flex flex-column justify-content-center align-items-center"
+                    >
                         <h4 class="mb-2 fw-bold pt-3 pb-2">
                             玩家{{ behavior }}
                         </h4>
@@ -41,8 +66,13 @@
                         </p>
 
                         <div class="sign-up__controller">
-                            <router-link class="d-block mb-2" :to="userBehaviorUrl">
-                                <button class="btn btn-primary fw-bold py-2 px-3">
+                            <router-link
+                                class="d-block mb-2"
+                                :to="userBehaviorUrl"
+                            >
+                                <button
+                                    class="btn btn-primary fw-bold py-2 px-3"
+                                >
                                     立即{{ behavior }}
                                 </button>
                             </router-link>

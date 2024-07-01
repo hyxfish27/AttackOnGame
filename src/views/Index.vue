@@ -1,25 +1,44 @@
 <template>
     <div style="background-color: #ffff" :class="{ fixed: !isContentDisplay }">
-        <Loading v-if="isLoading && isContentDisplay" :class="{ 'loading-fade': !isLoading }"></Loading>
-        <div class="full-screen-without-footer d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
+        <Loading
+            v-if="isLoading && isContentDisplay"
+            :class="{ 'loading-fade': !isLoading }"
+        ></Loading>
+        <div
+            class="full-screen-without-footer d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
             :style="{
-        backgroundImage: 'url(' + bennerBg + ')',
-    }">
+                backgroundImage: 'url(' + bennerBg + ')',
+            }"
+        >
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <div class="d-flex justify-content-center align-items-center py-3">
-                            <img class="w-70" :src="bennerImg" alt="Banner圖片 聚局的聚人" />
-                            <button type="button"
+                        <div
+                            class="d-flex justify-content-center align-items-center py-3"
+                        >
+                            <img
+                                class="w-70"
+                                :src="bennerImg"
+                                alt="Banner圖片 聚局的聚人"
+                            />
+                            <button
+                                type="button"
                                 class="btn btn-dark d-flex justify-content-center flex-column align-items-center bg-black position-absolute border-white border border-2 rounded-circle gap-1 pt-2 shadow-sm mt-15 banner-btn"
-                                @click.prevent="clickScrollBtn">
+                                @click.prevent="clickScrollBtn"
+                            >
                                 <p class="fw-semibold text-warning cursor">
                                     SCROLL
                                 </p>
-                                <svg style="width: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <svg
+                                    style="width: 24px"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                >
                                     <title>arrow-down</title>
-                                    <path fill="#FFDD33"
-                                        d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z" />
+                                    <path
+                                        fill="#FFDD33"
+                                        d="M11,4H13V16L18.5,10.5L19.92,11.92L12,19.84L4.08,11.92L5.5,10.5L11,16V4Z"
+                                    />
                                 </svg>
                             </button>
                         </div>
@@ -28,48 +47,82 @@
             </div>
         </div>
         <div v-if="isContentDisplay" :ref="otherContent">
-            <EventPanel :error-message="errorMessage" :data="eventData"></EventPanel>
-            <ShopPanel :error-message="errorMessage" :data="storeData"></ShopPanel>
+            <EventPanel
+                :error-message="errorMessage"
+                :data="eventData"
+            ></EventPanel>
+            <ShopPanel
+                :error-message="errorMessage"
+                :data="storeData"
+            ></ShopPanel>
             <div class="container">
-                <div class="row" :style="{ backgroundImage: 'url(' + logoWatermark + ')' }" style="
+                <div
+                    class="row"
+                    :style="{ backgroundImage: 'url(' + logoWatermark + ')' }"
+                    style="
                         background-position: center 50px;
                         background-size: contain;
                         background-repeat: no-repeat;
-                    ">
+                    "
+                >
                     <div v-in-view="{ once: true }" class="col in-view">
-                        <div class="py-10 text-center fs-4 noto-serif-tc fw-bold lh-lg ani-entrance ani-entrance-0">
+                        <div
+                            class="py-10 text-center fs-4 noto-serif-tc fw-bold lh-lg ani-entrance ani-entrance-0"
+                        >
                             <p>不論你要找什麼樣的桌遊團？</p>
                             <p>這裡都有你的容身之處</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="bg-warning dot-bg" :style="{ backgroundImage: 'url(' + DotBg + ')' }">
+            <div
+                class="bg-warning dot-bg"
+                :style="{ backgroundImage: 'url(' + DotBg + ')' }"
+            >
                 <div></div>
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <div style="margin-top: -80px" :style="{
-        backgroundImage:
-            'url(' + ctaMessageBg + ')',
-    }" class="p-3 d-flex justify-content-center">
+                            <div
+                                style="margin-top: -80px"
+                                :style="{
+                                    backgroundImage:
+                                        'url(' + ctaMessageBg + ')',
+                                }"
+                                class="p-3 d-flex justify-content-center"
+                            >
                                 <img class="w-90" :src="ctaMessageImg" alt="" />
                             </div>
                         </div>
                     </div>
                     <div class="row py-3">
-                        <div class="col p-4 d-flex justify-content-center align-items-center flex-column gap-4">
-                            <img class="w-70 mx-auto" :src="ctaTextImg" alt="" />
+                        <div
+                            class="col p-4 d-flex justify-content-center align-items-center flex-column gap-4"
+                        >
+                            <img
+                                class="w-70 mx-auto"
+                                :src="ctaTextImg"
+                                alt=""
+                            />
                             <div v-in-view="{ once: true }" class="in-view">
-                                <router-link :to="{ name: 'EventList' }" type="button"
-                                    class="ani-entrance ani-entrance-0 find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2">
+                                <router-link
+                                    :to="{ name: 'EventList' }"
+                                    type="button"
+                                    class="ani-entrance ani-entrance-0 find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
+                                >
                                     <p class="pe-2">
                                         沙沙給油！找出屬於你的桌遊兵團！
                                     </p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="32"
+                                    >
                                         <title>chevron-right</title>
-                                        <path fill="#ffff"
-                                            d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                                        <path
+                                            fill="#ffff"
+                                            d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                                        />
                                     </svg>
                                 </router-link>
                             </div>

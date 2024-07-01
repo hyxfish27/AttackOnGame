@@ -1,16 +1,29 @@
 <template>
     <div class="col-6 col-lg-3 mb-3">
-        <div :style="{
-            '--bgImg': 'url(' + storeBgImage + ')',
-            '--bgHover': 'url(' + storeBgHover + ')',
-        }" class="position-relative card-wrap">
+        <div
+            :style="{
+                '--bgImg': 'url(' + storeBgImage + ')',
+                '--bgHover': 'url(' + storeBgHover + ')',
+            }"
+            class="position-relative card-wrap"
+        >
             <div
-                class="position-absolute inset-0 d-flex justify-content-center align-items-center flex-column px-4 pb-4 noto-serif-tc gap-2 w-100">
-                <img referrerpolicy="no-referrer" width="50%" height="23%"
-                    class="rounded-circle object-fit-cover mb-2 border" :src="storeImg" :alt="data.name"
-                    @error="handleErrorImage()" />
+                class="position-absolute inset-0 d-flex justify-content-center align-items-center flex-column px-4 pb-4 noto-serif-tc gap-2 w-100"
+            >
+                <img
+                    referrerpolicy="no-referrer"
+                    width="50%"
+                    height="23%"
+                    class="rounded-circle object-fit-cover mb-2 border"
+                    :src="storeImg"
+                    :alt="data.name"
+                    @error="handleErrorImage()"
+                />
 
-                <p class="fw-bold fs-8 line-clamp line-clamp-1" style="height: 27px; overflow: hidden">
+                <p
+                    class="fw-bold fs-8 line-clamp line-clamp-1"
+                    style="height: 27px; overflow: hidden"
+                >
                     {{ data.name }}
                 </p>
                 <div class="d-flex align-items-center noto-serif-tc gap-1">

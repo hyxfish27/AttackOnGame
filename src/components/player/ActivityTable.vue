@@ -50,17 +50,27 @@ const goTicket = (idNumber) => {
 </script>
 
 <template>
-    <div class="d-flex flex-column justify-content-between flex-grow-1 activity-page-table-wrap">
+    <div
+        class="d-flex flex-column justify-content-between flex-grow-1 activity-page-table-wrap"
+    >
         <!-- table -->
         <table class="table align-middle table-hover mt-3">
             <thead>
                 <tr>
-                    <th v-for="(title, index) in tableTitles" :key="index" scope="col">
+                    <th
+                        v-for="(title, index) in tableTitles"
+                        :key="index"
+                        scope="col"
+                    >
                         <p class="">{{ title }}</p>
                     </th>
                 </tr>
             </thead>
-            <EmptyTable v-if="activityList.length === 0" :length="tableTitles.length" text="目前還沒有相關的訂單唷"></EmptyTable>
+            <EmptyTable
+                v-if="activityList.length === 0"
+                :length="tableTitles.length"
+                text="目前還沒有相關的訂單唷"
+            ></EmptyTable>
             <tbody v-for="(value, index) in paginatedList" v-else :key="index">
                 <tr>
                     <td class="w-40">
@@ -72,28 +82,36 @@ const goTicket = (idNumber) => {
                             <div class="d-flex">
                                 <p>
                                     {{
-                        formatTime(
-                            value.eventStartTime,
-                            value.eventEndTime
-                        )
-                    }}
+                                        formatTime(
+                                            value.eventStartTime,
+                                            value.eventEndTime
+                                        )
+                                    }}
                                 </p>
                             </div>
                         </div>
                     </td>
                     <td width="100">
                         <div class="d-flex flex-column">
-                            <button type="button"
+                            <button
+                                type="button"
                                 class="btn btn-outline-dark btn-sm mb-2 d-flex align-items-center justify-content-between"
-                                @click="goTicket(value.idNumber)">
-                                <span class="material-symbols-outlined qrcode-style">
+                                @click="goTicket(value.idNumber)"
+                            >
+                                <span
+                                    class="material-symbols-outlined qrcode-style"
+                                >
                                     qr_code
                                 </span>
                                 <p class="flex-grow-1">
                                     前往 <span class="d-block">票券 </span>
                                 </p>
                             </button>
-                            <button v-if="value.status === '已使用'" type="button" class="btn btn-outline-dark btn-sm">
+                            <button
+                                v-if="value.status === '已使用'"
+                                type="button"
+                                class="btn btn-outline-dark btn-sm"
+                            >
                                 前往評價
                             </button>
                         </div>
@@ -107,20 +125,44 @@ const goTicket = (idNumber) => {
         </table>
         <nav v-if="activityList.length > 0">
             <ul class="pagination justify-content-end m-auto">
-                <li class="page-item me-3" :class="{ disabled: currentPage === 1 }">
-                    <a class="page-link" href="#" aria-label="Previous"
-                        @click.prevent="currentPage > 1 && currentPage--">
+                <li
+                    class="page-item me-3"
+                    :class="{ disabled: currentPage === 1 }"
+                >
+                    <a
+                        class="page-link"
+                        href="#"
+                        aria-label="Previous"
+                        @click.prevent="currentPage > 1 && currentPage--"
+                    >
                         <span aria-hidden="true">&lt;</span>
                     </a>
                 </li>
-                <li v-for="page in totalPages" :key="page" class="page-item" :class="{ active: page === currentPage }">
-                    <a class="page-link rounded me-3 border-dark" href="#" @click.prevent="currentPage = page">{{ page
-                        }}</a>
+                <li
+                    v-for="page in totalPages"
+                    :key="page"
+                    class="page-item"
+                    :class="{ active: page === currentPage }"
+                >
+                    <a
+                        class="page-link rounded me-3 border-dark"
+                        href="#"
+                        @click.prevent="currentPage = page"
+                        >{{ page }}</a
+                    >
                 </li>
-                <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-                    <a class="page-link" href="#" aria-label="Next" @click.prevent="
-                        currentPage < totalPages && currentPage++
-                        ">
+                <li
+                    class="page-item"
+                    :class="{ disabled: currentPage === totalPages }"
+                >
+                    <a
+                        class="page-link"
+                        href="#"
+                        aria-label="Next"
+                        @click.prevent="
+                            currentPage < totalPages && currentPage++
+                        "
+                    >
                         <span aria-hidden="true">&gt;</span>
                     </a>
                 </li>
