@@ -98,7 +98,6 @@
 import { onMounted } from 'vue';
 import { useFormStore } from '@/stores/order';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
 
 const orderStore = useFormStore();
 const { formData, paymentData } = orderStore;
@@ -113,7 +112,22 @@ const goBack = () => {
 
 const payment = async () => {
     try {
-        await axios.post(import.meta.env.VITE_PayGateWay, paymentData);
+        // await axios.post(import.meta.env.VITE_PayGateWay, paymentData);
+        const form = document.createElement('form');
+        form.action = import.meta.env.VITE_PayGateWay;
+        form.method = 'POST';
+
+        Object.keys(paymentData).forEach((key) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = paymentData[key];
+            form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
     } catch (error) {
         console.log(error);
     }
