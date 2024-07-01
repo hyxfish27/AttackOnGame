@@ -1,5 +1,5 @@
 <template>
-    <div class="loding-area backdrop-blur">
+    <div class="loding-area backdrop-blur loadingError">
         <div class="text-primary d-flex align-items-center">
             <div
                 class="py-3 px-4 bg-white shadow border h-30 d-flex align-items-center rounded-2"
@@ -16,7 +16,7 @@
     margin-left: 20px;
 }
 
-.loding-area {
+.loding-area.loadingError {
     top: 0;
     bottom: 0;
     left: 0;
