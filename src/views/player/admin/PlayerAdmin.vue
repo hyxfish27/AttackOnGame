@@ -2,7 +2,9 @@
     <div class="player-admin container full-screen-with-footer">
         <div class="d-flex justify-content-between h-100">
             <LeftEl class="player-admin_aside"></LeftEl>
-            <div class="player-admin__info player-admin_main border rounded bg-white">
+            <div
+                class="player-admin__info player-admin_main border rounded bg-white"
+            >
                 <h3 class="border-bottom border-1 mt-5 mb-3 pb-2 fs-6">
                     帳戶資訊
                 </h3>
@@ -31,31 +33,67 @@
 
                     <div class="mb-3">
                         <label for="name" class="form-label">姓名</label>
-                        <v-field id="name" v-model="formData.name" type="text" class="form-control" name="name"
-                            rules="required" :class="{ 'is-invalid': errors['name'] }" :disabled="!canEdit"></v-field>
-                        <error-message name="name" class="text-danger"></error-message>
+                        <v-field
+                            id="name"
+                            v-model="formData.name"
+                            type="text"
+                            class="form-control"
+                            name="name"
+                            rules="required"
+                            :class="{ 'is-invalid': errors['name'] }"
+                            :disabled="!canEdit"
+                        ></v-field>
+                        <error-message
+                            name="name"
+                            class="text-danger"
+                        ></error-message>
                     </div>
 
                     <div class="mb-3">
                         <label for="phone" class="form-label">電話</label>
-                        <v-field id="phone" v-model="formData.phone" type="text" class="form-control" name="phone"
-                            rules="required|min:10|max:10" :class="{ 'is-invalid': errors['phone'] }"
-                            :disabled="!canEdit"></v-field>
-                        <error-message name="phone" class="text-danger"></error-message>
+                        <v-field
+                            id="phone"
+                            v-model="formData.phone"
+                            type="text"
+                            class="form-control"
+                            name="phone"
+                            rules="required|min:10|max:10"
+                            :class="{ 'is-invalid': errors['phone'] }"
+                            :disabled="!canEdit"
+                        ></v-field>
+                        <error-message
+                            name="phone"
+                            class="text-danger"
+                        ></error-message>
                     </div>
 
                     <div class="mb-3">
                         <p>喜歡的桌遊</p>
-                        <div v-for="preferGameType in preferGameTypes" :key="preferGameType">
+                        <div
+                            v-for="preferGameType in preferGameTypes"
+                            :key="preferGameType"
+                        >
                             <label for="preferGame" class="form-label">
-                                <v-field v-model="formData.preferGame" type="checkbox" name="preferGame" class="mr-2"
-                                    :checked="formData.preferGame.includes(
-                    preferGameType
-                )
-                    " :value="preferGameType" :disabled="!canEdit"></v-field>{{ preferGameType }}
+                                <v-field
+                                    v-model="formData.preferGame"
+                                    type="checkbox"
+                                    name="preferGame"
+                                    class="mr-2"
+                                    :checked="
+                                        formData.preferGame.includes(
+                                            preferGameType
+                                        )
+                                    "
+                                    :value="preferGameType"
+                                    :disabled="!canEdit"
+                                ></v-field
+                                >{{ preferGameType }}
                             </label>
                         </div>
-                        <error-message name="preferGames" class="text-danger"></error-message>
+                        <error-message
+                            name="preferGames"
+                            class="text-danger"
+                        ></error-message>
                     </div>
 
                     <!-- <div class="mb-3">
@@ -75,11 +113,18 @@
                     </div> -->
 
                     <div class="section">
-                        <button class="btn btn-outline-primary mr-4" @click.prevent="toggleEditStatus">
+                        <button
+                            class="btn btn-outline-primary mr-4"
+                            @click.prevent="toggleEditStatus"
+                        >
                             {{ canEdit ? '編輯完成' : '編輯資料' }}
                         </button>
 
-                        <button type="submit" class="btn btn-primary mr-4" :disabled="canEdit">
+                        <button
+                            type="submit"
+                            class="btn btn-primary mr-4"
+                            :disabled="canEdit"
+                        >
                             儲存
                         </button>
 

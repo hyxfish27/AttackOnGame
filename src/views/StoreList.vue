@@ -2,19 +2,36 @@
     <div class="bg-greyF7 min-full-screen-with-footer cursor">
         <div class="container pb-5">
             <div class="row py-7 justify-content-center">
-                <div class="col-7 d-flex gap-2 border-bottom border-primary py-3 px-0 noto-serif-tc">
-                    <select id="selectCity" v-model="selectType"
-                        class="form-select w-25 bg-greyF7 border-0 fw-bold text-primary" required="">
+                <div
+                    class="col-7 d-flex gap-2 border-bottom border-primary py-3 px-0 noto-serif-tc"
+                >
+                    <select
+                        id="selectCity"
+                        v-model="selectType"
+                        class="form-select w-25 bg-greyF7 border-0 fw-bold text-primary"
+                        required=""
+                    >
                         <option value="searchEvent">尋找活動</option>
                         <option selected value="searchStore">尋找店家</option>
                     </select>
-                    <input id="validationCustom01" v-model="inputValue" type="text" class="form-control py-2"
-                        required="" placeholder="輸入關鍵字" />
+                    <input
+                        id="validationCustom01"
+                        v-model="inputValue"
+                        type="text"
+                        class="form-control py-2"
+                        required=""
+                        placeholder="輸入關鍵字"
+                    />
                 </div>
             </div>
             <div class="row">
-                <StoreCard v-for="data in filteredStore" :key="data.user" :data="data" class="col-6 col-lg-3 mb-3"
-                    @click="onStoreCardClick(data.user, data._id)"></StoreCard>
+                <StoreCard
+                    v-for="data in filteredStore"
+                    :key="data.user"
+                    :data="data"
+                    class="col-6 col-lg-3 mb-3"
+                    @click="onStoreCardClick(data.user, data._id)"
+                ></StoreCard>
             </div>
         </div>
     </div>
