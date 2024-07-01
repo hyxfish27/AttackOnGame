@@ -23,7 +23,7 @@
                 >
                 <div class="position-relative">
                     <span
-                        class="material-symbols-outlined position-absolute eyes-icon"
+                        class="material-symbols-outlined position-absolute eyes-icon fs-8 me-2"
                         @click="togglePasswordVisibility('password')"
                     >
                         {{
@@ -54,7 +54,7 @@
                 >
                 <div class="position-relative">
                     <span
-                        class="material-symbols-outlined position-absolute eyes-icon"
+                        class="material-symbols-outlined position-absolute eyes-icon fs-8 me-2"
                         @click="togglePasswordVisibility('confirmPassword')"
                     >
                         {{
@@ -165,6 +165,7 @@ onMounted(() => {
     transform: translate(-50%, -50%);
     cursor: pointer;
     color: #9f9f9f;
+
     &:hover {
         color: #0088cc;
     }
