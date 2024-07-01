@@ -5,11 +5,15 @@
 $header: calc(84px + 16px + 1px);
 $footer: calc(84px + 16px + 1px);
 
-.full-sceen-with-footer {
+.full-screen-with-footer {
   height: calc(100vh - $footer - $header);
 }
 
-.full-sceen-without-footer {
+.min-full-screen-with-footer {
+  min-height: calc(100vh - $footer - $header);
+}
+
+.full-screen-without-footer {
   height: calc(100vh - $header);
 }
 

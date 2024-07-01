@@ -30,11 +30,10 @@ configure({
 });
 // 設定預設語系 (如果上方設定很多語系，可以在此加入預設語系)
 setLocale('zh_TW');
-
 const app = createApp(App);
-
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
+
 // 註冊 vee-validate 三個全域元件
 app.component('VForm', Form);
 app.component('VField', Field);

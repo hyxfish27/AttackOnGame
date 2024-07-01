@@ -1,5 +1,5 @@
 <template class="">
-    <div class="bg-greyF7 event-list-wrap">
+    <div class="bg-greyF7 min-full-screen-with-footer">
         <div class="container pb-5">
             <div class="row py-7 justify-content-center">
                 <div
@@ -68,7 +68,7 @@ import EventAPI from '@/api/Event';
 import { onMounted, ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import _debounce from 'lodash/debounce';
-import EventPanel from '../components/event/eventPanel.vue';
+import EventPanel from '../components/event/EventPanel.vue';
 import { SORT_BY, SORT_ORDER } from '../constant/eventList';
 
 const SORT_BY_MAP = {
@@ -154,8 +154,4 @@ onMounted(() => {
     getEvent(query.value);
 });
 </script>
-<style>
-.event-list-wrap {
-    min-height: calc(100vh - 312px);
-}
-</style>
+<style></style>

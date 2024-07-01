@@ -106,5 +106,30 @@ const EventAPI = {
             throw error;
         }
     },
+    /**
+     * postEvent
+     * @param {String} title 活動名稱
+     * @param {String} description 活動介紹
+     * @param {String} eventStartTime 活動開始日期
+     * @param {String} eventEndTime 活動截止日期
+     * @param {String} registrationStartTime 報名開始日期
+     * @param {String} registrationEndTime 報名截止日期
+     * @param {Boolean} isFoodAllowed 是否可攜帶食物
+     * @param {Number} maxParticipants 最大參與人數
+     * @param {Number} minParticipants 最小/成團參與人數
+     * @param {Number} participationFee 票價
+     * @param {String} address 地址
+     * @param {String} eventImageUrl 圖片
+     * @description 店家新增活動
+     */
+    async postEvent(data) {
+        try {
+            const response = await Axios.post('/api/v1/event/', data);
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
 };
 export default EventAPI;

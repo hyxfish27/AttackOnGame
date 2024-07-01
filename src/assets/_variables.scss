@@ -40,7 +40,7 @@ $indigo: #6610f2 !default;
 $purple: #6f42c1 !default;
 $pink: #d63384 !default;
 $red: #dc3545 !default;
-$orange: #fd7e14 !default;
+$orange: #FF8025 !default;
 $yellow: #FFDD33 !default; //#ffc107 !default;
 $green: #44CC00 !default; //#198754 !default;
 $teal: #20c997 !default;
@@ -311,6 +311,7 @@ $theme-colors: (
   "secondary": $secondary,
   "success": $success,
   "info": $info,
+  "shop": $orange,
   "warning": $warning,
   "danger": $danger,
   "light": $light,

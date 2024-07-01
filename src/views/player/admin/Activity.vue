@@ -77,9 +77,7 @@ onMounted(() => {
                     <div v-if="loading" class="text-center mt-4">
                         <div class="spinner-border" role="status"></div>
                     </div>
-                    <p v-if="activityList.length === 0 && !loading">
-                        目前沒有訂單唷！
-                    </p>
+
                     <ActivityButtonGroup
                         v-if="!loading"
                         :status-list="statusList"
@@ -88,7 +86,7 @@ onMounted(() => {
                     />
 
                     <ActivityTable
-                        v-if="activityList.length > 0 && !loading"
+                        v-if="!loading"
                         :activity-list="filteredActivityList"
                     />
                 </div>

@@ -89,7 +89,7 @@ import { useRoute } from 'vue-router';
 import EventAPI from '@/api/Event';
 import StoreAPI from '@/api/Store';
 import { selectStoreData } from '@/stores/selectStore';
-import EventPanel from '@/components/event/eventPanel.vue';
+import EventPanel from '@/components/event/EventPanel.vue';
 
 const route = useRoute();
 
@@ -112,11 +112,10 @@ onMounted(() => {
     userId.value = route.params.userId;
 
     StoreAPI.get(selectTheStore.selectStore._id).then((response) => {
-        console.log('apiiii', response);
         storeViewObject.value = response.data.data;
     });
 
-    EventAPI.getStoreEvent(userId.value).then((response) => {
+    EventAPI.getStoreEvent(selectTheStore.selectStore._id).then((response) => {
         eventCards.value = response.data.data;
     });
 });

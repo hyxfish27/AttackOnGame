@@ -5,7 +5,7 @@
             :class="{ 'loading-fade': !isLoading }"
         ></Loading>
         <div
-            class="full-sceen-without-footer d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
+            class="full-screen-without-footer d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
             :style="{
                 backgroundImage: 'url(' + bennerBg + ')',
             }"
