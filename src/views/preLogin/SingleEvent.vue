@@ -1,66 +1,50 @@
 <template>
     <div class="single-event container-fluid positon-relative lh-lg">
-        <Loading
-            v-if="isLoading"
-            :class="{ 'loading-fade': !isLoading }"
-        ></Loading>
+        <Loading v-if="isLoading" :class="{ 'loading-fade': !isLoading }"></Loading>
         <div class="container py-4">
             <div class="row">
                 <div class="col-8">
                     <div class="event-image mb-4 rounded-2">
-                        <img
-                            ref="image"
-                            referrerpolicy="no-referrer"
-                            class="w-100 inset-0 object-fit-cover rounded-2"
-                            :src="eventData.eventImageUrl"
-                            :alt="eventData.title"
-                        />
+                        <img ref="image" referrerpolicy="no-referrer" class="w-100 inset-0 object-fit-cover rounded-2"
+                            :src="eventData.eventImageUrl" :alt="eventData.title" />
                     </div>
                     <div class="event-description mb-4">
                         <div class="sub-title_wrap">
                             <h2
-                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0"
-                            >
+                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0">
                                 詳細內容
                             </h2>
                         </div>
                         <p class="mt-4">{{ eventData.description }}</p>
                     </div>
                     <div class="event-store">
-                        <div
-                            class="event-store-card bg-greyF7 border-1 border border-grey rounded-2 p-4"
-                        >
-                            <p
-                                class="fw-bold pb-2 border-bottom border-2 border-greyD3"
-                            >
+                        <div class="event-store-card bg-greyF7 border-1 border border-grey rounded-2 p-4">
+                            <p class="fw-bold pb-2 border-bottom border-2 border-greyD3">
                                 店家資料
                             </p>
-                            <div class="d-flex mt-2 align-items-center">
-                                <div
-                                    class="icon-img_wrap icon-img_wrap-large round"
-                                >
-                                    <img
-                                        referrerpolicy="no-referrer"
-                                        class="w-100"
-                                        :src="storeData.avatar"
-                                        :alt="storeData.name"
-                                    />
+                            <div class="d-flex mt-4 align-items-center">
+                                <div class="img-wrap round">
+                                    <img referrerpolicy="no-referrer" class="w-100" :src="storeData.avatar"
+                                        :alt="storeData.name" />
                                 </div>
                                 <div class="">
                                     <h3 class="fz-6 fw-bold">
                                         {{ storeData.name }}
                                     </h3>
-
-                                    <p>{{ storeData.address }}</p>
-                                    <p>{{ storeData.introduce }}</p>
-                                    <!-- <router-link
-                                        v-if="storeData"
-                                        :to="{
-                                            name: 'StoreIntroduction',
-                                            params: { userId: storeData._id },
-                                        }"
-                                        >前往店家詳情頁面</router-link
-                                    > -->
+                                    <p class="line-clamp line-clamp-3">
+                                        {{ storeData.introduce }}
+                                    </p>
+                                    <div class="d-flex align-items-center justify-content-end">
+                                        <span class="material-symbols-outlined text-primary">
+                                            double_arrow
+                                        </span>
+                                        <router-link v-if="storeData && storeData._id" class="link text-primary" :to="{
+            name: 'StoreIntroduction',
+            params: {
+                userId: storeData._id,
+            },
+        }">查看詳情</router-link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -69,27 +53,29 @@
                     <div class="event-description mt-4">
                         <div class="sub-title_wrap">
                             <h2
-                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0"
-                            >
-                                活動答疑區
+                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0">
+                                地理位置
                             </h2>
                         </div>
-                        <p class="mt-4">{{ eventData.description }}</p>
+                        <div class="d-flex mt-4 mb-4 align-items-center">
+                            <span class="fz-6 material-symbols-outlined text-greyD4 mr-2">
+                                location_on
+                            </span>
+                            <p>{{ eventData.address }}</p>
+                        </div>
+                        <Location :location-data="locationData"></Location>
                     </div>
                 </div>
                 <div class="col-4 position-sticky top-0">
                     <div class="event-header mb-4">
-                        <div
-                            class="fw-bold py-1 px-2 d-inline-block"
-                            :class="eventPrograss.bgcColor"
-                        >
+                        <div class="fw-bold py-1 px-2 d-inline-block" :class="eventPrograss.bgcColor">
                             {{ eventPrograss.text }}
                         </div>
                         <h3 class="fz-6 fw-bold my-2">{{ eventData.title }}</h3>
                         <div class="d-flex mb-2 align-items-center">
-                            <div class="icon-img_wrap icon-img_wrap-small mr-2">
-                                <img :src="pinIcon" class="w-100" />
-                            </div>
+                            <span class="fz-6 material-symbols-outlined text-greyD4 mr-2">
+                                location_on
+                            </span>
                             <p class="">{{ eventData.address }}</p>
                         </div>
                         <div class="shape bg-greyE9">
@@ -98,31 +84,25 @@
                         <div class=""></div>
                     </div>
                     <div class="event-info">
-                        <div
-                            class="event-info__card border border-grey66 p-3 pt-0 rounded-2 bg-white"
-                        >
+                        <div class="event-info__card border border-grey66 p-3 pt-0 rounded-2 bg-white">
                             <!-- TODO: 補上 icon -->
-                            <p
-                                class="bg-greyE9 fw-bold pt-1 pb-2 px-2 mb-2 d-inline-block rounded-bottom-2"
-                            >
+                            <p class="bg-greyE9 fw-bold pt-1 pb-2 px-2 mb-2 d-inline-block rounded-bottom-2">
                                 活動模式
                             </p>
 
                             <div class="d-flex mb-2 align-items-center">
-                                <div class="icon-img_wrap mr-2">
-                                    <img :src="moneyIcon" class="w-100" />
-                                </div>
+                                <span class="material-symbols-outlined icon-48 text-greyD4 mr-2">
+                                    paid
+                                </span>
                                 <div>
                                     <h3 class="fz-6 fw-bold mb-1 text-primary">
                                         {{
-                                            toLocalString(
-                                                eventData.participationFee
-                                            )
-                                        }}
+            toLocalString(
+                eventData.participationFee
+            )
+        }}
                                         NT
-                                        <span class="fz-4 text-dark"
-                                            >/ 活動費用</span
-                                        >
+                                        <span class="fz-4 text-dark">/ 活動費用</span>
                                     </h3>
                                     <p>
                                         參與活動所需的費用，可能包含場地、材料等各種成本。
@@ -133,16 +113,16 @@
                             <hr class="bg-greyE9" />
 
                             <div class="d-flex mb-2 align-items-center">
-                                <div class="icon-img_wrap mr-2">
-                                    <img :src="foodIcon" class="w-100" />
-                                </div>
+                                <span class="material-symbols-outlined icon-48 text-greyD4 mr-2">
+                                    fastfood
+                                </span>
                                 <div>
                                     <h3 class="fz-6 text-primary fw-bold mb-1">
                                         {{
-                                            eventData.isFoodAllowed
-                                                ? '可'
-                                                : '不可'
-                                        }}<span class="text-dark">帶外食</span>
+                eventData.isFoodAllowed
+                    ? '可'
+                    : '不可'
+            }}<span class="text-dark">帶外食</span>
                                     </h3>
                                     <p>
                                         關於參與者是否可以攜帶外部食物到活動場地的規定。
@@ -151,9 +131,9 @@
                             </div>
 
                             <div class="d-flex mb-2 align-items-center">
-                                <div class="icon-img_wrap mr-2">
-                                    <img :src="minPeopleIcon" class="w-100" />
-                                </div>
+                                <span class="material-symbols-outlined icon-48 text-greyD4 mr-2">
+                                    person_remove
+                                </span>
                                 <div>
                                     <h3 class="fz-6 fw-bold mb-1">
                                         最低人數
@@ -164,9 +144,9 @@
                             </div>
 
                             <div class="d-flex mb-2 align-items-center">
-                                <div class="icon-img_wrap mr-2">
-                                    <img :src="maxPeopleIcon" class="w-100" />
-                                </div>
+                                <span class="material-symbols-outlined icon-48 text-greyD4 mr-2">
+                                    person_add
+                                </span>
                                 <div>
                                     <h3 class="fz-6 fw-bold mb-1">
                                         最高人數
@@ -181,24 +161,18 @@
                             <div class="d-flex mb-2"></div>
                             <div class="d-flex mb-2"></div>
 
-                            <button
-                                v-if="userRole !== 'store'"
-                                :disabled="
-                                    isEventClosed || isEventUnregiistable
-                                "
-                                class="btn btn-primary w-100"
-                                :data-test="eventData.idNumber"
-                                @click="goCheckout(eventData.idNumber)"
-                            >
+                            <button :disabled="isEventClosed ||
+            isEventUnregiistable ||
+            isShopper
+            " class="btn btn-primary w-100" :data-test="eventData.idNumber"
+                                @click="goCheckout(eventData.idNumber)">
                                 我要報名
                             </button>
 
                             <div class="d-flex mt-2 align-items-center">
-                                <div
-                                    class="icon-img_wrap icon-img_wrap-small mr-2"
-                                >
-                                    <img :src="timeIcon" class="w-100" />
-                                </div>
+                                <span class="material-symbols-outlined fz-6 text-greyD4 mr-2">
+                                    date_range
+                                </span>
                                 <p>截止時間： {{ eventData.eventEndTime }}</p>
                             </div>
                         </div>
@@ -217,31 +191,26 @@ import { onMounted, ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import EventAPI from '@/api/Event';
 import StoreAPI from '@/api/Store';
-import foodIcon from '@/assets/images/event/food.png';
-import minPeopleIcon from '@/assets/images/event/min_people.png';
-import moneyIcon from '@/assets/images/event/money.png';
-import timeIcon from '@/assets/images/event/time.png';
-import maxPeopleIcon from '@/assets/images/event/max_people.png';
-import pinIcon from '@/assets/images/event/pin.png';
 import dayjs from '@/utilities/dayjs';
 import Loading from '@/components/common/Loading.vue';
+import Location from '@/components/event/Location.vue';
 import useIndexStore from '@/stores/index';
 
 const route = useRoute();
 
 const eventData = ref({});
-
+const locationData = ref({});
 const storeData = ref({});
 
 const isLoading = ref(true);
-const userRole = useIndexStore().userData.role;
+const isShopper = useIndexStore().userData.role === 'store';
 
 const getEvent = async (eventId) => {
     await EventAPI.getEvent(eventId)
         .then((response) => {
             eventData.value = response.data.data.event;
             storeData.value = response.data.data.store;
-
+            locationData.value = response.data.data.event.location;
             console.log(response);
         })
         .catch((err) => {
@@ -291,7 +260,6 @@ const eventPrograss = computed(() => {
 const router = useRouter();
 const goCheckout = (eventId) => {
     router.push({ name: 'Checkout', params: { eventId } });
-    console.log('store');
 };
 
 onMounted(() => {
@@ -306,64 +274,70 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.shape {
-    padding-left: 8px;
-    width: 120px;
-    height: 1.5rem;
-    clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
-}
-
-.fz-6 {
-    font-size: 24px;
-}
-
-.fz-4 {
-    font-size: 16px;
-}
-
-.round {
-    border-radius: 50%;
-}
-
-.icon-img_wrap {
-    flex-shrink: 0;
-    overflow: hidden;
-    margin-right: 8px;
-    width: 50px;
-    height: 50px;
-
-    &.icon-img_wrap-small {
-        width: 25px;
-        height: 25px;
+.single-event {
+    .shape {
+        padding-left: 8px;
+        width: 120px;
+        height: 1.5rem;
+        clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
     }
 
-    &.icon-img_wrap-large {
+    .mr-2 {
+        margin-right: 8px;
+    }
+
+    .icon-48 {
+        font-size: 48px;
+    }
+
+    .fz-6 {
+        font-size: 24px;
+    }
+
+    .fz-4 {
+        font-size: 16px;
+    }
+
+    .round {
+        border-radius: 50%;
+    }
+
+    .link {
+        display: block;
+        text-align: end;
+        text-decoration: none;
+    }
+
+    .sub-title_wrap {
+        position: relative;
+
+        .sub-title {
+            position: relative;
+            z-index: 2;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0px;
+            width: 100%;
+            border-bottom: 2px solid #d4d4d4;
+        }
+    }
+
+    .img-wrap {
+        flex-shrink: 0;
+        overflow: hidden;
+        margin-right: 8px;
         width: 150px;
         height: 150px;
-    }
 
-    img {
-        min-width: 100%;
-        min-height: 100%;
-        object-fit: cover;
-    }
-}
-
-.sub-title_wrap {
-    position: relative;
-
-    .sub-title {
-        position: relative;
-        z-index: 2;
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0px;
-        width: 100%;
-        border-bottom: 2px solid #d4d4d4;
+        img {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
     }
 }
 

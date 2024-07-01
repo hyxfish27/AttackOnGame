@@ -36,5 +36,17 @@ import Logo from '@/assets/images/img_logo.png';
         color: #d4d4d4;
         font-size: 1rem;
     }
+
+    padding: 8px 0;
+    background-color: #333333;
+
+    .img-wrap {
+        height: 84px;
+    }
+
+    .text {
+        color: #d4d4d4;
+        font-size: 1rem;
+    }
 }
 </style>

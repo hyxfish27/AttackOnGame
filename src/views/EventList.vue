@@ -1,35 +1,21 @@
 <template class="">
-    <div class="bg-greyF7 event-list-wrap">
+    <div class="bg-greyF7 min-full-screen-with-footer">
         <div class="container pb-5">
             <div class="row py-7 justify-content-center">
-                <div
-                    class="col-7 d-flex gap-2 border-bottom border-primary py-3 px-0 noto-serif-tc"
-                >
-                    <select
-                        id="selectCity"
-                        v-model="selectedType"
-                        class="form-select w-25 bg-greyF7 border-0 fw-bold text-primary"
-                        required=""
-                    >
+                <div class="col-7 d-flex gap-2 border-bottom border-primary py-3 px-0 noto-serif-tc">
+                    <select id="selectCity" v-model="selectedType"
+                        class="form-select w-25 bg-greyF7 border-0 fw-bold text-primary" required="">
                         <option selected value="searchEvent">尋找活動</option>
                         <option value="searchStore">尋找店家</option>
                     </select>
-                    <input
-                        id="validationCustom01"
-                        v-model="inputValue"
-                        type="text"
-                        class="form-control py-2"
-                        placeholder="輸入關鍵字"
-                    />
+                    <input id="validationCustom01" v-model="inputValue" type="text" class="form-control py-2"
+                        placeholder="輸入關鍵字" />
                 </div>
             </div>
             <div class="d-flex justify-content-between border-bottom">
                 <div class="border-bottom border-primary">
-                    <select
-                        id="selectStatus"
-                        v-model="selectedStatus"
-                        class="form-select bg-greyF7 border-0 fw-bold text-primary"
-                    >
+                    <select id="selectStatus" v-model="selectedStatus"
+                        class="form-select bg-greyF7 border-0 fw-bold text-primary">
                         <option selected :value="0">全部狀態</option>
                         <option :value="1">未成團</option>
                         <option :value="2">已成團</option>
@@ -37,11 +23,7 @@
                     </select>
                 </div>
                 <div class="">
-                    <button
-                        type="submit"
-                        class="btn btn-primary mb-2"
-                        @click="changeSortBy"
-                    >
+                    <button type="submit" class="btn btn-primary mb-2" @click="changeSortBy">
                         排序按照： {{ sortBy.text }}
                     </button>
                 </div>
@@ -53,11 +35,7 @@
                 <p>{{ errorMessage }}</p>
             </div>
             <div v-if="rawEventData.length > 0">
-                <EventPanel
-                    class="mt-4"
-                    :data="rawEventData"
-                    :keywords="keywords"
-                ></EventPanel>
+                <EventPanel class="mt-4" :data="rawEventData" :keywords="keywords"></EventPanel>
             </div>
         </div>
     </div>
@@ -68,7 +46,7 @@ import EventAPI from '@/api/Event';
 import { onMounted, ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import _debounce from 'lodash/debounce';
-import EventPanel from '../components/event/eventPanel.vue';
+import EventPanel from '../components/event/EventPanel.vue';
 import { SORT_BY, SORT_ORDER } from '../constant/eventList';
 
 const SORT_BY_MAP = {
@@ -154,8 +132,4 @@ onMounted(() => {
     getEvent(query.value);
 });
 </script>
-<style>
-.event-list-wrap {
-    min-height: calc(100vh - 312px);
-}
-</style>
+<style></style>
