@@ -8,21 +8,11 @@
             <div
                 class="col-8 bg-white p-4 border rounded-3 noto-serif-tc lh-lg position-relative"
             >
-                <router-link
+                <RollBack
                     v-if="store && store._id"
-                    class="btn btn-outline-primary float-end mt-2"
-                    :to="{
-                        name: 'PlayerActivity',
-                    }"
-                >
-                    <div class="d-flex align-items-center">
-                        <span class="material-symbols-outlined fs-9 pe-1">
-                            reply
-                        </span>
-                        <p>返回上頁</p>
-                    </div>
-                </router-link>
-
+                    class="mt-2"
+                    :route-link="{ name: 'PlayerActivity', params: {} }"
+                ></RollBack>
                 <div class="px-4 pb-3">
                     <p class="fw-bold fs-6">
                         {{ event.title }}
@@ -165,6 +155,7 @@ import toLocalString from '@/utilities/toLocalString';
 import formatTaiwanPhoneNumber from '@/utilities/formatTaiwanPhoneNumber';
 import { PaymentStatus, PaymentMethod } from '@/constant/orderStatus';
 import useAlert from '@/stores/alert';
+import RollBack from '@/components/common/rollBack.vue';
 
 const alterStore = useAlert();
 const isLoading = ref(true);
