@@ -18,14 +18,16 @@
                 <p>{{ errorMessage }}</p>
             </div>
             <div v-if="data.length > 0" class="row">
-                <StoreCard
-                    v-for="store in data"
-                    :key="store.user"
-                    :data="store"
-                    class="col-6 col-lg-3 mb-3 ani-entrance ani-entrance-2"
-                    @click="onStoreCardClick(store.user)"
-                >
-                </StoreCard>
+                <Swiper :data="data" class="ani-entrance ani-entrance-2">
+                    <template #slideContent="{ slide }">
+                        <StoreCard
+                            :data="slide"
+                            css-style="w-100"
+                            @click="onStoreCardClick(store.user)"
+                        >
+                        </StoreCard>
+                    </template>
+                </Swiper>
             </div>
         </div>
     </div>
@@ -36,6 +38,7 @@ import { defineProps } from 'vue';
 import StoreCard from '@/components/store/storeCard.vue';
 import { useRouter } from 'vue-router';
 import vInView from '@/directives/observeInView';
+import Swiper from '@/components/index/swiperPanel.vue';
 import TitlePanel from './titlePanel.vue';
 
 defineProps({

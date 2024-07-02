@@ -1,5 +1,5 @@
 <template>
-    <div class="col-6 col-lg-3 mb-3">
+    <div :class="cssStyle">
         <div
             :style="{
                 '--bgImg': 'url(' + storeBgImage + ')',
@@ -47,6 +47,10 @@ const { data } = defineProps({
     data: {
         type: Object,
         default: () => ({}),
+    },
+    cssStyle: {
+        type: String,
+        default: 'col-6 col-lg-3 mb-3',
     },
 });
 const storeImg = computed(() => {

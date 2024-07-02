@@ -14,19 +14,21 @@
             <div v-if="errorMessage.split()" class="text-center mt-4">
                 <p>{{ errorMessage }}</p>
             </div>
-            <div class="ani-entrance ani-entrance-2">
-                <TitleCardList
-                    v-if="data.length > 0"
-                    :data="data"
-                ></TitleCardList>
+            <div v-if="data.length > 0" class="ani-entrance ani-entrance-2">
+                <Swiper :data="data">
+                    <template #slideContent="{ slide }">
+                        <Card :data="slide" css-style="w-100"></Card>
+                    </template>
+                </Swiper>
             </div>
         </div>
     </div>
 </template>
 <script setup>
-import TitleCardList from '@/components/event/EventPanel.vue';
+import Card from '@/components/event/EventCard.vue';
 import { defineProps } from 'vue';
 import vInView from '@/directives/observeInView';
+import Swiper from '@/components/index/swiperPanel.vue';
 import TitlePanel from './titlePanel.vue';
 
 defineProps({
