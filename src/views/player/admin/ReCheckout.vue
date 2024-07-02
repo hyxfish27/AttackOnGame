@@ -125,6 +125,10 @@ const payment = async () => {
             form.appendChild(input);
         });
 
+        const button = document.createElement('button');
+        button.type = 'submit';
+        form.appendChild(button);
+
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);

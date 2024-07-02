@@ -217,14 +217,26 @@ const formData = ref({
 });
 const orderStore = useFormStore();
 const router = useRouter();
+
+const createPayment = async (orderId) => {
+    try {
+        const res = await PlayerAPI.createPayment({
+            orderId,
+        });
+        orderStore.updatePaymentData(res.data);
+        router.push({
+            name: 'ReCheckout',
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 const postOrder = async (formdata) => {
     await PlayerAPI.postOrder(formdata)
         .then((res) => {
             console.log(res);
-            orderStore.updatePaymentData(res.data);
-            router.push({
-                name: 'ReCheckout',
-            });
+            createPayment(res.data.idNumber);
         })
         .catch((err) => {
             if (err.response.data.message.includes('E11000')) {
@@ -237,6 +249,7 @@ const postOrder = async (formdata) => {
             }
         });
 };
+
 const onSubmitSuccess = () => {
     formData.value.payPrice =
         Number(formData.value.personNum) *

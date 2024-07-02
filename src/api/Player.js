@@ -114,7 +114,7 @@ const PlayerAPI = {
         note,
     }) {
         try {
-            const response = await Axios.post('/api/v1/payment', {
+            const response = await Axios.post('/api/v1/order', {
                 eventId,
                 payment,
                 discount,
@@ -123,7 +123,7 @@ const PlayerAPI = {
                 registrationCount,
                 note,
             });
-            return response;
+            return response.data;
         } catch (error) {
             console.error(error);
             throw error;
@@ -138,6 +138,16 @@ const PlayerAPI = {
         try {
             const response = await Axios.get(`/api/v1/order/${idNumber}`);
             return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+
+    async createPayment(data) {
+        try {
+            const response = await Axios.post('/api/v1/payment', data);
+            return response.data;
         } catch (error) {
             console.error(error);
             throw error;
