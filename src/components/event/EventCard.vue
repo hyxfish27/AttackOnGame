@@ -4,12 +4,13 @@
             <div class="position-relative pt-150per event-card-img-wrap">
                 <div
                     class="py-1 px-2 z-1 position-absolute top-0 fs-10 noto-serif-tc"
-                    :class="computedEventData.tagcolor"
+                    :class="computedEventData.tagColor"
                 >
                     <p>{{ computedEventData.status }}</p>
                 </div>
                 <img
                     ref="image"
+                    referrerpolicy="no-referrer"
                     class="w-100 h-100 inset-0 object-fit-cover position-absolute"
                     :src="computedEventData.eventImageUrl"
                     :alt="computedEventData.title"
@@ -51,19 +52,9 @@
                     NT$ {{ computedEventData.participationFee }}
                 </p>
                 <div class="d-flex text-grey66 align-items-center gap-2">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        width="24"
-                    >
-                        <title>map-marker-radius</title>
-                        <path
-                            fill="#666666"
-                            d="M12,2C15.31,2 18,4.66 18,7.95C18,12.41 12,19 12,19C12,19 6,12.41 6,7.95C6,4.66 8.69,2 12,2M12,6A2,2 0 0,0 10,8A2,2 0 0,0 12,10A2,2 0 0,0 14,8A2,2 0 0,0 12,6M20,19C20,21.21 16.42,23 12,23C7.58,23 4,21.21 4,19C4,17.71 5.22,16.56 7.11,15.83L7.75,16.74C6.67,17.19 6,17.81 6,18.5C6,19.88 8.69,21 12,21C15.31,21 18,19.88 18,18.5C18,17.81 17.33,17.19 16.25,16.74L16.89,15.83C18.78,16.56 20,17.71 20,19Z"
-                        />
-                    </svg>
-
+                    <span class="material-symbols-outlined"> location_on </span>
                     <p class="noto-serif-tc fs-10 letter-spacing-1">
+                        {{ computedEventData.city }}
                         {{ computedEventData.district }}
                     </p>
                 </div>
@@ -103,14 +94,15 @@ const computedEventData = computed(() => {
     const status = setEventAttr(props.data);
     return {
         status: STATUS_MAP[status].text,
-        tagcolor: STATUS_MAP[status].tagcolor,
+        tagColor: STATUS_MAP[status].tagColor,
         barColor: STATUS_MAP[status].barColor,
         eventTime: `${dayjs(props.data.eventStartTime).format('YYYY-MM-DD HH:mm')} - ${dayjs(props.data.eventEndTime).format('HH:mm')}`,
         title: props.data.title,
         currentParticipantsCount: props.data.currentParticipantsCount,
         maxParticipants: props.data.maxParticipants,
         participationFee: toLocalString(props.data.participationFee),
-        district: props.data.address.slice(0, 6),
+        city: props.data.location.city,
+        district: props.data.location.district,
         eventImageUrl: props.data.eventImageUrl[0],
     };
 });

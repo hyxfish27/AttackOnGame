@@ -1,6 +1,6 @@
 <template>
     <div
-        class="full-sceen-with-footer bg-greyF7 login-register-role-switcher_wrap"
+        class="full-screen-with-footer bg-greyF7 login-register-role-switcher_wrap"
     >
         <div
             class="container d-flex h-100 login-register-role-switcher_panel justify-content-between"
@@ -12,7 +12,11 @@
                     <div
                         class="img-wrap store-icon mb-2 d-flex justify-content-center align-items-center"
                     >
-                        <img :src="storeIcon" alt="" />
+                        <img
+                            :src="storeIcon"
+                            alt=""
+                            referrerpolicy="no-referrer"
+                        />
                     </div>
                     <div
                         class="d-flex flex-column justify-content-center align-items-center"

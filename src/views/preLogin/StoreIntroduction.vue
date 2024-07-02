@@ -11,6 +11,7 @@
                             :style="{ height: '300px' }"
                         >
                             <img
+                                referrerpolicy="no-referrer"
                                 class="w-100 inset-0 object-fit-cover rounded-top-4"
                                 height="300px"
                                 :src="storeViewObject.avatar"
@@ -19,6 +20,7 @@
                         <div class="banner__content row p-4">
                             <div class="col-3 col-lg-2">
                                 <img
+                                    referrerpolicy="no-referrer"
                                     width="160px"
                                     height="160px"
                                     class="rounded-circle object-fit-cover mb-2 border"
@@ -87,7 +89,7 @@ import { useRoute } from 'vue-router';
 import EventAPI from '@/api/Event';
 import StoreAPI from '@/api/Store';
 import { selectStoreData } from '@/stores/selectStore';
-import EventPanel from '@/components/event/eventPanel.vue';
+import EventPanel from '@/components/event/EventPanel.vue';
 
 const route = useRoute();
 
@@ -110,11 +112,10 @@ onMounted(() => {
     userId.value = route.params.userId;
 
     StoreAPI.get(selectTheStore.selectStore._id).then((response) => {
-        console.log('apiiii', response);
         storeViewObject.value = response.data.data;
     });
 
-    EventAPI.getStoreEvent(userId.value).then((response) => {
+    EventAPI.getStoreEvent(selectTheStore.selectStore._id).then((response) => {
         eventCards.value = response.data.data;
     });
 });

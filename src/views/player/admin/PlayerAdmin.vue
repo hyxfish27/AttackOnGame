@@ -1,5 +1,5 @@
 <template>
-    <div class="player-admin container full-sceen-with-footer">
+    <div class="player-admin container full-screen-with-footer">
         <div class="d-flex justify-content-between h-100">
             <LeftEl class="player-admin_aside"></LeftEl>
             <div
@@ -96,7 +96,7 @@
                         ></error-message>
                     </div>
 
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="avatar" class="form-label">上傳頭像</label>
                         <input
                             id="avatar"
@@ -110,7 +110,7 @@
                             name="avatar"
                             class="text-danger"
                         ></error-message>
-                    </div>
+                    </div> -->
 
                     <div class="section">
                         <button
@@ -143,12 +143,15 @@ import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate';
 import PlayerAPI from '@/api/Player';
 import useIndexStore from '@/stores/index';
 import LeftEl from '@/components/player/PlayerLeftEl.vue';
+import useAlert from '@/stores/alert';
 
 const playerSchema = yup.object({
     name: yup.string().required('姓名為必填欄位'),
     email: yup.string().required().email(),
     phone: yup.string().required().min(10).max(10),
 });
+
+const alterStore = useAlert();
 
 export default defineComponent({
     components: {
@@ -169,18 +172,19 @@ export default defineComponent({
         });
 
         const playerData = computed(() => indexStore.playerData);
+        const userData = computed(() => indexStore.userData);
         const canEdit = ref(false);
 
         const onSubmit = async (playerInfo) => {
             try {
                 await PlayerAPI.update({
-                    userId: playerData.value.id,
+                    userId: userData.value.id,
                     ...playerInfo,
                 });
-                alert('更新成功');
-                indexStore.getPlayer(playerData.value.id);
+                alterStore.openModal('success', '更新成功');
+                indexStore.getPlayer(userData.value.id);
             } catch (error) {
-                alert(`更新失敗: ${error}`);
+                alterStore.openModal('error', `更新失敗: ${error}`);
             }
         };
 

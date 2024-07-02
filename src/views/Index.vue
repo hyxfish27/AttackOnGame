@@ -1,7 +1,11 @@
 <template>
-    <div style="background-color: #ffff" :class="{ fixed: !showContent }">
+    <div style="background-color: #ffff" :class="{ fixed: !isContentDisplay }">
+        <Loading
+            v-if="isLoading && isContentDisplay"
+            :class="{ 'loading-fade': !isLoading }"
+        ></Loading>
         <div
-            class="full-sceen-without-footer d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
+            class="full-screen-without-footer d-flex align-items-center bg-yellow-light banner-bg-style align-items-center justify-content-center"
             :style="{
                 backgroundImage: 'url(' + bennerBg + ')',
             }"
@@ -42,9 +46,15 @@
                 </div>
             </div>
         </div>
-        <div v-if="showContent" :ref="otherContent">
-            <EventPanel></EventPanel>
-            <ShopPanel></ShopPanel>
+        <div v-if="isContentDisplay" :ref="otherContent">
+            <EventPanel
+                :error-message="errorMessage"
+                :data="eventData"
+            ></EventPanel>
+            <ShopPanel
+                :error-message="errorMessage"
+                :data="storeData"
+            ></ShopPanel>
             <div class="container">
                 <div
                     class="row"
@@ -55,9 +65,9 @@
                         background-repeat: no-repeat;
                     "
                 >
-                    <div class="col">
+                    <div v-in-view="{ once: true }" class="col in-view">
                         <div
-                            class="py-10 text-center fs-4 noto-serif-tc fw-bold lh-lg"
+                            class="py-10 text-center fs-4 noto-serif-tc fw-bold lh-lg ani-entrance ani-entrance-0"
                         >
                             <p>不論你要找什麼樣的桌遊團？</p>
                             <p>這裡都有你的容身之處</p>
@@ -94,26 +104,28 @@
                                 :src="ctaTextImg"
                                 alt=""
                             />
-                            <router-link
-                                :to="{ name: 'EventList' }"
-                                type="button"
-                                class="find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
-                            >
-                                <p class="pe-2">
-                                    沙沙給油！找出屬於你的桌遊兵團！
-                                </p>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    width="32"
+                            <div v-in-view="{ once: true }" class="in-view">
+                                <router-link
+                                    :to="{ name: 'EventList' }"
+                                    type="button"
+                                    class="ani-entrance ani-entrance-0 find-btn d-flex align-items-center fs-6 fw-bold py-3 px-4 noto-serif-tc btn btn-primary border border-black d-inline-block border-2"
                                 >
-                                    <title>chevron-right</title>
-                                    <path
-                                        fill="#ffff"
-                                        d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
-                                    />
-                                </svg>
-                            </router-link>
+                                    <p class="pe-2">
+                                        沙沙給油！找出屬於你的桌遊兵團！
+                                    </p>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="32"
+                                    >
+                                        <title>chevron-right</title>
+                                        <path
+                                            fill="#ffff"
+                                            d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                                        />
+                                    </svg>
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -134,13 +146,20 @@ import ctaTextImg from '@/assets/images/index_cta_text_img.svg';
 import EventPanel from '@/components/index/eventPanel.vue';
 import ShopPanel from '@/components/index/shopPanel.vue';
 import UserAccessPanel from '@/components/index/UserAccessPanel.vue';
-import { ref, nextTick } from 'vue';
+import { onMounted, ref, nextTick } from 'vue';
+import EventAPI from '@/api/Event';
+import vInView from '@/directives/observeInView';
+import Loading from '@/components/common/Loading.vue';
 
-const showContent = ref(false);
+const storeData = ref([]);
+const eventData = ref([]);
+const isLoading = ref(true);
+const errorMessage = ref('');
+const isContentDisplay = ref(false);
 const sectionIsFixed = ref(true);
 const clickScrollBtn = () => {
     sectionIsFixed.value = false;
-    showContent.value = true;
+    isContentDisplay.value = true;
     nextTick(() => {
         const nextSection = document.getElementById('scroll-section');
         if (nextSection) {
@@ -148,6 +167,39 @@ const clickScrollBtn = () => {
         }
     });
 };
+const loadData = async () => {
+    isLoading.value = true;
+    errorMessage.value = '';
+
+    const eventsPromise = EventAPI.getEvents({
+        limit: 4,
+        registrationStatus: 2,
+    });
+    const storesPromise = EventAPI.getStores();
+
+    try {
+        const [eventsResponse, storesResponse] = await Promise.all([
+            eventsPromise,
+            storesPromise,
+        ]);
+
+        eventData.value = eventsResponse.data;
+        storeData.value = storesResponse.data.slice(0, 4);
+    } catch (err) {
+        eventData.value = [];
+        storeData.value = [];
+        errorMessage.value =
+            err?.data?.message || '連線逾時，靜待雲端伺服器睡醒';
+    } finally {
+        setTimeout(() => {
+            isLoading.value = false;
+        }, 500);
+    }
+};
+
+onMounted(() => {
+    loadData();
+});
 </script>
 
 <style lang="scss" scoped>

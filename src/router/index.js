@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import useIndexStore from '@/stores/index';
+import useAlert from '@/stores/alert';
 
 const routes = [
     {
@@ -53,6 +55,7 @@ const routes = [
                 path: '/player',
                 name: 'Player',
                 component: () => import('@/views/player/Player.vue'),
+                meta: { requiresAuth: true, roles: ['player'] },
                 children: [
                     {
                         path: 'admin',
@@ -126,11 +129,13 @@ const routes = [
                         path: 'login',
                         name: 'PlayerLogin',
                         component: () => import('@/views/player/Login.vue'),
+                        meta: { requiresAuth: false },
                     },
                     {
                         path: 'signup',
                         name: 'PlayerSignUp',
                         component: () => import('@/views/player/SignUp.vue'),
+                        meta: { requiresAuth: false },
                     },
                     {
                         path: 'form',
@@ -144,6 +149,7 @@ const routes = [
                 path: '/store',
                 name: 'Store',
                 component: () => import('@/views/store/Store.vue'),
+                meta: { requiresAuth: true, roles: ['store'] },
                 children: [
                     {
                         path: 'admin',
@@ -187,11 +193,13 @@ const routes = [
                         path: 'login',
                         name: 'StoreLogin',
                         component: () => import('@/views/store/Login.vue'),
+                        meta: { requiresAuth: false },
                     },
                     {
                         path: 'signup',
                         name: 'StoreSignUp',
                         component: () => import('@/views/store/SignUp.vue'),
+                        meta: { requiresAuth: false },
                     },
                     {
                         path: 'form',
@@ -240,6 +248,48 @@ const router = createRouter({
         // 每次路由變化時都會滾動到頂部
         return { top: 0, behavior: 'smooth' };
     },
+});
+
+// 路由保護
+
+router.beforeEach((to, from, next) => {
+    const indxStore = useIndexStore();
+    const alterStore = useAlert();
+    const { isLogin, userData } = indxStore;
+    const { roles, requiresAuth } = to.meta;
+
+    if (requiresAuth) {
+        if (isLogin) {
+            if (roles) {
+                if (roles.includes(userData.role)) {
+                    next();
+                } else {
+                    if (userData.role === 'player') {
+                        alterStore.openModal(
+                            'error',
+                            '你不是商家，需要商家權限'
+                        );
+                    }
+                    if (userData.role === 'store') {
+                        alterStore.openModal(
+                            'error',
+                            '你不是玩家，需要玩家權限'
+                        );
+                    }
+                    next({ name: 'Index' });
+                }
+            } else {
+                // console.log('不需要權限');
+                next();
+            }
+        } else {
+            alterStore.openModal('', '請先登入');
+            next({ name: 'Login' });
+        }
+    } else {
+        // console.log('不需要驗證');
+        next();
+    }
 });
 
 export default router;
