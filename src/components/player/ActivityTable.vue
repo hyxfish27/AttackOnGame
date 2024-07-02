@@ -1,5 +1,5 @@
 <script setup>
-import dayjs from 'dayjs';
+import dayjs from '@/utilities/dayjs';
 import { defineProps, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import toLocalString from '@/utilities/toLocalString';
