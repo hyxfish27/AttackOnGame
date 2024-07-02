@@ -7,7 +7,7 @@
             <div style="width: 54px; height: 54px; position: relative">
                 <div
                     style="position: absolute; inset: 0"
-                    class="profile-img border-3 border border-warning rounded-circle"
+                    class="profile-img border-3 border rounded-circle"
                     :class="`border-${userAttr.color}`"
                     @click="handelNavbar()"
                 >
