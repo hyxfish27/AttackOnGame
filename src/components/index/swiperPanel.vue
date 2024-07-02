@@ -45,28 +45,35 @@ export default {
 <style lang="scss">
 .swiper-panel {
     padding: 0 28px;
+
     .swiper-slide {
         width: 25%;
     }
+
     .swiper-button-pre {
         left: 0;
     }
+
     .swiper-button-next {
         right: 0;
     }
+
     .swiper-button-next,
     .swiper-button-prev {
-        width: 56px;
-        height: 56px;
+        width: 44px;
+        height: 44px;
         background-color: #fff;
         padding: 8px;
-        border: #333333 1px solid;
+        border: #333333 2px solid;
         border-radius: 8px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
         &::after {
             color: #333333;
-            font-size: 2rem;
+            font-size: 1.2rem;
+            font-weight: 900;
         }
+
         &:hover {
             &::after {
                 color: #0088cc;
