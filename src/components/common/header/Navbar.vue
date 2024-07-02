@@ -4,12 +4,15 @@
             <p class="line-clamp line-clamp-1">
                 {{ helloWord }} ， {{ userAttr.name }}
             </p>
-            <div
-                class="profile-img border-3 border border-warning rounded-circle"
-                :class="`border-${userAttr.color}`"
-                @click="handelNavbar()"
-            >
-                <img :src="userAttr.imgUrl" alt="" />
+            <div style="width: 54px; height: 54px; position: relative">
+                <div
+                    style="position: absolute; inset: 0"
+                    class="profile-img border-3 border border-warning rounded-circle"
+                    :class="`border-${userAttr.color}`"
+                    @click="handelNavbar()"
+                >
+                    <img :src="userAttr.imgUrl" width="54" alt="" />
+                </div>
             </div>
         </div>
         <nav
@@ -18,9 +21,9 @@
             class="navbar position-absolute bg-white rounded border"
         >
             <div class="navbar-menu bg-white w-100 rounded">
-                <p class="navbar-menu-title text-grey33">
-                    管理 {{ userAttr.role }} 後台
-                </p>
+                <!-- <p class="navbar-menu-title text-grey33">
+                    {{ userAttr.role }}後台
+                </p> -->
                 <ul v-if="routeList.length > 0" class="user-admin-el-ul">
                     <li
                         v-for="route in routeList"
@@ -137,6 +140,7 @@ const logout = async () => {
         box-shadow: 0px 4px 12px 0px rgba(194, 206, 216, 0.6);
         padding: 0;
     }
+
     .navbar::before {
         content: '';
         position: absolute;
@@ -147,27 +151,32 @@ const logout = async () => {
         background-color: #fff;
         transform: rotate(45deg);
     }
+
     .navbar-menu {
         padding: 24px;
         padding-bottom: 16px;
     }
+
     .profile-img {
-        width: 50px;
-        height: 50px;
+        width: 54px;
+        height: 54px;
         overflow: hidden;
         background-color: #fff;
         cursor: pointer;
+
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
     }
+
     .navbar-menu-title {
         font-size: 1rem;
         text-align: center;
         margin-bottom: 8px;
     }
+
     .navbar-menu-end {
         cursor: pointer;
         font-size: 1rem;
@@ -175,18 +184,23 @@ const logout = async () => {
         padding: 8px 0;
         border-top: 1px solid #dee2e6;
     }
+
     .user-admin-el-ul {
         margin-bottom: 0px;
         padding: 0;
     }
+
     .user-admin-el-ul li {
         list-style: none;
         padding: 8px 0;
-        border-top: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
     }
+
     .navbar-menu-link:hover {
         background-color: #eeecec;
+        border-radius: 4px;
     }
+
     .active.router-link-exact-active.nav-link {
         color: #0088cc;
     }
