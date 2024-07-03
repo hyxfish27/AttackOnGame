@@ -7,12 +7,12 @@
             >
                 <router-link
                     :to="{ name: 'Login' }"
-                    class="btn btn-outline-primary text-primary fw-bold px-4 my-2"
+                    class="btn btn-outline-primary text-primary fw-bold px-4 my-2 login-button"
                     >登入</router-link
                 >
                 <router-link
                     :to="{ name: 'SignUp' }"
-                    class="btn btn-primary text-white fw-bold px-4"
+                    class="btn btn-primary text-white fw-bold px-4 signup-button"
                     >註冊</router-link
                 >
             </div>
@@ -34,14 +34,21 @@ import PrimaryHeader from '@/components/common/header/PrimaryHeader.vue';
     a {
         text-decoration: none;
         display: inline-block;
-
-        &:hover {
-            color: #0088cc;
-            text-decoration: none;
-        }
+        color: #333333;
     }
     a + a {
         margin-left: 16px;
+    }
+    .login-button:hover {
+        color: #006da3;
+        background-color: #fff;
+    }
+    .login-button.active {
+        color: #006da3;
+        background-color: #fff;
+    }
+    .signup-button:hover {
+        color: #006da3;
     }
 }
 
