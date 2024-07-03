@@ -1,6 +1,10 @@
 <template>
     <div class="container-xxl">
         <div class="row p-3">
+            <Loading
+                v-if="isLoading"
+                :class="{ 'loading-fade': !isLoading }"
+            ></Loading>
             <LeftEl></LeftEl>
             <div class="col-9 ps-3">
                 <div class="border rounded bg-white min-h-screen p-3">
@@ -96,11 +100,13 @@ import { useRoute, useRouter } from 'vue-router';
 import toLocalString from '@/utilities/toLocalString';
 import { PaymentStatus, PaymentMethod } from '@/constant/orderStatus';
 import EmptyField from '@/components/common/EmptyField.vue';
+import Loading from '@/components/common/Loading.vue';
 
 const users = ref([]);
 const order = ref({});
 const router = useRouter();
 const route = useRoute();
+const isLoading = ref(true);
 
 const usersAttr = computed(() => {
     return users.value.map((x) => ({
@@ -120,6 +126,9 @@ const getOrder = async (idNumber) => {
             console.log('order', res);
             order.value = res.data.data.event;
             users.value = res.data.data.user;
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 500);
         })
         .catch((err) => {
             console.log(err);
@@ -132,6 +141,7 @@ const getOrder = async (idNumber) => {
                 alert(`${err.response.data.message}`);
                 console.log(err);
             }
+            isLoading.value = false;
         });
 };
 onMounted(() => {
@@ -143,6 +153,7 @@ onMounted(() => {
 body {
     background-color: #f7f7f7;
 }
+
 .profile-img {
     width: 54px;
     height: 54px;
