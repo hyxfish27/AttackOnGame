@@ -1,5 +1,5 @@
 <template>
-    <ul class="pagination justify-content-end m-auto">
+    <ul class="pagination pagination-wrap justify-content-end m-auto">
         <li class="page-item me-3" :class="{ disabled: currentPage === 1 }">
             <a
                 class="page-link"
@@ -70,14 +70,25 @@ export default {
 };
 </script>
 
-<style scoped>
-.page-item.disabled .page-link {
-    pointer-events: none;
-    opacity: 0.6;
-}
-.page-item.active .page-link {
-    background-color: #0088cc;
-    border-color: #0088cc;
-    color: white;
+<style lang="scss">
+.pagination-wrap {
+    .page-item .page-link {
+        border-color: #333333 !important;
+    }
+    .page-item.active {
+        border: none;
+    }
+    .page-item.disabled .page-link {
+        pointer-events: none;
+        color: #9f9f9f;
+        background-color: #e9e9e9;
+        border-color: #e9e9e9 !important;
+        opacity: 0.6;
+    }
+    .page-item.active .page-link {
+        background-color: #0088cc;
+        border-color: #0088cc !important;
+        color: white;
+    }
 }
 </style>
