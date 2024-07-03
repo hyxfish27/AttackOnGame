@@ -184,12 +184,23 @@
                                 name="同意活動政策"
                                 class="text-danger"
                             ></error-message>
-                            <button
-                                type="submit"
-                                class="btn btn-primary mt-5 fw-bold px-4 mx-auto"
+                            <div
+                                class="py-4 gap-2 mt-5 justify-content-center d-flex align-items-center"
                             >
-                                確認報名，前往結帳
-                            </button>
+                                <RollBack
+                                    v-if="theEventId"
+                                    :route-link="{
+                                        name: 'SingleEvent',
+                                        params: { eventId: theEventId },
+                                    }"
+                                ></RollBack>
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary fw-bold px-4"
+                                >
+                                    確認報名，前往結帳
+                                </button>
+                            </div>
                         </div>
                     </v-form>
                 </div>
@@ -198,6 +209,7 @@
     </div>
 </template>
 <script setup>
+import RollBack from '@/components/common/rollBack.vue';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useIndexStore from '@/stores/index';

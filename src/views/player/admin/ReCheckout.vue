@@ -78,10 +78,15 @@
                 <div class="d-flex justify-content-center pb-4 gap-3">
                     <button
                         type="button"
-                        class="fw-bold btn btn-outline-primary px-4"
+                        class="fw-bold btn btn-outline-primary"
                         @click="goBack"
                     >
-                        返回修改
+                        <div class="d-flex align-items-center">
+                            <span class="material-symbols-outlined fs-9 pe-1">
+                                reply
+                            </span>
+                            <p>返回上頁</p>
+                        </div>
                     </button>
                     <router-link
                         :to="{ name: 'CheckoutSuccess' }"
