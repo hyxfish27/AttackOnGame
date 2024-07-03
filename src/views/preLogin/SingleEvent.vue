@@ -82,6 +82,9 @@
                             >
                                 活動答擬區
                             </h2>
+                            <dir class="p-3 bg-white border rounded">
+                                <p class="text-center">尚未有人留言</p>
+                            </dir>
                             <div class="p-3 bg-white border rounded">
                                 <div
                                     class="bg-greyF7 p-3 border rounded mb-3 gap-2 d-flex justify-content-center align-items-center"
@@ -95,7 +98,7 @@
                                     <p>後，即可留下你的意見！</p>
                                 </div>
                                 <div class="bg-greyF7 p-3 border rounded mb-3">
-                                    <div>
+                                    <div class="d-flex flex-column">
                                         <div
                                             style="
                                                 width: 40px;
@@ -119,13 +122,55 @@
                                             rows="3"
                                             placeholder="請輸入留言"
                                         ></textarea>
-                                        <button class="btn btn-primary mt-4">
+                                        <button
+                                            class="btn btn-primary mt-2 align-self-end"
+                                        >
                                             送出留言
                                         </button>
                                     </div>
                                 </div>
-                                <div class="px-3">
-                                    <div>
+                                <div class="px-3 border-bottom">
+                                    <div class="mb-3">
+                                        <div
+                                            class="d-flex gap-3 align-items-center justify-content-between"
+                                        >
+                                            <div
+                                                class="d-flex gap-3 align-items-center"
+                                            >
+                                                <div
+                                                    style="
+                                                        width: 40px;
+                                                        height: 40px;
+                                                        overflow: hidden;
+                                                    "
+                                                    class="rounded-circle mb-2"
+                                                >
+                                                    <img
+                                                        style="
+                                                            object-fit: cover;
+                                                        "
+                                                        class="w-100 h-100"
+                                                        src="https://plus.unsplash.com/premium_photo-1663853489900-3f24ea776dea?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHwyNXx8fGVufDB8fHx8fA%3D%3D"
+                                                        alt=""
+                                                    />
+                                                </div>
+                                                <p class="text-primary fw-bold">
+                                                    其他玩家留言
+                                                </p>
+                                            </div>
+                                            <p class="text-grey9F fs-9">
+                                                2024-03-22 05:30
+                                            </p>
+                                        </div>
+                                        <p>外籍人士人可以參加嗎</p>
+                                        <button
+                                            type="button"
+                                            class="btn btn-outline-dark"
+                                        >
+                                            回覆
+                                        </button>
+                                    </div>
+                                    <div class="mb-3">
                                         <div
                                             class="d-flex gap-3 align-items-center justify-content-between"
                                         >
@@ -150,18 +195,47 @@
                                                     />
                                                 </div>
                                                 <p class="text-primary fw-bold">
-                                                    其他玩家留言
+                                                    店家回覆
                                                 </p>
+                                                <span
+                                                    class="bg-warning px-2 rounded fs-10"
+                                                    >團主</span
+                                                >
                                             </div>
                                             <p class="text-grey9F fs-9">
                                                 2024-03-22 05:30
                                             </p>
                                         </div>
-                                        <p>外籍人士人可以參加嗎</p>
+                                        <p>可以</p>
+                                    </div>
+                                    <div>
+                                        <textarea
+                                            id="question"
+                                            name="question"
+                                            class="form-control bg-white"
+                                            cols="30"
+                                            rows="3"
+                                            placeholder="請輸入留言"
+                                        ></textarea>
+                                        <div
+                                            class="d-flex justify-content-end align-items-center py-2 gap-2"
+                                        >
+                                            <button
+                                                type=" button"
+                                                class="btn btn-outline-dark"
+                                            >
+                                                取消
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary"
+                                            >
+                                                回覆留言
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div></div>
                         </div>
                     </div>
                     <div class="event-description mt-4">
