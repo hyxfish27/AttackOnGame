@@ -172,7 +172,7 @@ const loadData = async () => {
     errorMessage.value = '';
 
     const eventsPromise = EventAPI.getEvents({
-        limit: 4,
+        limit: 12,
         registrationStatus: 2,
     });
     const storesPromise = EventAPI.getStores();
@@ -184,7 +184,7 @@ const loadData = async () => {
         ]);
 
         eventData.value = eventsResponse.data;
-        storeData.value = storesResponse.data.slice(0, 4);
+        storeData.value = storesResponse.data;
     } catch (err) {
         eventData.value = [];
         storeData.value = [];
