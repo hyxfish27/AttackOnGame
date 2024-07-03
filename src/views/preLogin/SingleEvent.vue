@@ -76,13 +76,14 @@
                         </div>
                     </div>
                     <div class="event-message mt-4">
-                        <div class="sub-title_wrap">
+                        <div class="sub-title_wrap mb-3">
                             <h2
-                                class="text-primary mb-3 fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0"
+                                class="text-primary fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0"
                             >
                                 活動答擬區
                             </h2>
-
+                        </div>
+                        <div>
                             <div class="p-3 bg-white border rounded">
                                 <div
                                     class="bg-greyF7 p-3 border rounded mb-3 gap-2 d-flex justify-content-center align-items-center"
