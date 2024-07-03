@@ -32,6 +32,7 @@ import PrimaryHeader from '@/components/common/header/PrimaryHeader.vue';
 <style lang="scss">
 #prelogin-header {
     a {
+        color: black;
         text-decoration: none;
         display: inline-block;
 
