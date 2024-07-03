@@ -17,7 +17,11 @@
             <div v-if="data.length > 0" class="ani-entrance ani-entrance-2">
                 <Swiper :data="data">
                     <template #slideContent="{ slide }">
-                        <Card :data="slide" css-style="w-100"></Card>
+                        <Card
+                            :data="slide"
+                            css-style="w-100"
+                            @click="onEventCardClick(slide.idNumber)"
+                        ></Card>
                     </template>
                 </Swiper>
             </div>
@@ -25,6 +29,7 @@
     </div>
 </template>
 <script setup>
+import { useRouter } from 'vue-router';
 import Card from '@/components/event/EventCard.vue';
 import { defineProps } from 'vue';
 import vInView from '@/directives/observeInView';
@@ -47,11 +52,16 @@ const titleData = {
     title: '推薦活動',
     desc: '無論做什麼選擇，不要讓自己遺憾！',
 };
+const router = useRouter();
+const onEventCardClick = (idNumber) => {
+    router.push({ name: 'SingleEvent', params: { eventId: idNumber } });
+};
 </script>
 <style scoped>
 .section {
     min-height: 600px;
 }
+
 .py-16 {
     padding: 64px 0;
 }

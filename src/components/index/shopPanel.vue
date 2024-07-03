@@ -23,8 +23,9 @@
                         <StoreCard
                             :data="slide"
                             css-style="w-100"
-                            @click="onStoreCardClick(store.user)"
+                            @click="onStoreCardClick(slide.user)"
                         >
+                            <!-- store.user -->
                         </StoreCard>
                     </template>
                 </Swiper>
