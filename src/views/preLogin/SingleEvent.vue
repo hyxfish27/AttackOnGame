@@ -82,9 +82,7 @@
                             >
                                 活動答擬區
                             </h2>
-                            <dir class="p-3 bg-white border rounded">
-                                <p class="text-center">尚未有人留言</p>
-                            </dir>
+
                             <div class="p-3 bg-white border rounded">
                                 <div
                                     class="bg-greyF7 p-3 border rounded mb-3 gap-2 d-flex justify-content-center align-items-center"
@@ -96,6 +94,9 @@
                                     </span>
                                     <span class="text-primary">登入會員後</span>
                                     <p>後，即可留下你的意見！</p>
+                                </div>
+                                <div class="bg-greyF7 p-3 border rounded">
+                                    <p class="text-center">尚未有人留言</p>
                                 </div>
                                 <div class="bg-greyF7 p-3 border rounded mb-3">
                                     <div class="d-flex flex-column">
@@ -559,7 +560,7 @@ onMounted(() => {
 }
 
 .single-event {
-    background: linear-gradient(180deg, #fff6cc 0%, #ffffff 100%);
+    background: linear-gradient(180deg, #fff6cc 0%, #ffffff 35%);
 
     .event-image {
         box-shadow: 0px 4px 4pxrgba (0, 0, 0, 0.25);
