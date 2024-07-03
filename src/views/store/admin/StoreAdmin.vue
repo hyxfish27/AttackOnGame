@@ -3,7 +3,7 @@
         <div class="row p-3">
             <StoreLeftEl />
             <div class="col-9 min-h-screen">
-                <div class="border rounded bg-white h-100 py-4 shadow px-6">
+                <div class="border rounded bg-white h-100 py-4 px-6">
                     <div class="d-flex row justify-between border-bottom pb-2">
                         <div class="col h6">店家資料</div>
                         <div class="col text-end">
@@ -83,8 +83,4 @@ const toPasswordModify = () => {
 };
 </script>
 
-<style lang="scss" scoped>
-.shadow {
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-}
-</style>
+<style lang="scss" scoped></style>
