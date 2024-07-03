@@ -5,8 +5,16 @@
             <div
                 class="col-3 header__nav d-flex justify-content-end align-items-center"
             >
-                <router-link :to="{ name: 'Login' }">登入</router-link>
-                <router-link :to="{ name: 'SignUp' }">註冊</router-link>
+                <router-link
+                    :to="{ name: 'Login' }"
+                    class="btn btn-outline-primary text-primary fw-bold px-4 my-2"
+                    >登入</router-link
+                >
+                <router-link
+                    :to="{ name: 'SignUp' }"
+                    class="btn btn-primary text-white fw-bold px-4"
+                    >註冊</router-link
+                >
             </div>
         </div>
     </header>
@@ -24,7 +32,6 @@ import PrimaryHeader from '@/components/common/header/PrimaryHeader.vue';
 <style lang="scss">
 #prelogin-header {
     a {
-        color: black;
         text-decoration: none;
         display: inline-block;
 
@@ -32,6 +39,9 @@ import PrimaryHeader from '@/components/common/header/PrimaryHeader.vue';
             color: #0088cc;
             text-decoration: none;
         }
+    }
+    a + a {
+        margin-left: 16px;
     }
 }
 
