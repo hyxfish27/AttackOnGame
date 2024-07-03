@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-overlay" @click.self="close">
+    <div class="modal-overlay backdrop-blur" @click.self="close">
         <div class="modal-content">
             <div class="h5">編輯店家資料</div>
             <v-form v-slot="{ errors }" @submit="onSubmit">
@@ -133,6 +133,7 @@ const onSubmit = (values) => {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 
 .modal-content {
