@@ -75,7 +75,95 @@
                             </div>
                         </div>
                     </div>
-                    <div class="event-message"></div>
+                    <div class="event-message mt-4">
+                        <div class="sub-title_wrap">
+                            <h2
+                                class="text-primary mb-3 fw-bold pb-2 border-bottom border-2 border-primary fz-6 d-inline-block sub-title mb-0"
+                            >
+                                活動答擬區
+                            </h2>
+                            <div class="p-3 bg-white border rounded">
+                                <div
+                                    class="bg-greyF7 p-3 border rounded mb-3 gap-2 d-flex justify-content-center align-items-center"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-grey9F"
+                                    >
+                                        sms
+                                    </span>
+                                    <span class="text-primary">登入會員後</span>
+                                    <p>後，即可留下你的意見！</p>
+                                </div>
+                                <div class="bg-greyF7 p-3 border rounded mb-3">
+                                    <div>
+                                        <div
+                                            style="
+                                                width: 40px;
+                                                height: 40px;
+                                                overflow: hidden;
+                                            "
+                                            class="rounded-circle mb-2"
+                                        >
+                                            <img
+                                                style="object-fit: cover"
+                                                class="w-100 h-100"
+                                                src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGNhdHxlbnwwfHwwfHx8MA%3D%3D"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <textarea
+                                            id="question"
+                                            name="question"
+                                            class="form-control bg-white"
+                                            cols="30"
+                                            rows="3"
+                                            placeholder="請輸入留言"
+                                        ></textarea>
+                                        <button class="btn btn-primary mt-4">
+                                            送出留言
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="px-3">
+                                    <div>
+                                        <div
+                                            class="d-flex gap-3 align-items-center justify-content-between"
+                                        >
+                                            <div
+                                                class="d-flex gap-3 align-items-center"
+                                            >
+                                                <div
+                                                    style="
+                                                        width: 40px;
+                                                        height: 40px;
+                                                        overflow: hidden;
+                                                    "
+                                                    class="rounded-circle mb-2"
+                                                >
+                                                    <img
+                                                        style="
+                                                            object-fit: cover;
+                                                        "
+                                                        class="w-100 h-100"
+                                                        src="https://plus.unsplash.com/premium_photo-1684197414211-1f7a0807c59b?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                                        alt=""
+                                                    />
+                                                </div>
+                                                <p class="text-primary fw-bold">
+                                                    其他玩家留言
+                                                </p>
+                                            </div>
+                                            <p class="text-grey9F fs-9">
+                                                2024-03-22 05:30
+                                            </p>
+                                        </div>
+                                        <p>外籍人士人可以參加嗎</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
                     <div class="event-description mt-4">
                         <div class="sub-title_wrap">
                             <h2
@@ -336,12 +424,15 @@ onMounted(() => {
         height: 1.5rem;
         clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
     }
+
     .mr-2 {
         margin-right: 8px;
     }
+
     .icon-48 {
         font-size: 48px;
     }
+
     .fz-6 {
         font-size: 24px;
     }
@@ -353,11 +444,13 @@ onMounted(() => {
     .round {
         border-radius: 50%;
     }
+
     .link {
         display: block;
         text-align: end;
         text-decoration: none;
     }
+
     .sub-title_wrap {
         position: relative;
 
@@ -375,12 +468,14 @@ onMounted(() => {
             border-bottom: 2px solid #d4d4d4;
         }
     }
+
     .img-wrap {
         flex-shrink: 0;
         overflow: hidden;
         margin-right: 8px;
         width: 150px;
         height: 150px;
+
         img {
             min-width: 100%;
             min-height: 100%;
@@ -388,11 +483,12 @@ onMounted(() => {
         }
     }
 }
+
 .single-event {
     background: linear-gradient(180deg, #fff6cc 0%, #ffffff 100%);
 
     .event-image {
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0px 4px 4pxrgba (0, 0, 0, 0.25);
     }
 }
 </style>
