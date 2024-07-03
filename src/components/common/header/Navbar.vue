@@ -2,7 +2,7 @@
     <div id="navbar-is-login">
         <div class="d-flex align-items-center gap-2">
             <p class="line-clamp line-clamp-1">
-                {{ helloWord }} ， {{ userAttr.name }}
+                {{ helloWord }} ， {{ userAttr.name }}!
             </p>
             <div style="width: 54px; height: 54px; position: relative">
                 <div
@@ -16,14 +16,11 @@
             </div>
         </div>
         <nav
-            v-show="isMenuActive"
             v-click-outside="onClickOutside"
             class="navbar position-absolute bg-white rounded border"
+            :class="{ active: isMenuActive }"
         >
             <div class="navbar-menu bg-white w-100 rounded">
-                <!-- <p class="navbar-menu-title text-grey33">
-                    {{ userAttr.role }}後台
-                </p> -->
                 <ul v-if="routeList.length > 0" class="user-admin-el-ul">
                     <li
                         v-for="route in routeList"
@@ -34,23 +31,21 @@
                             :to="{ name: route?.name, params: route?.params }"
                             class="nav-link d-flex navbar-menu-link"
                         >
-                            <span class="material-symbols-outlined text-grey33">
+                            <span class="material-symbols-outlined">
                                 {{ route?.icon }}
                             </span>
-                            <p class="flex-grow-1 text-center text-grey33">
+                            <p class="flex-grow-1 text-center">
                                 {{ route?.label }}
                             </p>
                         </router-link>
                     </li>
                 </ul>
                 <div
-                    class="navbar-menu-end navbar-menu-link d-flex text-grey33"
+                    class="navbar-menu-end navbar-menu-link d-flex"
                     @click="logout"
                 >
-                    <span class="material-symbols-outlined text-grey33">
-                        logout
-                    </span>
-                    <p class="flex-grow-1 text-center text-grey33">登出</p>
+                    <span class="material-symbols-outlined"> logout </span>
+                    <p class="flex-grow-1 text-center">登出</p>
                 </div>
             </div>
         </nav>
@@ -135,12 +130,17 @@ const logout = async () => {
 #navbar-is-login {
     .navbar {
         right: 0px;
-        top: 100%;
+        top: calc(100% + 16px);
         width: 200px;
         box-shadow: 0px 4px 12px 0px rgba(194, 206, 216, 0.6);
         padding: 0;
+        opacity: 0;
+        transition: 0.5s;
     }
-
+    .navbar.active {
+        opacity: 1;
+        top: 100%;
+    }
     .navbar::before {
         content: '';
         position: absolute;
@@ -195,12 +195,13 @@ const logout = async () => {
         padding: 8px 0;
         border-bottom: 1px solid #dee2e6;
     }
-
+    .navbar-menu-link {
+        color: #333333;
+    }
     .navbar-menu-link:hover {
         background-color: #eeecec;
         border-radius: 4px;
     }
-
     .active.router-link-exact-active.nav-link {
         color: #0088cc;
     }
