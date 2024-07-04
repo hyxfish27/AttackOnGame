@@ -95,6 +95,10 @@ p {
   -webkit-backdrop-filter: blur(5px);
 }
 
+.pointer-none {
+  pointer-events: none;
+}
+
 .require-icon::before {
   content: '*';
   font-size: 0.75rem;
