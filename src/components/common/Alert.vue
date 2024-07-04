@@ -19,10 +19,25 @@
                             type="button"
                             class="btn btn-primary"
                             @click="close"
+
                         >
-                            關閉
-                        </button>
+                            {{ responseType.value }}:
+                        </p>
                     </div>
+                    <div class="text-primary d-flex align-items-center mb-3">
+                        <p class="flex-grow-1 text fw-bold">
+                            {{ message }}
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        @click="close"
+                    >
+                        關閉
+                    </button>
                 </div>
             </div>
         </div>
@@ -34,23 +49,31 @@ import { computed } from 'vue';
 import useAlert from '@/stores/alert';
 
 const alert = useAlert();
-
-const showModal = computed(() => alert.showModal);
-const message = computed(() => alert.message);
+const DEFAULT_ERROR_MESSAGE = '來自宇宙的訊息';
+const showModal = computed(() => true);
+const message = computed(() => alert.message || DEFAULT_ERROR_MESSAGE);
 // const type = computed(() => alert.type);
 
-const title = computed(() => {
+const responseType = computed(() => {
     switch (alert.type) {
         case 'success':
-            return '成功';
+            return {
+                icon: 'sentiment_satisfied',
+                value: '成功',
+                color: 'success',
+            };
         case 'error':
-            return '錯誤';
+            return { icon: 'error', value: '錯誤', color: 'danger' };
         case 'warning':
-            return '警告';
+            return { icon: 'warning', value: '警告', color: 'warning' };
         case 'timeout':
-            return '連線逾時';
+            return {
+                icon: 'sentiment_very_dissatisfied',
+                value: '連線逾時',
+                color: 'grey9F',
+            };
         default:
-            return '提示';
+            return { icon: 'info', value: '提示', color: 'info' };
     }
 });
 
@@ -76,7 +99,9 @@ const close = () => {
     align-items: center;
     z-index: 999;
 }
-
+.error-msg-modal-body {
+    gap: 0 8px;
+}
 .modal-content {
     background: white;
     padding: 20px;
