@@ -86,20 +86,31 @@
                         <div>
                             <div class="p-3 bg-white border rounded">
                                 <div
-                                    class="bg-greyF7 p-3 border rounded mb-3 gap-2 d-flex justify-content-center align-items-center"
+                                    v-if="!isLogin"
+                                    class="bg-greyF7 p-3 border rounded mb-3 d-flex justify-content-center align-items-center"
                                 >
                                     <span
                                         class="material-symbols-outlined text-grey9F"
                                     >
                                         sms
                                     </span>
-                                    <span class="text-primary">登入會員後</span>
+                                    <router-link
+                                        :to="{ name: 'Login' }"
+                                        class="text-primary btn"
+                                        >登入會員後</router-link
+                                    >
                                     <p>後，即可留下你的意見！</p>
                                 </div>
-                                <div class="bg-greyF7 p-3 border rounded">
+                                <div
+                                    v-if="messageData === ''"
+                                    class="bg-greyF7 p-3 border rounded mb-3"
+                                >
                                     <p class="text-center">尚未有人留言</p>
                                 </div>
-                                <div class="bg-greyF7 p-3 border rounded mb-3">
+                                <div
+                                    v-if="isLogin"
+                                    class="bg-greyF7 p-3 border rounded mb-3"
+                                >
                                     <div class="d-flex flex-column">
                                         <div
                                             style="
@@ -210,7 +221,7 @@
                                         </div>
                                         <p>可以</p>
                                     </div>
-                                    <div>
+                                    <div v-if="isLogin">
                                         <textarea
                                             id="question"
                                             name="question"
@@ -423,6 +434,7 @@ const storeData = ref({});
 
 const isLoading = ref(true);
 const isShopper = useIndexStore().userData.role === 'store';
+const { isLogin } = useIndexStore();
 
 const getEvent = async (eventId) => {
     await EventAPI.getEvent(eventId)
@@ -481,10 +493,25 @@ const goCheckout = (eventId) => {
     router.push({ name: 'Checkout', params: { eventId } });
 };
 
+const messageData = ref(null);
+const getMessage = async (eventId) => {
+    await EventAPI.getEventMessage(eventId)
+        .then((response) => {
+            console.log('message', response);
+        })
+        .catch((err) => {
+            if (err.response.status === 404) {
+                messageData.value = '';
+            }
+            console.log('message', err.response.status);
+        });
+};
+
 onMounted(() => {
     const { eventId } = route.params;
 
     getEvent(eventId);
+    getMessage(eventId);
 
     const { storeId } = eventData.value;
 
