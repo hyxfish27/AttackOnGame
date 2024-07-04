@@ -1,10 +1,12 @@
 <template>
-    <div class="modal-overlay" @click.self="close">
+    <div class="modal-overlay backdrop-blur" @click.self="close">
         <div class="modal-content">
             <div class="h5">編輯店家資料</div>
             <v-form v-slot="{ errors }" @submit="onSubmit">
                 <div class="mb-3">
-                    <label for="editName" class="form-label">名稱</label>
+                    <label for="editName" class="form-label require-icon"
+                        >名稱</label
+                    >
                     <v-field
                         id="editName"
                         v-model="formData.name"
@@ -21,7 +23,9 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="editContact" class="form-label">聯絡電話</label>
+                    <label for="editContact" class="form-label require-icon"
+                        >聯絡電話</label
+                    >
                     <v-field
                         id="editContact"
                         v-model="formData.phone"
@@ -38,7 +42,9 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="address" class="form-label">地址</label>
+                    <label for="address" class="form-label require-icon"
+                        >地址</label
+                    >
                     <v-field
                         id="address"
                         v-model="formData.address"
@@ -54,7 +60,9 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="editDescription" class="form-label">簡介</label>
+                    <label for="editDescription" class="form-label require-icon"
+                        >簡介</label
+                    >
                     <v-field
                         id="editDescription"
                         v-model="formData.introduce"
@@ -133,6 +141,7 @@ const onSubmit = (values) => {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 
 .modal-content {

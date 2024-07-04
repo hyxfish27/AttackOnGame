@@ -53,7 +53,7 @@ export default {
     padding: 8px 0;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 9;
 
     &--admin {
         background-color: #000000;
