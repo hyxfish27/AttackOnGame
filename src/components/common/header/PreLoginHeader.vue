@@ -7,7 +7,7 @@
             >
                 <router-link
                     :to="{ name: 'Login' }"
-                    class="btn btn-outline-primary text-primary fw-bold px-4 my-2 login-button"
+                    class="btn btn-outline-primary fw-bold px-4 my-2"
                     >登入</router-link
                 >
                 <router-link
@@ -29,24 +29,28 @@
 import PrimaryHeader from '@/components/common/header/PrimaryHeader.vue';
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #prelogin-header {
-    a {
-        text-decoration: none;
-        display: inline-block;
-        color: #333333;
-    }
+    // a {
+    //     text-decoration: none;
+    //     display: inline-block;
+    //     color: #333333;
+    // }
+
     a + a {
         margin-left: 16px;
     }
+
     .login-button:hover {
         color: #006da3;
         background-color: #fff;
     }
+
     .login-button.active {
         color: #006da3;
         background-color: #fff;
     }
+
     .signup-button:hover {
         color: #006da3;
     }
