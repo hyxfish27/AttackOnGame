@@ -1,9 +1,10 @@
 <script setup>
-import dayjs from 'dayjs';
+import dayjs from '@/utilities/dayjs';
 import { defineProps, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import toLocalString from '@/utilities/toLocalString';
 import EmptyTable from '@/components/common/EmptyTable.vue';
+import Pagination from '@/components/common/Pagination.vue';
 
 const PaymentStatus = {
     pending: '尚未付款',
@@ -36,7 +37,6 @@ const formatTime = (start, end) => {
     const Date = dayjs(start).format('YYYY-MM-DD');
     const startTime = dayjs(start).format('HH:mm');
     const endTime = dayjs(end).format('HH:mm');
-
     return `${Date} ${startTime} ~ ${endTime}`;
 };
 
@@ -47,6 +47,9 @@ const goTicket = (idNumber) => {
         params: { idNumber },
     });
 };
+function handlePageChange(newPage) {
+    currentPage.value = newPage;
+}
 </script>
 
 <template>
@@ -124,49 +127,11 @@ const goTicket = (idNumber) => {
             </tbody>
         </table>
         <nav v-if="activityList.length > 0">
-            <ul class="pagination justify-content-end m-auto">
-                <li
-                    class="page-item me-3"
-                    :class="{ disabled: currentPage === 1 }"
-                >
-                    <a
-                        class="page-link"
-                        href="#"
-                        aria-label="Previous"
-                        @click.prevent="currentPage > 1 && currentPage--"
-                    >
-                        <span aria-hidden="true">&lt;</span>
-                    </a>
-                </li>
-                <li
-                    v-for="page in totalPages"
-                    :key="page"
-                    class="page-item"
-                    :class="{ active: page === currentPage }"
-                >
-                    <a
-                        class="page-link rounded me-3 border-dark"
-                        href="#"
-                        @click.prevent="currentPage = page"
-                        >{{ page }}</a
-                    >
-                </li>
-                <li
-                    class="page-item"
-                    :class="{ disabled: currentPage === totalPages }"
-                >
-                    <a
-                        class="page-link"
-                        href="#"
-                        aria-label="Next"
-                        @click.prevent="
-                            currentPage < totalPages && currentPage++
-                        "
-                    >
-                        <span aria-hidden="true">&gt;</span>
-                    </a>
-                </li>
-            </ul>
+            <Pagination
+                :current-page="currentPage"
+                :total-pages="totalPages"
+                @update:currentPage="handlePageChange"
+            />
         </nav>
     </div>
 </template>

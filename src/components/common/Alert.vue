@@ -1,23 +1,25 @@
 <template>
     <teleport to="body">
-        <button @click="open">open modal</button>
+        <button class="d-none" @click="open">open modal</button>
         <div
             v-if="showModal"
-            class="modal-overlay backdrop-blur error-msg-modal"
+            class="modal-overlay backdrop-blur"
             @click.self="close"
         >
-            <div
-                class="modal-dialog py-3 px-4 bg-white shadow border h-30 rounded-2"
-            >
-                <div class="d-flex align-items-center error-msg-modal-body">
-                    <div
-                        class="d-flex align-items-center mb-3 noto-serif-tc"
-                        :class="`text-${responseType.color}`"
-                    >
-                        <span class="material-symbols-outlined"> error </span>
-                        <p
-                            class="noto-serif-tc"
-                            :class="`text-${responseType.color}`"
+            <div class="modal-dialog">
+                <div class="modal-content noto-serif-tc fw-bold">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ title }}</h5>
+                    </div>
+                    <div class="modal-body text-grey66 pt-2 pb-4">
+                        <p>{{ message }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            @click="close"
+
                         >
                             {{ responseType.value }}:
                         </p>

@@ -12,7 +12,7 @@
 <script setup>
 import { defineProps } from 'vue';
 import { useRouter } from 'vue-router';
-import EventCard from './eventCard.vue';
+import EventCard from './EventCard.vue';
 
 const { data } = defineProps({
     data: {

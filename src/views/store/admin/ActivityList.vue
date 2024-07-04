@@ -22,11 +22,11 @@
                         <p>操作</p>
                         <p>名稱</p>
 
-                        <p>活動日期</p>
+                        <p>活動舉辦日期</p>
 
                         <p class="text-center">狀態</p>
                         <p>報名人數 /<br />額滿狀態</p>
-                        <p>截止日期</p>
+                        <p>活動報名<br />截止日期</p>
                     </div>
                     <div v-if="events.length > 0">
                         <div
@@ -44,7 +44,7 @@
                                         params: { idNumber: event.idNumber },
                                     }"
                                     type="button"
-                                    class="btn btn-primary py-1 px-2"
+                                    class="btn btn-primary py-1 px-2 d-flex"
                                 >
                                     <span class="material-symbols-outlined">
                                         visibility
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                     <div v-else>
-                        <p>您目前沒有活動</p>
+                        <EmptyField text="你還沒有創建活動唷"></EmptyField>
                     </div>
                 </div>
             </div>
@@ -103,6 +103,7 @@ import StoreAPI from '@/api/Store';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import Loading from '@/components/common/Loading.vue';
+import EmptyField from '@/components/common/EmptyField.vue';
 
 const events = ref([]);
 const router = useRouter();

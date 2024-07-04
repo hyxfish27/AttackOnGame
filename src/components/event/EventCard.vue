@@ -1,5 +1,5 @@
 <template>
-    <div class="col-6 col-lg-3 mb-3 event-card cursor">
+    <div class="event-card cursor" :class="cssStyle">
         <div class="card h-100 p-2">
             <div class="position-relative pt-150per event-card-img-wrap">
                 <div
@@ -79,6 +79,10 @@ const props = defineProps({
         type: String,
         default: '',
     },
+    cssStyle: {
+        type: String,
+        default: 'col-6 col-lg-3 mb-3',
+    },
 });
 const lineStyle = (currentNum, maxNum) => {
     if (maxNum === 0) {
@@ -109,6 +113,9 @@ const computedEventData = computed(() => {
 </script>
 <style lang="scss">
 .event-card {
+    .card-title-h {
+        height: 54px;
+    }
     .event-card-img-wrap {
         overflow: hidden;
         img {

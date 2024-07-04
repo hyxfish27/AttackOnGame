@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import PreLoginHeader from '@/components/common/PreLoginHeader.vue';
-import AdminHeader from '@/components/common/AdminHeader.vue';
+import PreLoginHeader from '@/components/common/header/PreLoginHeader.vue';
+import AdminHeader from '@/components/common/header/AdminHeader.vue';
 
 /**
  * MainHeader
@@ -49,11 +49,11 @@ export default {
 .main-header {
     background-color: #fff;
     border-bottom: 1px solid #e9e9e9;
-
+    color: #333333;
     padding: 8px 0;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 9;
 
     &--admin {
         background-color: #000000;

@@ -22,13 +22,6 @@
                     >
                         關閉
                     </button>
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="myModalHide()"
-                    >
-                        我知道了
-                    </button>
                 </div>
             </div>
         </div>
