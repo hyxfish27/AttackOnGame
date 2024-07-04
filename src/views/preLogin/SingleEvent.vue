@@ -102,7 +102,7 @@
                                     <p>後，即可留下你的意見！</p>
                                 </div>
                                 <div
-                                    v-if="messageData === ''"
+                                    v-if="messageData?.length === 0"
                                     class="bg-greyF7 p-3 border rounded mb-3"
                                 >
                                     <p class="text-center">尚未有人留言</p>
@@ -142,109 +142,128 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="px-3 border-bottom">
-                                    <div class="mb-3">
-                                        <div
-                                            class="d-flex gap-3 align-items-center justify-content-between"
-                                        >
+                                <div v-if="messageData?.length > 0">
+                                    <div
+                                        v-for="mes in result"
+                                        :key="mes._id"
+                                        class="px-3 border-bottom mb-3"
+                                    >
+                                        <div class="mb-3">
                                             <div
-                                                class="d-flex gap-3 align-items-center"
+                                                class="d-flex gap-3 align-items-center justify-content-between"
                                             >
                                                 <div
-                                                    style="
-                                                        width: 40px;
-                                                        height: 40px;
-                                                        overflow: hidden;
-                                                    "
-                                                    class="rounded-circle mb-2"
+                                                    class="d-flex gap-3 align-items-center"
                                                 >
-                                                    <img
+                                                    <div
                                                         style="
-                                                            object-fit: cover;
+                                                            width: 40px;
+                                                            height: 40px;
+                                                            overflow: hidden;
                                                         "
-                                                        class="w-100 h-100"
-                                                        src="https://plus.unsplash.com/premium_photo-1663853489900-3f24ea776dea?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHwyNXx8fGVufDB8fHx8fA%3D%3D"
-                                                        alt=""
-                                                    />
+                                                        class="rounded-circle mb-2"
+                                                    >
+                                                        <img
+                                                            style="
+                                                                object-fit: cover;
+                                                            "
+                                                            class="w-100 h-100"
+                                                            src="https://plus.unsplash.com/premium_photo-1663853489900-3f24ea776dea?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHwyNXx8fGVufDB8fHx8fA%3D%3D"
+                                                            alt=""
+                                                        />
+                                                    </div>
+                                                    <p
+                                                        class="text-primary fw-bold"
+                                                    >
+                                                        {{
+                                                            mes?.comment
+                                                                .authorName
+                                                        }}
+                                                    </p>
                                                 </div>
-                                                <p class="text-primary fw-bold">
-                                                    其他玩家留言
+                                                <p class="text-grey9F fs-9">
+                                                    {{ mes?.comment.createdAt }}
                                                 </p>
                                             </div>
-                                            <p class="text-grey9F fs-9">
-                                                2024-03-22 05:30
+                                            <p>
+                                                {{ mes?.comment.content }}
                                             </p>
-                                        </div>
-                                        <p>外籍人士人可以參加嗎</p>
-                                        <button
-                                            type="button"
-                                            class="btn btn-outline-dark"
-                                        >
-                                            回覆
-                                        </button>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div
-                                            class="d-flex gap-3 align-items-center justify-content-between"
-                                        >
-                                            <div
-                                                class="d-flex gap-3 align-items-center"
-                                            >
-                                                <div
-                                                    style="
-                                                        width: 40px;
-                                                        height: 40px;
-                                                        overflow: hidden;
-                                                    "
-                                                    class="rounded-circle mb-2"
-                                                >
-                                                    <img
-                                                        style="
-                                                            object-fit: cover;
-                                                        "
-                                                        class="w-100 h-100"
-                                                        src="https://plus.unsplash.com/premium_photo-1684197414211-1f7a0807c59b?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                                        alt=""
-                                                    />
-                                                </div>
-                                                <p class="text-primary fw-bold">
-                                                    店家回覆
-                                                </p>
-                                                <span
-                                                    class="bg-warning px-2 rounded fs-10"
-                                                    >團主</span
-                                                >
-                                            </div>
-                                            <p class="text-grey9F fs-9">
-                                                2024-03-22 05:30
-                                            </p>
-                                        </div>
-                                        <p>可以</p>
-                                    </div>
-                                    <div v-if="isLogin">
-                                        <textarea
-                                            id="question"
-                                            name="question"
-                                            class="form-control bg-white"
-                                            cols="30"
-                                            rows="3"
-                                            placeholder="請輸入留言"
-                                        ></textarea>
-                                        <div
-                                            class="d-flex justify-content-end align-items-center py-2 gap-2"
-                                        >
-                                            <button
-                                                type=" button"
-                                                class="btn btn-outline-dark"
-                                            >
-                                                取消
-                                            </button>
                                             <button
                                                 type="button"
-                                                class="btn btn-primary"
+                                                class="btn btn-outline-dark"
                                             >
-                                                回覆留言
+                                                回覆
                                             </button>
+                                        </div>
+                                        <div
+                                            v-for="reply in mes?.replies"
+                                            :key="reply._id"
+                                            class="mb-3"
+                                        >
+                                            <div
+                                                class="d-flex gap-3 align-items-center justify-content-between"
+                                            >
+                                                <div
+                                                    class="d-flex gap-3 align-items-center"
+                                                >
+                                                    <div
+                                                        style="
+                                                            width: 40px;
+                                                            height: 40px;
+                                                            overflow: hidden;
+                                                        "
+                                                        class="rounded-circle mb-2"
+                                                    >
+                                                        <img
+                                                            style="
+                                                                object-fit: cover;
+                                                            "
+                                                            class="w-100 h-100"
+                                                            src="https://plus.unsplash.com/premium_photo-1684197414211-1f7a0807c59b?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                                            alt=""
+                                                        />
+                                                    </div>
+                                                    <p
+                                                        class="text-primary fw-bold"
+                                                    >
+                                                        reply?.authorName
+                                                    </p>
+                                                    <span
+                                                        class="bg-warning px-2 rounded fs-10"
+                                                        >團主</span
+                                                    >
+                                                </div>
+                                                <p class="text-grey9F fs-9">
+                                                    {{ reply?.createdAt }}
+                                                </p>
+                                            </div>
+                                            <p>{{ reply?.content }}</p>
+                                        </div>
+                                        <div v-if="isLogin">
+                                            <textarea
+                                                id="question"
+                                                name="question"
+                                                class="form-control bg-white"
+                                                cols="30"
+                                                rows="3"
+                                                placeholder="請輸入留言"
+                                            ></textarea>
+                                            <div
+                                                class="d-flex justify-content-end align-items-center py-2 gap-2"
+                                            >
+                                                <button
+                                                    type=" button"
+                                                    class="btn btn-outline-dark"
+                                                >
+                                                    取消
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-primary"
+                                                >
+                                                    回覆留言
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -492,19 +511,39 @@ const router = useRouter();
 const goCheckout = (eventId) => {
     router.push({ name: 'Checkout', params: { eventId } });
 };
+const result = ref([]);
+// const formattedResult = ref(null);
+const doForEach = (messageData) => {
+    messageData.forEach((item) => {
+        if (item.type === 'Comment') {
+            result.value.push({
+                _id: item._id,
+                comment: { ...item },
+                replies: [],
+            });
+        } else if (item.type === 'reply' && item.messageId) {
+            const parent = result.value.find(
+                (comment) => comment._id === item.messageId
+            );
+            if (parent) {
+                parent.replies.push(item);
+            }
+        }
+    });
+    console.log('messageData', messageData);
+    console.log('result', result.value);
+};
 
 const messageData = ref(null);
 const getMessage = async (eventId) => {
     await EventAPI.getEventMessage(eventId)
         .then((response) => {
-            console.log('message', response);
+            messageData.value = response.data.contents;
+            doForEach(messageData.value);
+
+            console.log('message', messageData.value);
         })
-        .catch((err) => {
-            if (err.response.status === 404) {
-                messageData.value = '';
-            }
-            console.log('message', err.response.status);
-        });
+        .catch(() => {});
 };
 
 onMounted(() => {
