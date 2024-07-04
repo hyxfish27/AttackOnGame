@@ -88,11 +88,12 @@
                             <p>返回上頁</p>
                         </div>
                     </button>
-                    <router-link
-                        :to="{ name: 'CheckoutSuccess' }"
+                    <button
                         class="btn btn-primary fw-bold px-4"
-                        >完成結帳</router-link
+                        @click="payment"
                     >
+                        完成結帳
+                    </button>
                 </div>
             </div>
         </div>
@@ -104,7 +105,7 @@ import { useFormStore } from '@/stores/order';
 import { useRouter } from 'vue-router';
 
 const orderStore = useFormStore();
-const { formData } = orderStore;
+const { formData, paymentData } = orderStore;
 const router = useRouter();
 const goBack = () => {
     orderStore.setState(false);
@@ -112,6 +113,36 @@ const goBack = () => {
         name: 'Checkout',
         path: 'checkout',
     });
+};
+
+const payment = async () => {
+    try {
+        // await axios.post(import.meta.env.VITE_PayGateWay, paymentData);
+        const form = document.createElement('form');
+        form.action = import.meta.env.VITE_PayGateWay;
+        form.method = 'POST';
+
+        Object.keys(paymentData).forEach((key) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = paymentData[key];
+            form.appendChild(input);
+        });
+
+        const button = document.createElement('button');
+        button.type = 'submit';
+        form.appendChild(button);
+
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+       // reset formdata 
+       orderStore.setState(false);
+
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 onMounted(() => {

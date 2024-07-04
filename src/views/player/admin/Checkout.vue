@@ -219,6 +219,8 @@ import modal from '@/components/common/simpleModal.vue';
 import toLocalString from '@/utilities/toLocalString';
 import useAlert from '@/stores/alert';
 
+const orderStore = useFormStore();
+const router = useRouter();
 const alterStore = useAlert();
 const route = useRoute();
 const BsModal = ref(null);
@@ -243,16 +245,27 @@ const formData = ref({
     note: '',
     payPrice: null,
 });
-const orderStore = useFormStore();
-const router = useRouter();
+
+
+const createPayment = async (orderId) => {
+    try {
+        const res = await PlayerAPI.createPayment({
+            orderId,
+        });
+        orderStore.updatePaymentData(res.data);
+        router.push({
+            name: 'ReCheckout',
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 const postOrder = async (formdata) => {
     await PlayerAPI.postOrder(formdata)
         .then((res) => {
             console.log(res);
-            router.push({
-                name: 'ReCheckout',
-                params: { eventId: theEventId.value },
-            });
+            createPayment(res.data.idNumber);
         })
         .catch((err) => {
             if (err.response.data.message.includes('E11000')) {
@@ -270,6 +283,7 @@ const postOrder = async (formdata) => {
             }
         });
 };
+
 const onSubmitSuccess = () => {
     formData.value.payPrice =
         Number(formData.value.personNum) *
