@@ -75,20 +75,30 @@ export default {
     .page-item .page-link {
         border-color: #333333 !important;
     }
+
+    .page-item .page-link:hover {
+        background-color: #0088cc;
+        color: #fff;
+    }
+
     .page-item.active {
         border: none;
     }
+
     .page-item.disabled .page-link {
         pointer-events: none;
-        color: #9f9f9f;
         background-color: #e9e9e9;
-        border-color: #e9e9e9 !important;
         opacity: 0.6;
     }
+
     .page-item.active .page-link {
         background-color: #0088cc;
         border-color: #0088cc !important;
         color: white;
+    }
+
+    .page-item.active .page-link:hover {
+        background-color: #005580 !important;
     }
 }
 </style>

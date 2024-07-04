@@ -45,7 +45,7 @@
                         排序按照： {{ sortBy.text }}
                     </button>
                     <span
-                        class="material-symbols-outlined cursor text-primary"
+                        class="material-symbols-outlined cursor text-primary pb-2"
                         @click="changeSortOrder"
                     >
                         {{ sortOrderIcon }}
