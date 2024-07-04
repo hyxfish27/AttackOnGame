@@ -36,7 +36,7 @@
                         <option :value="3">已滿團</option>
                     </select>
                 </div>
-                <div class="">
+                <div class="d-flex align-items-center">
                     <button
                         type="submit"
                         class="btn btn-primary mb-2"
@@ -44,6 +44,12 @@
                     >
                         排序按照： {{ sortBy.text }}
                     </button>
+                    <span
+                        class="material-symbols-outlined cursor text-primary pb-2"
+                        @click="changeSortOrder"
+                    >
+                        {{ sortOrderIcon }}
+                    </span>
                 </div>
             </div>
             <div v-if="loading" class="text-center mt-4">
@@ -52,25 +58,31 @@
             <div v-if="errorMessage.split()" class="text-center mt-4">
                 <p>{{ errorMessage }}</p>
             </div>
-            <div v-if="rawEventData.length > 0">
+            <div v-if="paginatedList.length > 0">
                 <EventPanel
                     class="mt-4"
-                    :data="rawEventData"
+                    :data="paginatedList"
                     :keywords="keywords"
                 ></EventPanel>
+                <Pagination
+                    :current-page="currentPage"
+                    :total-pages="totalPages"
+                    @update:currentPage="handlePageChange"
+                />
             </div>
         </div>
     </div>
 </template>
 <script setup>
 import EventAPI from '@/api/Event';
-// import CityAll from '@/utilities/city';
+import Pagination from '@/components/common/Pagination.vue';
 import { onMounted, ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import _debounce from 'lodash/debounce';
 import EventPanel from '../components/event/EventPanel.vue';
 import { SORT_BY, SORT_ORDER } from '../constant/eventList';
 
+const PER_PAGE = 8;
 const SORT_BY_MAP = {
     eventStartTime: {
         value: 'eventStartTime',
@@ -81,15 +93,23 @@ const SORT_BY_MAP = {
         text: '活動費用',
     },
 };
+const SORT_ORDER_ICON_MAP = {
+    desc: 'arrow_drop_down',
+    asc: 'arrow_drop_up',
+};
 const sortByKeys = Object.keys(SORT_BY_MAP);
 const sortBy = ref(SORT_BY_MAP[SORT_BY]);
-
+const sortOrder = ref(SORT_ORDER);
 function changeSortBy() {
     const currentIndex = sortByKeys.indexOf(sortBy.value.value);
     const nextIndex = (currentIndex + 1) % sortByKeys.length;
     sortBy.value = SORT_BY_MAP[sortByKeys[nextIndex]];
 }
-const sortOrder = ref(SORT_ORDER);
+function changeSortOrder() {
+    sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc';
+    return sortOrder.value;
+}
+const currentPage = ref(1);
 const loading = ref(true);
 const errorMessage = ref('');
 const inputValue = ref('');
@@ -98,7 +118,11 @@ const router = useRouter();
 const selectedType = ref('searchEvent');
 const selectedStatus = ref(0);
 const rawEventData = ref([]);
-
+const paginatedList = computed(() => {
+    const start = (currentPage.value - 1) * PER_PAGE;
+    const end = start + PER_PAGE;
+    return rawEventData.value.slice(start, end);
+});
 const getEvent = async (query = {}) => {
     loading.value = true;
     errorMessage.value = '';
@@ -119,7 +143,9 @@ const getEvent = async (query = {}) => {
 const registrationStatus = computed(() => {
     return selectedStatus.value !== 0 ? 2 : 0;
 });
-
+const sortOrderIcon = computed(() => {
+    return SORT_ORDER_ICON_MAP[sortOrder.value];
+});
 const query = computed(() => ({
     formationStatus: selectedStatus.value,
     registrationStatus: registrationStatus.value,
@@ -127,7 +153,12 @@ const query = computed(() => ({
     sortOrder: sortOrder.value,
     keyword: keywords.value,
 }));
-
+function handlePageChange(newPage) {
+    currentPage.value = newPage;
+}
+const totalPages = computed(() => {
+    return Math.ceil(rawEventData.value.length / PER_PAGE);
+});
 watch(
     query,
     (newQuery) => {
