@@ -49,7 +49,7 @@ export default {
 .main-header {
     background-color: #fff;
     border-bottom: 1px solid #e9e9e9;
-
+    color: #333333;
     padding: 8px 0;
     position: sticky;
     top: 0;
