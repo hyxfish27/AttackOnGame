@@ -207,6 +207,8 @@ import modal from '@/components/common/simpleModal.vue';
 import toLocalString from '@/utilities/toLocalString';
 import useAlert from '@/stores/alert';
 
+const orderStore = useFormStore();
+const router = useRouter();
 const alterStore = useAlert();
 const route = useRoute();
 const BsModal = ref(null);
@@ -231,8 +233,7 @@ const formData = ref({
     note: '',
     payPrice: null,
 });
-const orderStore = useFormStore();
-const router = useRouter();
+
 
 const createPayment = async (orderId) => {
     try {
