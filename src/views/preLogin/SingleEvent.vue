@@ -83,6 +83,7 @@
                                 活動答擬區
                             </h2>
                         </div>
+
                         <div>
                             <div class="p-3 bg-white border rounded">
                                 <div
@@ -123,12 +124,13 @@
                                             <img
                                                 style="object-fit: cover"
                                                 class="w-100 h-100"
-                                                src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGNhdHxlbnwwfHwwfHx8MA%3D%3D"
+                                                :src="PlayerData.avatar"
                                                 alt=""
                                             />
                                         </div>
                                         <textarea
                                             id="question"
+                                            v-model="myMessageContent.content"
                                             name="question"
                                             class="form-control bg-white"
                                             cols="30"
@@ -137,6 +139,18 @@
                                         ></textarea>
                                         <button
                                             class="btn btn-primary mt-2 align-self-end"
+                                            :disabled="
+                                                myMessageContent.content === ''
+                                            "
+                                            @click="
+                                                postMyMessageContent(
+                                                    eventData.idNumber,
+                                                    {
+                                                        content:
+                                                            myMessageContent.content,
+                                                    }
+                                                )
+                                            "
                                         >
                                             送出留言
                                         </button>
@@ -168,7 +182,10 @@
                                                                 object-fit: cover;
                                                             "
                                                             class="w-100 h-100"
-                                                            src="https://plus.unsplash.com/premium_photo-1663853489900-3f24ea776dea?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHwyNXx8fGVufDB8fHx8fA%3D%3D"
+                                                            :src="
+                                                                mes?.comment
+                                                                    .avatar
+                                                            "
                                                             alt=""
                                                         />
                                                     </div>
@@ -254,6 +271,9 @@
                                         >
                                             <textarea
                                                 id="question"
+                                                v-model="
+                                                    myMessageContent.content
+                                                "
                                                 name="question"
                                                 class="form-control bg-white"
                                                 cols="30"
@@ -272,6 +292,20 @@
                                                 <button
                                                     type="button"
                                                     class="btn btn-primary"
+                                                    :disabled="
+                                                        myMessageContent.content ===
+                                                        ''
+                                                    "
+                                                    @click="
+                                                        postMyReply(
+                                                            eventData.idNumber,
+                                                            mes.comment._id,
+                                                            {
+                                                                content:
+                                                                    myMessageContent.content,
+                                                            }
+                                                        )
+                                                    "
                                                 >
                                                     回覆留言
                                                 </button>
@@ -466,6 +500,7 @@ const storeData = ref({});
 const isLoading = ref(true);
 const isShopper = useIndexStore().userData.role === 'store';
 const isLoginUser = useIndexStore().userData.id;
+const PlayerData = useIndexStore().playerData;
 const { isLogin } = useIndexStore();
 
 const getEvent = async (eventId) => {
@@ -543,7 +578,6 @@ const doForEach = (messageData) => {
             }
         }
     });
-    console.log('messageData', messageData);
     console.log('result', result.value);
 };
 
@@ -553,12 +587,31 @@ const getMessage = async (eventId) => {
         .then((response) => {
             messageData.value = response.data.contents;
             doForEach(messageData.value);
-
-            console.log('message', messageData.value);
+            console.log('messageData.value', messageData.value);
         })
         .catch(() => {});
 };
-
+const myMessageContent = ref({
+    content: '',
+});
+const postMyMessageContent = async (eventId, content) => {
+    await EventAPI.postEventMessage(eventId, content)
+        .then((res) => {
+            console.log(res);
+            result.value = [];
+            getMessage(eventId);
+            myMessageContent.value.content = '';
+        })
+        .catch(() => {});
+};
+const postMyReply = async (eventId, messageId, content) => {
+    await EventAPI.postReplyMessage(eventId, messageId, content).then((res) => {
+        console.log(res);
+        result.value = [];
+        getMessage(eventId);
+        myMessageContent.value.content = '';
+    });
+};
 onMounted(() => {
     console.log('isShopper', isShopper);
     const { eventId } = route.params;
