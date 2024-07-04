@@ -131,5 +131,59 @@ const EventAPI = {
             throw error;
         }
     },
+
+    /**
+     * getEventMessage
+     * @param {String} eventId 活動id
+     * @description 取得單一活動留言
+     */
+    async getEventMessage(eventId) {
+        try {
+            const response = await Axios.get(
+                `/api/v1/event/${eventId}/messageBoard`
+            );
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+    /**
+     * postEventMessage
+     * @param {String} eventId 活動id
+     * @param {String} content 留言內容
+     * @description 玩家活動留言
+     */
+    async postEventMessage(eventId, content) {
+        try {
+            const response = await Axios.post(
+                `/api/v1/event/${eventId}/messageBoard`,
+                content
+            );
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+    /**
+     * postReplyMessage
+     * @param {String} eventId 活動id
+     * @param {String} content 留言內容
+     * @param {String} messageId 留言的 _id 值，指定的留言串留言
+     * @description 玩家活動留言
+     */
+    async postReplyMessage(eventId, messageId, content) {
+        try {
+            const response = await Axios.post(
+                `/api/v1/event/${eventId}/messageBoard/${messageId}/reply`,
+                content
+            );
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
 };
 export default EventAPI;
