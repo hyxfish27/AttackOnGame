@@ -1,5 +1,6 @@
 <template>
     <div class="single-event container-fluid positon-relative lh-lg">
+        <modal ref="BsModal" title="很抱歉" :text="ModalText"></modal>
         <Loading
             v-if="isLoading"
             :class="{ 'loading-fade': !isLoading }"
@@ -158,7 +159,7 @@
                                 </div>
                                 <div v-if="messageData?.length > 0">
                                     <div
-                                        v-for="mes in result"
+                                        v-for="(mes, index) in result"
                                         :key="mes._id"
                                         class="px-3 border-bottom mb-3"
                                     >
@@ -213,6 +214,7 @@
                                                 "
                                                 type="button"
                                                 class="btn btn-outline-dark"
+                                                @click="toggleReplyBox(index)"
                                             >
                                                 回覆
                                             </button>
@@ -266,7 +268,9 @@
                                         <div
                                             v-if="
                                                 isLogin &&
-                                                isLoginUser === storeData.user
+                                                isLoginUser ===
+                                                    storeData.user &&
+                                                isReplyBoxOpen === index
                                             "
                                         >
                                             <textarea
@@ -297,7 +301,7 @@
                                                         ''
                                                     "
                                                     @click="
-                                                        postMyReply(
+                                                        checkMyReply(
                                                             eventData.idNumber,
                                                             mes.comment._id,
                                                             {
@@ -490,6 +494,7 @@ import dayjs from '@/utilities/dayjs';
 import Loading from '@/components/common/Loading.vue';
 import Location from '@/components/event/Location.vue';
 import useIndexStore from '@/stores/index';
+import modal from '@/components/common/simpleModal.vue';
 
 const route = useRoute();
 
@@ -580,7 +585,8 @@ const doForEach = (messageData) => {
     });
     console.log('result', result.value);
 };
-
+const BsModal = ref(null);
+const ModalText = ref('');
 const messageData = ref(null);
 const getMessage = async (eventId) => {
     await EventAPI.getEventMessage(eventId)
@@ -602,16 +608,39 @@ const postMyMessageContent = async (eventId, content) => {
             getMessage(eventId);
             myMessageContent.value.content = '';
         })
-        .catch(() => {});
+        .catch(() => {
+            ModalText.value = '很抱歉，您現在無法留言';
+            BsModal.value.myModalShow();
+        });
 };
 const postMyReply = async (eventId, messageId, content) => {
-    await EventAPI.postReplyMessage(eventId, messageId, content).then((res) => {
-        console.log(res);
-        result.value = [];
-        getMessage(eventId);
-        myMessageContent.value.content = '';
-    });
+    await EventAPI.postReplyMessage(eventId, messageId, content)
+        .then((res) => {
+            console.log(res);
+            result.value = [];
+            getMessage(eventId);
+            myMessageContent.value.content = '';
+        })
+        .catch(() => {
+            ModalText.value = '很抱歉，您現在無法留言';
+            BsModal.value.myModalShow();
+        });
 };
+const checkMyReply = (eventId, messageId, content) => {
+    console.log('eventId, messageId, content', eventId, messageId, content);
+    postMyReply(eventId, messageId, content);
+};
+const isReplyBoxOpen = ref(null);
+
+const toggleReplyBox = (index) => {
+    if (isReplyBoxOpen.value === index) {
+        isReplyBoxOpen.value = null;
+    } else {
+        isReplyBoxOpen.value = index;
+        myMessageContent.value.content = ''; // 清空文本框内容
+    }
+};
+
 onMounted(() => {
     console.log('isShopper', isShopper);
     const { eventId } = route.params;
