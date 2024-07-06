@@ -27,10 +27,13 @@ const ImageAPI = {
      * @param {String} storeId 店家id
      * @description 上傳店家照片
      */
-    async postStoreImg(storeId) {
+    async postStoreImg(storeId, file) {
         try {
+            const fileData = new FormData();
+            fileData.append('file', file);
             const response = await Axios.post(
-                `/api/v1/image/store/upload/${storeId}`
+                `/api/v1/image/store/upload/${storeId}`,
+                fileData
             );
             return response;
         } catch (error) {
