@@ -14,7 +14,12 @@
                     class="w-100 h-100 inset-0 object-fit-cover position-absolute"
                     :src="computedEventData.eventImageUrl"
                     :alt="computedEventData.title"
+                    loading="lazy"
                 />
+                <div
+                    v-if="isLazyLoad"
+                    class="swiper-lazy-preloader swiper-lazy-preloader-black"
+                ></div>
             </div>
 
             <div class="card-body p-2">
@@ -71,6 +76,10 @@ import STATUS_MAP from '@/constant/eventStatus';
 import setEventAttr from '@/utilities/setEventAttr';
 
 const props = defineProps({
+    isLazyLoad: {
+        type: Boolean,
+        default: false,
+    },
     data: {
         type: Object,
         default: () => ({}),

@@ -18,6 +18,7 @@
                 <Swiper :data="data">
                     <template #slideContent="{ slide }">
                         <Card
+                            :is-lazy-load="true"
                             :data="slide"
                             css-style="w-100"
                             @click="onEventCardClick(slide.idNumber)"
