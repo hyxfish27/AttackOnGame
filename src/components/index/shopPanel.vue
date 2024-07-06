@@ -21,6 +21,7 @@
                 <Swiper :data="data" class="ani-entrance ani-entrance-2">
                     <template #slideContent="{ slide }">
                         <StoreCard
+                            :is-lazy-load="true"
                             :data="slide"
                             css-style="w-100"
                             @click="onStoreCardClick(slide.user)"
