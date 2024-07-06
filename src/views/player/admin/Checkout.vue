@@ -246,7 +246,6 @@ const formData = ref({
     payPrice: null,
 });
 
-
 const createPayment = async (orderId) => {
     try {
         const res = await PlayerAPI.createPayment({
