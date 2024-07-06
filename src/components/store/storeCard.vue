@@ -17,9 +17,13 @@
                     class="rounded-circle object-fit-cover mb-2 border"
                     :src="storeImg"
                     :alt="data.name"
+                    loading="lazy"
                     @error="handleErrorImage()"
                 />
-
+                <div
+                    v-if="isLazyLoad"
+                    class="swiper-lazy-preloader swiper-lazy-preloader-black"
+                ></div>
                 <p
                     class="fw-bold fs-8 line-clamp line-clamp-1"
                     style="height: 27px; overflow: hidden"
@@ -44,6 +48,10 @@ import storeDefaultIcon from '@/assets/images/brand_icon.png';
 import _isEmpty from 'lodash/isEmpty';
 
 const { data } = defineProps({
+    isLazyLoad: {
+        type: Boolean,
+        default: false,
+    },
     data: {
         type: Object,
         default: () => ({}),
