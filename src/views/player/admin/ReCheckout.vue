@@ -137,9 +137,8 @@ const payment = async () => {
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);
-       // reset formdata 
-       orderStore.setState(false);
-
+        // reset formdata
+        orderStore.setState(false);
     } catch (error) {
         console.log(error);
     }
