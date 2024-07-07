@@ -1,7 +1,12 @@
 <script setup>
-import { defineModel } from 'vue';
+import { defineModel, computed } from 'vue';
 import { ErrorMessage, Field as VField, Form as VForm } from 'vee-validate';
 import * as yup from 'yup';
+import ImageAPI from '@/api/Image';
+import useIndexStore from '@/stores/index';
+
+const indexStore = useIndexStore();
+const userData = computed(() => indexStore.userData);
 // import ImageAPI from '@/api/Image';
 
 const formData = defineModel({
@@ -39,22 +44,23 @@ const formDataSchema = {
     introduce: yup.string().required('店家描述為必填項目'),
     avatar: yup.string().required('請上傳圖片'),
 };
-// const handleFileUpload = (event) => {
-//     const file = event.target.files[0];
-//     formData.value.avatar = file;
-// };
-// const postImage = async (userId, file) => {
-//     await ImageAPI.postPlayerImg(userId, file)
-//         .then((res) => {
-//             console.log('imageRes', res);
-//             formData.value.avatar = res.data.imgURL;
-//             console.log('res.imgURL', res.data.imgURL);
-//             //window.location.reload();
-//         })
-//         .catch((err) => {
-//             console.log('imageErr', err);
-//         });
-// };
+const postImage = async (userId, file) => {
+    console.log(userId);
+    await ImageAPI.postStoreImg(userId, file)
+        .then((res) => {
+            console.log('imageRes', res);
+            formData.value.avatar = res.data.imgURL;
+            console.log('res.imgURL', res.data.imgURL);
+        })
+        .catch((err) => {
+            console.log('imageErr', err);
+        });
+};
+const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    formData.value.avatar = file;
+    postImage(userData.value.id, formData.value.avatar);
+};
 </script>
 
 <template>
@@ -117,6 +123,15 @@ const formDataSchema = {
         </div>
         <div class="mb-3">
             <label for="avatar" class="form-label">上傳頭像</label>
+            <div class="mb-2">
+                <img
+                    v-if="formData.avatar"
+                    width="54"
+                    :src="formData.avatar"
+                    alt="店家頭像"
+                />
+            </div>
+
             <input
                 id="avatar"
                 type="file"

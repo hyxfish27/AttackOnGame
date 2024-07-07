@@ -4,44 +4,109 @@
             <div class="h5">編輯店家資料</div>
             <v-form v-slot="{ errors }" @submit="onSubmit">
                 <div class="mb-3">
-                    <label for="editName" class="form-label require-icon">名稱</label>
-                    <v-field id="editName" v-model="formData.name" type="text" class="form-control" name="name"
-                        :rules="formDataSchema.name" :class="{ 'is-invalid': errors['name'] }"></v-field>
-                    <error-message name="name" class="text-danger"></error-message>
+                    <label for="editName" class="form-label require-icon"
+                        >名稱</label
+                    >
+                    <v-field
+                        id="editName"
+                        v-model="formData.name"
+                        type="text"
+                        class="form-control"
+                        name="name"
+                        :rules="formDataSchema.name"
+                        :class="{ 'is-invalid': errors['name'] }"
+                    ></v-field>
+                    <error-message
+                        name="name"
+                        class="text-danger"
+                    ></error-message>
                 </div>
 
                 <div class="mb-3">
-                    <label for="editContact" class="form-label require-icon">聯絡電話</label>
-                    <v-field id="editContact" v-model="formData.phone" type="text" class="form-control" name="phone"
-                        :rules="formDataSchema.phone" :class="{ 'is-invalid': errors['phone'] }"></v-field>
-                    <error-message name="phone" class="text-danger"></error-message>
+                    <label for="editContact" class="form-label require-icon"
+                        >聯絡電話</label
+                    >
+                    <v-field
+                        id="editContact"
+                        v-model="formData.phone"
+                        type="text"
+                        class="form-control"
+                        name="phone"
+                        :rules="formDataSchema.phone"
+                        :class="{ 'is-invalid': errors['phone'] }"
+                    ></v-field>
+                    <error-message
+                        name="phone"
+                        class="text-danger"
+                    ></error-message>
                 </div>
 
                 <div class="mb-3">
-                    <label for="address" class="form-label require-icon">地址</label>
-                    <v-field id="address" v-model="formData.address" type="text" class="form-control" name="address"
-                        :rules="formDataSchema.address"></v-field>
-                    <error-message name="address" class="text-danger"></error-message>
+                    <label for="address" class="form-label require-icon"
+                        >地址</label
+                    >
+                    <v-field
+                        id="address"
+                        v-model="formData.address"
+                        type="text"
+                        class="form-control"
+                        name="address"
+                        :rules="formDataSchema.address"
+                    ></v-field>
+                    <error-message
+                        name="address"
+                        class="text-danger"
+                    ></error-message>
                 </div>
 
                 <div class="mb-3">
-                    <label for="editDescription" class="form-label require-icon">簡介</label>
-                    <v-field id="editDescription" v-model="formData.introduce" as="textarea" class="form-control"
-                        name="introduce" :rules="formDataSchema.introduce" style="min-height: 200px"
-                        :class="{ 'is-invalid': errors['introduce'] }"></v-field>
-                    <error-message name="introduce" class="text-danger"></error-message>
+                    <label for="editDescription" class="form-label require-icon"
+                        >簡介</label
+                    >
+                    <v-field
+                        id="editDescription"
+                        v-model="formData.introduce"
+                        as="textarea"
+                        class="form-control"
+                        name="introduce"
+                        :rules="formDataSchema.introduce"
+                        style="min-height: 200px"
+                        :class="{ 'is-invalid': errors['introduce'] }"
+                    ></v-field>
+                    <error-message
+                        name="introduce"
+                        class="text-danger"
+                    ></error-message>
                 </div>
                 <div class="mb-3">
                     <label for="avatar" class="form-label">上傳頭像</label>
                     <div class="mb-2">
-                        <img v-if="formData.avatar" width="50" :src="formData.avatar" alt="" />
+                        <img
+                            v-if="formData.avatar"
+                            width="50"
+                            :src="formData.avatar"
+                            alt=""
+                        />
                     </div>
-                    <input id="avatar" type="file" class="form-control" name="avatar" @change="handleFileUpload" />
-                    <error-message name="avatar" class="text-danger"></error-message>
+                    <input
+                        id="avatar"
+                        type="file"
+                        class="form-control"
+                        name="avatar"
+                        @change="handleFileUpload"
+                    />
+                    <error-message
+                        name="avatar"
+                        class="text-danger"
+                    ></error-message>
                 </div>
 
                 <div class="row flex-row">
-                    <button type="button" class="btn btn-secondary col me-2" @click="close">
+                    <button
+                        type="button"
+                        class="btn btn-secondary col me-2"
+                        @click="close"
+                    >
                         取消
                     </button>
                     <button type="submit" class="btn btn-primary col">
@@ -104,7 +169,7 @@ const postImage = async (storeId, file) => {
 const handleFileUpload = (event) => {
     const file = event.target.files[0];
     formData.value.avatar = file;
-    postImage(props.store._id, file);
+    postImage(props.store.user, file);
 };
 </script>
 

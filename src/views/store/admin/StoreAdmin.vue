@@ -7,17 +7,25 @@
                     <div class="d-flex row justify-between border-bottom pb-2">
                         <div class="col h6">店家資料</div>
                         <div class="col text-end">
-                            <button class="btn btn-outline-primary me-2" @click="openModal">
+                            <button
+                                class="btn btn-outline-primary me-2"
+                                @click="openModal"
+                            >
                                 編輯資料
                             </button>
 
-                            <button class="btn btn-outline-primary" @click="toPasswordModify">
+                            <button
+                                class="btn btn-outline-primary"
+                                @click="toPasswordModify"
+                            >
                                 更改密碼
                             </button>
                         </div>
                     </div>
 
-                    <div class="d-flex h-100 justify-content-center align-items-center">
+                    <div
+                        class="d-flex h-100 justify-content-center align-items-center"
+                    >
                         <div class="flex-grow-1 bg-white">
                             <StoreDataForm v-model="store" />
                         </div>
@@ -26,7 +34,13 @@
             </div>
         </div>
 
-        <EditStoreModal v-if="showModal" :store="store" :user-data="userData" @close="closeModal" @save="saveChanges" />
+        <EditStoreModal
+            v-if="showModal"
+            :store="store"
+            :user-data="userData"
+            @close="closeModal"
+            @save="saveChanges"
+        />
     </div>
 </template>
 
