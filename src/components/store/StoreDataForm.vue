@@ -2,6 +2,7 @@
 import { defineModel } from 'vue';
 import { ErrorMessage, Field as VField, Form as VForm } from 'vee-validate';
 import * as yup from 'yup';
+// import ImageAPI from '@/api/Image';
 
 const formData = defineModel({
     type: Object,
@@ -10,6 +11,7 @@ const formData = defineModel({
         phone: '',
         address: '',
         introduce: '',
+        avatar: '',
     }),
 });
 
@@ -35,7 +37,24 @@ const formDataSchema = {
         .matches(/^0[0-9]{9}$/, '請輸入10位數的手機號碼'),
     address: yup.string().required('地址為必填項目'),
     introduce: yup.string().required('店家描述為必填項目'),
+    avatar: yup.string().required('請上傳圖片'),
 };
+// const handleFileUpload = (event) => {
+//     const file = event.target.files[0];
+//     formData.value.avatar = file;
+// };
+// const postImage = async (userId, file) => {
+//     await ImageAPI.postPlayerImg(userId, file)
+//         .then((res) => {
+//             console.log('imageRes', res);
+//             formData.value.avatar = res.data.imgURL;
+//             console.log('res.imgURL', res.data.imgURL);
+//             //window.location.reload();
+//         })
+//         .catch((err) => {
+//             console.log('imageErr', err);
+//         });
+// };
 </script>
 
 <template>
@@ -95,6 +114,19 @@ const formDataSchema = {
                 :disabled="!conEdit"
             ></v-field>
             <error-message name="introduce" class="text-danger"></error-message>
+        </div>
+        <div class="mb-3">
+            <label for="avatar" class="form-label">上傳頭像</label>
+            <input
+                id="avatar"
+                type="file"
+                class="form-control"
+                name="avatar"
+                :rules="formDataSchema.avatar"
+                :disabled="!conEdit"
+                @change="handleFileUpload"
+            />
+            <error-message name="avatar" class="text-danger"></error-message>
         </div>
 
         <!-- if canEdit is true display comfirm button -->
