@@ -7,18 +7,6 @@
             ></Loading>
             <LeftEl></LeftEl>
             <div class="col-9 ps-3">
-                <div>
-                    <div class="pb-3 border-bottom d-flex">
-                        <div class="fs-7 fw-bold">
-                            {{ order.title }}
-                        </div>
-                        <router-link
-                            :to="{ name: 'Login' }"
-                            class="btn btn-outline-primary fw-bold px-4 my-2"
-                            >登入</router-link
-                        >
-                    </div>
-                </div>
                 <div class="border rounded bg-white min-h-screen p-3">
                     <div class="fs-7 fw-bold pb-3 border-bottom">
                         {{ order.title }}
@@ -136,9 +124,8 @@ const usersAttr = computed(() => {
 });
 
 const getOrder = async (idNumber) => {
-    await StoreAPI.getTheOrder(idNumber)
+    await StoreAPI.getTheTickets(idNumber)
         .then((res) => {
-            console.log('order', res);
             order.value = res.data.data.event;
             users.value = res.data.data.user;
             setTimeout(() => {

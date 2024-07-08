@@ -60,12 +60,11 @@
                     </div>
                 </div>
                 <div class="pt-5 d-flex flex-wrap justify-content-center gap-3">
-                    <img
-                        v-for="(img, idx) in tickets"
-                        :key="img.orderId"
-                        class="w-40"
-                        :src="img.qrCodeUrl"
-                        :alt="'活動票券' + (idx + 1)"
+                    <QRCodeVue3
+                        v-for="img in tickets"
+                        :key="img.idNumber"
+                        :value="value"
+                        myclass="w-40"
                     />
                 </div>
             </div>
@@ -156,6 +155,7 @@ import formatTaiwanPhoneNumber from '@/utilities/formatTaiwanPhoneNumber';
 import { PaymentStatus, PaymentMethod } from '@/constant/orderStatus';
 import useAlert from '@/stores/alert';
 import RollBack from '@/components/common/rollBack.vue';
+import QRCodeVue3 from 'qrcode-vue3';
 
 const alterStore = useAlert();
 const isLoading = ref(true);
