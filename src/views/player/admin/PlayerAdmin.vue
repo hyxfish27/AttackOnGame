@@ -98,14 +98,26 @@
 
                     <div class="mb-3">
                         <label for="avatar" class="form-label">上傳頭像</label>
-                        <input
-                            id="avatar"
-                            type="file"
-                            class="form-control"
-                            name="avatar"
-                            :disabled="!canEdit"
-                            @change="handleFileUpload"
-                        />
+                        <div class="d-flex gap-2 align-items-center">
+                            <div class="mb-2">
+                                <img
+                                    v-if="formData.avatar"
+                                    width="54"
+                                    :src="formData.avatar"
+                                    alt=""
+                                />
+                            </div>
+
+                            <input
+                                id="avatar"
+                                type="file"
+                                class="form-control"
+                                name="avatar"
+                                :disabled="!canEdit"
+                                @change="handleFileUpload"
+                            />
+                        </div>
+
                         <error-message
                             name="avatar"
                             class="text-danger"
