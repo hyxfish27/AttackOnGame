@@ -6,11 +6,9 @@
         :navigation="true"
         :slides-per-view="4"
         :modules="modules"
+        :lazy="true"
         class="swiper-panel"
-        :autoplay="{
-            delay: 5000,
-            disableOnInteraction: false,
-        }"
+        :autoplay="{ delay: 5000, disableOnInteraction: false }"
     >
         <swiper-slide v-for="(slide, index) in data" :key="index" class="">
             <slot name="slideContent" :slide="slide"></slot>
