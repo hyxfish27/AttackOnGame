@@ -46,10 +46,13 @@ const ImageAPI = {
      * @param {String} eventId 活動id
      * @description 上傳活動照片
      */
-    async postEventImg(eventId) {
+    async postEventImg(eventId, file) {
         try {
+            const fileData = new FormData();
+            fileData.append('file', file);
             const response = await Axios.post(
-                `/api/v1/image/event/upload/${eventId}`
+                `/api/v1/image/event/upload/${eventId}`,
+                fileData
             );
             return response;
         } catch (error) {
