@@ -78,6 +78,28 @@
                         class="text-danger"
                     ></error-message>
                 </div>
+                <div class="mb-3">
+                    <label for="avatar" class="form-label">上傳頭像</label>
+                    <div class="mb-2">
+                        <img
+                            v-if="formData.avatar"
+                            width="50"
+                            :src="formData.avatar"
+                            alt=""
+                        />
+                    </div>
+                    <input
+                        id="avatar"
+                        type="file"
+                        class="form-control"
+                        name="avatar"
+                        @change="handleFileUpload"
+                    />
+                    <error-message
+                        name="avatar"
+                        class="text-danger"
+                    ></error-message>
+                </div>
 
                 <div class="row flex-row">
                     <button
@@ -99,6 +121,7 @@
 <script setup>
 import { ref } from 'vue';
 import * as yup from 'yup';
+import ImageAPI from '@/api/Image';
 
 const props = defineProps({
     store: {
@@ -124,9 +147,29 @@ const formDataSchema = {
     address: yup.string().required('地址為必填項目'),
     introduce: yup.string().required('店家描述為必填項目'),
 };
-
 const onSubmit = (values) => {
+    console.log('valueee', values);
+    console.log('formData.value222', formData.value);
     emit('save', values);
+    console.log('formData.value.avatar', formData.value.avatar);
+};
+const postImage = async (storeId, file) => {
+    console.log('test', storeId, file);
+    await ImageAPI.postStoreImg(storeId, file)
+        .then((res) => {
+            console.log('imageRes', res);
+            formData.value.avatar = res.data.imgURL;
+            console.log('res.imgURL', res.data.imgURL);
+        })
+        .catch((err) => {
+            console.log('file, storeId', file, storeId);
+            console.log('imageErr', err);
+        });
+};
+const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    formData.value.avatar = file;
+    postImage(props.store.user, file);
 };
 </script>
 

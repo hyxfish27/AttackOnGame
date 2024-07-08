@@ -133,7 +133,6 @@ const getEventAll = async () => {
                     name: 'PlayerLogin',
                 });
             } else {
-                alert(`${err.response.data.message}`);
                 isLoading.value = false;
                 console.log(err);
             }

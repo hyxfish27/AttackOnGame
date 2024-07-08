@@ -96,21 +96,33 @@
                         ></error-message>
                     </div>
 
-                    <!-- <div class="mb-3">
+                    <div class="mb-3">
                         <label for="avatar" class="form-label">上傳頭像</label>
-                        <input
-                            id="avatar"
-                            type="file"
-                            class="form-control"
-                            name="avatar"
-                            :disabled="!canEdit"
-                            @change="handleFileUpload"
-                        />
+                        <div class="d-flex gap-2 align-items-center">
+                            <div class="mb-2">
+                                <img
+                                    v-if="formData.avatar"
+                                    width="54"
+                                    :src="formData.avatar"
+                                    alt=""
+                                />
+                            </div>
+
+                            <input
+                                id="avatar"
+                                type="file"
+                                class="form-control"
+                                name="avatar"
+                                :disabled="!canEdit"
+                                @change="handleFileUpload"
+                            />
+                        </div>
+
                         <error-message
                             name="avatar"
                             class="text-danger"
                         ></error-message>
-                    </div> -->
+                    </div>
 
                     <div class="section">
                         <button
@@ -141,6 +153,7 @@ import { defineComponent, ref, computed, onMounted } from 'vue';
 import * as yup from 'yup';
 import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate';
 import PlayerAPI from '@/api/Player';
+import ImageAPI from '@/api/Image';
 import useIndexStore from '@/stores/index';
 import LeftEl from '@/components/player/PlayerLeftEl.vue';
 import useAlert from '@/stores/alert';
@@ -174,6 +187,18 @@ export default defineComponent({
         const playerData = computed(() => indexStore.playerData);
         const userData = computed(() => indexStore.userData);
         const canEdit = ref(false);
+        const postImage = async (userId, file) => {
+            await ImageAPI.postPlayerImg(userId, file)
+                .then((res) => {
+                    console.log('imageRes', res);
+                    formData.value.avatar = res.data.imgURL;
+                    console.log('res.imgURL', res.data.imgURL);
+                    window.location.reload();
+                })
+                .catch((err) => {
+                    console.log('imageErr', err);
+                });
+        };
 
         const onSubmit = async (playerInfo) => {
             try {
@@ -183,6 +208,7 @@ export default defineComponent({
                 });
                 alterStore.openModal('success', '更新成功');
                 indexStore.getPlayer(userData.value.id);
+                postImage(userData.value.id, formData.value.avatar);
             } catch (error) {
                 alterStore.openModal('error', `更新失敗: ${error}`);
             }
