@@ -61,10 +61,37 @@
                 </div>
                 <div class="pt-5 d-flex flex-wrap justify-content-center gap-3">
                     <QRCodeVue3
-                        v-for="img in tickets"
-                        :key="img.idNumber"
-                        :value="value"
+                        v-for="ticket in ticketList"
+                        :key="ticket.idNumber"
+                        :value="ticket.idNumber"
+                        :image="Logo"
                         myclass="w-40"
+                        :dots-options="{
+                            type: 'extra - rounded',
+                            color: '#212529',
+                        }"
+                        :corners-square-options="{
+                            type: 'extra - rounded',
+                            color: '#212529',
+                        }"
+                        :corners-dot-options="{
+                            type: 'extra - rounded',
+                            color: ticket.qrCodeColor,
+                            gradient: {
+                                type: 'linear',
+                                rotation: 0,
+                                colorStops: [
+                                    {
+                                        offset: 0,
+                                        color: ticket.qrCodeColor.color1,
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: ticket.qrCodeColor.color2,
+                                    },
+                                ],
+                            },
+                        }"
                     />
                 </div>
             </div>
@@ -156,6 +183,7 @@ import { PaymentStatus, PaymentMethod } from '@/constant/orderStatus';
 import useAlert from '@/stores/alert';
 import RollBack from '@/components/common/rollBack.vue';
 import QRCodeVue3 from 'qrcode-vue3';
+import Logo from '@/assets/images/favicon.png';
 
 const alterStore = useAlert();
 const isLoading = ref(true);
@@ -164,7 +192,12 @@ const route = useRoute();
 const store = ref({});
 const event = ref({});
 const rawOrder = ref({});
-const tickets = ref([]);
+const rawtickets = ref([]);
+
+const TICKET_COLOR_MAP = {
+    pending: { color1: '#ffdd33', color2: '#fdc221' },
+    completed: { color1: '#9F9F9F', color2: '#9F9F9F' },
+};
 
 const getTicket = async (idNumber) => {
     isLoading.value = true;
@@ -173,7 +206,7 @@ const getTicket = async (idNumber) => {
             store.value = res.data.data.store;
             event.value = res.data.data.event;
             rawOrder.value = res.data.data.order;
-            tickets.value = res.data.data.tickets;
+            rawtickets.value = res.data.data.tickets;
         })
         .catch((err) => {
             console.log(err);
@@ -208,6 +241,14 @@ const order = computed(() => {
         discount: rawOrder.value.discount,
         note: rawOrder.value.note ?? '無',
     };
+});
+const ticketList = computed(() => {
+    return rawtickets.value.map((x) => {
+        return {
+            idNumber: x.idNumber,
+            qrCodeColor: TICKET_COLOR_MAP[x.qrCodeStatus],
+        };
+    });
 });
 </script>
 <style lang="scss" scope>
