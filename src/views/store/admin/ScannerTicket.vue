@@ -6,23 +6,10 @@
                 :class="{ 'loading-fade': !isLoading }"
             ></Loading>
             <LeftEl></LeftEl>
-            <div class="col-9 ps-3 admin-activity-panel">
+            <div class="col-9 ps-3">
                 <div class="border rounded bg-white min-h-screen p-3">
-                    <div
-                        class="d-flex justify-content-between align-items-center pb-3 border-bottom"
-                    >
-                        <p class="fs-7 fw-bold">
-                            {{ order.title }}
-                        </p>
-                        <router-link
-                            :to="{ name: 'ScannerTicket', params: idNumber }"
-                            class="btn btn-primary text-white fw-bold px-4 signup-button d-flex justify-content-between"
-                        >
-                            <span class="material-symbols-outlined">
-                                qr_code_scanner
-                            </span>
-                            <p class="mx-1">驗證票券</p>
-                        </router-link>
+                    <div class="fs-7 fw-bold pb-3 border-bottom">
+                        {{ order.title }}
                     </div>
                     <div class="py-2 d-flex gap-4 border-bottom">
                         <div>
@@ -86,24 +73,22 @@
                     <div v-if="usersAttr.length === 0">
                         <EmptyField text="還沒有人下訂單唷"></EmptyField>
                     </div>
-                    <div
-                        v-for="user in usersAttr"
-                        v-else
-                        :key="user.idNumber"
-                        class="d-grid gap-2 py-2 border-bottom table-body"
-                        style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr"
-                    >
-                        <div class="d-flex align-items-center">
-                            <div class="profile-img rounded-circle small mx-1">
-                                <img :src="user.imgUrl" alt="" />
-                            </div>
+                    <div v-else>
+                        <div
+                            v-for="user in usersAttr"
+                            :key="user.idNumber"
+                            class="d-grid gap-2 py-2 border-bottom"
+                            style="
+                                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr;
+                            "
+                        >
                             <p>{{ user.name }}</p>
+                            <p>{{ user.payment }}</p>
+                            <p>{{ user.registrationCount }}</p>
+                            <p>{{ user.paymentMethod }}</p>
+                            <p>{{ user.paymentStatus }}</p>
+                            <p>{{ user.idNumber }}</p>
                         </div>
-                        <p class="lh-2">{{ user.payment }}</p>
-                        <p class="lh-2">{{ user.registrationCount }}</p>
-                        <p class="lh-2">{{ user.paymentMethod }}</p>
-                        <p class="lh-2">{{ user.paymentStatus }}</p>
-                        <p class="lh-2">{{ user.idNumber }}</p>
                     </div>
                 </div>
             </div>
@@ -119,15 +104,12 @@ import toLocalString from '@/utilities/toLocalString';
 import { PaymentStatus, PaymentMethod } from '@/constant/orderStatus';
 import EmptyField from '@/components/common/EmptyField.vue';
 import Loading from '@/components/common/Loading.vue';
-import useAlert from '@/stores/alert';
 
-const alterStore = useAlert();
 const users = ref([]);
 const order = ref({});
 const router = useRouter();
 const route = useRoute();
 const isLoading = ref(true);
-
 const usersAttr = computed(() => {
     return users.value.map((x) => ({
         name: x.name,
@@ -139,11 +121,9 @@ const usersAttr = computed(() => {
         imgUrl: x.avatar,
     }));
 });
-
 const getOrder = async (idNumber) => {
-    await StoreAPI.getTheOrder(idNumber)
+    await StoreAPI.getTheTickets(idNumber)
         .then((res) => {
-            console.log('order', res);
             order.value = res.data.data.event;
             users.value = res.data.data.user;
             setTimeout(() => {
@@ -153,12 +133,13 @@ const getOrder = async (idNumber) => {
         .catch((err) => {
             console.log(err);
             if (err.response.status === 401) {
-                alterStore.openModal('error', '請先完成登入');
+                alert('請先完成登入');
                 router.push({
                     name: 'PlayerLogin',
                 });
             } else {
-                alterStore.openModal('error', `${err.response.data.message}`);
+                alert(`${err.response.data.message}`);
+                console.log(err);
             }
             isLoading.value = false;
         });
@@ -172,20 +153,12 @@ onMounted(() => {
 body {
     background-color: #f7f7f7;
 }
-.admin-activity-panel {
-    .lh-2 {
-        line-height: 2rem;
-    }
-}
 .profile-img {
     width: 54px;
     height: 54px;
     overflow: hidden;
     background-color: #fff;
-    &.small {
-        width: 2rem;
-        height: 2rem;
-    }
+    cursor: pointer;
     img {
         width: 100%;
         height: 100%;

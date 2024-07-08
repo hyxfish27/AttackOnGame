@@ -88,7 +88,9 @@ const StoreAPI = {
      */
     async getTheOrder(idNumber) {
         try {
-            const response = await Axios.get(`/api/v1/myevent/${idNumber}`);
+            const response = await Axios.get(
+                `/api/v1/myevent/${idNumber}/player`
+            );
             return response;
         } catch (error) {
             console.error(error);

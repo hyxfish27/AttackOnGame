@@ -187,6 +187,14 @@ const routes = [
                                         '@/views/store/admin/EditActivity.vue'
                                     ),
                             },
+                            {
+                                path: 'ticket-list/:idNumber',
+                                name: 'ScannerTicket',
+                                component: () =>
+                                    import(
+                                        '@/views/store/admin/ScannerTicket.vue'
+                                    ),
+                            },
                         ],
                     },
                     {
