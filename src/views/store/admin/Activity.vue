@@ -74,7 +74,9 @@
                     </div>
                     <div
                         class="d-grid pb-2 pt-3 gap-2 text-grey9F border-bottom"
-                        style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr"
+                        style="
+                            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 2fr 1fr;
+                        "
                     >
                         <p>報名者</p>
                         <p>總額</p>
@@ -82,6 +84,7 @@
                         <p>付款方式</p>
                         <p>付款狀態</p>
                         <p>訂單編號</p>
+                        <p>操作</p>
                     </div>
                     <div v-if="usersAttr.length === 0">
                         <EmptyField text="還沒有人下訂單唷"></EmptyField>
@@ -91,19 +94,43 @@
                         v-else
                         :key="user.idNumber"
                         class="d-grid gap-2 py-2 border-bottom table-body"
-                        style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr"
+                        style="
+                            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 2fr 1fr;
+                        "
                     >
                         <div class="d-flex align-items-center">
                             <div class="profile-img rounded-circle small mx-1">
                                 <img :src="user.imgUrl" alt="" />
                             </div>
-                            <p>{{ user.name }}</p>
+                            <p class="line-clamp-1 line-clamp">
+                                {{ user.name }}
+                            </p>
                         </div>
                         <p class="lh-2">{{ user.payment }}</p>
                         <p class="lh-2">{{ user.registrationCount }}</p>
                         <p class="lh-2">{{ user.paymentMethod }}</p>
                         <p class="lh-2">{{ user.paymentStatus }}</p>
                         <p class="lh-2">{{ user.idNumber }}</p>
+                        <div class="d-flex">
+                            <a
+                                v-tooltip="user.phoneFormatter"
+                                :href="`tel:${user.phoneValue}`"
+                            >
+                                <span
+                                    class="cursor material-symbols-outlined text-grey33"
+                                >
+                                    phone_iphone
+                                </span>
+                            </a>
+                            <div v-if="user.notes">
+                                <span
+                                    v-tooltip="user.notes"
+                                    class="cursor material-symbols-outlined text-grey33"
+                                >
+                                    note_stack
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,6 +147,8 @@ import { PaymentStatus, PaymentMethod } from '@/constant/orderStatus';
 import EmptyField from '@/components/common/EmptyField.vue';
 import Loading from '@/components/common/Loading.vue';
 import useAlert from '@/stores/alert';
+import { vTooltip } from 'floating-vue';
+import 'floating-vue/dist/style.css';
 
 const alterStore = useAlert();
 const users = ref([]);
@@ -131,6 +160,9 @@ const isLoading = ref(true);
 const usersAttr = computed(() => {
     return users.value.map((x) => ({
         name: x.name,
+        phoneFormatter: x.phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1-$2-$3'),
+        phoneValue: x.phone.replace(/^0(\d{3})(\d{6})$/, '+886-$1$2'),
+        notes: x.notes,
         payment: toLocalString(x.payment),
         registrationCount: x.registrationCount,
         paymentMethod: PaymentMethod[x.paymentMethod],
