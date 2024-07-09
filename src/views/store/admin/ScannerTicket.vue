@@ -8,60 +8,9 @@
             <LeftEl></LeftEl>
             <div class="col-9 ps-3">
                 <div class="border rounded bg-white min-h-screen p-3">
-                    <div class="fs-7 fw-bold pb-3 border-bottom">
-                        {{ order.title }}
-                    </div>
-                    <div class="py-2 d-flex gap-4 border-bottom">
-                        <div>
-                            <p class="text-grey9F fs-10">銷售額</p>
-                            <p class="fw-bold">
-                                NT$
-                                {{
-                                    toLocalString(
-                                        order.participationFee *
-                                            order.currentParticipantsCount
-                                    )
-                                }}
-                            </p>
-                        </div>
-                        <div>
-                            <p class="text-grey9F fs-10">報名狀態</p>
-                            <p class="fw-bold">
-                                {{ order.currentParticipantsCount }}/{{
-                                    order.maxParticipants
-                                }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="py-2 d-flex gap-4 border-bottom">
-                        <div>
-                            <p class="text-grey9F fs-10">最低成團人數</p>
-                            <p class="fw-bold">
-                                {{ order.minParticipants }}
-                            </p>
-                        </div>
-                        <div>
-                            <p class="text-grey9F fs-10">最高滿團人數</p>
-                            <p class="fw-bold">
-                                {{ order.maxParticipants }}
-                            </p>
-                        </div>
-                        <div>
-                            <p class="text-grey9F fs-10">活動日期</p>
-                            <p class="fw-bold">
-                                {{ order.eventStartTime }}
-                            </p>
-                        </div>
-                        <div>
-                            <p class="text-grey9F fs-10">活動地址</p>
-                            <p class="fw-bold">
-                                {{ order.address }}
-                            </p>
-                        </div>
-                    </div>
                     <div
                         class="d-grid pb-2 pt-3 gap-2 text-grey9F border-bottom"
-                        style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr"
+                        style="grid-template-columns: 2fr 1fr 1fr 1fr 1fr 2fr"
                     >
                         <p>報名者</p>
                         <p>總額</p>
@@ -79,10 +28,19 @@
                             :key="user.idNumber"
                             class="d-grid gap-2 py-2 border-bottom"
                             style="
-                                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr;
+                                grid-template-columns: 2fr 1fr 1fr 1fr 1fr 2fr;
                             "
                         >
-                            <p>{{ user.name }}</p>
+                            <div class="d-flex align-items-center">
+                                <div
+                                    class="profile-img rounded-circle small-profile-img mx-1"
+                                >
+                                    <img :src="user.imgUrl" alt="" />
+                                </div>
+                                <p class="line-clamp-1 line-clamp">
+                                    {{ user.name }}
+                                </p>
+                            </div>
                             <p>{{ user.payment }}</p>
                             <p>{{ user.registrationCount }}</p>
                             <p>{{ user.paymentMethod }}</p>
@@ -106,7 +64,6 @@ import EmptyField from '@/components/common/EmptyField.vue';
 import Loading from '@/components/common/Loading.vue';
 
 const users = ref([]);
-const order = ref({});
 const router = useRouter();
 const route = useRoute();
 const isLoading = ref(true);
@@ -124,14 +81,9 @@ const usersAttr = computed(() => {
 const getOrder = async (idNumber) => {
     await StoreAPI.getTheTickets(idNumber)
         .then((res) => {
-            order.value = res.data.data.event;
-            users.value = res.data.data.user;
-            setTimeout(() => {
-                isLoading.value = false;
-            }, 500);
+            users.value = res.data.data;
         })
         .catch((err) => {
-            console.log(err);
             if (err.response.status === 401) {
                 alert('請先完成登入');
                 router.push({
@@ -139,9 +91,13 @@ const getOrder = async (idNumber) => {
                 });
             } else {
                 alert(`${err.response.data.message}`);
-                console.log(err);
             }
             isLoading.value = false;
+        })
+        .finally(() => {
+            setTimeout(() => {
+                isLoading.value = false;
+            }, 500);
         });
 };
 onMounted(() => {

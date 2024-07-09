@@ -99,7 +99,9 @@
                         "
                     >
                         <div class="d-flex align-items-center">
-                            <div class="profile-img rounded-circle small mx-1">
+                            <div
+                                class="profile-img rounded-circle small-profile-img mx-1"
+                            >
                                 <img :src="user.imgUrl" alt="" />
                             </div>
                             <p class="line-clamp-1 line-clamp">
@@ -214,7 +216,7 @@ body {
     height: 54px;
     overflow: hidden;
     background-color: #fff;
-    &.small {
+    &.ss {
         width: 2rem;
         height: 2rem;
     }

@@ -136,10 +136,12 @@ const logout = async () => {
         padding: 0;
         opacity: 0;
         transition: 0.5s;
+        pointer-events: none;
     }
     .navbar.active {
         opacity: 1;
         top: 100%;
+        pointer-events: all;
     }
     .navbar::before {
         content: '';
