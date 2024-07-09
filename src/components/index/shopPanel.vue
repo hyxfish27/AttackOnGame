@@ -1,35 +1,38 @@
 <template>
     <div
         v-in-view="{ once: true }"
-        class="index-store-section container-fluid in-view"
+        class="in-view container-fluid index-store-section"
     >
-        <div
-            class="dot-bg"
-            :style="{ backgroundImage: 'url(' + DotBg + ')' }"
-        ></div>
-        <div class="py-16 container">
-            <TitlePanel
-                class="ani-entrance ani-entrance-0"
-                :tag="titleData.tag"
-                :title="titleData.title"
-                :desc="titleData.desc"
-            ></TitlePanel>
-            <div v-if="errorMessage.split()" class="text-center mt-4">
-                <p>{{ errorMessage }}</p>
-            </div>
-            <div v-if="data.length > 0" class="row">
-                <Swiper :data="data" class="ani-entrance ani-entrance-2">
-                    <template #slideContent="{ slide }">
-                        <StoreCard
-                            :is-lazy-load="true"
-                            :data="slide"
-                            css-style="w-100"
-                            @click="onStoreCardClick(slide.user)"
-                        >
-                            <!-- store.user -->
-                        </StoreCard>
-                    </template>
-                </Swiper>
+        <div class="index-store-section">
+            <div
+                class="dot-bg"
+                style=""
+                :style="{ backgroundImage: 'url(' + DotBg + ')' }"
+            ></div>
+            <div class="py-16 container">
+                <TitlePanel
+                    class="ani-entrance ani-entrance-0"
+                    :tag="titleData.tag"
+                    :title="titleData.title"
+                    :desc="titleData.desc"
+                ></TitlePanel>
+                <div v-if="errorMessage.split()" class="text-center mt-4">
+                    <p>{{ errorMessage }}</p>
+                </div>
+                <div v-if="data.length > 0" class="row">
+                    <Swiper :data="data" class="ani-entrance ani-entrance-2">
+                        <template #slideContent="{ slide }">
+                            <StoreCard
+                                :is-lazy-load="true"
+                                :data="slide"
+                                css-style="w-100"
+                                @click="onStoreCardClick(slide.user)"
+                            >
+                                <!-- store.user -->
+                            </StoreCard>
+                        </template>
+                    </Swiper>
+                </div>
             </div>
         </div>
     </div>
@@ -74,7 +77,9 @@ const onStoreCardClick = (userId) => {
         background-size: 3%;
         position: absolute;
         background-repeat: repeat-x;
-        inset: -1px;
+
+        position: absolute;
+        inset: -10px;
     }
 
     .title-card-list {

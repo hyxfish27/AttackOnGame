@@ -97,6 +97,17 @@ const StoreAPI = {
             throw error;
         }
     },
+    async getTheTickets(idNumber) {
+        try {
+            const response = await Axios.get(
+                `/api/v1/myevent/${idNumber}/qr-code`
+            );
+            return response;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
     /**
      * getOrderlist
      * @description 取得後台活動詳細
