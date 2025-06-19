@@ -26,7 +26,7 @@
                                 :is-lazy-load="true"
                                 :data="slide"
                                 css-style="w-100"
-                                @click="onStoreCardClick(slide.user)"
+                                @click="onStoreCardClick(slide.user, slide._id)"
                             >
                                 <!-- store.user -->
                             </StoreCard>
@@ -44,6 +44,7 @@ import StoreCard from '@/components/store/storeCard.vue';
 import { useRouter } from 'vue-router';
 import vInView from '@/directives/observeInView';
 import Swiper from '@/components/index/swiperPanel.vue';
+import { selectStoreData } from '@/stores/selectStore';
 import TitlePanel from './titlePanel.vue';
 
 defineProps({
@@ -63,8 +64,11 @@ const titleData = {
     desc: '在這裡，沒有什麼惡魔，都是天使主揪',
 };
 const router = useRouter();
-const onStoreCardClick = (userId) => {
+const selectTheStore = selectStoreData();
+const onStoreCardClick = (userId, _id) => {
+    console.log('onStoreCardClick', userId, _id);
     router.push({ name: 'StoreIntroduction', params: { userId } });
+    selectTheStore.updateSelectStoreData({ _id, userId });
 };
 </script>
 <style lang="scss" scoped>
